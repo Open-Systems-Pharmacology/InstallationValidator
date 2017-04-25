@@ -50,7 +50,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       {
          base.Context();
          DirectoryHelper.DirectoryExists = path => true;
-         sut.TargetFolder = "a folder";
+         sut.FolderPath = "a folder";
       }
 
       [Observation]

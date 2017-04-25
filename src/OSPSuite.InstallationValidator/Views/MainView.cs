@@ -27,7 +27,7 @@ namespace OSPSuite.InstallationValidator.Views
          outputFolderButton.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectOutputFolder());
          RegisterValidationFor(_screenBinder);
 
-         _screenBinder.Bind(x => x.TargetFolder).To(outputFolderButton);
+         _screenBinder.Bind(x => x.FolderPath).To(outputFolderButton);
 
          btnOk.Click += (o, e) => OnEvent(async () => await _presenter.StartInstallationValidation());
          btnCancel.Click += (o, e) => OnEvent(() => _presenter.Abort());

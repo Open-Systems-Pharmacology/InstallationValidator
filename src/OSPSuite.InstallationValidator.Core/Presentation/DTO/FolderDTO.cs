@@ -7,14 +7,14 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
 {
    public class FolderDTO : ValidatableDTO
    {
-      private string _targetFolder;
+      private string _folderPath;
 
-      public string TargetFolder
+      public string FolderPath
       {
-         get { return _targetFolder; }
+         get { return _folderPath; }
          set
          {
-            _targetFolder = value;
+            _folderPath = value;
             OnPropertyChanged();
          }
       }
@@ -30,7 +30,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
 
          public static IBusinessRule TargetFolderNotEmpty
          {
-            get { return GenericRules.NonEmptyRule<FolderDTO>(x => x.TargetFolder); }
+            get { return GenericRules.NonEmptyRule<FolderDTO>(x => x.FolderPath); }
          }
 
          public static IBusinessRule TargetFolderExists
@@ -38,7 +38,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
             get
             {
                return CreateRule.For<FolderDTO>()
-                  .Property(x => x.TargetFolder)
+                  .Property(x => x.FolderPath)
                   .WithRule((item, folderPath) => DirectoryHelper.DirectoryExists(folderPath))
                   .WithError((item, folderPath) => Assets.Constants.Validation.FolderDoesNotExist(folderPath));
             }

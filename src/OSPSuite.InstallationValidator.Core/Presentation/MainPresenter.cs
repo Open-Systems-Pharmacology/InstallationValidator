@@ -32,7 +32,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          if (string.IsNullOrEmpty(outputFolder))
             return;
 
-         _outputFolderDTO.TargetFolder = outputFolder;
+         _outputFolderDTO.FolderPath = outputFolder;
       }
 
       public void Abort()
