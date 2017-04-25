@@ -29,7 +29,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
       public void InitializeForStartup()
       {
          registerAllInContainer(initializeContainer());
-         ApplicationIcons.DefaultIcon = Core.Assets.ApplicationIcons.ValidationToolIcon;
+         ApplicationIcons.DefaultIcon = new ApplicationIcon(Icons.ValidationToolIcon);
       }
 
       private IContainer initializeContainer()

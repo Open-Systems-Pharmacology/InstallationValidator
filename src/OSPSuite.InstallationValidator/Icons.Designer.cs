@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OSPSuite.InstallationValidator.Core.Properties {
+namespace OSPSuite.InstallationValidator {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace OSPSuite.InstallationValidator.Core.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OSPSuite.InstallationValidator.Core.Properties.Icons", typeof(Icons).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OSPSuite.InstallationValidator.Icons", typeof(Icons).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
