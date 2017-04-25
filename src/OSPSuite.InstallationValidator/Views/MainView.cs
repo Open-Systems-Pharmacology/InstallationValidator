@@ -44,9 +44,9 @@ namespace OSPSuite.InstallationValidator.Views
          _presenter = presenter;
       }
 
-      public void AddLogView(ILogView logPresenterView)
+      public void AddLogView(IView view)
       {
-         logPanel.FillWith(logPresenterView);
+         logPanel.FillWith(view);
       }
 
       public void BindTo(FolderDTO outputFolderDTO)

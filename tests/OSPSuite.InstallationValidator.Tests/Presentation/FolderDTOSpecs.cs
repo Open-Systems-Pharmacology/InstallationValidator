@@ -1,4 +1,5 @@
-﻿using OSPSuite.BDDHelper;
+﻿using System;
+using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.Utility;
@@ -8,8 +9,23 @@ namespace OSPSuite.InstallationValidator.Presentation
 {
    public abstract class concern_for_FolderDTO : ContextSpecification<FolderDTO>
    {
+      private Func<string, bool> _directoryExists;
+
+      public override void GlobalCleanup()
+      {
+         base.GlobalCleanup();
+         DirectoryHelper.DirectoryExists = _directoryExists;
+      }
+
+      public override void GlobalContext()
+      {
+         base.GlobalContext();
+         _directoryExists = DirectoryHelper.DirectoryExists;
+      }
+
       protected override void Context()
       {
+
          sut = new FolderDTO();
       }
    }

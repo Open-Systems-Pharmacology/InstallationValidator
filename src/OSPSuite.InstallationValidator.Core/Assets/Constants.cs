@@ -8,7 +8,7 @@
          public static readonly string SelectOutputFolder = "Select Output Folder";
       }
 
-      public class Validation
+      public static class Validation
       {
             public static string FolderDoesNotExist(string fileFullPath)
             {
