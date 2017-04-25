@@ -1,25 +1,49 @@
+using System;
 using System.Collections.Generic;
+using Microsoft.Win32;
 using OSPSuite.Assets;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain;
+using OSPSuite.Infrastructure.Configuration;
 
 namespace OSPSuite.InstallationValidator.Core
 {
-   public class ApplicationConfiguration : IApplicationConfiguration
+   public interface IInstallationValidationConfiguration : IApplicationConfiguration
    {
-      public string ChartLayoutTemplateFolderPath { get; }
-      public string TEXTemplateFolderPath { get; }
-      public string PKParametersFilePath { get; set; }
-      public string LicenseAgreementFilePath { get; }
-      public string FullVersion { get; }
-      public string Version { get; }
-      public string MajorVersion { get; }
-      public string BuildVersion { get; }
-      public string ProductName { get; }
-      public Origin Product { get; }
-      public string ProductNameWithTrademark { get; }
-      public ApplicationIcon Icon { get; } = ApplicationIcons.ConfigureAndRun;
-      public IEnumerable<string> UserApplicationSettingsFilePaths { get; } = new List<string>();
-      public string IssueTrackerUrl { get; }
+      string PKSimPath { get; }
+   }
+
+   public class ApplicationConfiguration : OSPSuiteConfiguration, IInstallationValidationConfiguration
+   {
+      protected override string ApplicationFolderPathWithRevision(string revision)
+      {
+         throw new NotImplementedException();
+      }
+
+      protected override string[] LatestVersionWithOtherMajor { get; }
+      public override string ChartLayoutTemplateFolderPath { get; }
+      public override string TEXTemplateFolderPath { get; }
+      public override string ProductName { get; }
+      public override Origin Product { get; }
+      public override string ProductNameWithTrademark { get; }
+      public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
+      public override string UserSettingsFileName { get; }
+      public override string IssueTrackerUrl { get; }
+
+      // TODO - move to OSPSuite.Core
+      public string PKSimPath
+      {
+         get
+         {
+            try
+            {
+               return (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{Assets.Constants.RegistryPaths.PKSimRegPath}{MajorVersion}", "InstallPath", null);
+            }
+            catch (Exception)
+            {
+               return string.Empty;
+            }
+         }
+      }
    }
 }

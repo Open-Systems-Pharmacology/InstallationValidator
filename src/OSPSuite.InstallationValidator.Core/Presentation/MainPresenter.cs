@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using OSPSuite.Core.Services;
+﻿using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
+using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
+using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
@@ -11,17 +12,20 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
    {
       void SelectOutputFolder();
       void Abort();
-      Task StartInstallationValidation();
+      void StartInstallationValidation();
    }
 
    public class MainPresenter : AbstractDisposablePresenter<IMainView, IMainPresenter>, IMainPresenter
    {
       private readonly IDialogCreator _dialogCreator;
+      private readonly IBatchStarterTask _batchStarterTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
+      private StartableProcess _process;
 
-      public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator) : base(view)
+      public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask) : base(view)
       {
          _dialogCreator = dialogCreator;
+         _batchStarterTask = batchStarterTask;
          view.AddLogView(logPresenter.View);
          view.BindTo(_outputFolderDTO);
       }
@@ -35,14 +39,19 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          _outputFolderDTO.FolderPath = outputFolder;
       }
 
-      public void Abort()
+      public override void ViewChanged()
       {
-         throw new System.NotImplementedException();
+         _view.OkEnabled = _view.HasError;
       }
 
-      public Task StartInstallationValidation()
+      public void Abort()
       {
-         throw new System.NotImplementedException();
+         _batchStarterTask.StopValidation(_process);
+      }
+
+      public void StartInstallationValidation()
+      {
+         _process = _batchStarterTask.StartValidation(_outputFolderDTO.FolderPath);
       }
    }
 }
