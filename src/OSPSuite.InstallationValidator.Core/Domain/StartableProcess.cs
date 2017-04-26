@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
+using Microsoft.Win32.SafeHandles;
 
 namespace OSPSuite.InstallationValidator.Core.Domain
 {
-   public class StartableProcess
+   //TODO - move class to core
+   public class StartableProcess : IDisposable
    {
       private readonly Process _process;
       private bool _exited;
 
-      public StartableProcess(string filePath, string arguments = null)
+      public StartableProcess(string filePath, params string[] arguments)
       {
          _process = new Process
          {
             StartInfo = new ProcessStartInfo
             {
                FileName = filePath,
-               Arguments = arguments ?? string.Empty
+               Arguments = string.Join(" ", arguments)
             }
          };
-         subscribe();
       }
 
       /// <summary>
@@ -37,31 +39,29 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          _process?.Start();
       }
 
-      public virtual void Stop()
+      public void Dispose()
       {
-         if (_process == null || _exited)
-            return;
-
-         unsubscribe();
-         _process.Kill();
          _process.Dispose();
       }
 
-      private void processExitedNormally(object sender, EventArgs eventArgs)
+      public virtual void Wait(CancellationToken token)
       {
-         _exited = true;
-         unsubscribe();
-      }
+         using (var waitHandle = new SafeWaitHandle(_process.Handle, false))
+         {
+            using (var processFinishedEvent = new ManualResetEvent(false))
+            {
+               processFinishedEvent.SafeWaitHandle = waitHandle;
 
-      private void subscribe()
-      {
-         _process.EnableRaisingEvents = true;
-         _process.Exited += processExitedNormally;
-      }
-
-      private void unsubscribe()
-      {
-         _process.Exited -= processExitedNormally;
+               var index = WaitHandle.WaitAny(new[] { processFinishedEvent, token.WaitHandle });
+               if (index == 0)
+               {
+                  _exited = true;
+                  return;
+               }
+               _process.Kill();
+               throw new OperationCanceledException();
+            }
+         }
       }
    }
 }

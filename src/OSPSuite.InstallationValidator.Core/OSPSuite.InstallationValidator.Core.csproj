@@ -146,6 +146,7 @@
     <Compile Include="ApplicationConfiguration.cs" />
     <Compile Include="Assets\Constants.cs" />
     <Compile Include="Domain\StartableProcess.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Presentation\DTO\FolderDTO.cs" />
     <Compile Include="Presentation\MainPresenter.cs" />
     <Compile Include="Presentation\Views\IMainView.cs" />

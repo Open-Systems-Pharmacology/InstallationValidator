@@ -1,4 +1,5 @@
-﻿using FakeItEasy;
+﻿using System.Threading;
+using FakeItEasy;
 using OSPSuite.BDDHelper;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Domain;
@@ -19,35 +20,22 @@ namespace OSPSuite.InstallationValidator.Services
          sut = new BatchStarterTask(_installationValidationConfiguration, _startableProcessFactory);
          _startableProcess = A.Fake<StartableProcess>();
 
-         A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string>._)).Returns(_startableProcess);
+         A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).Returns(_startableProcess);
       }
    }
 
-   public class When_stopping_a_validation : concern_for_BatchStarterTask
-   {
-      protected override void Because()
-      {
-         sut.StopValidation(_startableProcess);
-      }
-
-      [Observation]
-      public void the_startable_process_is_stopped()
-      {
-         A.CallTo(() => _startableProcess.Stop()).MustHaveHappened();
-      }
-   }
 
    public class When_starting_a_validation : concern_for_BatchStarterTask
    {
       protected override void Because()
       {
-         sut.StartValidation("./outputfolder");
+         sut.StartBatch("./outputfolder", new CancellationToken()).Wait();
       }
 
       [Observation]
       public void a_new_startable_process_is_created()
       {
-         A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string>._)).MustHaveHappened();
+         A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).MustHaveHappened();
       }
 
       [Observation]

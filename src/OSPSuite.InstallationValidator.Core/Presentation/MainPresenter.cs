@@ -1,6 +1,7 @@
-﻿using OSPSuite.Core.Services;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
-using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
@@ -12,7 +13,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
    {
       void SelectOutputFolder();
       void Abort();
-      void StartInstallationValidation();
+      Task StartInstallationValidation();
    }
 
    public class MainPresenter : AbstractDisposablePresenter<IMainView, IMainPresenter>, IMainPresenter
@@ -20,7 +21,18 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
       private readonly IDialogCreator _dialogCreator;
       private readonly IBatchStarterTask _batchStarterTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
-      private StartableProcess _process;
+      private CancellationTokenSource _cancellationTokenSource;
+      private bool _validationRunning;
+
+      private bool validationRunning
+      {
+         set
+         {
+            _validationRunning = value;
+            updateOkInView();
+         }
+         get { return _validationRunning; }
+      }
 
       public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask) : base(view)
       {
@@ -41,17 +53,31 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public override void ViewChanged()
       {
-         _view.OkEnabled = _view.HasError;
+         updateOkInView();
+      }
+
+      private void updateOkInView()
+      {
+         _view.OkEnabled = _view.HasError || !validationRunning;
       }
 
       public void Abort()
       {
-         _batchStarterTask.StopValidation(_process);
+         _cancellationTokenSource?.Cancel();
       }
 
-      public void StartInstallationValidation()
+      public async Task StartInstallationValidation()
       {
-         _process = _batchStarterTask.StartValidation(_outputFolderDTO.FolderPath);
+         _cancellationTokenSource = new CancellationTokenSource();
+         try
+         {
+            validationRunning = true;
+            await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+         }
+         finally
+         {
+            validationRunning = false;
+         }
       }
    }
 }

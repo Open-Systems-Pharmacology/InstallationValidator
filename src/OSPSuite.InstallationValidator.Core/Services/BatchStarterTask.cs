@@ -1,14 +1,15 @@
 ﻿using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using OSPSuite.InstallationValidator.Core.Assets;
-using OSPSuite.InstallationValidator.Core.Domain;
+using OSPSuite.InstallationValidator.Core.Extensions;
 using OSPSuite.Utility;
 
 namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IBatchStarterTask
    {
-      StartableProcess StartValidation(string outputFolderPath);
-      void StopValidation(StartableProcess process);
+      Task StartBatch(string outputFolderPath, CancellationToken cancellationToken);
    }
 
    public class BatchStarterTask : IBatchStarterTask
@@ -30,16 +31,18 @@ namespace OSPSuite.InstallationValidator.Core.Services
 
       private string logFilePath(string basePath) => Path.Combine(basePath, Constants.Tools.BatchLog);
 
-      public StartableProcess StartValidation(string outputFolderPath)
+      public Task StartBatch(string outputFolderPath, CancellationToken cancellationToken)
       {
-         var process = _startableProcessFactory.CreateStartableProcess(batchToolPath, $"-i \"{inputFolder}\" -o \"{outputFolderPath}\" -l \"{logFilePath(outputFolderPath)}\"");
-         process.Start();
-         return process;
+         return Task.Run(() =>
+         {
+            using (var process = _startableProcessFactory.CreateStartableProcess(batchToolPath, "-i", inputFolder.SurroundWith("\""), "-o", outputFolderPath.SurroundWith("\""), " -l", logFilePath(outputFolderPath).SurroundWith("\"")))
+            {
+               process.Start();
+               process.Wait(cancellationToken);
+            }
+         }, cancellationToken);
       }
 
-      public void StopValidation(StartableProcess process)
-      {
-         process?.Stop();
-      }
+
    }
 }
