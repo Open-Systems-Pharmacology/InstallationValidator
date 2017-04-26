@@ -1,12 +1,10 @@
 ﻿using FakeItEasy;
-using NUnit.Framework;
 using OSPSuite.BDDHelper;
 using OSPSuite.Core.Services;
+using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
-using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
-using OSPSuite.Presentation.Views;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
 namespace OSPSuite.InstallationValidator.Presentation
@@ -17,6 +15,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected ILogPresenter _logPresenter;
       protected IDialogCreator _dialogCreator;
       private IBatchStarterTask _batchStarterTask;
+      private IBatchComparisonTask _batchComparisonTask;
 
       protected override void Context()
       {
@@ -24,22 +23,28 @@ namespace OSPSuite.InstallationValidator.Presentation
          _logPresenter = A.Fake<ILogPresenter>();
          _dialogCreator = A.Fake<IDialogCreator>();
          _batchStarterTask = A.Fake<IBatchStarterTask>();
-         sut = new MainPresenter(_mainView, _logPresenter, _dialogCreator, _batchStarterTask);
+         _batchComparisonTask = A.Fake<IBatchComparisonTask>();
+
+         sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask);
       }
    }
 
-   public class When_instantiating_new_presenter : concern_for_MainPresenter
+   public class When_responding_to_published_events : concern_for_MainPresenter
    {
-      [Test]
-      public void should_bind_to_a_folder_dto()
+      private string _newText = "Text";
+
+      [Observation]
+      public void view_is_notified_of_reset_events()
       {
-         A.CallTo(() => _mainView.BindTo(A<FolderDTO>._)).MustHaveHappened();
+         sut.Handle(new LogResetEvent(_newText));
+         A.CallTo(() => _mainView.ResetText(_newText)).MustHaveHappened();
       }
 
       [Observation]
-      public void should_add_log_viewer_to_view()
+      public void view_is_notified_of_append_events()
       {
-         A.CallTo(() => _mainView.AddLogView(A<ILogView>._)).MustHaveHappened();
+         sut.Handle(new LogAppendedEvent(_newText));
+         A.CallTo(() => _mainView.AppendText(_newText)).MustHaveHappened();
       }
    }
 

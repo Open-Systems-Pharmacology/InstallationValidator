@@ -30,11 +30,11 @@
       private void InitializeComponent()
       {
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
-         this.logPanel = new DevExpress.XtraEditors.PanelControl();
          this.outputFolderButton = new DevExpress.XtraEditors.ButtonEdit();
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemOutputButton = new DevExpress.XtraLayout.LayoutControlItem();
-         this.logPanelLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+         this.memoEditLogMessages = new DevExpress.XtraEditors.MemoEdit();
+         this.layoutControlItemLogMessages = new DevExpress.XtraLayout.LayoutControlItem();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlBase)).BeginInit();
          this.layoutControlBase.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroupBase)).BeginInit();
@@ -45,11 +45,11 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.logPanel)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.logPanelLayoutControlItem)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.memoEditLogMessages.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemLogMessages)).BeginInit();
          this.SuspendLayout();
          // 
          // btnCancel
@@ -99,7 +99,7 @@
          // 
          // layoutControl
          // 
-         this.layoutControl.Controls.Add(this.logPanel);
+         this.layoutControl.Controls.Add(this.memoEditLogMessages);
          this.layoutControl.Controls.Add(this.outputFolderButton);
          this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.layoutControl.Location = new System.Drawing.Point(0, 0);
@@ -108,13 +108,6 @@
          this.layoutControl.Size = new System.Drawing.Size(761, 477);
          this.layoutControl.TabIndex = 38;
          this.layoutControl.Text = "layoutControl";
-         // 
-         // logPanel
-         // 
-         this.logPanel.Location = new System.Drawing.Point(12, 36);
-         this.logPanel.Name = "logPanel";
-         this.logPanel.Size = new System.Drawing.Size(737, 429);
-         this.logPanel.TabIndex = 5;
          // 
          // outputFolderButton
          // 
@@ -132,7 +125,7 @@
          this.layoutControlGroup.GroupBordersVisible = false;
          this.layoutControlGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItemOutputButton,
-            this.logPanelLayoutControlItem});
+            this.layoutControlItemLogMessages});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(761, 477);
@@ -146,14 +139,22 @@
          this.layoutControlItemOutputButton.Size = new System.Drawing.Size(741, 24);
          this.layoutControlItemOutputButton.TextSize = new System.Drawing.Size(153, 13);
          // 
-         // logPanelLayoutControlItem
+         // memoEditLogMessages
          // 
-         this.logPanelLayoutControlItem.Control = this.logPanel;
-         this.logPanelLayoutControlItem.Location = new System.Drawing.Point(0, 24);
-         this.logPanelLayoutControlItem.Name = "logPanelLayoutControlItem";
-         this.logPanelLayoutControlItem.Size = new System.Drawing.Size(741, 433);
-         this.logPanelLayoutControlItem.TextSize = new System.Drawing.Size(0, 0);
-         this.logPanelLayoutControlItem.TextVisible = false;
+         this.memoEditLogMessages.Location = new System.Drawing.Point(12, 36);
+         this.memoEditLogMessages.Name = "memoEditLogMessages";
+         this.memoEditLogMessages.Size = new System.Drawing.Size(737, 429);
+         this.memoEditLogMessages.StyleController = this.layoutControl;
+         this.memoEditLogMessages.TabIndex = 5;
+         // 
+         // layoutControlItemLogMessages
+         // 
+         this.layoutControlItemLogMessages.Control = this.memoEditLogMessages;
+         this.layoutControlItemLogMessages.Location = new System.Drawing.Point(0, 24);
+         this.layoutControlItemLogMessages.Name = "layoutControlItemLogMessages";
+         this.layoutControlItemLogMessages.Size = new System.Drawing.Size(741, 433);
+         this.layoutControlItemLogMessages.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutControlItemLogMessages.TextVisible = false;
          // 
          // MainView
          // 
@@ -176,11 +177,11 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.logPanel)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.logPanelLayoutControlItem)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.memoEditLogMessages.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemLogMessages)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -190,9 +191,9 @@
 
       private DevExpress.XtraLayout.LayoutControl layoutControl;
       private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
-      private DevExpress.XtraEditors.PanelControl logPanel;
       private DevExpress.XtraEditors.ButtonEdit outputFolderButton;
       private DevExpress.XtraLayout.LayoutControlItem layoutControlItemOutputButton;
-      private DevExpress.XtraLayout.LayoutControlItem logPanelLayoutControlItem;
+      private DevExpress.XtraEditors.MemoEdit memoEditLogMessages;
+      private DevExpress.XtraLayout.LayoutControlItem layoutControlItemLogMessages;
    }
 }

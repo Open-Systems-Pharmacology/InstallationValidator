@@ -16,11 +16,13 @@ namespace OSPSuite.InstallationValidator.Core.Services
    {
       private readonly IInstallationValidationConfiguration _applicationConfiguration;
       private readonly IStartableProcessFactory _startableProcessFactory;
+      private readonly ILogWatcherFactory _logWatcherFactory;
 
-      public BatchStarterTask(IInstallationValidationConfiguration applicationConfiguration, IStartableProcessFactory startableProcessFactory)
+      public BatchStarterTask(IInstallationValidationConfiguration applicationConfiguration, IStartableProcessFactory startableProcessFactory, ILogWatcherFactory logWatcherFactory)
       {
          _applicationConfiguration = applicationConfiguration;
          _startableProcessFactory = startableProcessFactory;
+         _logWatcherFactory = logWatcherFactory;
       }
 
       private string batchToolPath => Path.Combine(baseInstallPath, Constants.Tools.PKSimBatchTool);
@@ -35,14 +37,22 @@ namespace OSPSuite.InstallationValidator.Core.Services
       {
          return Task.Run(() =>
          {
-            using (var process = _startableProcessFactory.CreateStartableProcess(batchToolPath, "-i", inputFolder.SurroundWith("\""), "-o", outputFolderPath.SurroundWith("\""), " -l", logFilePath(outputFolderPath).SurroundWith("\"")))
-            {
-               process.Start();
-               process.Wait(cancellationToken);
-            }
+            var logFile = logFilePath(outputFolderPath);
+            startBatchProcess(outputFolderPath, cancellationToken, logFile);
          }, cancellationToken);
       }
 
-
+      private void startBatchProcess(string outputFolderPath, CancellationToken cancellationToken, string logFile)
+      {
+         using (var process = _startableProcessFactory.CreateStartableProcess(batchToolPath, "-i", inputFolder.SurroundWith("\""), "-o", outputFolderPath.SurroundWith("\""), " -l", logFile.SurroundWith("\"")))
+         {
+            using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile))
+            {
+               watcher.Watch();
+               process.Start();
+               process.Wait(cancellationToken);
+            }
+         }
+      }
    }
 }
