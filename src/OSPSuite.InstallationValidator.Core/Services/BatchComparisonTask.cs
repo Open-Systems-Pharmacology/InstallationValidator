@@ -11,7 +11,7 @@ namespace OSPSuite.InstallationValidator.Core.Services
    {
       public Task StartComparison(string folderPath, CancellationToken token)
       {
-         throw new System.NotImplementedException();
+         return Task.FromResult(false);
       }
    }
 }
