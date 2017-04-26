@@ -5,8 +5,9 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.Views
 {
    public interface IMainView : IModalView<IMainPresenter>
    {
-      void AddLogView(IView view);
       void BindTo(FolderDTO outputFolderDTO);
       void ValidationIsRunning(bool validationRunning);
+      void AppendText(string newText);
+      void ResetText(string newText);
    }
 }

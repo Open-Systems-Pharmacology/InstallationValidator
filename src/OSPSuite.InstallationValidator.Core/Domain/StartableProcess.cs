@@ -46,21 +46,34 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
       public virtual void Wait(CancellationToken token)
       {
-         using (var waitHandle = new SafeWaitHandle(_process.Handle, false))
+         // we are passing ownsHandle = false because the started process owns the handle
+         // not this process.
+         using (var processSafeWaitHandle = new SafeWaitHandle(_process.Handle, false))
          {
-            using (var processFinishedEvent = new ManualResetEvent(false))
+            using (var processFinishedWaitHandle = new ManualResetEvent(false))
             {
-               processFinishedEvent.SafeWaitHandle = waitHandle;
+               processFinishedWaitHandle.SafeWaitHandle = processSafeWaitHandle;
 
-               var index = WaitHandle.WaitAny(new[] { processFinishedEvent, token.WaitHandle });
-               if (index == 0)
+               var finishingWaitHandle = waitForSignal(token.WaitHandle, processFinishedWaitHandle);
+
+               if (finishingWaitHandle == processFinishedWaitHandle)
                {
                   _exited = true;
                   return;
                }
                _process.Kill();
+               token.ThrowIfCancellationRequested();
             }
          }
+      }
+
+      private static WaitHandle waitForSignal(WaitHandle token, WaitHandle processFinishedEvent)
+      {
+         var waitHandles = new[] { processFinishedEvent, token};
+
+         var index = WaitHandle.WaitAny(waitHandles);
+
+         return waitHandles[index];
       }
    }
 }

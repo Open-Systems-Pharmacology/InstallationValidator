@@ -1,9 +1,11 @@
 ﻿using System.Threading;
 using FakeItEasy;
+using NUnit.Framework;
 using OSPSuite.BDDHelper;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Services;
+using OSPSuite.Utility.Events;
 
 namespace OSPSuite.InstallationValidator.Services
 {
@@ -11,16 +13,23 @@ namespace OSPSuite.InstallationValidator.Services
    {
       protected IInstallationValidationConfiguration _installationValidationConfiguration;
       protected IStartableProcessFactory _startableProcessFactory;
+      protected ILogWatcherFactory _logWatcherFactory;
       protected StartableProcess _startableProcess;
+      protected ILogWatcher _logWatcher;
 
       protected override void Context()
       {
          _installationValidationConfiguration = A.Fake<IInstallationValidationConfiguration>();
          _startableProcessFactory = A.Fake<IStartableProcessFactory>();
-         sut = new BatchStarterTask(_installationValidationConfiguration, _startableProcessFactory);
+         _logWatcherFactory = A.Fake<ILogWatcherFactory>();
+
+         _logWatcher = A.Fake<ILogWatcher>();
+
+         sut = new BatchStarterTask(_installationValidationConfiguration, _startableProcessFactory, _logWatcherFactory);
          _startableProcess = A.Fake<StartableProcess>();
 
          A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).Returns(_startableProcess);
+         A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._)).Returns(_logWatcher);
       }
    }
 
@@ -32,16 +41,23 @@ namespace OSPSuite.InstallationValidator.Services
          sut.StartBatch("./outputfolder", new CancellationToken()).Wait();
       }
 
-      [Observation]
+      [Test]
       public void a_new_startable_process_is_created()
       {
          A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).MustHaveHappened();
       }
 
       [Observation]
+      public void a_file_watch_is_started()
+      {
+         A.CallTo(() => _logWatcher.Watch()).MustHaveHappened();
+      }
+
+      [Observation]
       public void the_startable_process_must_be_started()
       {
          A.CallTo(() => _startableProcess.Start()).MustHaveHappened();
+         A.CallTo(() => _startableProcess.Wait(A<CancellationToken>._)).MustHaveHappened();
       }
    }
 }

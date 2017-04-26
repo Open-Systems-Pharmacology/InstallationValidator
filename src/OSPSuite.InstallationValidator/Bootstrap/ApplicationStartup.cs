@@ -17,6 +17,7 @@ using OSPSuite.UI.Mappers;
 using OSPSuite.UI.Services;
 using OSPSuite.UI.Views;
 using OSPSuite.Utility.Container;
+using OSPSuite.Utility.Events;
 using OSPSuite.Utility.Exceptions;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
@@ -41,6 +42,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          IoC.InitializeWith(container);
          container.RegisterImplementationOf(getCurrentContext());
          container.WindsorContainer.AddFacility<TypedFactoryFacility>();
+         container.WindsorContainer.AddFacility<EventRegisterFacility>();
          return container;
       }
 
@@ -57,9 +59,13 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.Register<DirectoryMapSettings, DirectoryMapSettings>();
          container.Register<IApplicationConfiguration, IInstallationValidationConfiguration, ApplicationConfiguration>(LifeStyle.Singleton);
          container.Register<IBatchStarterTask, BatchStarterTask>();
+         container.Register<IBatchComparisonTask, BatchComparisonTask>();
          container.Register<StartableProcess, StartableProcess>();
+         container.Register<ILogWatcher, LogWatcher>();
+         container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
 
          container.RegisterFactory<IStartableProcessFactory>();
+         container.RegisterFactory<ILogWatcherFactory>();
       }
 
       private SynchronizationContext getCurrentContext()

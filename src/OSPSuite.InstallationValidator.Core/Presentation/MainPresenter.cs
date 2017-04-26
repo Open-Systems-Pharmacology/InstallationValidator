@@ -1,15 +1,18 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
+using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
+using OSPSuite.Utility.Events;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
 namespace OSPSuite.InstallationValidator.Core.Presentation
 {
-   public interface IMainPresenter : IDisposablePresenter
+   public interface IMainPresenter : IDisposablePresenter, IListener<LogAppendedEvent>, IListener<LogResetEvent>
    {
       void SelectOutputFolder();
       void Abort();
@@ -20,14 +23,15 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
    {
       private readonly IDialogCreator _dialogCreator;
       private readonly IBatchStarterTask _batchStarterTask;
+      private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
       private CancellationTokenSource _cancellationTokenSource;
 
-      public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask) : base(view)
+      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask) : base(view)
       {
          _dialogCreator = dialogCreator;
          _batchStarterTask = batchStarterTask;
-         view.AddLogView(logPresenter.View);
+         _batchComparisonTask = batchComparisonTask;
          view.BindTo(_outputFolderDTO);
       }
 
@@ -52,11 +56,26 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          {
             View.ValidationIsRunning(true);
             await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+         }
+         catch (OperationCanceledException)
+         {
+            _dialogCreator.MessageBoxInfo(Constants.Captions.TheValidationWasCanceled);
          }
          finally
          {
             View.ValidationIsRunning(false);
          }
+      }
+
+      public void Handle(LogAppendedEvent eventToHandle)
+      {
+         View.AppendText(eventToHandle.NewText);
+      }
+
+      public void Handle(LogResetEvent eventToHandle)
+      {
+         View.ResetText(eventToHandle.NewText);
       }
    }
 }
