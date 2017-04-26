@@ -59,7 +59,6 @@ namespace OSPSuite.InstallationValidator.Core.Domain
                   return;
                }
                _process.Kill();
-               throw new OperationCanceledException();
             }
          }
       }
