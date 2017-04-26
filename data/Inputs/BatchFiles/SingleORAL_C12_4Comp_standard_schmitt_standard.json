@@ -1,0 +1,51 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "C12",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.1,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-5,
+        "RefpH": 7,
+        "PkaTypes": [
+            {
+                "Type": "Base",
+                "Value": 9
+            },
+            {
+                "Type": "Base",
+                "Value": 7
+            },
+            {
+                "Type": "Base",
+                "Value": 8
+            }
+        ],
+        "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - Charge dependent Schmitt",
+            "IntestinalPermeability_PKSim"
+        ]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+    }],
+    "Formulation":{
+		"Name": "F",
+		"FormulationType": "Formulation_Dissolved",
+    },
+    "Configuration": {
+        "Model": "4Comp",
+    }
+}

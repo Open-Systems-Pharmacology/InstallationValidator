@@ -1,0 +1,63 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 33,
+        "Height": 17.6,
+        "Weight": 83,
+    },
+    "Compounds": [{
+        "Name": "C3",
+        "Lipophilicity": 0.778,
+        "FractionUnbound": 0.4,
+        "MolWeight": 2.322E-7,
+        "SolubilityAtRefpH": 1110E-6,
+        "RefpH": 7,
+        "PkaTypes": [
+            {
+                "Type": "Acid",
+                "Value": 7.3
+            }
+        ],
+        "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard",
+            "IntestinalPermeability_PKSim"
+        ],
+       "SystemicProcesses": [
+            {
+                "SystemicProcessType": "Hepatic",
+                "InternalName": "LiverClearance",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Specific clearance": 1.78E-3
+                }
+            },
+            {
+                "SystemicProcessType": "Renal",
+                "InternalName": "KidneyClearance",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Plasma clearance": 2.26E-3
+                }
+            },
+        ],
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 400,
+        "DoseUnit": "mg",
+        "EndTime": 600
+     }],
+    "Formulation":{
+        "Name": "F",
+        "FormulationType": "Formulation_Dissolved"
+    },
+    "Configuration": {
+        "Model": "4Comp",
+        "RelTol": 1e-7,
+        "AbsTol": 1e-12
+    }
+}

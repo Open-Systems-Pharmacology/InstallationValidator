@@ -1,0 +1,36 @@
+{
+    "Individual": {
+        "Species": "Rat",
+        "Weight": 0.5,
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
+
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "DI_8_8_8",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg/kg",
+        "EndTime": 2880
+    }],
+    "Formulation":{
+		"Name": "F",
+		"FormulationType": "Formulation_Dissolved",
+    },
+    "Configuration": {
+        "Model": "4Comp",
+        "Resolution": 0.1,
+        "EndTime": 3000,
+    }
+}

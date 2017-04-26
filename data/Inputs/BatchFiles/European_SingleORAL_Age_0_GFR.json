@@ -1,0 +1,50 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 0
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
+         "SystemicProcesses": [
+            {
+                "SystemicProcessType": "Renal",
+                "InternalName": "GlomerularFiltration",
+                "DataSource": "GFR",
+                "ParameterValues": {
+                    "GFR fraction": 1
+                }
+            }
+        ],
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+     }],
+    "Formulation":{
+        "Name": "F",
+        "FormulationType": "Formulation_Dissolved"
+    },
+    "Configuration": {
+        "Model": "4Comp",
+        "EndTime": 525600,
+        "AllowAging":  true,
+        "RelTol": 1e-8,
+        "AbsTol": 1e-13,
+        "CheckForNegativeValues": true
+    }
+}

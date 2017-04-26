@@ -1,0 +1,50 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+     }],
+    "Formulation":{
+        "Name": "F",
+        "FormulationType": "Formulation_Particles",
+        "Parameters": {
+            "Particle radius (max)": 1.9E-4,
+            "Particle radius (min)": 1E-5,
+            "Number of bins": 11,
+            "Coefficient of variation": 1.5,
+            "Particle radius (geomean)": 1E-4,
+            "Particle radius (SD)": 3E-5,
+            "Particle radius (mean)": 1E-4,
+            "Type of particle size distribution": 0,
+            "Particle size distribution": 0,
+            "Thickness (unstirred water layer)": 2E-4,
+            "Use as suspension":1
+        }
+    },
+    "Configuration": {
+        "Model": "4Comp"
+    }
+}
