@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
+using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
@@ -17,11 +19,14 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
    public class MainPresenter : AbstractDisposablePresenter<IMainView, IMainPresenter>, IMainPresenter
    {
       private readonly IDialogCreator _dialogCreator;
+      private readonly IBatchStarterTask _batchStarterTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
+      private CancellationTokenSource _cancellationTokenSource;
 
-      public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator) : base(view)
+      public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask) : base(view)
       {
          _dialogCreator = dialogCreator;
+         _batchStarterTask = batchStarterTask;
          view.AddLogView(logPresenter.View);
          view.BindTo(_outputFolderDTO);
       }
@@ -37,12 +42,21 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public void Abort()
       {
-         throw new System.NotImplementedException();
+         _cancellationTokenSource?.Cancel();
       }
 
-      public Task StartInstallationValidation()
+      public async Task StartInstallationValidation()
       {
-         throw new System.NotImplementedException();
+         _cancellationTokenSource = new CancellationTokenSource();
+         try
+         {
+            View.ValidationIsRunning(true);
+            await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+         }
+         finally
+         {
+            View.ValidationIsRunning(false);
+         }
       }
    }
 }

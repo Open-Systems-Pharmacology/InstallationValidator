@@ -1,11 +1,14 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
+using Castle.Facilities.TypedFactory;
 using OSPSuite.Assets;
 using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.InstallationValidator.Core;
+using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Presentation;
+using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.InstallationValidator.Views;
 using OSPSuite.Presentation.Presenters;
 using OSPSuite.Presentation.Services;
@@ -37,6 +40,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          var container = new CastleWindsorContainer();
          IoC.InitializeWith(container);
          container.RegisterImplementationOf(getCurrentContext());
+         container.WindsorContainer.AddFacility<TypedFactoryFacility>();
          return container;
       }
 
@@ -51,7 +55,11 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.Register<IDialogCreator, DialogCreator>();
          container.Register<IDialogResultToViewResultMapper, DialogResultToViewResultMapper>();
          container.Register<DirectoryMapSettings, DirectoryMapSettings>();
-         container.Register<IApplicationConfiguration, ApplicationConfiguration>(LifeStyle.Singleton);
+         container.Register<IApplicationConfiguration, IInstallationValidationConfiguration, ApplicationConfiguration>(LifeStyle.Singleton);
+         container.Register<IBatchStarterTask, BatchStarterTask>();
+         container.Register<StartableProcess, StartableProcess>();
+
+         container.RegisterFactory<IStartableProcessFactory>();
       }
 
       private SynchronizationContext getCurrentContext()

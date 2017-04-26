@@ -4,6 +4,7 @@ using OSPSuite.BDDHelper;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
+using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
 using OSPSuite.Presentation.Views;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
@@ -15,13 +16,15 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected IMainView _mainView;
       protected ILogPresenter _logPresenter;
       protected IDialogCreator _dialogCreator;
+      private IBatchStarterTask _batchStarterTask;
 
       protected override void Context()
       {
          _mainView = A.Fake<IMainView>();
          _logPresenter = A.Fake<ILogPresenter>();
          _dialogCreator = A.Fake<IDialogCreator>();
-         sut = new MainPresenter(_mainView, _logPresenter, _dialogCreator);
+         _batchStarterTask = A.Fake<IBatchStarterTask>();
+         sut = new MainPresenter(_mainView, _logPresenter, _dialogCreator, _batchStarterTask);
       }
    }
 

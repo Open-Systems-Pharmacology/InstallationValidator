@@ -1,4 +1,5 @@
-﻿using OSPSuite.DataBinding;
+﻿using OSPSuite.Assets;
+using OSPSuite.DataBinding;
 using OSPSuite.DataBinding.DevExpress;
 using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
@@ -29,20 +30,36 @@ namespace OSPSuite.InstallationValidator.Views
 
          _screenBinder.Bind(x => x.FolderPath).To(outputFolderButton);
 
-         btnOk.Click += (o, e) => OnEvent(async () => await _presenter.StartInstallationValidation());
+         btnOk.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
          btnCancel.Click += (o, e) => OnEvent(() => _presenter.Abort());
+
+         
+      }
+
+      protected override void ExtraClicked()
+      {
+         _presenter.Abort();
+         Close();
       }
 
       public override void InitializeResources()
       {
          base.InitializeResources();
          layoutControlItemOutputButton.Text = Core.Assets.Constants.Captions.OutputFolder.FormatForLabel();
+         btnOk.Text = Core.Assets.Constants.Captions.Start;
+         btnCancel.Text = Captions.Cancel;
+
+         ExtraEnabled = true;
+         ExtraVisible = true;
+         btnExtra.Text = Captions.CloseButton;
       }
 
       public void AttachPresenter(IMainPresenter presenter)
       {
          _presenter = presenter;
       }
+
+      public override bool HasError => _screenBinder.HasError;
 
       public void AddLogView(IView view)
       {
@@ -52,6 +69,11 @@ namespace OSPSuite.InstallationValidator.Views
       public void BindTo(FolderDTO outputFolderDTO)
       {
          _screenBinder.BindToSource(outputFolderDTO);
+      }
+
+      public void ValidationIsRunning(bool validationRunning)
+      {
+         OkEnabled = !HasError && !validationRunning;
       }
    }
 }
