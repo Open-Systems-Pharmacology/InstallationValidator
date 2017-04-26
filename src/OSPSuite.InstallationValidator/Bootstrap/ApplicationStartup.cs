@@ -61,7 +61,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.Register<IBatchStarterTask, BatchStarterTask>();
          container.Register<IBatchComparisonTask, BatchComparisonTask>();
          container.Register<StartableProcess, StartableProcess>();
-         container.Register<LogWatcher, LogWatcher>();
+         container.Register<ILogWatcher, LogWatcher>();
          container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
 
          container.RegisterFactory<IStartableProcessFactory>();

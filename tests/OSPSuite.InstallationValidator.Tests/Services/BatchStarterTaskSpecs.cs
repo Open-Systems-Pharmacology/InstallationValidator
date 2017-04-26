@@ -15,7 +15,7 @@ namespace OSPSuite.InstallationValidator.Services
       protected IStartableProcessFactory _startableProcessFactory;
       protected ILogWatcherFactory _logWatcherFactory;
       protected StartableProcess _startableProcess;
-      protected LogWatcher _logWatcher;
+      protected ILogWatcher _logWatcher;
 
       protected override void Context()
       {
@@ -23,11 +23,7 @@ namespace OSPSuite.InstallationValidator.Services
          _startableProcessFactory = A.Fake<IStartableProcessFactory>();
          _logWatcherFactory = A.Fake<ILogWatcherFactory>();
 
-         _logWatcher = A.Fake<LogWatcher>(options => options.WithArgumentsForConstructor(new object[]
-         {
-            "filepath.txt",
-            A.Fake<IEventPublisher>()
-         }));
+         _logWatcher = A.Fake<ILogWatcher>();
 
          sut = new BatchStarterTask(_installationValidationConfiguration, _startableProcessFactory, _logWatcherFactory);
          _startableProcess = A.Fake<StartableProcess>();

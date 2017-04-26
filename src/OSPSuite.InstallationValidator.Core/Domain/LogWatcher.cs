@@ -6,7 +6,11 @@ using OSPSuite.Utility.Events;
 
 namespace OSPSuite.InstallationValidator.Core.Domain
 {
-   public class LogWatcher : IDisposable
+   public interface ILogWatcher: IDisposable
+   {
+      void Watch();
+   }
+   public class LogWatcher : ILogWatcher
    {
       private readonly string _logFile;
       private readonly IEventPublisher _eventPublisher;
