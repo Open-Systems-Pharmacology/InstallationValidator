@@ -7,6 +7,7 @@
          public static readonly string OutputFolder = "Output Folder";
          public static readonly string SelectOutputFolder = "Select Output Folder";
          public static readonly string Start = "Start";
+         public static string TheValidationWasCanceled = "The validation was canceled";
       }
 
       public static class Validation

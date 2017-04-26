@@ -65,16 +65,33 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          _eventPublisher.PublishEvent(new LogAppendedEvent(readFileText()));
       }
 
-      public void Dispose()
-      {
-         unsubscribe();
-         _fileSystemWatcher.Dispose();
-         _sr?.Dispose();
-      }
-
       public virtual void Watch()
       {
          _fileSystemWatcher.EnableRaisingEvents = true;
+      }
+
+      private bool _disposed;
+
+      public void Dispose()
+      {
+         if (_disposed) return;
+
+         Cleanup();
+         GC.SuppressFinalize(this);
+         _disposed = true;
+      }
+
+      ~LogWatcher()
+      {
+         Cleanup();
+      }
+
+      protected virtual void Cleanup()
+      {
+         unsubscribe();
+         _fileSystemWatcher.Dispose();
+         _sr?.Close();
+         _sr?.Dispose();
       }
    }
 }

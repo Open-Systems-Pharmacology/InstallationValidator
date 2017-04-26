@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
@@ -56,6 +57,10 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
             View.ValidationIsRunning(true);
             await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+         }
+         catch (OperationCanceledException)
+         {
+            _dialogCreator.MessageBoxInfo(Constants.Captions.TheValidationWasCanceled);
          }
          finally
          {
