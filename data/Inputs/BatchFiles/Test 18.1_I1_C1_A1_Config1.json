@@ -1,0 +1,67 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "MexicanAmericanWhite_NHANES_1997",
+        "Gender": "MALE",
+        "Age": 22,
+        "Height": 16.99,
+        "Weight": 70.3,
+ 
+    },
+    "Compounds": [{
+        "Name": "C1",
+        "Lipophilicity": -0.097,
+        "FractionUnbound": 0.85,
+        "MolWeight": 2.252E-7,
+        "SolubilityAtRefpH": 33990E-6,
+        "RefpH": 7,
+        "PkaTypes": [
+            {
+                "Type": "Acid",
+                "Value": 9.2
+            },
+            {
+                "Type": "Base",
+                "Value": 2.2
+            },
+        ],
+        "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard",
+            "IntestinalPermeability_PKSim"
+        ],
+       "SystemicProcesses": [
+            {
+                "SystemicProcessType": "Hepatic",
+                "InternalName": "LiverClearance",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Specific clearance": 0.088
+                },
+
+            },
+          {
+                "SystemicProcessType": "Renal",
+                "InternalName": "KidneyClearance",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Specific clearance": 1.570
+                }
+            },
+        ],
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 400,
+        "DoseUnit": "mg",
+        "EndTime": 600
+     }],
+    "Formulation":{
+        "Name": "F",
+        "FormulationType": "Formulation_Dissolved"
+    },
+    "Configuration": {
+        "Model": "4Comp"
+    }
+}

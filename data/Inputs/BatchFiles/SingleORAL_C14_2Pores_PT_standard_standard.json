@@ -1,0 +1,54 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "C14",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.1,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-5,
+        "IsSmallMolecule": false,
+        "RefpH": 7,
+        "PkaTypes": [
+            {
+                "Type": "Acid",
+                "Value": 9
+            },
+            {
+                "Type": "Acid",
+                "Value": 7
+            },
+            {
+                "Type": "Acid",
+                "Value": 8
+            }
+        ],
+        "CalculationMethods": [
+            "Cellular partition coefficient method - Poulin and Theil",
+            "Cellular permeability - PK-Sim Standard",
+            "IntestinalPermeability_PKSim"
+        ]        
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+    }],
+    "Formulation":{
+		"Name": "F",
+		"FormulationType": "Formulation_Dissolved",
+    },
+    "Configuration": {
+        "Model": "TwoPores",
+        "RelTol": 1e-8,
+        "AbsTol": 1e-13,
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "IntravenousBolus",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+    }],
+    "Configuration": {
+        "Model": "4Comp",
+        "StartTime": 40,
+        "EndTime": 1000,
+        "RelTol": 1e-5,
+        "AbsTol": 1e-13,
+        "UseJacobian": false
+    }
+}

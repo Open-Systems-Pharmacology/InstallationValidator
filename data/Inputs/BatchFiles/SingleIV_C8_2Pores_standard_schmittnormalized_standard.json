@@ -1,0 +1,49 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "C8",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.1,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-5,
+        "IsSmallMolecule": true,
+        "RefpH": 7,
+        "PkaTypes": [
+            {
+                "Type": "Acid",
+                "Value": 5
+            },
+            {
+                "Type": "Acid",
+                "Value": 4
+            },
+            {
+                "Type": "Base",
+                "Value": 9
+            }
+        ],
+        "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - Charge dependent Schmitt normalized to PK-Sim",
+            "IntestinalPermeability_PKSim"
+        ]
+
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "IntravenousBolus",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+    }],
+    "Configuration": {
+        "Model": "TwoPores"
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 4
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "DI_6_6_12",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg/kg",
+        "EndTime": 3600
+     }],
+    "Formulation":{
+        "Name": "F",
+        "FormulationType": "Formulation_Dissolved"
+    },
+    "Configuration": {
+        "Model": "4Comp",
+        "EndTime": 4320,
+        "RelTol": 1e-8,
+        "AbsTol": 1e-13,
+        "CheckForNegativeValues": true
+    },
+    "ParameterVariationSets": [
+        {
+            "Name": "EHC_continuous_fraction_0.5",
+            "ParameterValues": [{
+                "ParameterPath": "Organism|Liver|EHC continuous fraction",
+                "Value": 0.5
+            }]
+        },
+        {
+            "Name": "EHC_continuous_fraction_1",
+            "ParameterValues": [{
+                "ParameterPath": "Organism|Liver|EHC continuous fraction",
+                "Value": 1
+            }]
+        },
+        {
+            "Name": "absorption_sink_conditions",
+            "ParameterValues": [
+                {
+                    "ParameterPath": "Organism|Lumen|Paracellular absorption sink condition",
+                    "Value": 0
+                },
+                {
+                    "ParameterPath": "Organism|Lumen|Transcellular absorption sink condition",
+                    "Value": 0
+                }
+            ]
+        },
+        {
+            "Name": "solubility",
+            "ParameterValues": [
+                {
+                    "ParameterPath": "Organism|Lumen|Duodenum|drug|Solubility",
+                    "Value": 0
+                },
+                {
+                    "ParameterPath": "Organism|Lumen|LowerJejunum|drug|Solubility",
+                    "Value": 0
+                },
+                {
+                    "ParameterPath": "drug|Solubility at reference pH",
+                    "Value": 5E-7
+                },
+                {
+                    "ParameterPath": "drug|Solubility gain per charge",
+                    "Value": 500
+                }
+            ]
+        },
+        {
+            "Name": "pKa-dependent penalty factor",
+            "ParameterValues": [{
+                "ParameterPath": "drug|Use pH- and pKa-dependent penalty factor for charged molecule fraction",
+                "Value": 0
+            }]
+        }
+    ]
+}
