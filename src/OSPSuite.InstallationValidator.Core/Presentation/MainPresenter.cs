@@ -22,17 +22,6 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
       private readonly IBatchStarterTask _batchStarterTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
       private CancellationTokenSource _cancellationTokenSource;
-      private bool _validationRunning;
-
-      private bool validationRunning
-      {
-         set
-         {
-            _validationRunning = value;
-            updateOkInView();
-         }
-         get { return _validationRunning; }
-      }
 
       public MainPresenter(IMainView view, ILogPresenter logPresenter, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask) : base(view)
       {
@@ -51,16 +40,6 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          _outputFolderDTO.FolderPath = outputFolder;
       }
 
-      public override void ViewChanged()
-      {
-         updateOkInView();
-      }
-
-      private void updateOkInView()
-      {
-         _view.OkEnabled = _view.HasError || !validationRunning;
-      }
-
       public void Abort()
       {
          _cancellationTokenSource?.Cancel();
@@ -71,12 +50,12 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          _cancellationTokenSource = new CancellationTokenSource();
          try
          {
-            validationRunning = true;
+            View.ValidationIsRunning(true);
             await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
          }
          finally
          {
-            validationRunning = false;
+            View.ValidationIsRunning(false);
          }
       }
    }

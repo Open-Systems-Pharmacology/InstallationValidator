@@ -70,5 +70,10 @@ namespace OSPSuite.InstallationValidator.Views
       {
          _screenBinder.BindToSource(outputFolderDTO);
       }
+
+      public void ValidationIsRunning(bool validationRunning)
+      {
+         OkEnabled = !HasError && !validationRunning;
+      }
    }
 }

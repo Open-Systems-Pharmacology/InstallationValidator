@@ -7,5 +7,6 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.Views
    {
       void AddLogView(IView view);
       void BindTo(FolderDTO outputFolderDTO);
+      void ValidationIsRunning(bool validationRunning);
    }
 }
