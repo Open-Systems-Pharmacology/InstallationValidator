@@ -28,7 +28,7 @@ namespace OSPSuite.InstallationValidator.Core
       public override string ProductNameWithTrademark { get; }
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
       public override string UserSettingsFileName { get; }
-      public override string IssueTrackerUrl { get; }
+      public override string IssueTrackerUrl => "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
 
       // TODO - move to OSPSuite.Core
       public string PKSimPath
