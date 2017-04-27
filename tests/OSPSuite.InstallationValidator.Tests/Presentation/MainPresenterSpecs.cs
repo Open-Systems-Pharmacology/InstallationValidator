@@ -21,7 +21,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected IDialogCreator _dialogCreator;
       protected IBatchStarterTask _batchStarterTask;
       private IBatchComparisonTask _batchComparisonTask;
-      private IInstallationValidationConfiguration _applicationConfiguration;
+      private IApplicationConfiguration _applicationConfiguration;
 
       protected override void Context()
       {
@@ -31,7 +31,7 @@ namespace OSPSuite.InstallationValidator.Presentation
          _batchStarterTask = A.Fake<IBatchStarterTask>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
 
-         _applicationConfiguration = A.Fake<IInstallationValidationConfiguration>();
+         _applicationConfiguration = A.Fake<IApplicationConfiguration>();
          A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.Captions.IssueTrackerUrl);
          sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration);
       }
