@@ -64,7 +64,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
          catch (OperationCanceledException)
          {
-            _dialogCreator.MessageBoxInfo(Constants.Captions.TheValidationWasCanceled);
+            logText(Constants.Captions.TheValidationWasCanceled);
          }
          catch (Exception e)
          {
@@ -74,6 +74,11 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          {
             View.ValidationIsRunning(false);
          }
+      }
+
+      private void logText(string theTextToLog)
+      {
+         View.AppendText(theTextToLog);
       }
 
       private void logException(Exception e)
