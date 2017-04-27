@@ -143,6 +143,13 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\BatchComparisonResult.cs" />
+    <Compile Include="Domain\FileComparisonResult.cs" />
+    <Compile Include="Domain\FolderInfo.cs" />
+    <Compile Include="Domain\IFolderInfoFactory.cs" />
+    <Compile Include="Domain\IWithValidationState.cs" />
+    <Compile Include="Domain\OutputComparisonResult.cs" />
+    <Compile Include="Domain\WithValidationStateExtensions.cs" />
     <Compile Include="InstallationValidatorConfiguration.cs" />
     <Compile Include="Assets\Captions.cs" />
     <Compile Include="Constants.cs" />
@@ -156,9 +163,11 @@
     <Compile Include="Presentation\Views\IMainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BatchComparisonTask.cs" />
+    <Compile Include="Services\BatchOutputFileComparer.cs" />
     <Compile Include="Services\BatchStarterTask.cs" />
     <Compile Include="Services\LogWatcherFactory.cs" />
     <Compile Include="Services\StartableProcessFactory.cs" />
+    <Compile Include="ValidatorRegister.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

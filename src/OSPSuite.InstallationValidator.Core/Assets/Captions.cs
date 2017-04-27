@@ -9,6 +9,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string Start = "Start";
       public static string TheValidationWasCanceled = "The validation was canceled";
       public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
+      public static readonly string StartingBatchCalculation = "Starting batch calculations...";
+      public static readonly string StartingComparison = "Starting output comparisons...";
 
       public static readonly string ValidationDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                                                             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
@@ -43,5 +45,6 @@ namespace OSPSuite.InstallationValidator.Core.Assets
             return $"Folder '{fileFullPath}' does not exist";
          }
       }
+
    }
 }

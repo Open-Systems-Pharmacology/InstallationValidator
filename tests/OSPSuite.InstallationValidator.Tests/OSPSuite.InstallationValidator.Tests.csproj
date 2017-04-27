@@ -114,9 +114,14 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Helpers\FolderInfoForSpecs.cs" />
+    <Compile Include="Helpers\ValidFileComparisonResult.cs" />
     <Compile Include="Presentation\FolderDTOSpecs.cs" />
     <Compile Include="Presentation\MainPresenterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BatchComparisonResultSpecs.cs" />
+    <Compile Include="Services\BatchComparisonTaskSpecs.cs" />
+    <Compile Include="Services\BatchOutputFileComparerSpecs.cs" />
     <Compile Include="Services\BatchStarterTaskSpecs.cs" />
   </ItemGroup>
   <ItemGroup>

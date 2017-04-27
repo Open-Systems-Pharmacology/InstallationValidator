@@ -62,7 +62,10 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          try
          {
             View.ValidationIsRunning(true);
+            logText(Captions.StartingBatchCalculation);
             await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+
+            logText(Captions.StartingComparison);
             await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
          }
          catch (OperationCanceledException)
@@ -86,14 +89,14 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logException(Exception e)
       {
-         View.AppendText(Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
-         View.AppendText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
-         View.AppendText($"{Environment.NewLine}{Environment.NewLine}");
+         logText(Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
+         logText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
+         logText($"{Environment.NewLine}{Environment.NewLine}");
       }
 
       public void Handle(LogAppendedEvent eventToHandle)
       {
-         View.AppendText(eventToHandle.NewText);
+         logText(eventToHandle.NewText);
       }
 
       public void Handle(LogResetEvent eventToHandle)

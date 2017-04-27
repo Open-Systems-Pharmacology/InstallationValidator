@@ -17,5 +17,11 @@ namespace OSPSuite.InstallationValidator.Core
 
          public static readonly string BATCH_LOG = "batch.log";
       }
+
+      public static class Filter
+      {
+         //TODO MOVE TO CORE
+         public static readonly string JSON_FILTER = $"*{OSPSuite.Core.Domain.Constants.Filter.JSON_EXTENSION}";
+      }
    }
 }

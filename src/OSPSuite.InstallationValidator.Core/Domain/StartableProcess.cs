@@ -49,21 +49,19 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          // we are passing ownsHandle = false because the started process owns the handle
          // not this process.
          using (var processSafeWaitHandle = new SafeWaitHandle(_process.Handle, false))
+         using (var processFinishedWaitHandle = new ManualResetEvent(false))
          {
-            using (var processFinishedWaitHandle = new ManualResetEvent(false))
+            processFinishedWaitHandle.SafeWaitHandle = processSafeWaitHandle;
+
+            var finishingWaitHandle = waitForSignal(token.WaitHandle, processFinishedWaitHandle);
+
+            if (finishingWaitHandle == processFinishedWaitHandle)
             {
-               processFinishedWaitHandle.SafeWaitHandle = processSafeWaitHandle;
-
-               var finishingWaitHandle = waitForSignal(token.WaitHandle, processFinishedWaitHandle);
-
-               if (finishingWaitHandle == processFinishedWaitHandle)
-               {
-                  _exited = true;
-                  return;
-               }
-               _process.Kill();
-               token.ThrowIfCancellationRequested();
+               _exited = true;
+               return;
             }
+            _process.Kill();
+            token.ThrowIfCancellationRequested();
          }
       }
 
