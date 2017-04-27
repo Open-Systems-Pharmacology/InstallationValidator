@@ -31,6 +31,14 @@ namespace OSPSuite.InstallationValidator.Core.Assets
          }
 
          public static readonly string IssueTrackerUrl =  "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
+         public static readonly string ValidationDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                                                               "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                                                               "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                                                               "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
+                                                               "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
+                                                               "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+         public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
       }
 
       public static class Validation

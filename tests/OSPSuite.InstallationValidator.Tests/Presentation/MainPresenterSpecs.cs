@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using FakeItEasy;
 using OSPSuite.BDDHelper;
 using OSPSuite.Core;
+using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Services;
-using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
@@ -35,6 +35,48 @@ namespace OSPSuite.InstallationValidator.Presentation
          _applicationConfiguration = A.Fake<IApplicationConfiguration>();
          A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.Captions.IssueTrackerUrl);
          sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration);
+      }
+   }
+
+   public class When_cancaling_a_validation_is_declined : concern_for_MainPresenter
+   {
+      private CancellationToken _token;
+
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Invokes((string aString, CancellationToken token) => _token = token);
+         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().Returns(ViewResult.No);
+      }
+
+      [Observation]
+      public async Task confirmation_is_requested_and_task_is_canceled()
+      {
+         await sut.StartInstallationValidation();
+         sut.Abort();
+         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().MustHaveHappened();
+         _token.IsCancellationRequested.ShouldBeFalse();
+      }
+   }
+
+   public class When_canceling_a_validation : concern_for_MainPresenter
+   {
+      private CancellationToken _token;
+
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Invokes((string aString, CancellationToken token) => _token = token);
+         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().Returns(ViewResult.Yes);
+      }
+
+      [Observation]
+      public async Task confirmation_is_requested_and_task_is_canceled()
+      {
+         await sut.StartInstallationValidation();
+         sut.Abort();
+         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().MustHaveHappened();
+         _token.IsCancellationRequested.ShouldBeTrue();
       }
    }
 
