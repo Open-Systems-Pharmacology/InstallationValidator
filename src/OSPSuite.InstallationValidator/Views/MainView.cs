@@ -55,11 +55,7 @@ namespace OSPSuite.InstallationValidator.Views
          ShowInTaskbar = true;
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
-         ShowInTaskbar = true;
-         layoutControlItemDescription.TextVisible = false;
-         labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
+         labelValidationDescription.Text = Core.Assets.Captions.ValidationDescription.FormatForDescription();
       }
 
       public void AttachPresenter(IMainPresenter presenter)

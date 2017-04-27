@@ -50,7 +50,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public void Abort()
       {
-         if (_dialogCreator.MessageBoxYesNo(Constants.Captions.ReallyCancelInstallationValidation) == ViewResult.No)
+         if (_dialogCreator.MessageBoxYesNo(Captions.ReallyCancelInstallationValidation) == ViewResult.No)
             return;
 
          _cancellationTokenSource?.Cancel();

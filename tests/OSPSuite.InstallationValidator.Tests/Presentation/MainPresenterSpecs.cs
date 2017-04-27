@@ -6,6 +6,7 @@ using OSPSuite.BDDHelper;
 using OSPSuite.Core;
 using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Services;
+using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
