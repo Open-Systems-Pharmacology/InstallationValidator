@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Events;
+using OSPSuite.InstallationValidator.Core.Extensions;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
@@ -24,14 +26,16 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
       private readonly IDialogCreator _dialogCreator;
       private readonly IBatchStarterTask _batchStarterTask;
       private readonly IBatchComparisonTask _batchComparisonTask;
+      private readonly IApplicationConfiguration _configuration;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
       private CancellationTokenSource _cancellationTokenSource;
 
-      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask) : base(view)
+      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask, IApplicationConfiguration configuration) : base(view)
       {
          _dialogCreator = dialogCreator;
          _batchStarterTask = batchStarterTask;
          _batchComparisonTask = batchComparisonTask;
+         _configuration = configuration;
          view.BindTo(_outputFolderDTO);
       }
 
@@ -60,12 +64,28 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
          catch (OperationCanceledException)
          {
-            _dialogCreator.MessageBoxInfo(Constants.Captions.TheValidationWasCanceled);
+            logText(Constants.Captions.TheValidationWasCanceled);
+         }
+         catch (Exception e)
+         {
+            logException(e);
          }
          finally
          {
             View.ValidationIsRunning(false);
          }
+      }
+
+      private void logText(string theTextToLog)
+      {
+         View.AppendText(theTextToLog);
+      }
+
+      private void logException(Exception e)
+      {
+         View.AppendText(Constants.Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
+         View.AppendText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
+         View.AppendText($"{Environment.NewLine}{Environment.NewLine}");
       }
 
       public void Handle(LogAppendedEvent eventToHandle)

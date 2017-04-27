@@ -148,6 +148,7 @@
     <Compile Include="Domain\LogWatcher.cs" />
     <Compile Include="Domain\StartableProcess.cs" />
     <Compile Include="Events\LogEvents.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Presentation\DTO\FolderDTO.cs" />
     <Compile Include="Presentation\MainPresenter.cs" />

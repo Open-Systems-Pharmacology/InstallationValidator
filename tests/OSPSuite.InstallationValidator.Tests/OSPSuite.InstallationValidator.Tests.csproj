@@ -11,6 +11,8 @@
     <AssemblyName>OSPSuite.InstallationValidator.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,28 +53,32 @@
       <HintPath>..\..\packages\csmpfit.1.1.0\lib\net20\MPFitLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OSPSuite.Assets, Version=7.1.0.68, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\..\packages\OSPSuite.Assets.7.1.0.68\lib\net452\OSPSuite.Assets.dll</HintPath>
+    <Reference Include="OSPSuite.Assets, Version=7.1.0.69, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\OSPSuite.Assets.7.1.0.69\lib\net452\OSPSuite.Assets.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OSPSuite.BDDHelper, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OSPSuite.BDDHelper.2.0.0.1\lib\net45\OSPSuite.BDDHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OSPSuite.Core, Version=7.1.0.68, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\..\packages\OSPSuite.Core.7.1.0.68\lib\net452\OSPSuite.Core.dll</HintPath>
+    <Reference Include="OSPSuite.Core, Version=7.1.0.69, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\OSPSuite.Core.7.1.0.69\lib\net452\OSPSuite.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OSPSuite.FuncParser, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\packages\OSPSuite.FuncParser.2.0.0.1\lib\net45\OSPSuite.FuncParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OSPSuite.Presentation, Version=7.1.0.68, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\..\packages\OSPSuite.Presentation.7.1.0.68\lib\net452\OSPSuite.Presentation.dll</HintPath>
+    <Reference Include="OSPSuite.Presentation, Version=7.1.0.69, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\OSPSuite.Presentation.7.1.0.69\lib\net452\OSPSuite.Presentation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OSPSuite.Serializer, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -115,7 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\OSPSuite.InstallationValidator.Core\OSPSuite.InstallationValidator.Core.csproj">

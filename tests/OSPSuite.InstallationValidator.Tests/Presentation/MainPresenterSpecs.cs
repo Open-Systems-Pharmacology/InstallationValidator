@@ -1,6 +1,12 @@
-﻿using FakeItEasy;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using FakeItEasy;
 using OSPSuite.BDDHelper;
+using OSPSuite.Core;
 using OSPSuite.Core.Services;
+using OSPSuite.InstallationValidator.Core;
+using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Services;
@@ -14,8 +20,9 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected IMainView _mainView;
       protected ILogPresenter _logPresenter;
       protected IDialogCreator _dialogCreator;
-      private IBatchStarterTask _batchStarterTask;
+      protected IBatchStarterTask _batchStarterTask;
       private IBatchComparisonTask _batchComparisonTask;
+      private IApplicationConfiguration _applicationConfiguration;
 
       protected override void Context()
       {
@@ -25,7 +32,9 @@ namespace OSPSuite.InstallationValidator.Presentation
          _batchStarterTask = A.Fake<IBatchStarterTask>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
 
-         sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask);
+         _applicationConfiguration = A.Fake<IApplicationConfiguration>();
+         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.Captions.IssueTrackerUrl);
+         sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration);
       }
    }
 
@@ -45,6 +54,41 @@ namespace OSPSuite.InstallationValidator.Presentation
       {
          sut.Handle(new LogAppendedEvent(_newText));
          A.CallTo(() => _mainView.AppendText(_newText)).MustHaveHappened();
+      }
+   }
+
+   public class When_the_batch_start_throws_operation_canceled_exception : concern_for_MainPresenter
+   {
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Throws<OperationCanceledException>();
+      }
+
+      [Observation]
+      public async Task the_view_should_be_notified_that_the_cancel_was_triggered()
+      {
+         await sut.StartInstallationValidation();
+         A.CallTo(() => _mainView.AppendText(Constants.Captions.TheValidationWasCanceled)).MustHaveHappened();
+      }
+   }
+   public class When_the_batch_start_throws_exception : concern_for_MainPresenter
+   {
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Throws<InvalidOperationException>();
+      }
+
+      protected override void Because()
+      {
+         sut.StartInstallationValidation().Wait();
+      }
+
+      [Observation]
+      public void the_view_should_be_updated_with_exception_information()
+      {
+         A.CallTo(() => _mainView.AppendText(Constants.Captions.Exceptions.ExceptionSupportMessage(Constants.Captions.IssueTrackerUrl))).MustHaveHappened();
       }
    }
 
