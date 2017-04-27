@@ -2,6 +2,7 @@
 using System.Threading;
 using FakeItEasy;
 using OSPSuite.BDDHelper;
+using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
@@ -20,7 +21,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected IDialogCreator _dialogCreator;
       protected IBatchStarterTask _batchStarterTask;
       private IBatchComparisonTask _batchComparisonTask;
-      private ApplicationConfiguration _applicationConfiguration;
+      private IInstallationValidationConfiguration _applicationConfiguration;
 
       protected override void Context()
       {
@@ -30,7 +31,8 @@ namespace OSPSuite.InstallationValidator.Presentation
          _batchStarterTask = A.Fake<IBatchStarterTask>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
 
-         _applicationConfiguration = new ApplicationConfiguration();
+         _applicationConfiguration = A.Fake<IInstallationValidationConfiguration>();
+         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.Captions.IssueTrackerUrl);
          sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration);
       }
    }
