@@ -44,8 +44,8 @@ namespace OSPSuite.InstallationValidator.Views
       public override void InitializeResources()
       {
          base.InitializeResources();
-         layoutControlItemOutputButton.Text = Core.Assets.Constants.Captions.OutputFolder.FormatForLabel();
-         btnOk.Text = Core.Assets.Constants.Captions.Start;
+         layoutControlItemOutputButton.Text = Core.Assets.Captions.OutputFolder.FormatForLabel();
+         btnOk.Text = Core.Assets.Captions.Start;
          btnCancel.Text = Captions.Cancel;
 
          ExtraEnabled = true;
@@ -55,11 +55,7 @@ namespace OSPSuite.InstallationValidator.Views
          ShowInTaskbar = true;
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
-         ShowInTaskbar = true;
-         layoutControlItemDescription.TextVisible = false;
-         labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
+         labelValidationDescription.Text = Core.Assets.Captions.ValidationDescription.FormatForDescription();
       }
 
       public void AttachPresenter(IMainPresenter presenter)

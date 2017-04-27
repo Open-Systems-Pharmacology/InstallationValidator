@@ -41,7 +41,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public void SelectOutputFolder()
       {
-         var outputFolder = _dialogCreator.AskForFolder(Constants.Captions.SelectOutputFolder, OSPSuite.Core.Domain.Constants.DirectoryKey.PROJECT);
+         var outputFolder = _dialogCreator.AskForFolder(Captions.SelectOutputFolder, OSPSuite.Core.Domain.Constants.DirectoryKey.PROJECT);
          if (string.IsNullOrEmpty(outputFolder))
             return;
 
@@ -50,7 +50,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public void Abort()
       {
-         if (_dialogCreator.MessageBoxYesNo(Constants.Captions.ReallyCancelInstallationValidation) == ViewResult.No)
+         if (_dialogCreator.MessageBoxYesNo(Captions.ReallyCancelInstallationValidation) == ViewResult.No)
             return;
 
          _cancellationTokenSource?.Cancel();
@@ -67,7 +67,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
          catch (OperationCanceledException)
          {
-            logText(Constants.Captions.TheValidationWasCanceled);
+            logText(Captions.TheValidationWasCanceled);
          }
          catch (Exception e)
          {
@@ -86,7 +86,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logException(Exception e)
       {
-         View.AppendText(Constants.Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
+         View.AppendText(Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
          View.AppendText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
          View.AppendText($"{Environment.NewLine}{Environment.NewLine}");
       }

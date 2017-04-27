@@ -57,7 +57,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.Register<IDialogCreator, DialogCreator>();
          container.Register<IDialogResultToViewResultMapper, DialogResultToViewResultMapper>();
          container.Register<DirectoryMapSettings, DirectoryMapSettings>();
-         container.Register<IApplicationConfiguration, IInstallationValidationConfiguration, ApplicationConfiguration>(LifeStyle.Singleton);
+         container.Register<IApplicationConfiguration, IInstallationValidatorConfiguration, InstallationValidatorConfiguration>(LifeStyle.Singleton);
          container.Register<IBatchStarterTask, BatchStarterTask>();
          container.Register<IBatchComparisonTask, BatchComparisonTask>();
          container.Register<StartableProcess, StartableProcess>();

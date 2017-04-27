@@ -1,4 +1,5 @@
 ﻿using OSPSuite.Core.Domain;
+using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.Presentation.DTO;
 using OSPSuite.Utility;
 using OSPSuite.Utility.Validation;
@@ -27,7 +28,6 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
 
       private static class AllRules
       {
-
          public static IBusinessRule TargetFolderNotEmpty
          {
             get { return GenericRules.NonEmptyRule<FolderDTO>(x => x.FolderPath); }
@@ -40,7 +40,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
                return CreateRule.For<FolderDTO>()
                   .Property(x => x.FolderPath)
                   .WithRule((item, folderPath) => DirectoryHelper.DirectoryExists(folderPath))
-                  .WithError((item, folderPath) => Assets.Constants.Validation.FolderDoesNotExist(folderPath));
+                  .WithError((item, folderPath) => Captions.Validation.FolderDoesNotExist(folderPath));
             }
          }
       }
