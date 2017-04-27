@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Win32;
 using OSPSuite.Assets;
 using OSPSuite.Core;
@@ -28,7 +27,7 @@ namespace OSPSuite.InstallationValidator.Core
       public override string ProductNameWithTrademark { get; }
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
       public override string UserSettingsFileName { get; }
-      public override string IssueTrackerUrl => "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
+      public override string IssueTrackerUrl => Assets.Constants.Captions.IssueTrackerUrl;
 
       // TODO - move to OSPSuite.Core
       public string PKSimPath

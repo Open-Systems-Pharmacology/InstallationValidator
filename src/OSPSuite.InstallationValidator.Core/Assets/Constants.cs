@@ -4,14 +4,14 @@ namespace OSPSuite.InstallationValidator.Core.Assets
 {
    public static class Constants
    {
-      public class Captions
+      public static class Captions
       {
          public static readonly string OutputFolder = "Output Folder";
          public static readonly string SelectOutputFolder = "Select Output Folder";
          public static readonly string Start = "Start";
          public static string TheValidationWasCanceled = "The validation was canceled";
 
-         public class Exceptions
+         public static class Exceptions
          {
             public static string ExceptionSupportMessage(string issueTrackerUrl)
             {
@@ -29,6 +29,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
                return sb.ToString();
             }
          }
+
+         public static readonly string IssueTrackerUrl =  "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
       }
 
       public static class Validation
