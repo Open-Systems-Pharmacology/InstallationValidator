@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using FakeItEasy;
 using OSPSuite.BDDHelper;
 using OSPSuite.Core;
@@ -56,6 +57,21 @@ namespace OSPSuite.InstallationValidator.Presentation
       }
    }
 
+   public class When_the_batch_start_throws_operation_canceled_exception : concern_for_MainPresenter
+   {
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Throws<OperationCanceledException>();
+      }
+
+      [Observation]
+      public async Task the_view_should_be_notified_that_the_cancel_was_triggered()
+      {
+         await sut.StartInstallationValidation();
+         A.CallTo(() => _mainView.AppendText(Constants.Captions.TheValidationWasCanceled)).MustHaveHappened();
+      }
+   }
    public class When_the_batch_start_throws_exception : concern_for_MainPresenter
    {
       protected override void Context()
