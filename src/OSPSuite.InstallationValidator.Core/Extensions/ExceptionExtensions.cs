@@ -14,7 +14,7 @@ namespace OSPSuite.InstallationValidator.Core.Extensions
          if (isWrapperException(ex))
             return ExceptionMessage(ex.InnerException);
 
-         return $"{ex.FullMessage()}{Environment.NewLine}{Environment.NewLine}{Captions.ContactSupport(Constants.FORUM_SITE)}";
+         return $"{ex.FullMessage()}{Environment.NewLine}{Environment.NewLine}{Captions.ContactSupport(OSPSuite.Core.Domain.Constants.FORUM_SITE)}";
       }
 
       private static bool isWrapperException(Exception ex)

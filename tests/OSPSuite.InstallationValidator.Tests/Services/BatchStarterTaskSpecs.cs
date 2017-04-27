@@ -5,13 +5,12 @@ using OSPSuite.BDDHelper;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Services;
-using OSPSuite.Utility.Events;
 
 namespace OSPSuite.InstallationValidator.Services
 {
    public abstract class concern_for_BatchStarterTask : ContextSpecification<BatchStarterTask>
    {
-      protected IInstallationValidationConfiguration _installationValidationConfiguration;
+      protected IInstallationValidatorConfiguration _installationValidationConfiguration;
       protected IStartableProcessFactory _startableProcessFactory;
       protected ILogWatcherFactory _logWatcherFactory;
       protected StartableProcess _startableProcess;
@@ -19,7 +18,7 @@ namespace OSPSuite.InstallationValidator.Services
 
       protected override void Context()
       {
-         _installationValidationConfiguration = A.Fake<IInstallationValidationConfiguration>();
+         _installationValidationConfiguration = A.Fake<IInstallationValidatorConfiguration>();
          _startableProcessFactory = A.Fake<IStartableProcessFactory>();
          _logWatcherFactory = A.Fake<ILogWatcherFactory>();
 
@@ -32,7 +31,6 @@ namespace OSPSuite.InstallationValidator.Services
          A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._)).Returns(_logWatcher);
       }
    }
-
 
    public class When_starting_a_validation : concern_for_BatchStarterTask
    {

@@ -44,8 +44,8 @@ namespace OSPSuite.InstallationValidator.Views
       public override void InitializeResources()
       {
          base.InitializeResources();
-         layoutControlItemOutputButton.Text = Core.Assets.Constants.Captions.OutputFolder.FormatForLabel();
-         btnOk.Text = Core.Assets.Constants.Captions.Start;
+         layoutControlItemOutputButton.Text = Core.Assets.Captions.OutputFolder.FormatForLabel();
+         btnOk.Text = Core.Assets.Captions.Start;
          btnCancel.Text = Captions.Cancel;
 
          ExtraEnabled = true;

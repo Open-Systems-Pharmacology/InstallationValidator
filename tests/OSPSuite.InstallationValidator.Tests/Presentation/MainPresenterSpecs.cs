@@ -33,7 +33,7 @@ namespace OSPSuite.InstallationValidator.Presentation
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
 
          _applicationConfiguration = A.Fake<IApplicationConfiguration>();
-         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.Captions.IssueTrackerUrl);
+         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.ISSUE_TRACKER_URL);
          sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration);
       }
    }
@@ -111,7 +111,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       public async Task the_view_should_be_notified_that_the_cancel_was_triggered()
       {
          await sut.StartInstallationValidation();
-         A.CallTo(() => _mainView.AppendText(Constants.Captions.TheValidationWasCanceled)).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendText(Captions.TheValidationWasCanceled)).MustHaveHappened();
       }
    }
    public class When_the_batch_start_throws_exception : concern_for_MainPresenter
@@ -130,7 +130,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       [Observation]
       public void the_view_should_be_updated_with_exception_information()
       {
-         A.CallTo(() => _mainView.AppendText(Constants.Captions.Exceptions.ExceptionSupportMessage(Constants.Captions.IssueTrackerUrl))).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendText(Captions.Exceptions.ExceptionSupportMessage(Constants.ISSUE_TRACKER_URL))).MustHaveHappened();
       }
    }
 
