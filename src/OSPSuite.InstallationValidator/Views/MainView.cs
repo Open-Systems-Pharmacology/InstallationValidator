@@ -50,6 +50,7 @@ namespace OSPSuite.InstallationValidator.Views
          ExtraEnabled = true;
          ExtraVisible = true;
          btnExtra.Text = Captions.CloseButton;
+         ShowInTaskbar = true;
       }
 
       public void AttachPresenter(IMainPresenter presenter)
