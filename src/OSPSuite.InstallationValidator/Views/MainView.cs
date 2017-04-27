@@ -6,6 +6,7 @@ using OSPSuite.DataBinding.DevExpress;
 using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.Presentation.Extensions;
+using OSPSuite.UI.Extensions;
 using OSPSuite.UI.Views;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
@@ -50,7 +51,15 @@ namespace OSPSuite.InstallationValidator.Views
          ExtraEnabled = true;
          ExtraVisible = true;
          btnExtra.Text = Captions.CloseButton;
+
          ShowInTaskbar = true;
+         layoutControlItemDescription.TextVisible = false;
+         labelValidationDescription.AsDescription();
+         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
+         ShowInTaskbar = true;
+         layoutControlItemDescription.TextVisible = false;
+         labelValidationDescription.AsDescription();
+         labelValidationDescription.Text = Core.Assets.Constants.Captions.ValidationDescription.FormatForDescription();
       }
 
       public void AttachPresenter(IMainPresenter presenter)
