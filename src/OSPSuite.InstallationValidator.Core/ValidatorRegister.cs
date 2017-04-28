@@ -17,6 +17,7 @@ namespace OSPSuite.InstallationValidator.Core
          });
 
          container.Register<FolderInfo, FolderInfo>();
+         container.Register<IComparisonStrategy, PointwiseComparisonStrategy>();
          container.Register<IApplicationConfiguration, IInstallationValidatorConfiguration, InstallationValidatorConfiguration>(LifeStyle.Singleton);
       }
    }

@@ -6,7 +6,9 @@ namespace OSPSuite.InstallationValidator.Core
    {
       public static readonly string ISSUE_TRACKER_URL = "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
       public static readonly string APPLICATION_FOLDER_PATH = @"Open Systems Pharmacology\InstallationValidator";
-
+      public static double MAX_DEVIATION_TIME = 0.0001; //0.01%
+      public static double MAX_DEVIATION_OUTPUT = 0.02; //2%
+      
       public static class Tools
       {
          // TODO - move that to core

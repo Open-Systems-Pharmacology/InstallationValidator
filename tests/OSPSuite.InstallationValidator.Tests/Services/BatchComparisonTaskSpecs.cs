@@ -72,7 +72,7 @@ namespace OSPSuite.InstallationValidator.Services
          _result = sut.StartComparison(_calculatedOutputPath1, _calculatedOutputPath2, _token).Result;
       }
 
-      [Observation]
+      [Observation]  
       public void should_compare_the_outputs_of_the_given_folders()
       {
          _result.FolderPath1.ShouldBeEqualTo(_calculatedOutputPath1);
@@ -89,6 +89,7 @@ namespace OSPSuite.InstallationValidator.Services
          missingFile1.ShouldNotBeNull();
          missingFile1.FolderContainingFile.ShouldBeEqualTo(_calculatedOutputPath1);
          missingFile1.FolderWithoutFile.ShouldBeEqualTo(_calculatedOutputPath2);
+
          var missingFile2 = missingFiles.Find(x => x.FileName == "MISSING2");
          missingFile2.ShouldNotBeNull();
          missingFile2.FolderContainingFile.ShouldBeEqualTo(_calculatedOutputPath2);

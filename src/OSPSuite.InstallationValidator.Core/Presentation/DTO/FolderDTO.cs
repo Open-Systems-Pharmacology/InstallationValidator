@@ -40,7 +40,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.DTO
                return CreateRule.For<FolderDTO>()
                   .Property(x => x.FolderPath)
                   .WithRule((item, folderPath) => DirectoryHelper.DirectoryExists(folderPath))
-                  .WithError((item, folderPath) => Captions.Validation.FolderDoesNotExist(folderPath));
+                  .WithError((item, folderPath) => Validation.FolderDoesNotExist(folderPath));
             }
          }
       }

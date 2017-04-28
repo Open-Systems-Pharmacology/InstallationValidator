@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using OSPSuite.Utility.Extensions;
@@ -12,7 +11,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
       protected readonly List<string> _fileNames = new List<string>();
       public string Folder { get; }
 
-      public FolderInfo(string folder, string filter=null)
+      public FolderInfo(string folder, string filter = null)
       {
          _filter = filter;
          Folder = folder;
@@ -22,10 +21,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
       public Task ComputeFiles()
       {
-         return Task.Run(() =>
-         {
-            AddAllFilesInFolder();
-         });
+         return Task.Run(() => { AddAllFilesInFolder(); });
       }
 
       protected virtual void AddAllFilesInFolder()

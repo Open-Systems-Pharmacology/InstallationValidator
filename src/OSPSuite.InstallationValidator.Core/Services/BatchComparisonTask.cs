@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using OSPSuite.InstallationValidator.Core.Domain;
+
 namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IBatchComparisonTask
@@ -52,16 +52,15 @@ namespace OSPSuite.InstallationValidator.Core.Services
 
          foreach (var file in folderInfo1.FileNames.Where(folderInfo2.HasFile))
          {
-            token.ThrowIfCancellationRequested();
-            comparison.AddFileComparison(compareFile(file, folderPath1, folderPath2));
+            comparison.AddFileComparison(await compareFile(file, folderPath1, folderPath2, token));
          }
 
          return comparison;
       }
 
-      private FileComparisonResult compareFile(string fileName, string folderPath1, string folderPath2)
+      private Task<OutputFileComparisonResult> compareFile(string fileName, string folderPath1, string folderPath2, CancellationToken token)
       {
-         return _batchOutputFileComparer.Compare(fileName, folderPath1, folderPath2);
+         return _batchOutputFileComparer.Compare(fileName, folderPath1, folderPath2, token);
       }
 
       private IEnumerable<FileComparisonResult> allMissingFilesFrom(FolderInfo folderInfo1, FolderInfo folderInfo2)

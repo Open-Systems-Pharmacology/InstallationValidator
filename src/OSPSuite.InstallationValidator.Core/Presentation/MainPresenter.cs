@@ -89,7 +89,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logException(Exception e)
       {
-         logText(Captions.Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
+         logText(Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
          logText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
          logText($"{Environment.NewLine}{Environment.NewLine}");
       }

@@ -114,6 +114,7 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\PointwiseComparisonStrategySpecs.cs" />
     <Compile Include="Helpers\FolderInfoForSpecs.cs" />
     <Compile Include="Helpers\ValidFileComparisonResult.cs" />
     <Compile Include="Presentation\FolderDTOSpecs.cs" />
