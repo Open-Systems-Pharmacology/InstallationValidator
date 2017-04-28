@@ -10,7 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EE126C4-E171-479C-B79A-0B5B1BBC50FC}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		rakefile.rb = rakefile.rb
 		README.md = README.md
+		setup\setup.wxs = setup\setup.wxs
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject

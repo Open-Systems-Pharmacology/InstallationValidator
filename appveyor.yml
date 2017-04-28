@@ -14,6 +14,9 @@ assembly_info:
 cache:
   packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
 
+install:
+- git submodule update --init --recursive
+
 before_build:
   - nuget sources add -name bddhelper -source https://ci.appveyor.com/nuget/ospsuite-bddhelper 
   - nuget sources add -name utility -source https://ci.appveyor.com/nuget/ospsuite-utility 
@@ -26,6 +29,10 @@ before_build:
   - nuget sources add -name cvodes -source https://ci.appveyor.com/nuget/ospsuite-simmodel-solver-cvodes-282
   - nuget sources add -name core -source https://ci.appveyor.com/nuget/ospsuite-core
   - nuget restore
+
+after_build:
+  - rake "create_setup[%APPVEYOR_BUILD_VERSION%, %CONFIGURATION%]"
+  - 7z a setup.zip %APPVEYOR_BUILD_FOLDER%\setup\deploy\*.msi
 
 
 test:
@@ -53,3 +60,6 @@ notifications:
   - provider: Slack
     incoming_webhook:      
       secure: 4MH9Em6TtrKalq6808dhPOqypTfYBJvVlqPaa9akNyF1h7st5qNdNezFp6T+bWXqrcZ4q/smtPcJ7LkUFHL46JDYUFlIL8FDz+ApX/vP+x0=
+
+on_finish: 
+  - ps: Get-ChildItem setup.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
