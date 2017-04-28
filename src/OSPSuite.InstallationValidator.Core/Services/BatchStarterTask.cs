@@ -1,13 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Extensions;
 
 namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IBatchStarterTask
    {
-      Task StartBatch(string outputFolderPath, CancellationToken cancellationToken);
+      Task<BatchRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken);
    }
 
    public class BatchStarterTask : IBatchStarterTask
@@ -25,13 +28,43 @@ namespace OSPSuite.InstallationValidator.Core.Services
 
       private string logFilePath(string basePath) => Path.Combine(basePath, Constants.Tools.BATCH_LOG);
 
-      public Task StartBatch(string outputFolderPath, CancellationToken cancellationToken)
+      public async Task<BatchRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken)
       {
-         return Task.Run(() =>
+         var batchRunResult = new BatchRunSummary
+         {
+            ComputerName = Environment.MachineName,
+            StartTime = DateTime.Now,
+            MoBiVersion = moBiVersion(),
+            PKSimVersion = pkSimVersion(),
+            BatchOutputFolder = outputFolderPath,
+            OperatingSystem = Environment.OSVersion,
+            ConfigurationInputFolder = _applicationConfiguration.BatchInputsFolderPath
+         };
+
+         await Task.Run(() =>
          {
             var logFile = logFilePath(outputFolderPath);
             startBatchProcess(outputFolderPath, cancellationToken, logFile);
+            batchRunResult.EndTime = DateTime.Now;
          }, cancellationToken);
+
+         return batchRunResult;
+      }
+
+      private string moBiVersion()
+      {
+         return versionForPath(_applicationConfiguration.MoBiBinaryExecutablePath);
+      }
+
+      private string pkSimVersion()
+      {
+         return versionForPath(_applicationConfiguration.PKSimBinaryExecutablePath);
+      }
+
+      private static string versionForPath(string applicationConfigurationPKSimBinaryExecutablePath)
+      {
+         var versionInfo = FileVersionInfo.GetVersionInfo(applicationConfigurationPKSimBinaryExecutablePath);
+         return versionInfo.ProductVersion;
       }
 
       private void startBatchProcess(string outputFolderPath, CancellationToken cancellationToken, string logFile)

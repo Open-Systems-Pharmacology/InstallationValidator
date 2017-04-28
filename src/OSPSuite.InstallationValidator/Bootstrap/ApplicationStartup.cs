@@ -2,15 +2,12 @@
 using System.Windows.Forms;
 using Castle.Facilities.TypedFactory;
 using OSPSuite.Assets;
-using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Domain;
-using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.InstallationValidator.Views;
-using OSPSuite.Presentation.Presenters;
 using OSPSuite.Presentation.Services;
 using OSPSuite.Presentation.Views;
 using OSPSuite.UI.Mappers;
@@ -56,7 +53,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.Register<IDialogCreator, DialogCreator>();
          container.Register<IDialogResultToViewResultMapper, DialogResultToViewResultMapper>();
          container.Register<DirectoryMapSettings, DirectoryMapSettings>();
-        
+
          container.RegisterFactory<IStartableProcessFactory>();
          container.RegisterFactory<ILogWatcherFactory>();
          container.RegisterFactory<IFolderInfoFactory>();
