@@ -43,29 +43,23 @@ namespace OSPSuite.InstallationValidator.Bootstrap
          container.RegisterImplementationOf(getCurrentContext());
          container.WindsorContainer.AddFacility<TypedFactoryFacility>();
          container.WindsorContainer.AddFacility<EventRegisterFacility>();
+         container.AddRegister(x=>x.FromType<ValidatorRegister>());
          return container;
       }
 
       private void registerAllInContainer(IContainer container)
       {
          container.Register<IMainView, MainView>();
-         container.Register<IMainPresenter, MainPresenter>();
          container.Register<IExceptionManager, ExceptionManager>(LifeStyle.Singleton);
          container.Register<IExceptionView, ExceptionView>(LifeStyle.Singleton);
-         container.Register<ILogView, LogView>();
-         container.Register<ILogPresenter, LogPresenter>();
+         container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
          container.Register<IDialogCreator, DialogCreator>();
          container.Register<IDialogResultToViewResultMapper, DialogResultToViewResultMapper>();
          container.Register<DirectoryMapSettings, DirectoryMapSettings>();
-         container.Register<IApplicationConfiguration, IInstallationValidatorConfiguration, InstallationValidatorConfiguration>(LifeStyle.Singleton);
-         container.Register<IBatchStarterTask, BatchStarterTask>();
-         container.Register<IBatchComparisonTask, BatchComparisonTask>();
-         container.Register<StartableProcess, StartableProcess>();
-         container.Register<ILogWatcher, LogWatcher>();
-         container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
-
+        
          container.RegisterFactory<IStartableProcessFactory>();
          container.RegisterFactory<ILogWatcherFactory>();
+         container.RegisterFactory<IFolderInfoFactory>();
       }
 
       private SynchronizationContext getCurrentContext()

@@ -39,11 +39,11 @@ namespace OSPSuite.InstallationValidator.Core.Services
          var args = new[]
          {
             "-i",
-            _applicationConfiguration.BatchInputsFolderPath.SurroundWith("\""),
+            _applicationConfiguration.BatchInputsFolderPath.InQuotes(),
             "-o",
-            outputFolderPath.SurroundWith("\""),
+            outputFolderPath.InQuotes(),
             "-l",
-            logFile.SurroundWith("\"")
+            logFile.InQuotes(),
          };
 
          using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimBatchToolPath, args))

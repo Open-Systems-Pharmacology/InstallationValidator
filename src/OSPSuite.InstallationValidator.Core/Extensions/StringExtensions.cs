@@ -6,5 +6,10 @@
       {
          return $"{surroundString}{stringToSurround}{surroundString}";
       }
+
+      public static string InQuotes(this string stringToSurround)
+      {
+         return stringToSurround.SurroundWith("\"");
+      }
    }
 }

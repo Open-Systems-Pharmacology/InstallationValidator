@@ -42,7 +42,6 @@ namespace OSPSuite.InstallationValidator.Core
          return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), applicationFolderPath);
       }
 
-      // TODO - move to OSPSuite.Core
       public string PKSimInstallFolderPath
       {
          get
