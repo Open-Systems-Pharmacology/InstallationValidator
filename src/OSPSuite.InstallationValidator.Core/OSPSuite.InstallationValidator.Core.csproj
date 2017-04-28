@@ -175,10 +175,11 @@
     <Compile Include="Services\BatchComparisonTask.cs" />
     <Compile Include="Services\BatchOutputFileComparer.cs" />
     <Compile Include="Services\BatchOutputLoader.cs" />
-    <Compile Include="Services\BatchReportingTask.cs" />
+    <Compile Include="Services\ValidationReportingTask.cs" />
     <Compile Include="Services\BatchStarterTask.cs" />
     <Compile Include="Services\LogWatcherFactory.cs" />
     <Compile Include="Services\StartableProcessFactory.cs" />
+    <Compile Include="ValidationFileHelper.cs" />
     <Compile Include="ValidatorRegister.cs" />
   </ItemGroup>
   <ItemGroup>

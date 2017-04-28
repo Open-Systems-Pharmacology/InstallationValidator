@@ -81,26 +81,27 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder)
       {
          return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}'";
-
-      public static class Reporting
-      {
-         public static readonly string ValidationReport = "Validation Report";
-         public static readonly string InstallationValidationResults = "Installation Validation Results";
-         public static readonly string BatchRunSummary = "Batch Run Summary";
-         public static readonly string BatchComparisonResults = "Batch Comparison Results";
-         public static readonly string RunSummary = "Summary of Batch Run";
-         public static readonly string DateAndTime = "Date and Time";
-
-         public static readonly string BatchOutputFolder = "Batch Output Location";
-         public static readonly string ComputerName = "Computer Name";
-         public static readonly string OperatingSystem = "Operating System";
-         public static readonly string ApplicationVersions = "Application Versions";
-         public static readonly string ComparisonFolders = "Folders for Comparison";
-         public static readonly string DefaultTolerances = "Default Tolerances";
-         public static readonly string OverallComparisonResult = "Overall Comparison Result";
-         public static readonly string FailedValidations = "Failed Validations";
-         public static readonly string InputConfigurationFolder = "Input Configuration Folder";
-         public static readonly string BatchRunDuration = "Batch Run Duration";
       }
+   }
+
+   public static class Reporting
+   {
+      public static readonly string ValidationReport = "Validation Report";
+      public static readonly string InstallationValidationResults = "Installation Validation Results";
+      public static readonly string BatchRunSummary = "Batch Run Summary";
+      public static readonly string BatchComparisonResults = "Batch Comparison Results";
+      public static readonly string RunSummary = "Summary of Batch Run";
+      public static readonly string DateAndTime = "Date and Time";
+
+      public static readonly string BatchOutputFolder = "Batch Output Location";
+      public static readonly string ComputerName = "Computer Name";
+      public static readonly string OperatingSystem = "Operating System";
+      public static readonly string ApplicationVersions = "Application Versions";
+      public static readonly string ComparisonFolders = "Folders for Comparison";
+      public static readonly string DefaultTolerances = "Default Tolerances";
+      public static readonly string OverallComparisonResult = "Overall Comparison Result";
+      public static readonly string FailedValidations = "Failed Validations";
+      public static readonly string InputConfigurationFolder = "Input Configuration Folder";
+      public static readonly string BatchRunDuration = "Batch Run Duration";
    }
 }

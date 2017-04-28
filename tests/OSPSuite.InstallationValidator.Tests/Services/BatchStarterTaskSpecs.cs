@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
 using FakeItEasy;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
@@ -34,6 +36,21 @@ namespace OSPSuite.InstallationValidator.Services
 
    public class When_starting_a_validation : concern_for_BatchStarterTask
    {
+      private Func<string, string> _getVersionInfo;
+
+      public override void GlobalContext()
+      {
+         base.GlobalContext();
+         _getVersionInfo = ValidationFileHelper.GetVersion;
+         ValidationFileHelper.GetVersion = path => "1.0.0";
+      }
+
+      public override void GlobalCleanup()
+      {
+         base.GlobalCleanup();
+         ValidationFileHelper.GetVersion = _getVersionInfo;
+      }
+
       protected override void Because()
       {
          sut.StartBatch("./outputfolder", new CancellationToken()).Wait();

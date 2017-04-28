@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
-using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
 
 namespace OSPSuite.InstallationValidator.Core.Services
@@ -33,7 +32,7 @@ namespace OSPSuite.InstallationValidator.Core.Services
          var reportConfiguration = new ReportConfiguration
          {
             Template = _reportTemplateRepository.All().FirstOrDefault(),
-            Title = Captions.Reporting.ValidationReport,
+            Title = Assets.Reporting.ValidationReport,
             SubTitle = dateAndTime(),
             ReportFile = reportOutputPath(outputFolderPath)
          };
@@ -48,7 +47,7 @@ namespace OSPSuite.InstallationValidator.Core.Services
 
       private string reportOutputPath(string outputFilePath)
       {
-         return Path.Combine($"{outputFilePath}", $"{Captions.Reporting.ValidationReport}_{_dateTime:MM_dd_yy_H_mm_ss}.pdf");
+         return Path.Combine($"{outputFilePath}", $"{Assets.Reporting.ValidationReport}_{_dateTime:MM_dd_yy_H_mm_ss}.pdf");
       }
 
       private string dateAndTime()

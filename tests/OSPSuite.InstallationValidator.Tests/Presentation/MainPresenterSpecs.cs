@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FakeItEasy;
 using OSPSuite.BDDHelper;
 using OSPSuite.Core;
-using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
@@ -41,45 +40,17 @@ namespace OSPSuite.InstallationValidator.Presentation
       }
    }
 
-   public class When_cancaling_a_validation_is_declined : concern_for_MainPresenter
+   public class When_canceling_but_validation_not_started : concern_for_MainPresenter
    {
-      private CancellationToken _token;
-
-      protected override void Context()
+      protected override void Because()
       {
-         base.Context();
-         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Invokes((string aString, CancellationToken token) => _token = token);
-         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().Returns(ViewResult.No);
+         sut.Abort();
       }
 
       [Observation]
-      public async Task confirmation_is_requested_and_task_is_canceled()
+      public void the_confirmation_should_not_be_required()
       {
-         await sut.StartInstallationValidation();
-         sut.Abort();
-         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().MustHaveHappened();
-         _token.IsCancellationRequested.ShouldBeFalse();
-      }
-   }
-
-   public class When_canceling_a_validation : concern_for_MainPresenter
-   {
-      private CancellationToken _token;
-
-      protected override void Context()
-      {
-         base.Context();
-         A.CallTo(() => _batchStarterTask.StartBatch(A<string>._, A<CancellationToken>._)).Invokes((string aString, CancellationToken token) => _token = token);
-         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().Returns(ViewResult.Yes);
-      }
-
-      [Observation]
-      public async Task confirmation_is_requested_and_task_is_canceled()
-      {
-         await sut.StartInstallationValidation();
-         sut.Abort();
-         A.CallTo(_dialogCreator).WithReturnType<ViewResult>().MustHaveHappened();
-         _token.IsCancellationRequested.ShouldBeTrue();
+         A.CallTo(_dialogCreator).MustNotHaveHappened();
       }
    }
 
@@ -114,7 +85,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       public async Task the_view_should_be_notified_that_the_cancel_was_triggered()
       {
          await sut.StartInstallationValidation();
-         A.CallTo(() => _mainView.AppendText(Captions.TheValidationWasCanceled)).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendText(A<string>.That.Matches(x => x.Contains(Captions.TheValidationWasCanceled)))).MustHaveHappened();
       }
    }
    public class When_the_batch_start_throws_exception : concern_for_MainPresenter

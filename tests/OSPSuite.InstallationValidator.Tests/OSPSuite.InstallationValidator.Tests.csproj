@@ -124,6 +124,7 @@
     <Compile Include="Services\BatchComparisonTaskSpecs.cs" />
     <Compile Include="Services\BatchOutputFileComparerSpecs.cs" />
     <Compile Include="Services\BatchStarterTaskSpecs.cs" />
+    <Compile Include="Services\ValidationReportingTaskSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

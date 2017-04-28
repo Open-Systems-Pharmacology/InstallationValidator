@@ -22,13 +22,13 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
       {
          var report = new List<object>();
 
-         report.AddRange(new List<object> { new Section(Captions.Reporting.RunSummary),
-            new SubSection(Captions.Reporting.BatchRunDuration), durationFor(batchRunSummary),
-            new SubSection(Captions.Reporting.InputConfigurationFolder), inputFolderFor(batchRunSummary),
-            new SubSection(Captions.Reporting.BatchOutputFolder), outputCalculatedFolderLocation(batchRunSummary),
-            new SubSection(Captions.Reporting.ComputerName), computerName(batchRunSummary),
-            new SubSection(Captions.Reporting.OperatingSystem), operatingSystem(batchRunSummary),
-            new SubSection(Captions.Reporting.ApplicationVersions), applicationVersions(batchRunSummary)});
+         report.AddRange(new List<object> { new Section(Assets.Reporting.RunSummary),
+            new SubSection(Assets.Reporting.BatchRunDuration), durationFor(batchRunSummary),
+            new SubSection(Assets.Reporting.InputConfigurationFolder), inputFolderFor(batchRunSummary),
+            new SubSection(Assets.Reporting.BatchOutputFolder), outputCalculatedFolderLocation(batchRunSummary),
+            new SubSection(Assets.Reporting.ComputerName), computerName(batchRunSummary),
+            new SubSection(Assets.Reporting.OperatingSystem), operatingSystem(batchRunSummary),
+            new SubSection(Assets.Reporting.ApplicationVersions), applicationVersions(batchRunSummary)});
 
          _builderRepository.Report(report, buildTracker);
       }

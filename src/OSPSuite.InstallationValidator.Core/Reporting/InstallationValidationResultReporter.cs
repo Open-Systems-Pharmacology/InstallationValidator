@@ -10,7 +10,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
    {
       public override IReadOnlyCollection<object> Report(InstallationValidationResult objectToReport, OSPSuiteTracker buildTracker)
       {
-         var validationResultsChapter = new Chapter(Captions.Reporting.InstallationValidationResults);
+         var validationResultsChapter = new Chapter(Assets.Reporting.InstallationValidationResults);
          buildTracker.Track(validationResultsChapter);
          return new List<object>
          {

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Extensions;
+using OSPSuite.Utility;
 
 namespace OSPSuite.InstallationValidator.Core.Services
 {
@@ -61,10 +62,9 @@ namespace OSPSuite.InstallationValidator.Core.Services
          return versionForPath(_applicationConfiguration.PKSimBinaryExecutablePath);
       }
 
-      private static string versionForPath(string applicationConfigurationPKSimBinaryExecutablePath)
+      private static string versionForPath(string binaryExecutablePath)
       {
-         var versionInfo = FileVersionInfo.GetVersionInfo(applicationConfigurationPKSimBinaryExecutablePath);
-         return versionInfo.ProductVersion;
+         return ValidationFileHelper.GetVersion(binaryExecutablePath);
       }
 
       private void startBatchProcess(string outputFolderPath, CancellationToken cancellationToken, string logFile)

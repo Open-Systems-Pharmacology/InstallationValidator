@@ -70,8 +70,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          {
             updateValidationRunningState(running: true);
             logLine(Captions.StartingBatchCalculation);
-            InstallationValidationResult validationResult = new InstallationValidationResult();
-            validationResult.RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            var validationResult = new InstallationValidationResult {RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token)};
 
             logLine(Captions.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
