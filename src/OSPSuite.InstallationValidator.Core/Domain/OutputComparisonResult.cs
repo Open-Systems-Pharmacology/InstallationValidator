@@ -27,9 +27,40 @@ namespace OSPSuite.InstallationValidator.Core.Domain
    {
       public string Path { get; }
 
+      /// <summary>
+      ///    Values of output 1. Can be null typically for a valid state
+      /// </summary>
+      public OutputResult Output1 { get; set; }
+
+      /// <summary>
+      ///    Values of output 2. Can be null typically for a valid state
+      /// </summary>
+      public OutputResult Output2 { get; set; }
+
       public OutputComparisonResult(string path, ValidationState state, string message = null) : base(state, message)
       {
          Path = path;
+         Output1 = new NullOutputResult();
+         Output2 = new NullOutputResult();
+      }
+   }
+
+   public class OutputResult
+   {
+      public float[] Times { get; }
+      public float[] Values { get; }
+
+      public OutputResult(float[] times, float[] values)
+      {
+         Times = times;
+         Values = values;
+      }
+   }
+
+   public class NullOutputResult : OutputResult
+   {
+      public NullOutputResult() : base(new float[0], new float[0])
+      {
       }
    }
 
