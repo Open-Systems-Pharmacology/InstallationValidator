@@ -11,7 +11,7 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
       public static readonly string StartingBatchCalculation = "Starting batch calculations...";
       public static readonly string StartingComparison = "Starting output comparisons...";
-      public static readonly string StartReport = "Starting Report Creation...";
+      public static readonly string StartingReport = "Starting Report Creation...";
       public static readonly string ValidationCompleted = "Validation Completed";
 
       public static readonly string ValidationDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +

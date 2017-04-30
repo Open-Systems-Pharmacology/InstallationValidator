@@ -1,6 +1,8 @@
-﻿using OSPSuite.Core;
+﻿using Castle.Facilities.TypedFactory;
+using OSPSuite.Core;
 using OSPSuite.Core.Domain.UnitSystem;
 using OSPSuite.Core.Reporting;
+using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.Infrastructure.Services;
 using OSPSuite.InstallationValidator.Core.Domain;
@@ -40,6 +42,15 @@ namespace OSPSuite.InstallationValidator.Core
          container.Register<IReportTemplateRepository, ReportTemplateRepository>();
          container.RegisterImplementationOf(container.DowncastTo<IContainer>());
          container.Register<IDimensionFactory, DimensionFactory>();
+      }
+
+      public static IContainer Initialize()
+      {
+         var container = new CastleWindsorContainer();
+         IoC.InitializeWith(container);
+         container.WindsorContainer.AddFacility<TypedFactoryFacility>();
+         container.WindsorContainer.AddFacility<EventRegisterFacility>();
+         return container;
       }
    }
 }

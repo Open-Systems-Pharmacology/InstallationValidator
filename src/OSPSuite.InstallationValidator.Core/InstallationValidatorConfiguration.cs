@@ -44,48 +44,21 @@ namespace OSPSuite.InstallationValidator.Core
          return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), applicationFolderPath);
       }
 
-      public string PKSimBinaryExecutablePath
-      {
-         get
-         {
-            try
-            {
-               return (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{RegistryPaths.PKSIM_REG_PATH}{MajorVersion}", RegistryPaths.INSTALL_PATH, null);
-            }
-            catch (Exception)
-            {
-               return string.Empty;
-            }
-         }
-      }
+      public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(RegistryPaths.PKSIM_REG_PATH, RegistryPaths.INSTALL_PATH);
 
-      public string MoBiBinaryExecutablePath
-      {
-         get
-         {
-            try
-            {
-               return (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{RegistryPaths.MOBI_REG_PATH}{MajorVersion}", RegistryPaths.INSTALL_PATH, null);
-            }
-            catch (Exception)
-            {
-               return string.Empty;
-            }
-         }
-      }
+      public string MoBiBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(RegistryPaths.MOBI_REG_PATH, RegistryPaths.INSTALL_PATH);
 
-      public string PKSimInstallFolderPath
+      public string PKSimInstallFolderPath => getRegistryValueForRegistryPathAndKey(RegistryPaths.PKSIM_REG_PATH, RegistryPaths.INSTALL_DIR);
+
+      private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacologyPKSim, string installDir)
       {
-         get
+         try
          {
-            try
-            {
-               return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{RegistryPaths.PKSIM_REG_PATH}{MajorVersion}", RegistryPaths.INSTALL_DIR, null);
-            }
-            catch (Exception)
-            {
-               return string.Empty;
-            }
+            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacologyPKSim}{MajorVersion}", installDir, null);
+         }
+         catch (Exception)
+         {
+            return string.Empty;
          }
       }
 

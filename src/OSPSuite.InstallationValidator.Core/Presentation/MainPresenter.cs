@@ -75,7 +75,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
             logLine(Captions.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
 
-            logLine(Captions.StartReport);
+            logLine(Captions.StartingReport);
             await _validationReportingTask.StartReport(validationResult, _outputFolderDTO.FolderPath);
          }
          catch (OperationCanceledException)
@@ -95,7 +95,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logLine(string textToLog)
       {
-         logText($"{textToLog}{Environment.NewLine}");
+         logText($"{Environment.NewLine}{textToLog}");
       }
 
       private void updateValidationRunningState(bool running)

@@ -39,7 +39,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
 
       public override void Build(T fileComparisonResult, OSPSuiteTracker buildTracker)
       {
-         var chapter = new SubSubSection(titleFor(fileComparisonResult));
+         var chapter = buildTracker.GetStructureElementRelativeToLast(titleFor(fileComparisonResult), 1);
          var report = new List<object> { chapter, fileComparisonResult.State };
          buildTracker.Track(chapter);
 
@@ -77,7 +77,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          _builderRepository.Report(missingFileReport(fileComparisonResult), buildTracker);
       }
 
-      private object missingFileReport(MissingFileComparisonResult fileComparisonResult)
+      private string missingFileReport(MissingFileComparisonResult fileComparisonResult)
       {
          return $"{fileComparisonResult.FileName} was contained in folder:{Environment.NewLine}{fileComparisonResult.FolderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{fileComparisonResult.FolderWithoutFile}";
       }

@@ -35,11 +35,8 @@ namespace OSPSuite.InstallationValidator.Bootstrap
 
       private IContainer initializeContainer()
       {
-         var container = new CastleWindsorContainer();
-         IoC.InitializeWith(container);
+         var container = ValidatorRegister.Initialize();
          container.RegisterImplementationOf(getCurrentContext());
-         container.WindsorContainer.AddFacility<TypedFactoryFacility>();
-         container.WindsorContainer.AddFacility<EventRegisterFacility>();
          container.AddRegister(x=>x.FromType<ValidatorRegister>());
          return container;
       }

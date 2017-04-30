@@ -42,14 +42,13 @@ namespace OSPSuite.InstallationValidator.Core.Services
             ConfigurationInputFolder = _applicationConfiguration.BatchInputsFolderPath
          };
 
-         await Task.Run(() =>
+         return await Task.Run(() =>
          {
             var logFile = logFilePath(outputFolderPath);
             startBatchProcess(outputFolderPath, cancellationToken, logFile);
             batchRunResult.EndTime = DateTime.Now;
+            return batchRunResult;
          }, cancellationToken);
-
-         return batchRunResult;
       }
 
       private string moBiVersion()

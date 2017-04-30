@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using OSPSuite.Infrastructure.Reporting;
-using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.TeXReporting.Builder;
 using OSPSuite.TeXReporting.Items;
@@ -33,12 +32,12 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          _builderRepository.Report(report, buildTracker);
       }
 
-      private object inputFolderFor(BatchRunSummary batchRunSummary)
+      private string inputFolderFor(BatchRunSummary batchRunSummary)
       {
          return batchRunSummary.ConfigurationInputFolder;
       }
 
-      private object durationFor(BatchRunSummary batchRunSummary)
+      private string durationFor(BatchRunSummary batchRunSummary)
       {
          return $"{convertDateTimeToString(batchRunSummary.StartTime)} to {convertDateTimeToString(batchRunSummary.EndTime)}";
       }
@@ -48,22 +47,22 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          return startTime.ToLocalTime().ToString(CultureInfo.InvariantCulture);
       }
 
-      private object applicationVersions(BatchRunSummary installationValidationSummary)
+      private string applicationVersions(BatchRunSummary installationValidationSummary)
       {
          return $"PKSim Version {installationValidationSummary.PKSimVersion}{Environment.NewLine}MoBi Version {installationValidationSummary.MoBiVersion}";
       }
 
-      private object outputCalculatedFolderLocation(BatchRunSummary installationValidationSummary)
+      private string outputCalculatedFolderLocation(BatchRunSummary installationValidationSummary)
       {
          return installationValidationSummary.BatchOutputFolder;
       }
 
-      private object operatingSystem(BatchRunSummary installationValidationSummary)
+      private OperatingSystem operatingSystem(BatchRunSummary installationValidationSummary)
       {
          return installationValidationSummary.OperatingSystem;
       }
 
-      private object computerName(BatchRunSummary installationValidationSummary)
+      private string computerName(BatchRunSummary installationValidationSummary)
       {
          return installationValidationSummary.ComputerName;
       }

@@ -16,6 +16,5 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
             validationResultsChapter, installationValidationResult.RunSummary, installationValidationResult.ComparisonResult
          };
       }
-
    }
 }
