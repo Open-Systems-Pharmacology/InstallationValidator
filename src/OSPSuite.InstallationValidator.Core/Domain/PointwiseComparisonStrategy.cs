@@ -17,7 +17,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          var deviation = calculateDeviation(outputValues1, outputValues2);
 
          comparisonResult = deviation > Constants.MAX_DEVIATION_OUTPUT
-            ? outputDeviationTooLargeComparisonResult(outputValues1, deviation)
+            ? outputDeviationTooLargeComparisonResult(outputValues1, outputValues2, deviation)
             : new OutputComparisonResult(outputValues1.Path, ValidationState.Valid);
 
          comparisonResult.Deviation = deviation;
@@ -114,9 +114,13 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          return new TimeComparisonResult(ValidationState.Invalid, Validation.DeviationForTimeGreaterThanMaxTolearance(deviation, Constants.MAX_DEVIATION_TIME));
       }
 
-      private static OutputComparisonResult outputDeviationTooLargeComparisonResult(BatchOutputComparison outputValues1, double deviation)
+      private static OutputComparisonResult outputDeviationTooLargeComparisonResult(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation)
       {
-         return new OutputComparisonResult(outputValues1.Path, ValidationState.Invalid, Validation.DeviationForVariableGreaterThanMaxTolerance(outputValues1.Path, deviation, Constants.MAX_DEVIATION_OUTPUT));
+         return new OutputComparisonResult(outputValues1.Path, ValidationState.Invalid, Validation.DeviationForVariableGreaterThanMaxTolerance(outputValues1.Path, deviation, Constants.MAX_DEVIATION_OUTPUT))
+         {
+            Output1 = new OutputResult(outputValues1.Times, outputValues1.Values),
+            Output2 = new OutputResult(outputValues2.Times, outputValues2.Values)
+         };
       }
 
       private static OutputComparisonResult differentOutputLengthComparisonResult(BatchOutputComparison outputValues1, BatchOutputValues values1, BatchOutputValues values2)

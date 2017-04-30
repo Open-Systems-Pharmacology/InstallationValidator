@@ -199,6 +199,13 @@ namespace OSPSuite.InstallationValidator.Domain
       {
          _result.State.ShouldBeEqualTo(ValidationState.Valid);
       }
+
+      [Observation]
+      public void should_have_set_the_output_values_to_default_output_values()
+      {
+         _result.Output1.ShouldBeAnInstanceOf<NullOutputResult>();
+         _result.Output2.ShouldBeAnInstanceOf<NullOutputResult>();
+      }
    }
 
    public class When_comparing_output_values_based_on_two_simulations_leading_to_a_deviation_greater_than_allowed_tolerance : concern_for_PointwiseComparisonStrategy
@@ -208,6 +215,9 @@ namespace OSPSuite.InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
+         _simulation1.Time = new[] { 1f, 2f, 3f };
+         _simulation2.Time = new[] { 1f, 2f, 4f };
+
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, 0.01f};
          _outputValues2.Values = new[] {1f, 2f, 0, 4f, 0.05f};
       }
@@ -222,6 +232,15 @@ namespace OSPSuite.InstallationValidator.Domain
       {
          _result.State.ShouldBeEqualTo(ValidationState.Invalid);
          _result.Deviation.ShouldBeGreaterThan(Constants.MAX_DEVIATION_OUTPUT);
+      }
+
+      [Observation]
+      public void should_have_set_the_output_values_that_can_be_used_for_further_analyses()
+      {
+         _result.Output1.Times.ShouldBeEqualTo(_simulation1.Time);
+         _result.Output2.Times.ShouldBeEqualTo(_simulation2.Time);
+         _result.Output1.Values.ShouldBeEqualTo(_outputValues1.Values);
+         _result.Output2.Values.ShouldBeEqualTo(_outputValues2.Values);
       }
    }
 }

@@ -34,7 +34,6 @@ after_build:
   - rake "create_setup[%APPVEYOR_BUILD_VERSION%, %CONFIGURATION%]"
   - 7z a setup.zip %APPVEYOR_BUILD_FOLDER%\setup\deploy\*.msi
 
-
 test:
   assemblies:
     - OSPSuite.InstallationValidator.Tests.dll
