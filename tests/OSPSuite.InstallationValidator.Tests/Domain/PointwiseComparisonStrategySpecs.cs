@@ -199,6 +199,13 @@ namespace OSPSuite.InstallationValidator.Domain
       {
          _result.State.ShouldBeEqualTo(ValidationState.Valid);
       }
+
+      [Observation]
+      public void should_have_set_the_output_values_to_default_output_values()
+      {
+         _result.Output1.ShouldBeAnInstanceOf<NullOutputResult>();
+         _result.Output2.ShouldBeAnInstanceOf<NullOutputResult>();
+      }
    }
 
    public class When_comparing_output_values_based_on_two_simulations_leading_to_a_deviation_greater_than_allowed_tolerance : concern_for_PointwiseComparisonStrategy
