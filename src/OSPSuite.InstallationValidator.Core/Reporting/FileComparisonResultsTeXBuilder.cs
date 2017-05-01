@@ -35,9 +35,9 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
 
       public override void Build(T fileComparisonResult, OSPSuiteTracker buildTracker)
       {
-         var chapter = new SubSubSection(titleFor(fileComparisonResult));
-         var report = new List<object> {chapter, fileComparisonResult.State};
-         buildTracker.Track(chapter);
+         var subParagraph = new SubParagraph(titleFor(fileComparisonResult));
+         var report = new List<object> {subParagraph, fileComparisonResult.State};
+         buildTracker.Track(subParagraph);
 
          _builderRepository.Report(report, buildTracker);
       }
