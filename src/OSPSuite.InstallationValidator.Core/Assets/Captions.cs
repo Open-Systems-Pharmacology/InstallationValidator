@@ -24,24 +24,38 @@ namespace OSPSuite.InstallationValidator.Core.Assets
 
    public static class Exceptions
    {
-      public static string ExceptionSupportMessage(string issueTrackerUrl)
+      public static readonly string CopyToClipboard = "Copy to Clipboard";
+      public const string OutputNotDefined = "Output not defined!";
+      public static string ArraysHaveDifferentLength(int length1, int length2) => $"Array used in comparison have different lengths ({length1} vs {length2}";
+
+      // TODO - change the implementation in Core and modify ExceptionView to use a RichEditControl instead of a label if the text does not display correctly
+      public static string ExceptionViewDescription(string issueTrackerUrl)
       {
          var sb = new StringBuilder();
-         sb.AppendLine("oops...something went terribly wrong.");
-         sb.AppendLine();
-         sb.AppendLine("To best address the error, please enter an issue in our issue tracker:");
-         sb.AppendLine($"    1 - Visit {issueTrackerUrl}");
-         sb.AppendLine("    2 - Click on the 'New Issue' button");
-         sb.AppendLine("    3 - Describe the steps you took prior to the problem emerging");
-         sb.AppendLine("    4 - Copy the information below and paste it in the issue description");
-         sb.AppendLine("    5 - if possible, attach your project file to the issue (do not attach confidential information)");
-         sb.AppendLine();
-         sb.AppendLine("Note: A GitHub account is required to create an issue");
+         appendLine("oops...something went terribly wrong.", sb);
+         appendLine(string.Empty, sb);
+         appendLine("To best address the error, please enter an issue in our issue tracker:", sb);
+         sb.Append("<ol>");
+         appendListItem($"Visit <b>{issueTrackerUrl}</b> or click on the link below", sb);
+         appendListItem("Click on the <b>New Issue</b> button", sb);
+         appendListItem("Describe the steps you took prior to the problem emerging", sb);
+         appendListItem($"Copy the information below by using the <b>{CopyToClipboard}</b> button and paste it in the issue description", sb);
+         appendListItem("if possible, attach your project file to the issue (do not attach confidential information)", sb);
+         sb.Append("</ol>");
+         appendLine(string.Empty, sb);
+         appendLine("Note: A GitHub account is required to create an issue", sb);
          return sb.ToString();
       }
 
-      public const string OutputNotDefined = "Output not defined!";
-      public static string ArraysHaveDifferentLength(int length1, int length2) => $"Array used in comparison have different lengths ({length1} vs {length2}";
+      private static void appendListItem(string listItem, StringBuilder sb)
+      {
+         sb.Append($"<li>{listItem}</li>");
+      }
+
+      private static void appendLine(string lineToAppend, StringBuilder sb)
+      {
+         sb.Append($"<p>{lineToAppend}</p>");
+      }
    }
 
    public static class Validation

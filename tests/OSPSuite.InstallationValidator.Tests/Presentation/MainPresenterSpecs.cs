@@ -59,13 +59,6 @@ namespace OSPSuite.InstallationValidator.Presentation
       private string _newText = "Text";
 
       [Observation]
-      public void view_is_notified_of_reset_events()
-      {
-         sut.Handle(new LogResetEvent(_newText));
-         A.CallTo(() => _mainView.ResetText(_newText)).MustHaveHappened();
-      }
-
-      [Observation]
       public void view_is_notified_of_append_events()
       {
          sut.Handle(new LogAppendedEvent(_newText));
@@ -104,7 +97,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       [Observation]
       public void the_view_should_be_updated_with_exception_information()
       {
-         A.CallTo(() => _mainView.AppendText(Exceptions.ExceptionSupportMessage(Constants.ISSUE_TRACKER_URL))).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendHTML(Exceptions.ExceptionViewDescription(Constants.ISSUE_TRACKER_URL))).MustHaveHappened();
       }
    }
 

@@ -9,5 +9,6 @@ namespace OSPSuite.InstallationValidator.Core.Presentation.Views
       void ValidationIsRunning(bool validationRunning);
       void AppendText(string newText);
       void ResetText(string newText);
+      void AppendHTML(string htmlToLog);
    }
 }

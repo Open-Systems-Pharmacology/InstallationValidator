@@ -15,7 +15,7 @@ using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainVi
 
 namespace OSPSuite.InstallationValidator.Core.Presentation
 {
-   public interface IMainPresenter : IDisposablePresenter, IListener<LogAppendedEvent>, IListener<LogResetEvent>
+   public interface IMainPresenter : IDisposablePresenter, IListener<LogAppendedEvent>
    {
       void SelectOutputFolder();
       void Abort();
@@ -69,7 +69,9 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          try
          {
             updateValidationRunningState(running: true);
+            resetLog();
             logLine(Captions.StartingBatchCalculation);
+            logLine();
             var validationResult = new InstallationValidationResult {RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token)};
 
             logLine(Captions.StartingComparison);
@@ -93,9 +95,9 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
       }
 
-      private void logLine(string textToLog)
+      private void logLine(string textToLog = "")
       {
-         logText($"{Environment.NewLine}{textToLog}${Environment.NewLine}");
+         logText($"{Environment.NewLine}{textToLog}");
       }
 
       private void updateValidationRunningState(bool running)
@@ -111,9 +113,14 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logException(Exception e)
       {
-         logText(Exceptions.ExceptionSupportMessage(_configuration.IssueTrackerUrl));
+         logHTML(Exceptions.ExceptionViewDescription(_configuration.IssueTrackerUrl));
          logText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
          logText($"{Environment.NewLine}{Environment.NewLine}");
+      }
+
+      private void logHTML(string htmlToLog)
+      {
+         View.AppendHTML(htmlToLog);
       }
 
       public void Handle(LogAppendedEvent eventToHandle)
@@ -121,9 +128,9 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          logText(eventToHandle.NewText);
       }
 
-      public void Handle(LogResetEvent eventToHandle)
+      private void resetLog()
       {
-         View.ResetText(eventToHandle.NewText);
+         View.ResetText(string.Empty);
       }
    }
 }

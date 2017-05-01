@@ -30,13 +30,13 @@
       private void InitializeComponent()
       {
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
-         this.memoEditLogMessages = new DevExpress.XtraEditors.MemoEdit();
+         this.labelValidationDescription = new DevExpress.XtraEditors.LabelControl();
          this.outputFolderButton = new DevExpress.XtraEditors.ButtonEdit();
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemOutputButton = new DevExpress.XtraLayout.LayoutControlItem();
-         this.layoutControlItemLogMessages = new DevExpress.XtraLayout.LayoutControlItem();
-         this.labelValidationDescription = new DevExpress.XtraEditors.LabelControl();
          this.layoutControlItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
+         this.richEditControl = new DevExpress.XtraRichEdit.RichEditControl();
+         this.layoutControlItemRichEdit = new DevExpress.XtraLayout.LayoutControlItem();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlBase)).BeginInit();
          this.layoutControlBase.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroupBase)).BeginInit();
@@ -47,12 +47,11 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.memoEditLogMessages.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemLogMessages)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemDescription)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).BeginInit();
          this.SuspendLayout();
          // 
          // btnCancel
@@ -102,8 +101,8 @@
          // 
          // layoutControl
          // 
+         this.layoutControl.Controls.Add(this.richEditControl);
          this.layoutControl.Controls.Add(this.labelValidationDescription);
-         this.layoutControl.Controls.Add(this.memoEditLogMessages);
          this.layoutControl.Controls.Add(this.outputFolderButton);
          this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.layoutControl.Location = new System.Drawing.Point(0, 0);
@@ -113,13 +112,14 @@
          this.layoutControl.TabIndex = 38;
          this.layoutControl.Text = "layoutControl";
          // 
-         // memoEditLogMessages
+         // labelValidationDescription
          // 
-         this.memoEditLogMessages.Location = new System.Drawing.Point(12, 53);
-         this.memoEditLogMessages.Name = "memoEditLogMessages";
-         this.memoEditLogMessages.Size = new System.Drawing.Size(737, 412);
-         this.memoEditLogMessages.StyleController = this.layoutControl;
-         this.memoEditLogMessages.TabIndex = 5;
+         this.labelValidationDescription.Location = new System.Drawing.Point(168, 12);
+         this.labelValidationDescription.Name = "labelValidationDescription";
+         this.labelValidationDescription.Size = new System.Drawing.Size(121, 13);
+         this.labelValidationDescription.StyleController = this.layoutControl;
+         this.labelValidationDescription.TabIndex = 6;
+         this.labelValidationDescription.Text = "labelValidationDescription";
          // 
          // outputFolderButton
          // 
@@ -137,8 +137,8 @@
          this.layoutControlGroup.GroupBordersVisible = false;
          this.layoutControlGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItemOutputButton,
-            this.layoutControlItemLogMessages,
-            this.layoutControlItemDescription});
+            this.layoutControlItemDescription,
+            this.layoutControlItemRichEdit});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(761, 477);
@@ -152,24 +152,6 @@
          this.layoutControlItemOutputButton.Size = new System.Drawing.Size(741, 24);
          this.layoutControlItemOutputButton.TextSize = new System.Drawing.Size(153, 13);
          // 
-         // layoutControlItemLogMessages
-         // 
-         this.layoutControlItemLogMessages.Control = this.memoEditLogMessages;
-         this.layoutControlItemLogMessages.Location = new System.Drawing.Point(0, 41);
-         this.layoutControlItemLogMessages.Name = "layoutControlItemLogMessages";
-         this.layoutControlItemLogMessages.Size = new System.Drawing.Size(741, 416);
-         this.layoutControlItemLogMessages.TextSize = new System.Drawing.Size(0, 0);
-         this.layoutControlItemLogMessages.TextVisible = false;
-         // 
-         // labelValidationDescription
-         // 
-         this.labelValidationDescription.Location = new System.Drawing.Point(168, 12);
-         this.labelValidationDescription.Name = "labelValidationDescription";
-         this.labelValidationDescription.Size = new System.Drawing.Size(121, 13);
-         this.labelValidationDescription.StyleController = this.layoutControl;
-         this.labelValidationDescription.TabIndex = 6;
-         this.labelValidationDescription.Text = "labelValidationDescription";
-         // 
          // layoutControlItemDescription
          // 
          this.layoutControlItemDescription.Control = this.labelValidationDescription;
@@ -177,6 +159,24 @@
          this.layoutControlItemDescription.Name = "layoutControlItemDescription";
          this.layoutControlItemDescription.Size = new System.Drawing.Size(741, 17);
          this.layoutControlItemDescription.TextSize = new System.Drawing.Size(153, 13);
+         // 
+         // richEditControl
+         // 
+         this.richEditControl.Location = new System.Drawing.Point(12, 53);
+         this.richEditControl.Name = "richEditControl";
+         this.richEditControl.Options.Export.Rtf.ExportTheme = true;
+         this.richEditControl.Size = new System.Drawing.Size(737, 412);
+         this.richEditControl.TabIndex = 7;
+         this.richEditControl.Text = "richEditControl1";
+         // 
+         // layoutControlItemRichEdit
+         // 
+         this.layoutControlItemRichEdit.Control = this.richEditControl;
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 41);
+         this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(741, 416);
+         this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutControlItemRichEdit.TextVisible = false;
          // 
          // MainView
          // 
@@ -199,12 +199,11 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.memoEditLogMessages.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemLogMessages)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemDescription)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -216,9 +215,9 @@
       private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
       private DevExpress.XtraEditors.ButtonEdit outputFolderButton;
       private DevExpress.XtraLayout.LayoutControlItem layoutControlItemOutputButton;
-      private DevExpress.XtraEditors.MemoEdit memoEditLogMessages;
-      private DevExpress.XtraLayout.LayoutControlItem layoutControlItemLogMessages;
       private DevExpress.XtraEditors.LabelControl labelValidationDescription;
       private DevExpress.XtraLayout.LayoutControlItem layoutControlItemDescription;
+      private DevExpress.XtraRichEdit.RichEditControl richEditControl;
+      private DevExpress.XtraLayout.LayoutControlItem layoutControlItemRichEdit;
    }
 }
