@@ -8,11 +8,11 @@ using OSPSuite.Utility.Extensions;
 
 namespace OSPSuite.InstallationValidator.Core.Reporting
 {
-   public class FileComparisonResultsTexBuilder : OSPSuiteTeXBuilder<IEnumerable<FileComparisonResult>>
+   public class FileComparisonResultsTeXBuilder : OSPSuiteTeXBuilder<IEnumerable<FileComparisonResult>>
    {
       private readonly ITeXBuilderRepository _texBuilderRepository;
 
-      public FileComparisonResultsTexBuilder(ITeXBuilderRepository texBuilderRepository)
+      public FileComparisonResultsTeXBuilder(ITeXBuilderRepository texBuilderRepository)
       {
          _texBuilderRepository = texBuilderRepository;
       }

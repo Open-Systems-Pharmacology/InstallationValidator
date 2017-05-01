@@ -11,11 +11,11 @@ using OSPSuite.Utility.Extensions;
 
 namespace OSPSuite.InstallationValidator.Core.Reporting
 {
-   public class ValidationStateTexBuilder : OSPSuiteTeXBuilder<ValidationState>
+   public class ValidationStateTeXBuilder : OSPSuiteTeXBuilder<ValidationState>
    {
       private readonly ITeXBuilderRepository _builderRepository;
 
-      public ValidationStateTexBuilder(ITeXBuilderRepository builderRepository)
+      public ValidationStateTeXBuilder(ITeXBuilderRepository builderRepository)
       {
          _builderRepository = builderRepository;
       }
@@ -53,12 +53,12 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
    }
 
 
-   // TODO - make TextTexBuilder from reporting public so it can be inherited
-   public class ColorTextTexBuilder : TeXChunkBuilder<ColorText>
+   // TODO - make TextTeXBuilder from reporting public so it can be inherited
+   public class ColorTextTeXBuilder : TeXChunkBuilder<ColorText>
    {
       private readonly ITeXBuilderRepository _builderRepository;
 
-      public ColorTextTexBuilder(ITeXBuilderRepository builderRepository)
+      public ColorTextTeXBuilder(ITeXBuilderRepository builderRepository)
       {
          _builderRepository = builderRepository;
       }
@@ -98,7 +98,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          return colorizedText(alignedText(text.Alignment, styledText(text.FontStyle, newText)), text.Color);
       }
 
-      // TODO - when the TextTexBuilder from Utility is inherited, this is the only method to keep
+      // TODO - when the TextTeXBuilder from Utility is inherited, this is the only method to keep
       private string colorizedText(string text, Color theColor)
       {
          return theColor.IsEmpty ? text : $"\\definecolor{{theColor}}{{rgb}}{{{theColor.R},{theColor.G}, {theColor.B}}}\\textcolor{{theColor}}{{{text}}}";

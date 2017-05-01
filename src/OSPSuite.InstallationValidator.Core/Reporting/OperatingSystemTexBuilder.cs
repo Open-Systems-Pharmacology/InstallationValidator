@@ -4,11 +4,11 @@ using OSPSuite.TeXReporting.Builder;
 
 namespace OSPSuite.InstallationValidator.Core.Reporting
 {
-   public class OperatingSystemTexBuilder : OSPSuiteTeXBuilder<OperatingSystem>
+   public class OperatingSystemTeXBuilder : OSPSuiteTeXBuilder<OperatingSystem>
    {
       private readonly ITeXBuilderRepository _builderRepository;
 
-      public OperatingSystemTexBuilder(ITeXBuilderRepository builderRepository)
+      public OperatingSystemTeXBuilder(ITeXBuilderRepository builderRepository)
       {
          _builderRepository = builderRepository;
       }
