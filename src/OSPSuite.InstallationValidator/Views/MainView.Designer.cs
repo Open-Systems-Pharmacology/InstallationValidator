@@ -30,12 +30,12 @@
       private void InitializeComponent()
       {
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+         this.richEditControl = new DevExpress.XtraRichEdit.RichEditControl();
          this.labelValidationDescription = new DevExpress.XtraEditors.LabelControl();
          this.outputFolderButton = new DevExpress.XtraEditors.ButtonEdit();
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemOutputButton = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutControlItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
-         this.richEditControl = new DevExpress.XtraRichEdit.RichEditControl();
          this.layoutControlItemRichEdit = new DevExpress.XtraLayout.LayoutControlItem();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlBase)).BeginInit();
          this.layoutControlBase.SuspendLayout();
@@ -56,48 +56,48 @@
          // 
          // btnCancel
          // 
-         this.btnCancel.Location = new System.Drawing.Point(620, 12);
-         this.btnCancel.Size = new System.Drawing.Size(129, 22);
+         this.btnCancel.Location = new System.Drawing.Point(698, 12);
+         this.btnCancel.Size = new System.Drawing.Size(146, 22);
          // 
          // btnOk
          // 
-         this.btnOk.Location = new System.Drawing.Point(464, 12);
-         this.btnOk.Size = new System.Drawing.Size(152, 22);
+         this.btnOk.Location = new System.Drawing.Point(522, 12);
+         this.btnOk.Size = new System.Drawing.Size(172, 22);
          // 
          // layoutControlBase
          // 
-         this.layoutControlBase.Location = new System.Drawing.Point(0, 477);
-         this.layoutControlBase.Size = new System.Drawing.Size(761, 46);
+         this.layoutControlBase.Location = new System.Drawing.Point(0, 538);
+         this.layoutControlBase.Size = new System.Drawing.Size(856, 46);
          this.layoutControlBase.Controls.SetChildIndex(this.btnCancel, 0);
          this.layoutControlBase.Controls.SetChildIndex(this.btnOk, 0);
          this.layoutControlBase.Controls.SetChildIndex(this.btnExtra, 0);
          // 
          // btnExtra
          // 
-         this.btnExtra.Size = new System.Drawing.Size(222, 22);
+         this.btnExtra.Size = new System.Drawing.Size(251, 22);
          // 
          // layoutControlGroupBase
          // 
-         this.layoutControlGroupBase.Size = new System.Drawing.Size(761, 46);
+         this.layoutControlGroupBase.Size = new System.Drawing.Size(856, 46);
          // 
          // layoutItemOK
          // 
-         this.layoutItemOK.Location = new System.Drawing.Point(452, 0);
-         this.layoutItemOK.Size = new System.Drawing.Size(156, 26);
+         this.layoutItemOK.Location = new System.Drawing.Point(510, 0);
+         this.layoutItemOK.Size = new System.Drawing.Size(176, 26);
          // 
          // layoutItemCancel
          // 
-         this.layoutItemCancel.Location = new System.Drawing.Point(608, 0);
-         this.layoutItemCancel.Size = new System.Drawing.Size(133, 26);
+         this.layoutItemCancel.Location = new System.Drawing.Point(686, 0);
+         this.layoutItemCancel.Size = new System.Drawing.Size(150, 26);
          // 
          // emptySpaceItemBase
          // 
-         this.emptySpaceItemBase.Location = new System.Drawing.Point(226, 0);
-         this.emptySpaceItemBase.Size = new System.Drawing.Size(226, 26);
+         this.emptySpaceItemBase.Location = new System.Drawing.Point(255, 0);
+         this.emptySpaceItemBase.Size = new System.Drawing.Size(255, 26);
          // 
          // layoutItemExtra
          // 
-         this.layoutItemExtra.Size = new System.Drawing.Size(226, 26);
+         this.layoutItemExtra.Size = new System.Drawing.Size(255, 26);
          // 
          // layoutControl
          // 
@@ -108,9 +108,18 @@
          this.layoutControl.Location = new System.Drawing.Point(0, 0);
          this.layoutControl.Name = "layoutControl";
          this.layoutControl.Root = this.layoutControlGroup;
-         this.layoutControl.Size = new System.Drawing.Size(761, 477);
+         this.layoutControl.Size = new System.Drawing.Size(856, 538);
          this.layoutControl.TabIndex = 38;
          this.layoutControl.Text = "layoutControl";
+         // 
+         // richEditControl
+         // 
+         this.richEditControl.Location = new System.Drawing.Point(12, 53);
+         this.richEditControl.Name = "richEditControl";
+         this.richEditControl.Options.Export.Rtf.ExportTheme = true;
+         this.richEditControl.Size = new System.Drawing.Size(832, 473);
+         this.richEditControl.TabIndex = 7;
+         this.richEditControl.Text = "richEditControl1";
          // 
          // labelValidationDescription
          // 
@@ -127,7 +136,7 @@
          this.outputFolderButton.Name = "outputFolderButton";
          this.outputFolderButton.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-         this.outputFolderButton.Size = new System.Drawing.Size(581, 20);
+         this.outputFolderButton.Size = new System.Drawing.Size(676, 20);
          this.outputFolderButton.StyleController = this.layoutControl;
          this.outputFolderButton.TabIndex = 4;
          // 
@@ -141,7 +150,7 @@
             this.layoutControlItemRichEdit});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
          this.layoutControlGroup.Name = "layoutControlGroup";
-         this.layoutControlGroup.Size = new System.Drawing.Size(761, 477);
+         this.layoutControlGroup.Size = new System.Drawing.Size(856, 538);
          this.layoutControlGroup.TextVisible = false;
          // 
          // layoutControlItemOutputButton
@@ -149,7 +158,7 @@
          this.layoutControlItemOutputButton.Control = this.outputFolderButton;
          this.layoutControlItemOutputButton.Location = new System.Drawing.Point(0, 17);
          this.layoutControlItemOutputButton.Name = "layoutControlItemOutputButton";
-         this.layoutControlItemOutputButton.Size = new System.Drawing.Size(741, 24);
+         this.layoutControlItemOutputButton.Size = new System.Drawing.Size(836, 24);
          this.layoutControlItemOutputButton.TextSize = new System.Drawing.Size(153, 13);
          // 
          // layoutControlItemDescription
@@ -157,24 +166,15 @@
          this.layoutControlItemDescription.Control = this.labelValidationDescription;
          this.layoutControlItemDescription.Location = new System.Drawing.Point(0, 0);
          this.layoutControlItemDescription.Name = "layoutControlItemDescription";
-         this.layoutControlItemDescription.Size = new System.Drawing.Size(741, 17);
+         this.layoutControlItemDescription.Size = new System.Drawing.Size(836, 17);
          this.layoutControlItemDescription.TextSize = new System.Drawing.Size(153, 13);
-         // 
-         // richEditControl
-         // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 53);
-         this.richEditControl.Name = "richEditControl";
-         this.richEditControl.Options.Export.Rtf.ExportTheme = true;
-         this.richEditControl.Size = new System.Drawing.Size(737, 412);
-         this.richEditControl.TabIndex = 7;
-         this.richEditControl.Text = "richEditControl1";
          // 
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
          this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 41);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(741, 416);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(836, 477);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -183,7 +183,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.Caption = "MainView";
-         this.ClientSize = new System.Drawing.Size(761, 523);
+         this.ClientSize = new System.Drawing.Size(856, 584);
          this.Controls.Add(this.layoutControl);
          this.Name = "MainView";
          this.Text = "MainView";

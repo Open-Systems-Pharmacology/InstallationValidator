@@ -8,10 +8,10 @@ using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Extensions;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
+using OSPSuite.InstallationValidator.Core.Presentation.Views;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
 using OSPSuite.Utility.Events;
-using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
 namespace OSPSuite.InstallationValidator.Core.Presentation
 {
@@ -79,6 +79,8 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
             logLine(Captions.StartingReport);
             await _validationReportingTask.StartReport(validationResult, _outputFolderDTO.FolderPath);
+
+            logLine(Captions.ValidationCompleted);
          }
          catch (OperationCanceledException)
          {
@@ -90,8 +92,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
          finally
          {
-            updateValidationRunningState(running:false);
-            logLine(Captions.ValidationCompleted);
+            updateValidationRunningState(running: false);
          }
       }
 
@@ -113,9 +114,11 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logException(Exception e)
       {
+         logLine();
          logHTML(Exceptions.ExceptionViewDescription(_configuration.IssueTrackerUrl));
-         logText($"{Environment.NewLine}{Environment.NewLine}{e.ExceptionMessageWithStackTrace()}");
-         logText($"{Environment.NewLine}{Environment.NewLine}");
+         logLine();
+         logLine(e.ExceptionMessageWithStackTrace());
+         logLine();
       }
 
       private void logHTML(string htmlToLog)
