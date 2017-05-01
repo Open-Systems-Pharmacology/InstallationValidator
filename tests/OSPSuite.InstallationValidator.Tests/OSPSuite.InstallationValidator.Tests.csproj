@@ -118,7 +118,6 @@
     <Compile Include="Helpers\FolderInfoForSpecs.cs" />
     <Compile Include="Helpers\ValidFileComparisonResult.cs" />
     <Compile Include="IntegrationTests\ContextForIntegration.cs" />
-    <Compile Include="IntegrationTests\ExceptionManagerForSpecs.cs" />
     <Compile Include="IntegrationTests\ReportingSpecs.cs" />
     <Compile Include="Presentation\FolderDTOSpecs.cs" />
     <Compile Include="Presentation\MainPresenterSpecs.cs" />
