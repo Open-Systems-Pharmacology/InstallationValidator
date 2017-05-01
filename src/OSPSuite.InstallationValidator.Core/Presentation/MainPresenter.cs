@@ -95,7 +95,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       private void logLine(string textToLog)
       {
-         logText($"{Environment.NewLine}{textToLog}");
+         logText($"{Environment.NewLine}{textToLog}${Environment.NewLine}");
       }
 
       private void updateValidationRunningState(bool running)
