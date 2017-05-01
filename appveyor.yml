@@ -2,6 +2,7 @@ configuration: Debug
 
 environment:
   app_version: '7.1.0'
+  MIK_TEX_INSTALL_DIR: 'C:\MikTex\'
 
 version: '%app_version%.{build}'
 
@@ -27,6 +28,11 @@ before_build:
   - nuget sources add -name core -source https://ci.appveyor.com/nuget/ospsuite-core
   - nuget restore
 
+install:
+- ps: >-
+    (new-object net.webclient).DownloadFile('https://github.com/Open-Systems-Pharmacology/MiKTeX/releases/download/v2.9.3/MikTex.2.9.3.msi', 'C:\MikTex.msi')
+
+    Start-Process msiexec.exe -ArgumentList /i, C:\MikTex.msi, /quiet, /qn, /norestart, INSTALLDIR=$env:MIK_TEX_INSTALL_DIR -Wait
 
 test:
   assemblies:
