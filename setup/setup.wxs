@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="$(var.ProductId)" Name="$(var.ProductFullName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="C2673A21-1A1A-4179-BDAC-A6E24A6B7424">
+    <Package InstallerVersion="200" Compressed="yes" InstallPrivileges="elevated" />
+
+    <Condition Message="For a correct installation of the software, administrator rights are necessary. You do not have these rights. Please contact your IT-administrator to carry out the installation">Privileged</Condition>
+
+    <Upgrade Id="C2673A21-1A1A-4179-BDAC-A6E24A6B7424">
+      <UpgradeVersion OnlyDetect="no" Property="PREVIOUSFOUND" Minimum="7.0.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="no" />
+    </Upgrade>
+
+    <!--Setup Properties -->
+    <Property Id="ALLUSERS" Value="1" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <?if $(sys.BUILDARCH) = x64 ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?else?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?endif?>
+
+ 
+    <!--Programm Files Set by bundle Setup-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="OSP_SUITE" Name="$(var.Manufacturer)">
+        <Directory Id="INSTALLDIR" Name="$(var.ProductFullName)">
+          <Component Id="OSPSuite.InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E">
+            <File Name="OSPSuite.InstallationValidator.exe" Id="OSPSuite.InstallationValidator.exe" KeyPath="yes" Source="OSPSuite.InstallationValidator.exe">
+              <Shortcut Name="$(var.ProductName)" Id="OSPSuiteInstallationValidatorShortCut" Icon="OSPSuiteInstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
+            </File>
+
+            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\OSPSuite.InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallPath" Type="string" KeyPath="no" Value="[INSTALLDIR]OSPSuite.InstallationValidator.exe" />
+            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\OSPSuite.InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallDir" Type="string" KeyPath="no" Value="[INSTALLDIR]" />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <!--Common Data Folder-->
+
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="OSPSuiteDataFolder" Name="$(var.Manufacturer)">
+
+          <Component Id="OSPSuiteDataFolder" Guid="F5FA8A65-4310-45A0-B76B-1C84994BE5D7">
+            <CreateFolder Directory="OSPSuiteDataFolder">
+              <Permission User="Everyone" GenericAll="yes" />
+            </CreateFolder>
+          </Component>
+         
+          <Directory Id="OSPSuiteInstallationValidatorCommonDataFolder" Name="$(var.ProductName)">
+            <Component Id="OSPSuiteInstallationValidatorCommonDataFolder" Guid="F0CE361E-A4C5-43E6-8217-76A000FBED64">
+              <CreateFolder Directory="OSPSuiteInstallationValidatorCommonDataFolder">
+                <Permission User="Everyone" GenericAll="yes" />
+              </CreateFolder>
+            </Component>
+
+            <Directory Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" Name="$(var.ProductReleaseVersion)">
+              <Component Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" Guid="A3E63345-3313-42B4-B46B-396D2B0C7E6E">
+                <CreateFolder Directory="OSPSuiteInstallationValidatorCommonDataVersionFolder">
+                  <Permission User="Everyone" GenericAll="yes" />
+                </CreateFolder>
+              </Component>
+
+              <Directory Id="TeXTemplatesFolder" Name="TeXTemplates">
+                <Component Id="TeXTemplatesFolder" Guid="2EA58178-7B6C-4F6C-8ACD-7AD0D49D7723">
+                  <CreateFolder Directory="TeXTemplatesFolder">
+                    <Permission User="Everyone" GenericAll="yes" />
+                  </CreateFolder>
+                </Component>
+              </Directory>
+
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <!--Start menu Programms -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="OSPSuiteMenuDir" Name="$(var.SuiteName) $(var.ProductReleaseVersion)">
+          <Component Id="OSPSuiteMenuDir" Guid="E6CBAC46-7A96-4FCA-AF4E-7DF7B6A10C98">
+            <RemoveFolder Id="OSPSuiteMenuDir" On="uninstall" />
+            <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\OSP" Type="string" Value="" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Icon Id="OSPSuiteInstallationValidatorIcon.exe" SourceFile="$(var.DeployDir)/OSPSuite.InstallationValidator.exe" />
+    <Icon Id="OSPSuiteInstallationValidatorIcon.ico" SourceFile="$(var.DeployDir)/OSPSuiteInstallationValidator.ico" />
+
+    <Property Id="ARPHELPLINK" Value="http://www.open-systems-pharmacology.org" />
+    <Property Id="ARPPRODUCTICON" Value="OSPSuiteInstallationValidatorIcon.ico" />
+    <Property Id="ARPCONTACT" Value="http://forum.open-systems-pharmacology.org" />
+    <Property Id="ARPURLUPDATEINFO" Value="http://www.open-systems-pharmacology.org" />
+    <Property Id="ARPURLINFOABOUT" Value="http://www.open-systems-pharmacology.org" />
+
+
+    <Feature Id="Main" Title="$(var.ProductName)" Level="1" Absent="disallow" AllowAdvertise="no">
+      <ComponentGroupRef Id="App" />
+      <ComponentGroupRef Id="OSPSuite.TeXReporting" />
+      <ComponentGroupRef Id="BatchFiles" />
+
+      <ComponentRef Id="OSPSuite.InstallationValidator.exe" />
+      <ComponentRef Id="OSPSuiteMenuDir" />
+      <ComponentRef Id="OSPSuiteDataFolder" />
+      <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataFolder" />
+      <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" />
+      <ComponentRef Id="TeXTemplatesFolder" />
+    </Feature>
+
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <!-- UISection-->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <!--<UIRef Id="WixUI_Advanced" />-->
+    <UIRef Id="WixUI_InstallDir" />
+
+    <!--Customisation of Features and install location-->
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <WixVariable Id="WixUILicenseRtf" Value="EULA.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="Banner.bmp" />
+  </Product>
+</Wix>
