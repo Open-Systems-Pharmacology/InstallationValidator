@@ -1,10 +1,10 @@
 ﻿using System.Threading;
+using FakeItEasy;
 using OSPSuite.BDDHelper;
+using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core;
-using OSPSuite.Presentation.Services;
+using OSPSuite.Presentation.Views;
 using OSPSuite.Utility.Container;
-using OSPSuite.Utility.Events;
-using OSPSuite.Utility.Exceptions;
 
 namespace OSPSuite.InstallationValidator.IntegrationTests
 {
@@ -25,8 +25,8 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
                x.FromType<ValidatorRegister>();
             });
 
-            container.Register<IEventPublisher, EventPublisher>();
-            container.Register<IExceptionManager, ExceptionManagerForSpecs>();
+            container.RegisterImplementationOf(A.Fake<IDialogCreator>());
+            container.RegisterImplementationOf(A.Fake<IExceptionView>());
             container.RegisterImplementationOf(new SynchronizationContext());
             
          }
