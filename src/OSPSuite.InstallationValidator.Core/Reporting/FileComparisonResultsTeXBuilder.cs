@@ -20,11 +20,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
 
       public override void Build(IEnumerable<FileComparisonResult> comparisonResults, OSPSuiteTracker buildTracker)
       {
-         comparisonResults.Each(comparisonResult =>
-         {
-            _texBuilderRepository.Report(comparisonResult, buildTracker);
-         });
-
+         comparisonResults.Each(comparisonResult => { _texBuilderRepository.Report(comparisonResult, buildTracker); });
       }
    }
 
@@ -39,8 +35,8 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
 
       public override void Build(T fileComparisonResult, OSPSuiteTracker buildTracker)
       {
-         var chapter = buildTracker.GetStructureElementRelativeToLast(titleFor(fileComparisonResult), 1);
-         var report = new List<object> { chapter, fileComparisonResult.State };
+         var chapter = new SubSubSection(titleFor(fileComparisonResult));
+         var report = new List<object> {chapter, fileComparisonResult.State};
          buildTracker.Track(chapter);
 
          _builderRepository.Report(report, buildTracker);

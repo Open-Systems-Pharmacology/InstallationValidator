@@ -6,10 +6,13 @@ namespace OSPSuite.InstallationValidator.Core
    public static class Constants
    {
       public static readonly string ISSUE_TRACKER_URL = "https://github.com/Open-Systems-Pharmacology/OSPSuite.InstallationValidator/issues";
-      public static readonly string APPLICATION_FOLDER_PATH = @"Open Systems Pharmacology\InstallationValidator";
+      public static readonly string APPLICATION_FOLDER_PATH = @"Open Systems Pharmacology\OSPSuite.InstallationValidator";
       public static double MAX_DEVIATION_TIME = 0.0001; //0.01%
       public static double MAX_DEVIATION_OUTPUT = 0.02; //2%
-      public static readonly string OSPSuiteInstallationValidator = "OSPSuite Installation Validator®";
+      public static readonly string PRODUCT_NAME = "OSPSuite Installation Validator";
+      public static readonly string PRODUCT_NAME_WITH_TRADEMARK = $"{PRODUCT_NAME}®";
+      public static readonly string DIMENSION_FILE = "OSPSuite.Dimensions.xml";
+
       public static class Tools
       {
          // TODO - move that to core

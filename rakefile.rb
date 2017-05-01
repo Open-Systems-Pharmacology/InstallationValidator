@@ -43,6 +43,10 @@ task :postclean do |t, args|
 	all_users_dir = ENV['ALLUSERSPROFILE']
 	all_users_application_dir = File.join(all_users_dir, manufacturer, product_name, '7.1')
 
+	copy_depdencies solution_dir,  all_users_application_dir do
+		copy_dimensions_xml
+	end
+
 	copy_depdencies packages_dir,   File.join(all_users_application_dir, 'TeXTemplates', 'StandardTemplate') do
 		copy_files 'StandardTemplate', '*'
 	end
