@@ -2,7 +2,6 @@
 using System.Linq;
 using OSPSuite.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
-using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.TeXReporting.Builder;
 using OSPSuite.TeXReporting.Items;

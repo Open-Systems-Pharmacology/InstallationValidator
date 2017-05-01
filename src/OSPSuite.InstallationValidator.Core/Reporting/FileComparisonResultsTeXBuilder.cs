@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.InstallationValidator.Core.Domain;
@@ -9,11 +8,11 @@ using OSPSuite.Utility.Extensions;
 
 namespace OSPSuite.InstallationValidator.Core.Reporting
 {
-   public class FileComparisonResultsTeXBuilder : OSPSuiteTeXBuilder<IEnumerable<FileComparisonResult>>
+   public class FileComparisonResultsTexBuilder : OSPSuiteTeXBuilder<IEnumerable<FileComparisonResult>>
    {
       private readonly ITeXBuilderRepository _texBuilderRepository;
 
-      public FileComparisonResultsTeXBuilder(ITeXBuilderRepository texBuilderRepository)
+      public FileComparisonResultsTexBuilder(ITeXBuilderRepository texBuilderRepository)
       {
          _texBuilderRepository = texBuilderRepository;
       }
@@ -45,37 +44,6 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
       private string titleFor(T fileComparisonResult)
       {
          return FileHelper.FileNameFromFileFullPath(fileComparisonResult.FileName);
-      }
-   }
-
-   public class OutputFileComparisonResultTexBuilder : FileComparisonResultTeXBuilder<OutputFileComparisonResult>
-   {
-      public OutputFileComparisonResultTexBuilder(ITeXBuilderRepository builderRepository) : base(builderRepository)
-      {
-      }
-
-      public override void Build(OutputFileComparisonResult fileComparisonResult, OSPSuiteTracker buildTracker)
-      {
-         base.Build(fileComparisonResult, buildTracker);
-         _builderRepository.Report("Output Comparison", buildTracker);
-      }
-   }
-
-   public class MissingFileComparisonResultTexBuilder : FileComparisonResultTeXBuilder<MissingFileComparisonResult>
-   {
-      public MissingFileComparisonResultTexBuilder(ITeXBuilderRepository builderRepository) : base(builderRepository)
-      {
-      }
-
-      public override void Build(MissingFileComparisonResult fileComparisonResult, OSPSuiteTracker buildTracker)
-      {
-         base.Build(fileComparisonResult, buildTracker);
-         _builderRepository.Report(missingFileReport(fileComparisonResult), buildTracker);
-      }
-
-      private string missingFileReport(MissingFileComparisonResult fileComparisonResult)
-      {
-         return $"{fileComparisonResult.FileName} was contained in folder:{Environment.NewLine}{fileComparisonResult.FolderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{fileComparisonResult.FolderWithoutFile}";
       }
    }
 }

@@ -16,5 +16,10 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
          return ValidationState.Valid;
       }
+
+      public static bool IsStateValid(this IWithValidationState withValidationState)
+      {
+         return withValidationState.State == ValidationState.Valid;
+      }
    }
 }
