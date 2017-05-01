@@ -170,8 +170,14 @@
     <Compile Include="Reporting\BatchRunSummaryTexBuilder.cs" />
     <Compile Include="Reporting\FileComparisonResultsTeXBuilder.cs" />
     <Compile Include="Reporting\InstallationValidationResultReporter.cs" />
+    <Compile Include="Reporting\MissingFileComparisonResultTexBuilder.cs" />
     <Compile Include="Reporting\OperatingSystemTexBuilder.cs" />
+    <Compile Include="Reporting\OutputComparisonResultTeXBuilder.cs" />
+    <Compile Include="Reporting\OutputFileComparisonResultTexBuilder.cs" />
+    <Compile Include="Reporting\TimeComparisonResultTeXBuilder.cs" />
     <Compile Include="Reporting\ValidationStateTeXBuilder.cs" />
+    <Compile Include="Reporting\ValueComparisonResultTeXBuilder.cs" />
+    <Compile Include="Reporting\ValueComparisonsResultTeXBuilder.cs" />
     <Compile Include="Services\BatchComparisonTask.cs" />
     <Compile Include="Services\BatchOutputFileComparer.cs" />
     <Compile Include="Services\BatchOutputLoader.cs" />

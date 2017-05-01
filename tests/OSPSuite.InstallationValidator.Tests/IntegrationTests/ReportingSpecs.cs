@@ -3,6 +3,7 @@ using System.IO;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
+using OSPSuite.Core.Domain;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Domain;
@@ -28,14 +29,14 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
          {
             Title = "Testing Reports",
             Author = "Unit Tests Engine",
-            Keywords = new[] {"Tests", "PKReporting", "SBSuite"},
+            Keywords = new[] { "Tests", "PKReporting", "SBSuite" },
             Software = "SBSuite",
             SubTitle = "SubTitle",
             SoftwareVersion = "5.2",
             ContentFileName = "Content",
             DeleteWorkingDir = true,
             ColorStyle = ReportSettings.ReportColorStyles.Color,
-            Template = new ReportTemplate {Path = TEXTemplateFolder()}
+            Template = new ReportTemplate { Path = TEXTemplateFolder() }
          };
       }
 
@@ -61,7 +62,22 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
       {
          var batchComparisonResult = new BatchComparisonResult();
 
-         batchComparisonResult.AddFileComparisons(new FileComparisonResult[] {new MissingFileComparisonResult("a file.txt", "a folder", "another folder"), new OutputFileComparisonResult("a file.txt", "a folder", "another folder") });
+         var outputFileComparisonResult = new OutputFileComparisonResult("a file.txt", "a folder", "another folder");
+         var timeFileComparisonResult = new OutputFileComparisonResult("a file.txt", "a folder", "another folder");
+         var outputComparisonResult = new OutputComparisonResult("the path", ValidationState.Invalid, "the message") { Deviation = 44.0 };
+         var timeComparisonResult = new TimeComparisonResult(ValidationState.Invalid, "the message") { Deviation = 1.0 };
+         timeFileComparisonResult.TimeComparison = timeComparisonResult;
+         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", ValidationState.Valid, ""));
+         outputFileComparisonResult.AddOutputComparison(outputComparisonResult);
+         outputFileComparisonResult.TimeComparison = new TimeComparisonResult(ValidationState.Valid, "valid");
+
+
+         batchComparisonResult.AddFileComparisons(new FileComparisonResult[]
+         {
+            new MissingFileComparisonResult("a missing file.txt", "a folder", "another folder"),
+            outputFileComparisonResult,
+            timeFileComparisonResult
+         });
          var batchRunSummary = new BatchRunSummary
          {
             BatchOutputFolder = "a folder",

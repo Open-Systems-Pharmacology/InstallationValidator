@@ -8,11 +8,11 @@ using OSPSuite.TeXReporting.Items;
 
 namespace OSPSuite.InstallationValidator.Core.Reporting
 {
-   public class BatchRunSummaryTexBuilder : OSPSuiteTeXBuilder<BatchRunSummary>
+   public class BatchRunSummaryTeXBuilder : OSPSuiteTeXBuilder<BatchRunSummary>
    {
       private readonly ITeXBuilderRepository _builderRepository;
 
-      public BatchRunSummaryTexBuilder(ITeXBuilderRepository builderRepository)
+      public BatchRunSummaryTeXBuilder(ITeXBuilderRepository builderRepository)
       {
          _builderRepository = builderRepository;
       }
