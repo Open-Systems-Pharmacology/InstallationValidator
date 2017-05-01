@@ -117,6 +117,9 @@
     <Compile Include="Domain\PointwiseComparisonStrategySpecs.cs" />
     <Compile Include="Helpers\FolderInfoForSpecs.cs" />
     <Compile Include="Helpers\ValidFileComparisonResult.cs" />
+    <Compile Include="IntegrationTests\ContextForIntegration.cs" />
+    <Compile Include="IntegrationTests\ExceptionManagerForSpecs.cs" />
+    <Compile Include="IntegrationTests\ReportingSpecs.cs" />
     <Compile Include="Presentation\FolderDTOSpecs.cs" />
     <Compile Include="Presentation\MainPresenterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Services\BatchComparisonTaskSpecs.cs" />
     <Compile Include="Services\BatchOutputFileComparerSpecs.cs" />
     <Compile Include="Services\BatchStarterTaskSpecs.cs" />
+    <Compile Include="Services\ValidationReportingTaskSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -137,6 +141,7 @@
       <Name>OSPSuite.InstallationValidator.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

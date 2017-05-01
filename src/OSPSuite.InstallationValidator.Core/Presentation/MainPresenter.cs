@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
+using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Extensions;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
@@ -27,15 +28,18 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
       private readonly IBatchStarterTask _batchStarterTask;
       private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly IApplicationConfiguration _configuration;
+      private readonly IValidationReportingTask _validationReportingTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO();
       private CancellationTokenSource _cancellationTokenSource;
+      private bool _validationRunning;
 
-      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask, IApplicationConfiguration configuration) : base(view)
+      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask, IApplicationConfiguration configuration, IValidationReportingTask validationReportingTask) : base(view)
       {
          _dialogCreator = dialogCreator;
          _batchStarterTask = batchStarterTask;
          _batchComparisonTask = batchComparisonTask;
          _configuration = configuration;
+         _validationReportingTask = validationReportingTask;
          view.BindTo(_outputFolderDTO);
       }
 
@@ -50,6 +54,9 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
 
       public void Abort()
       {
+         if (!_validationRunning)
+            return;
+
          if (_dialogCreator.MessageBoxYesNo(Captions.ReallyCancelInstallationValidation) == ViewResult.No)
             return;
 
@@ -61,16 +68,19 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          _cancellationTokenSource = new CancellationTokenSource();
          try
          {
-            View.ValidationIsRunning(true);
-            logText(Captions.StartingBatchCalculation);
-            await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            updateValidationRunningState(running: true);
+            logLine(Captions.StartingBatchCalculation);
+            var validationResult = new InstallationValidationResult {RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token)};
 
-            logText(Captions.StartingComparison);
-            await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            logLine(Captions.StartingComparison);
+            validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+
+            logLine(Captions.StartingReport);
+            await _validationReportingTask.StartReport(validationResult, _outputFolderDTO.FolderPath);
          }
          catch (OperationCanceledException)
          {
-            logText(Captions.TheValidationWasCanceled);
+            logLine(Captions.TheValidationWasCanceled);
          }
          catch (Exception e)
          {
@@ -78,8 +88,20 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
          finally
          {
-            View.ValidationIsRunning(false);
+            updateValidationRunningState(running:false);
+            logLine(Captions.ValidationCompleted);
          }
+      }
+
+      private void logLine(string textToLog)
+      {
+         logText($"{Environment.NewLine}{textToLog}${Environment.NewLine}");
+      }
+
+      private void updateValidationRunningState(bool running)
+      {
+         _validationRunning = running;
+         View.ValidationIsRunning(_validationRunning);
       }
 
       private void logText(string theTextToLog)

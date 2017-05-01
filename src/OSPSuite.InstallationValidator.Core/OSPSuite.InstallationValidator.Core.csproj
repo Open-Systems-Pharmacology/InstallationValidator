@@ -143,6 +143,8 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\InstallationValidationResult.cs" />
+    <Compile Include="Reporting\BatchComparisonResultReporter.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
     <Compile Include="Domain\FileComparisonResult.cs" />
@@ -165,12 +167,19 @@
     <Compile Include="Presentation\MainPresenter.cs" />
     <Compile Include="Presentation\Views\IMainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\BatchRunSummaryTexBuilder.cs" />
+    <Compile Include="Reporting\FileComparisonResultsTeXBuilder.cs" />
+    <Compile Include="Reporting\InstallationValidationResultReporter.cs" />
+    <Compile Include="Reporting\OperatingSystemTexBuilder.cs" />
+    <Compile Include="Reporting\ValidationStateTeXBuilder.cs" />
     <Compile Include="Services\BatchComparisonTask.cs" />
     <Compile Include="Services\BatchOutputFileComparer.cs" />
     <Compile Include="Services\BatchOutputLoader.cs" />
+    <Compile Include="Services\ValidationReportingTask.cs" />
     <Compile Include="Services\BatchStarterTask.cs" />
     <Compile Include="Services\LogWatcherFactory.cs" />
     <Compile Include="Services\StartableProcessFactory.cs" />
+    <Compile Include="ValidationFileHelper.cs" />
     <Compile Include="ValidatorRegister.cs" />
   </ItemGroup>
   <ItemGroup>

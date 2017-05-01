@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using OSPSuite.Core.Domain;
 using OSPSuite.Utility.Extensions;
 

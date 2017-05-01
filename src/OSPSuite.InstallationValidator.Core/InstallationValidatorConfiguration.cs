@@ -16,6 +16,8 @@ namespace OSPSuite.InstallationValidator.Core
       string BatchInputsFolderPath { get; }
       string BatchOutputsFolderPath { get; }
       string PKSimBatchToolPath { get; }
+      string PKSimBinaryExecutablePath { get; }
+      string MoBiBinaryExecutablePath { get; }
    }
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
@@ -27,10 +29,10 @@ namespace OSPSuite.InstallationValidator.Core
 
       protected override string[] LatestVersionWithOtherMajor { get; }
       public override string ChartLayoutTemplateFolderPath { get; }
-      public override string TEXTemplateFolderPath { get; }
+      public override string TEXTemplateFolderPath => Path.Combine(applicationSettingsFolderPath, Constants.Tools.TEX_TEMPLATES);
       public override string ProductName { get; }
       public override Origin Product { get; }
-      public override string ProductNameWithTrademark { get; }
+      public override string ProductNameWithTrademark => Constants.OSPSuiteInstallationValidator;
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
       public override string UserSettingsFileName { get; }
       public override string IssueTrackerUrl { get; } = Constants.ISSUE_TRACKER_URL;
@@ -42,18 +44,21 @@ namespace OSPSuite.InstallationValidator.Core
          return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), applicationFolderPath);
       }
 
-      public string PKSimInstallFolderPath
+      public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(RegistryPaths.PKSIM_REG_PATH, RegistryPaths.INSTALL_PATH);
+
+      public string MoBiBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(RegistryPaths.MOBI_REG_PATH, RegistryPaths.INSTALL_PATH);
+
+      public string PKSimInstallFolderPath => getRegistryValueForRegistryPathAndKey(RegistryPaths.PKSIM_REG_PATH, RegistryPaths.INSTALL_DIR);
+
+      private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacologyPKSim, string installDir)
       {
-         get
+         try
          {
-            try
-            {
-               return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{RegistryPaths.PKSIM_REG_PATH}{MajorVersion}", RegistryPaths.INSTALL_DIR, null);
-            }
-            catch (Exception)
-            {
-               return string.Empty;
-            }
+            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacologyPKSim}{MajorVersion}", installDir, null);
+         }
+         catch (Exception)
+         {
+            return string.Empty;
          }
       }
 
