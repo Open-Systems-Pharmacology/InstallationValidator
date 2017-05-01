@@ -11,12 +11,14 @@ namespace OSPSuite.InstallationValidator.Services
    {
       protected IReportingTask _reportingTask;
       protected IReportTemplateRepository _reportTemplateRepository;
+      private IValidationLogger _validationLogger;
 
       protected override void Context()
       {
          _reportingTask = A.Fake<IReportingTask>();
          _reportTemplateRepository = A.Fake<IReportTemplateRepository>();
-         sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask);
+         _validationLogger= A.Fake<IValidationLogger>(); 
+         sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask, _validationLogger);
       }
    }
 
@@ -35,7 +37,7 @@ namespace OSPSuite.InstallationValidator.Services
 
       protected override void Because()
       {
-         sut.StartReport(_installationValidationResult, "");
+         sut.StartReport(_installationValidationResult, "").Wait();
       }
 
       [Observation]

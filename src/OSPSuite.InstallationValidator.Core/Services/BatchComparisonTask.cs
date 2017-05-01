@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using OSPSuite.Core.Domain;
+using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
 
 namespace OSPSuite.InstallationValidator.Core.Services
@@ -17,12 +19,14 @@ namespace OSPSuite.InstallationValidator.Core.Services
       private readonly IInstallationValidatorConfiguration _validatorConfiguration;
       private readonly IFolderInfoFactory _folderInfoFactory;
       private readonly IBatchOutputFileComparer _batchOutputFileComparer;
+      private readonly IValidationLogger _validationLogger;
 
-      public BatchComparisonTask(IInstallationValidatorConfiguration validatorConfiguration, IFolderInfoFactory folderInfoFactory, IBatchOutputFileComparer batchOutputFileComparer)
+      public BatchComparisonTask(IInstallationValidatorConfiguration validatorConfiguration, IFolderInfoFactory folderInfoFactory, IBatchOutputFileComparer batchOutputFileComparer, IValidationLogger validationLogger)
       {
          _validatorConfiguration = validatorConfiguration;
          _folderInfoFactory = folderInfoFactory;
          _batchOutputFileComparer = batchOutputFileComparer;
+         _validationLogger = validationLogger;
       }
 
       public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token)
@@ -52,7 +56,10 @@ namespace OSPSuite.InstallationValidator.Core.Services
 
          foreach (var file in folderInfo1.FileNames.Where(folderInfo2.HasFile))
          {
-            comparison.AddFileComparison(await compareFile(file, folderPath1, folderPath2, token));
+            _validationLogger.AppendLine(Logs.ComparingFilles(file));
+            var fileComparison = await compareFile(file, folderPath1, folderPath2, token);
+            comparison.AddFileComparison(fileComparison);
+            _validationLogger.AppendText(Logs.StateDisplayFor(fileComparison.State));
          }
 
          return comparison;

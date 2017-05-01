@@ -19,13 +19,15 @@ namespace OSPSuite.InstallationValidator.Services
       protected CancellationToken _token;
       protected IFolderInfoFactory _folderInfoFatory;
       private IBatchOutputFileComparer _batchOutpufFileComparer;
+      private IValidationLogger _validationLogger;
 
       protected override void Context()
       {
          _configuration = A.Fake<IInstallationValidatorConfiguration>();
          _folderInfoFatory = A.Fake<IFolderInfoFactory>();
          _batchOutpufFileComparer = A.Fake<IBatchOutputFileComparer>();
-         sut = new BatchComparisonTask(_configuration, _folderInfoFatory, _batchOutpufFileComparer);
+         _validationLogger= A.Fake<IValidationLogger>(); 
+         sut = new BatchComparisonTask(_configuration, _folderInfoFatory, _batchOutpufFileComparer,_validationLogger);
 
          A.CallTo(() => _configuration.BatchOutputsFolderPath).Returns("batchOutputPath");
          _calculatedOutputPath1 = "calculatedOutputPath1";
