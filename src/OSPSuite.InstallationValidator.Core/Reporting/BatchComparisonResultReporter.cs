@@ -23,14 +23,14 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          var objectsToReport = new List<object>
          {
             new Section(Assets.Reporting.BatchComparisonResults),
-            new SubSection(Assets.Reporting.ComparisonFolders), firstComparisonFolder(comparisonResult), new LineBreak(), secondComparisonFolder(comparisonResult),
-            new SubSection(Assets.Reporting.DefaultTolerances), tolerancesFor(comparisonResult),
-            new SubSection(Assets.Reporting.OverallComparisonResult), validationResultFor(comparisonResult)
+            new Paragraph(Assets.Reporting.ComparisonFolders), firstComparisonFolder(comparisonResult), new LineBreak(), secondComparisonFolder(comparisonResult),
+            new Paragraph(Assets.Reporting.DefaultTolerances), tolerancesFor(comparisonResult),
+            new Paragraph(Assets.Reporting.OverallComparisonResult), validationResultFor(comparisonResult)
          };
 
          var fileComparisonResults = comparisonResult.FileComparisonResults.Where(x => x.State != ValidationState.Valid).ToList();
          if(fileComparisonResults.Any())
-            objectsToReport.Add(new SubSection(Assets.Reporting.FailedValidations));
+            objectsToReport.Add(new Paragraph(Assets.Reporting.FailedValidations));
          objectsToReport.AddRange(fileComparisonResults);
 
          _teXBuilderRepository.Report(objectsToReport, buildTracker);
