@@ -7,7 +7,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
       public BatchSimulationExport Simulation { get; }
       public string Folder { get; }
       public string Name => Simulation.Name;
-      public float[] Times => Simulation.Time;
+      public float[] Times => Simulation.Times;
 
       public BatchSimulationComparison(BatchSimulationExport simulation, string folder)
       {

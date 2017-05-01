@@ -30,7 +30,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          if (timeComparison != null)
             return timeComparison;
 
-         var deviation = calculateDeviation(simulation1.Simulation.Time, simulation2.Simulation.Time);
+         var deviation = calculateDeviation(simulation1.Times, simulation2.Times);
 
          timeComparison = deviation > Constants.MAX_DEVIATION_TIME
             ? timeDeviationTooLargeComparisonResult(deviation)
@@ -42,8 +42,8 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
       private TimeComparisonResult timeConsistencyCheckComparisonResult(BatchSimulationComparison simulation1, BatchSimulationComparison simulation2)
       {
-         var time1 = simulation1.Simulation.Time;
-         var time2 = simulation2.Simulation.Time;
+         var time1 = simulation1.Times;
+         var time2 = simulation2.Times;
 
          if (time1 == null)
             return undefinedTimeComparisonResult(simulation1);
@@ -76,7 +76,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
       private double calculateDeviation(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2)
       {
-         return calculateDeviation(outputValues1.OutputValues.Values, outputValues2.OutputValues.Values, outputValues1.OutputValues.Threshold);
+         return calculateDeviation(outputValues1.OutputValues.Values, outputValues2.OutputValues.Values, outputValues1.OutputValues.ComparisonThreshold);
       }
 
       private double calculateDeviation(float[] array1, float[] array2, double? threshold = null)
