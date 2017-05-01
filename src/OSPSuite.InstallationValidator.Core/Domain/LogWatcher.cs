@@ -56,7 +56,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          var logFileStream = new FileStream(_logFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
          _sr = new StreamReader(logFileStream);
 
-         _eventPublisher.PublishEvent(new LogResetEvent(readFileText()));
+         raiseAppendEvent();
       }
 
       private string readFileText()
@@ -65,6 +65,11 @@ namespace OSPSuite.InstallationValidator.Core.Domain
       }
 
       private void onChanged(object sender, FileSystemEventArgs e)
+      {
+         raiseAppendEvent();
+      }
+
+      private void raiseAppendEvent()
       {
          _eventPublisher.PublishEvent(new LogAppendedEvent(readFileText()));
       }

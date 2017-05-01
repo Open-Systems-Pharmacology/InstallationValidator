@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraRichEdit;
 using OSPSuite.Assets;
 using OSPSuite.DataBinding;
 using OSPSuite.DataBinding.DevExpress;
@@ -56,6 +57,9 @@ namespace OSPSuite.InstallationValidator.Views
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
          labelValidationDescription.Text = Core.Assets.Captions.ValidationDescription.FormatForDescription();
+
+         richEditControl.Document.Text = string.Empty;
+         richEditControl.ActiveViewType = RichEditViewType.Simple;
       }
 
       public void AttachPresenter(IMainPresenter presenter)
@@ -77,17 +81,17 @@ namespace OSPSuite.InstallationValidator.Views
 
       public void AppendText(string newText)
       {
-         getInnerTextBox(memoEditLogMessages).AppendText(newText);
-      }
-
-      private TextBox getInnerTextBox(DevExpress.XtraEditors.TextEdit editor)
-      {
-         return editor?.Controls.OfType<TextBox>().FirstOrDefault();
+         richEditControl.Document.AppendText(newText);
       }
 
       public void ResetText(string newText)
       {
-         getInnerTextBox(memoEditLogMessages).Text = newText;
+         richEditControl.Document.Text = newText;
+      }
+
+      public void AppendHTML(string htmlToLog)
+      {
+         richEditControl.Document.AppendHtmlText(htmlToLog);
       }
    }
 }
