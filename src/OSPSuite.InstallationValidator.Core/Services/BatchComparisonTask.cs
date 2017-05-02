@@ -10,8 +10,8 @@ namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IBatchComparisonTask
    {
-      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New");
-      Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New");
+      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = Captions.Old, string folderPathCaption2 = Captions.New);
+      Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1 = Captions.Old, string folderPathCaption2 = Captions.New);
    }
 
    public class BatchComparisonTask : IBatchComparisonTask

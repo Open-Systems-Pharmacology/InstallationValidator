@@ -23,6 +23,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
                                                             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
       public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
+      public const string New = "New";
+      public const string Old = "Old";
    }
 
    public static class Logs

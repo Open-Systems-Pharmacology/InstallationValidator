@@ -30,23 +30,23 @@ namespace OSPSuite.InstallationValidator.Core.Services
          var dataRepository1 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output1);
          var dataRepository2 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output2);
 
+         var linearCurveChart = createCurveChartWithScaling(outputComparisonResult, Scalings.Linear, dataRepository1, dataRepository2);
+         var logCurveChart = createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
+
+         addToCurveChart(logCurveChart, dataRepository1, dataRepository2);
+         return new []{ linearCurveChart, logCurveChart};
+      }
+
+      private CurveChart createCurveChartWithScaling(OutputComparisonResult outputComparisonResult, Scalings defaultYAxisScaling, DataRepository dataRepository1, DataRepository dataRepository2)
+      {
          var linearCurveChart = new CurveChart
          {
-            DefaultYAxisScaling = Scalings.Linear,
+            DefaultYAxisScaling = defaultYAxisScaling,
             ChartSettings = {LegendPosition = LegendPositions.RightInside},
             Title = outputComparisonResult.Path
          };
          addToCurveChart(linearCurveChart, dataRepository1, dataRepository2);
-
-         var logCurveChart = new CurveChart
-         {
-            DefaultYAxisScaling = Scalings.Log,
-            ChartSettings = {LegendPosition = LegendPositions.RightInside},
-            Title = outputComparisonResult.Path
-         };
-
-         addToCurveChart(logCurveChart, dataRepository1, dataRepository2);
-         return new []{ linearCurveChart, logCurveChart};
+         return linearCurveChart;
       }
 
       private void addToCurveChart(CurveChart curveChart, DataRepository dataRepository1, DataRepository dataRepository2)
