@@ -61,6 +61,10 @@
                 </CreateFolder>
               </Component>
 
+              <Component Id='OSPSuite.Dimensions' Guid='610A3ECE-9EAD-45CC-8642-60207848B5C9'>
+                <File Name='OSPSuite.Dimensions.xml' Id='OSPSuite.Dimensions' Source='$(var.DeployDir)/OSPSuite.Dimensions.xml' KeyPath='yes' />
+              </Component>
+  
               <Directory Id="TeXTemplatesFolder" Name="TeXTemplates">
                 <Component Id="TeXTemplatesFolder" Guid="2EA58178-7B6C-4F6C-8ACD-7AD0D49D7723">
                   <CreateFolder Directory="TeXTemplatesFolder">
@@ -106,6 +110,7 @@
       <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataFolder" />
       <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" />
       <ComponentRef Id="TeXTemplatesFolder" />
+      <ComponentRef Id="OSPSuite.Dimensions" />
     </Feature>
 
 
