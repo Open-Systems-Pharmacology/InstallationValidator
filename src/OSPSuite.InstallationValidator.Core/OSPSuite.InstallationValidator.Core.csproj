@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="Domain\InstallationValidationResult.cs" />
     <Compile Include="Domain\ValidationLogger.cs" />
+    <Compile Include="Extensions\OutputResultExtensions.cs" />
     <Compile Include="Reporting\BatchComparisonResultReporter.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
@@ -9,6 +10,7 @@ using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.TeXReporting;
 using OSPSuite.Utility;
+using OSPSuite.Utility.Extensions;
 
 namespace OSPSuite.InstallationValidator.IntegrationTests
 {
@@ -64,7 +66,7 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
 
          var outputFileComparisonResult = new OutputFileComparisonResult("a file.txt", "a folder", "another folder");
          var timeFileComparisonResult = new OutputFileComparisonResult("a file.txt", "a folder", "another folder");
-         var outputComparisonResult = new OutputComparisonResult("the path", ValidationState.Invalid, "the message") { Deviation = 44.0 };
+         var outputComparisonResult = createOutputDeviationFailureResult();
          var timeComparisonResult = new TimeComparisonResult(ValidationState.Invalid, "the time message") { Deviation = 1.0 };
          timeFileComparisonResult.TimeComparison = timeComparisonResult;
          timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", ValidationState.Valid, ""));
@@ -96,5 +98,27 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
          };
          CreateReportAndValidate(installationValidationResult, "validationReport");
       }
+
+      private static OutputComparisonResult createOutputDeviationFailureResult()
+      {
+         var outputDeviationFailureResult = new OutputComparisonResult("the path", ValidationState.Invalid, "the message")
+         {
+            Deviation = 44.0,
+            Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)),
+            Output2 = new OutputResult(getTimes(), getValues(x => x))
+         };
+         return outputDeviationFailureResult;
+      }
+
+      private static float[] getValues(Func<float, float> transform)
+      {
+         return getTimes().Select(transform).ToArray();
+      }
+
+      private static float[] getTimes()
+      {
+         return new[] {0.0f, 1.1f, 1.2f, 1.3f, 1.4f};
+      }
+
    }
 }
