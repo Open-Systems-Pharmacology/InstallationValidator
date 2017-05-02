@@ -22,14 +22,18 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          var objectsToReport = new List<object>
          {
             new Section(Assets.Reporting.BatchComparisonResults),
-            new Paragraph(Assets.Reporting.ComparisonFolders), firstComparisonFolder(comparisonResult), new LineBreak(), secondComparisonFolder(comparisonResult),
-            new Paragraph(Assets.Reporting.DefaultTolerances), tolerancesFor(comparisonResult),
-            new Paragraph(Assets.Reporting.OverallComparisonResult), validationResultFor(comparisonResult)
+            new Paragraph(Assets.Reporting.ComparisonFolders),
+            firstComparisonFolder(comparisonResult),
+            new LineBreak(),
+            secondComparisonFolder(comparisonResult),
+            new Paragraph(Assets.Reporting.OverallComparisonResult),
+            validationResultFor(comparisonResult)
          };
 
          var fileComparisonResults = comparisonResult.FileComparisonResults.Where(x => x.State != ValidationState.Valid).ToList();
-         if(fileComparisonResults.Any())
+         if (fileComparisonResults.Any())
             objectsToReport.Add(new Paragraph(Assets.Reporting.FailedValidations));
+
          objectsToReport.AddRange(fileComparisonResults);
 
          _teXBuilderRepository.Report(objectsToReport, buildTracker);
@@ -40,17 +44,12 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          return comparisonResult.State;
       }
 
-      private object tolerancesFor(BatchComparisonResult comparisonResult)
-      {
-         return "todo";
-      }
-
-      private object secondComparisonFolder(BatchComparisonResult comparisonResult)
+      private string secondComparisonFolder(BatchComparisonResult comparisonResult)
       {
          return comparisonResult.FolderPath2;
       }
 
-      private object firstComparisonFolder(BatchComparisonResult comparisonResult)
+      private string firstComparisonFolder(BatchComparisonResult comparisonResult)
       {
          return comparisonResult.FolderPath1;
       }
