@@ -1,4 +1,5 @@
 ﻿using OSPSuite.Core.Domain;
+using OSPSuite.Core.Domain.UnitSystem;
 using OSPSuite.InstallationValidator.Core.Assets;
 
 namespace OSPSuite.InstallationValidator.Core.Domain
@@ -49,6 +50,8 @@ namespace OSPSuite.InstallationValidator.Core.Domain
    {
       public float[] Times { get; }
       public float[] Values { get; }
+      public string Dimension { get; set; }
+      public string Caption { get; set; }
 
       public OutputResult(float[] times, float[] values)
       {

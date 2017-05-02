@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="Domain\InstallationValidationResult.cs" />
     <Compile Include="Domain\ValidationLogger.cs" />
+    <Compile Include="Extensions\OutputResultExtensions.cs" />
     <Compile Include="Reporting\BatchComparisonResultReporter.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
@@ -174,7 +175,9 @@
     <Compile Include="Reporting\MissingFileComparisonResultTexBuilder.cs" />
     <Compile Include="Reporting\OperatingSystemTexBuilder.cs" />
     <Compile Include="Reporting\OutputComparisonResultTeXBuilder.cs" />
+    <Compile Include="Services\OutputComparisonResultToCurveChartMapper.cs" />
     <Compile Include="Reporting\OutputFileComparisonResultTexBuilder.cs" />
+    <Compile Include="Services\OutputResultToDataRepositoryMapper.cs" />
     <Compile Include="Reporting\TimeComparisonResultTeXBuilder.cs" />
     <Compile Include="Reporting\ValidationStateTeXBuilder.cs" />
     <Compile Include="Reporting\ValueComparisonResultTeXBuilder.cs" />
