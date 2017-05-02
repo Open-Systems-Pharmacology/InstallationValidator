@@ -60,7 +60,7 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
    public class When_creating_a_report : concern_for_Reporting
    {
       [Observation]
-      public void should_have_created_a_valid_pdf_report_for_individual()
+      public void should_have_created_a_valid_pdf_report_for_batch_result()
       {
          var batchComparisonResult = new BatchComparisonResult();
 
@@ -104,8 +104,8 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
          var outputDeviationFailureResult = new OutputComparisonResult("the path", ValidationState.Invalid, "the message")
          {
             Deviation = 44.0,
-            Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)),
-            Output2 = new OutputResult(getTimes(), getValues(x => x))
+            Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)) { Dimension = "Mass", Caption = "name1" },
+            Output2 = new OutputResult(getTimes(), getValues(x => x)) { Dimension = "Mass", Caption = "name2"}
          };
          return outputDeviationFailureResult;
       }
@@ -117,7 +117,7 @@ namespace OSPSuite.InstallationValidator.IntegrationTests
 
       private static float[] getTimes()
       {
-         return new[] {0.0f, 1.1f, 1.2f, 1.3f, 1.4f};
+         return new[] { 0.0f, 1.1f, 1.2f, 1.3f, 1.4f };
       }
 
    }

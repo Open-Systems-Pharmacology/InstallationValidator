@@ -127,6 +127,8 @@
     <Compile Include="Services\BatchComparisonTaskSpecs.cs" />
     <Compile Include="Services\BatchOutputFileComparerSpecs.cs" />
     <Compile Include="Services\BatchStarterTaskSpecs.cs" />
+    <Compile Include="Services\OutputComparisonResultToCurveChartMapperSpecs.cs" />
+    <Compile Include="Services\OutputResultToDataRepositoryMapperSpecs.cs" />
     <Compile Include="Services\ValidationReportingTaskSpecs.cs" />
   </ItemGroup>
   <ItemGroup>

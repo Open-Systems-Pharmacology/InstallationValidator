@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using OSPSuite.Core.Domain;
+using FluentNHibernate.Utils;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
 
@@ -10,8 +10,8 @@ namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IBatchComparisonTask
    {
-      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token);
-      Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token);
+      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New");
+      Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New");
    }
 
    public class BatchComparisonTask : IBatchComparisonTask
@@ -29,12 +29,12 @@ namespace OSPSuite.InstallationValidator.Core.Services
          _validationLogger = validationLogger;
       }
 
-      public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token)
+      public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New")
       {
-         return StartComparison(_validatorConfiguration.BatchOutputsFolderPath, folderPath, token);
+         return StartComparison(_validatorConfiguration.BatchOutputsFolderPath, folderPath, token, folderPathCaption1, folderPathCaption2);
       }
 
-      public async Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token)
+      public async Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1, string folderPathCaption2)
       {
          var folderInfo1 = _folderInfoFactory.CreateFor(folderPath1, Constants.Filter.JSON_FILTER);
          var folderInfo2 = _folderInfoFactory.CreateFor(folderPath2, Constants.Filter.JSON_FILTER);
@@ -58,11 +58,18 @@ namespace OSPSuite.InstallationValidator.Core.Services
          {
             _validationLogger.AppendLine(Logs.ComparingFilles(file));
             var fileComparison = await compareFile(file, folderPath1, folderPath2, token);
+            fileComparison.OutputComparisonResults.Each(x => captionOutputs(x, folderPathCaption1, folderPathCaption2));
             comparison.AddFileComparison(fileComparison);
             _validationLogger.AppendText(Logs.StateDisplayFor(fileComparison.State));
          }
 
          return comparison;
+      }
+
+      private void captionOutputs(OutputComparisonResult outputComparisonResult, string folderPathCaption1, string folderPathCaption2)
+      {
+         outputComparisonResult.Output1.Caption = folderPathCaption1;
+         outputComparisonResult.Output2.Caption = folderPathCaption2;
       }
 
       private Task<OutputFileComparisonResult> compareFile(string fileName, string folderPath1, string folderPath2, CancellationToken token)

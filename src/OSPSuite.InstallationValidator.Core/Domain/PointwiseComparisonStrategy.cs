@@ -118,8 +118,8 @@ namespace OSPSuite.InstallationValidator.Core.Domain
       {
          return new OutputComparisonResult(outputValues1.Path, ValidationState.Invalid, Validation.DeviationForVariableGreaterThanMaxTolerance(outputValues1.Path, deviation, Constants.MAX_DEVIATION_OUTPUT))
          {
-            Output1 = new OutputResult(outputValues1.Times, outputValues1.Values),
-            Output2 = new OutputResult(outputValues2.Times, outputValues2.Values)
+            Output1 = new OutputResult(outputValues1.Times, outputValues1.Values) { Dimension = outputValues1.OutputValues.Dimension },
+            Output2 = new OutputResult(outputValues2.Times, outputValues2.Values) { Dimension = outputValues2.OutputValues.Dimension }
          };
       }
 
