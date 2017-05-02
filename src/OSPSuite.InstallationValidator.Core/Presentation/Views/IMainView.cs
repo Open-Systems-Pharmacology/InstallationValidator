@@ -3,7 +3,7 @@ using OSPSuite.Presentation.Views;
 
 namespace OSPSuite.InstallationValidator.Core.Presentation.Views
 {
-   public interface IMainView : IModalView<IMainPresenter>
+   public interface IMainView : IView<IMainPresenter>
    {
       void BindTo(FolderDTO outputFolderDTO);
       void ValidationIsRunning(bool validationRunning);

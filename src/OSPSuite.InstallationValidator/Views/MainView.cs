@@ -1,19 +1,21 @@
-﻿using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraRichEdit;
 using OSPSuite.Assets;
 using OSPSuite.DataBinding;
 using OSPSuite.DataBinding.DevExpress;
+using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Presentation;
 using OSPSuite.InstallationValidator.Core.Presentation.DTO;
+using OSPSuite.InstallationValidator.Core.Presentation.Views;
 using OSPSuite.Presentation.Extensions;
 using OSPSuite.UI.Extensions;
 using OSPSuite.UI.Views;
-using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
+using Captions = OSPSuite.InstallationValidator.Core.Assets.Captions;
 
 namespace OSPSuite.InstallationValidator.Views
 {
-   public partial class MainView : BaseModalView, IMainView
+   public partial class MainView : BaseView, IMainView
    {
       private IMainPresenter _presenter;
       private readonly ScreenBinder<FolderDTO> _screenBinder;
@@ -27,39 +29,61 @@ namespace OSPSuite.InstallationValidator.Views
       public override void InitializeBinding()
       {
          base.InitializeBinding();
-         outputFolderButton.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectOutputFolder());
+         _screenBinder.Bind(x => x.FolderPath)
+            .To(outputFolderButton);
+
          RegisterValidationFor(_screenBinder);
 
-         _screenBinder.Bind(x => x.FolderPath).To(outputFolderButton);
 
-         btnOk.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
-         btnCancel.Click += (o, e) => OnEvent(() => _presenter.Abort());
-      }
-
-      protected override void ExtraClicked()
-      {
-         _presenter.Abort();
-         Close();
+         startButton.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
+         stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
+         outputFolderButton.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectOutputFolder());
       }
 
       public override void InitializeResources()
       {
          base.InitializeResources();
-         layoutControlItemOutputButton.Text = Core.Assets.Captions.OutputFolder.FormatForLabel();
-         btnOk.Text = Core.Assets.Captions.Start;
-         btnCancel.Text = Captions.Cancel;
-
-         ExtraEnabled = true;
-         ExtraVisible = true;
-         btnExtra.Text = Captions.CloseButton;
+         layoutControlItemOutputButton.Text = Captions.OutputFolder.FormatForLabel();
 
          ShowInTaskbar = true;
+         StartPosition = FormStartPosition.CenterScreen;
+
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Core.Assets.Captions.ValidationDescription.FormatForDescription();
+         labelValidationDescription.Text = Captions.ValidationDescription.FormatForDescription();
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
+
+         layoutItemButtonStart.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
+         layoutItemButtonStart.TextVisible = false;
+         layoutItemButtomStop.TextVisible = false;
+
+         layoutItemButtomStop.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
+
+         layoutItemButtomStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
+         defaultLookAndFeel.LookAndFeel.SetSkinStyle(Constants.DEFAULT_SKIN);
+
+         Caption = Captions.MainViewTitle;
+      }
+
+      protected override void OnValidationError(Control control, string error)
+      {
+         base.OnValidationError(control, error);
+         setOkButtonEnable();
+      }
+
+      protected override void OnClearError(Control control)
+      {
+         base.OnClearError(control);
+         setOkButtonEnable();
+      }
+
+      private void setOkButtonEnable()
+      {
+         layoutItemButtonStart.Enabled = !HasError;
       }
 
       public void AttachPresenter(IMainPresenter presenter)
@@ -76,7 +100,8 @@ namespace OSPSuite.InstallationValidator.Views
 
       public void ValidationIsRunning(bool validationRunning)
       {
-         OkEnabled = !HasError && !validationRunning;
+         layoutItemButtomStop.Visibility = LayoutVisibilityConvertor.FromBoolean(validationRunning);
+         layoutItemButtonStart.Visibility = LayoutVisibilityConvertor.FromBoolean(!validationRunning);
       }
 
       public void AppendText(string newText)
