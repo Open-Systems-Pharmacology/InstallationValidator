@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Text;
 using OSPSuite.Core.Domain;
+using OSPSuite.Utility.Format;
 
 namespace OSPSuite.InstallationValidator.Core.Assets
 {
@@ -22,11 +23,6 @@ namespace OSPSuite.InstallationValidator.Core.Assets
                                                             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
       public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
-
-      public static string ReportCreatedUnder(string reportConfigurationReportFile)
-      {
-         return $"Installation report was created and saved at '{reportConfigurationReportFile}'";
-      }
    }
 
    public static class Logs
@@ -71,10 +67,15 @@ namespace OSPSuite.InstallationValidator.Core.Assets
          return $"<span style='color:rgb({color.R},{color.G},{color.B})'>{stringToFormat}</span>";
       }
 
+      public static string ReportCreatedUnder(string reportConfigurationReportFile)
+      {
+         return $"Installation report was created and saved under {InBold(reportConfigurationReportFile)}";
+      }
+
       public static string StateDisplayFor(ValidationState validationState)
       {
-         if(validationState==ValidationState.Invalid)
-            return  Invalid;
+         if (validationState == ValidationState.Invalid)
+            return Invalid;
 
          if (validationState == ValidationState.ValidWithWarnings)
             return ValidWithWarnings;
@@ -120,6 +121,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
 
    public static class Validation
    {
+      private static readonly NumericFormatter<double> _formatter = new NumericFormatter<double>(NumericFormatterOptions.Instance);
+
       public static string FolderDoesNotExist(string fileFullPath) => $"Folder '{fileFullPath}' does not exist";
 
       public static string ArraysHaveDifferentLength(int length1, int length2) => $"Array used in comparison have different lengths ({length1} vs {length2}";
@@ -151,7 +154,7 @@ namespace OSPSuite.InstallationValidator.Core.Assets
 
       public static string DeviationForVariableGreaterThanMaxTolerance(string variable, double deviation, double maxDeviation)
       {
-         return $"Deviation for '{variable}' is {deviation} and is greater than the allowed max. tolerance of {maxDeviation}";
+         return $"Deviation for '{variable}' is {_formatter.Format(deviation * 100)}% and is greater than the allowed max. tolerance of {_formatter.Format(maxDeviation * 100)}%";
       }
 
       public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder)

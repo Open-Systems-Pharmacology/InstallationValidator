@@ -9,6 +9,7 @@ using OSPSuite.UI.Mappers;
 using OSPSuite.UI.Services;
 using OSPSuite.UI.Views;
 using OSPSuite.Utility.Container;
+using OSPSuite.Utility.Format;
 using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
 namespace OSPSuite.InstallationValidator.Bootstrap
@@ -24,6 +25,7 @@ namespace OSPSuite.InstallationValidator.Bootstrap
       {
          registerAllInContainer(initializeContainer());
          ApplicationIcons.DefaultIcon = ApplicationIcons.Comparison;
+         NumericFormatterOptions.Instance.DecimalPlace = 2;
       }
 
       private IContainer initializeContainer()

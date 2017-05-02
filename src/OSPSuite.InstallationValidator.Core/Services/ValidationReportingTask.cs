@@ -46,7 +46,7 @@ namespace OSPSuite.InstallationValidator.Core.Services
          if (openReport)
             FileHelper.TryOpenFile(reportConfiguration.ReportFile);
 
-         _validationLogger.AppendLine(Captions.ReportCreatedUnder(reportConfiguration.ReportFile));
+         _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
       }
 
       private Task startCreationProcess(InstallationValidationResult batchComparisonResult, ReportConfiguration reportConfiguration)
