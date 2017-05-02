@@ -82,7 +82,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
       private double calculateDeviation(float[] array1, float[] array2, double? threshold = null)
       {
          if (array1.Length != array2.Length)
-            throw new InvalidArgumentException(Exceptions.ArraysHaveDifferentLength(array1.Length, array2.Length));
+            throw new InvalidArgumentException(Validation.ArraysHaveDifferentLength(array1.Length, array2.Length));
 
          return array1.Select((x, i) => relativeDeviation(x, array2[i], threshold)).Max();
       }

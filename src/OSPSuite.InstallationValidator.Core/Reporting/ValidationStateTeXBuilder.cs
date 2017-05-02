@@ -23,21 +23,21 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
       public override void Build(ValidationState validationState, OSPSuiteTracker buildTracker)
       {
          var color = colorFor(validationState);
-         _builderRepository.Report(new object[] { "Result of the Validation: ", new ColorText($"{validationState}", color), Environment.NewLine}, buildTracker);
+         _builderRepository.Report(new object[] {"Result of the Validation: ", new ColorText($"{validationState}", color), Environment.NewLine}, buildTracker);
       }
 
       private Color colorFor(ValidationState validationState)
       {
          switch (validationState)
          {
-               case ValidationState.Invalid:
-                  return Color.Red;
-               case ValidationState.ValidWithWarnings:
-                  return Color.Orange;
-               case ValidationState.Valid:
-                  return Color.Green;
-               default:
-                  return Color.Empty;
+            case ValidationState.Invalid:
+               return Color.Red;
+            case ValidationState.ValidWithWarnings:
+               return Color.Orange;
+            case ValidationState.Valid:
+               return Color.Green;
+            default:
+               return Color.Empty;
          }
       }
    }
@@ -51,7 +51,6 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          Color = color;
       }
    }
-
 
    // TODO - make TextTeXBuilder from reporting public so it can be inherited
    public class ColorTextTeXBuilder : TeXChunkBuilder<ColorText>
@@ -126,7 +125,6 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
                return text;
          }
       }
-
 
       private string styledText(Text.FontStyles fontStyle, string text)
       {
