@@ -18,11 +18,16 @@ namespace OSPSuite.InstallationValidator.Core
       string PKSimBatchToolPath { get; }
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
-      string DimensionFilePath { get; }
+      string DimensionFilePath { get; set; }
    }
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
    {
+      public InstallationValidatorConfiguration()
+      {
+         DimensionFilePath = createApplicationDataPathFor(Constants.DIMENSION_FILE);
+      }
+
       protected override string ApplicationFolderPathWithRevision(string revision)
       {
          return Path.Combine(Constants.APPLICATION_FOLDER_PATH, revision);
@@ -39,7 +44,7 @@ namespace OSPSuite.InstallationValidator.Core
       public override string IssueTrackerUrl { get; } = Constants.ISSUE_TRACKER_URL;
       private string applicationFolderPathWithMajorVersion => ApplicationFolderPathWithRevision(MajorVersion);
       private string applicationSettingsFolderPath => applicationSettingsFolderPathFor(applicationFolderPathWithMajorVersion);
-      public string DimensionFilePath => createApplicationDataPathFor(Constants.DIMENSION_FILE);
+      public string DimensionFilePath { get; set; }
 
       private string applicationSettingsFolderPathFor(string applicationFolderPath)
       {

@@ -40,7 +40,6 @@ namespace OSPSuite.InstallationValidator.Core
 
          container.Register<FolderInfo, FolderInfo>();
          container.Register<IComparisonStrategy, PointwiseComparisonStrategy>();
-         container.Register<IApplicationConfiguration, IInstallationValidatorConfiguration, InstallationValidatorConfiguration>(LifeStyle.Singleton);
 
          registerDimensions(container);
 
@@ -49,10 +48,6 @@ namespace OSPSuite.InstallationValidator.Core
 
       private void registerCoreDependencies(IContainer container)
       {
-//         container.AddRegister(x => x.FromType<CoreRegister>());
-//         container.AddRegister(x => x.FromType<PresenterRegister>());
-//         container.AddRegister(x => x.FromType<InfrastructureRegister>());
-         
          container.Register<ICompression, SharpLibCompression>();
          container.Register<IStringCompression, StringCompression>();
 
@@ -106,6 +101,7 @@ namespace OSPSuite.InstallationValidator.Core
          container.WindsorContainer.AddFacility<EventRegisterFacility>();
 
          container.RegisterImplementationOf(container.DowncastTo<IContainer>());
+         container.Register<IApplicationConfiguration, IInstallationValidatorConfiguration, InstallationValidatorConfiguration>(LifeStyle.Singleton);
 
          return container;
       }
