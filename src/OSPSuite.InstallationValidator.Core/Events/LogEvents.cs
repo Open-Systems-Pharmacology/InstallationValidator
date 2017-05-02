@@ -1,13 +1,26 @@
 ﻿namespace OSPSuite.InstallationValidator.Core.Events
 {
-   public class LogAppendedEvent
+   public class AppendTextToLogEvent
    {
-      public string NewText { get; }
+      public string Text { get; }
+      public bool IsHtml { get; }
 
-      public LogAppendedEvent(string newText)
+      public AppendTextToLogEvent(string text, bool isHtml = true)
       {
-         NewText = newText;
+         Text = text;
+         IsHtml = isHtml;
       }
+   }
 
+   public class AppendLineToLogEvent
+   {
+      public string Line { get; }
+      public bool IsHtml { get; }
+
+      public AppendLineToLogEvent(string line, bool isHtml = true)
+      {
+         Line = line;
+         IsHtml = isHtml;
+      }
    }
 }

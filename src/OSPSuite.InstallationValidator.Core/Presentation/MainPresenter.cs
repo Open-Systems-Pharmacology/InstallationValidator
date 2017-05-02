@@ -15,7 +15,9 @@ using OSPSuite.Utility.Events;
 
 namespace OSPSuite.InstallationValidator.Core.Presentation
 {
-   public interface IMainPresenter : IDisposablePresenter, IListener<LogAppendedEvent>
+   public interface IMainPresenter : IDisposablePresenter,
+      IListener<AppendTextToLogEvent>,
+      IListener<AppendLineToLogEvent>
    {
       void SelectOutputFolder();
       void Abort();
@@ -70,17 +72,18 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          {
             updateValidationRunningState(running: true);
             resetLog();
-            logLine(Captions.StartingBatchCalculation);
+            logLine(Logs.StartingBatchCalculation);
             logLine();
             var validationResult = new InstallationValidationResult {RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token)};
 
-            logLine(Captions.StartingComparison);
+            logLine(Logs.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            logLine();
 
-            logLine(Captions.StartingReport);
+            logLine(Logs.StartingReport);
             await _validationReportingTask.StartReport(validationResult, _outputFolderDTO.FolderPath);
-
-            logLine(Captions.ValidationCompleted);
+            logLine();
+            logLine(Logs.ValidationCompleted);
          }
          catch (OperationCanceledException)
          {
@@ -96,9 +99,12 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          }
       }
 
-      private void logLine(string textToLog = "")
+      private void logLine(string textToLog = "", bool isHtml = true)
       {
-         logText($"{Environment.NewLine}{textToLog}");
+         if (isHtml)
+            logHTML($"<br>{textToLog}");
+         else
+            logText($"{Environment.NewLine}{textToLog}", isHtml: false);
       }
 
       private void updateValidationRunningState(bool running)
@@ -107,9 +113,12 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          View.ValidationIsRunning(_validationRunning);
       }
 
-      private void logText(string theTextToLog)
+      private void logText(string textToLog, bool isHtml = true)
       {
-         View.AppendText(theTextToLog);
+         if (isHtml)
+            logHTML(textToLog);
+         else
+            View.AppendText(textToLog);
       }
 
       private void logException(Exception e)
@@ -126,14 +135,19 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          View.AppendHTML(htmlToLog);
       }
 
-      public void Handle(LogAppendedEvent eventToHandle)
+      public void Handle(AppendTextToLogEvent eventToHandle)
       {
-         logText(eventToHandle.NewText);
+         logText(eventToHandle.Text, eventToHandle.IsHtml);
       }
 
       private void resetLog()
       {
          View.ResetText(string.Empty);
+      }
+
+      public void Handle(AppendLineToLogEvent eventToHandle)
+      {
+         logLine(eventToHandle.Line, eventToHandle.IsHtml);
       }
    }
 }

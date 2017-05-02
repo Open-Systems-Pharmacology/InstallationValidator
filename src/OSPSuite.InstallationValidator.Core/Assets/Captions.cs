@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Text;
+using OSPSuite.Core.Domain;
 
 namespace OSPSuite.InstallationValidator.Core.Assets
 {
@@ -9,10 +11,6 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string Start = "Start";
       public static string TheValidationWasCanceled = "The validation was canceled";
       public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
-      public static readonly string StartingBatchCalculation = "Starting batch calculations...";
-      public static readonly string StartingComparison = "Starting output comparisons...";
-      public static readonly string StartingReport = "Starting Report Creation...";
-      public static readonly string ValidationCompleted = "Validation Completed";
 
       public static readonly string ValidationDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                                                             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
@@ -26,6 +24,65 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string TimeComparisonValidation = "Time Comparison Validation";
       public static readonly string OutputComparisonValidation = "Output Comparison Validation";
       public static readonly string MissingFileValidation = "Missing File Validation";
+
+      public static string ReportCreatedUnder(string reportConfigurationReportFile)
+      {
+         return $"Installation report was created and saved at '{reportConfigurationReportFile}'";
+      }
+   }
+
+   public static class Logs
+   {
+      public static readonly string StartingBatchCalculation = InBold("Starting batch calculations...");
+      public static readonly string StartingComparison = InBold("Starting output comparisons...");
+      public static readonly string StartingReport = InBold("Starting report creation...");
+      public static readonly string ValidationCompleted = InBold("Validation Completed");
+      public static readonly string Valid = InGreen("Valid");
+      public static readonly string Invalid = InRed("Invalid");
+      public static readonly string ValidWithWarnings = InOrange("ValidWithWarnings");
+
+      public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
+
+      public static string InBold(string stringToFormat)
+      {
+         return InHtml(stringToFormat, "b");
+      }
+
+      public static string InHtml(string stringToFormat, string marker)
+      {
+         return $"<{marker}>{stringToFormat}</{marker}>";
+      }
+
+      public static string InGreen(string stringToFormat)
+      {
+         return InColor(stringToFormat, Color.Green);
+      }
+
+      public static string InRed(string stringToFormat)
+      {
+         return InColor(stringToFormat, Color.Red);
+      }
+
+      public static string InOrange(string stringToFormat)
+      {
+         return InColor(stringToFormat, Color.Orange);
+      }
+
+      public static string InColor(string stringToFormat, Color color)
+      {
+         return $"<span style='color:rgb({color.R},{color.G},{color.B})'>{stringToFormat}</span>";
+      }
+
+      public static string StateDisplayFor(ValidationState validationState)
+      {
+         if(validationState==ValidationState.Invalid)
+            return  Invalid;
+
+         if (validationState == ValidationState.ValidWithWarnings)
+            return ValidWithWarnings;
+
+         return Valid;
+      }
    }
 
    public static class Exceptions

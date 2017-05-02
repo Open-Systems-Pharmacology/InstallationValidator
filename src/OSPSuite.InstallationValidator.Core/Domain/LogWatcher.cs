@@ -13,14 +13,14 @@ namespace OSPSuite.InstallationValidator.Core.Domain
    public class LogWatcher : ILogWatcher
    {
       private readonly string _logFile;
-      private readonly IEventPublisher _eventPublisher;
+      private readonly IValidationLogger _validationLogger;
       private FileSystemWatcher _fileSystemWatcher;
       private StreamReader _sr;
 
-      public LogWatcher(string logFile, IEventPublisher eventPublisher)
+      public LogWatcher(string logFile, IValidationLogger validationLogger)
       {
          _logFile = logFile;
-         _eventPublisher = eventPublisher;
+         _validationLogger = validationLogger;
 
          configureFileSystemWatcher(logFile);
 
@@ -56,7 +56,7 @@ namespace OSPSuite.InstallationValidator.Core.Domain
          var logFileStream = new FileStream(_logFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
          _sr = new StreamReader(logFileStream);
 
-         raiseAppendEvent();
+         appendTextToLog();
       }
 
       private string readFileText()
@@ -66,12 +66,12 @@ namespace OSPSuite.InstallationValidator.Core.Domain
 
       private void onChanged(object sender, FileSystemEventArgs e)
       {
-         raiseAppendEvent();
+         appendTextToLog();
       }
 
-      private void raiseAppendEvent()
+      private void appendTextToLog()
       {
-         _eventPublisher.PublishEvent(new LogAppendedEvent(readFileText()));
+         _validationLogger.AppendRawText(readFileText());
       }
 
       public virtual void Watch()

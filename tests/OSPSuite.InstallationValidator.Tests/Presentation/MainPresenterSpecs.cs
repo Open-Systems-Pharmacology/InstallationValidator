@@ -9,9 +9,9 @@ using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
+using OSPSuite.InstallationValidator.Core.Presentation.Views;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
-using IMainView = OSPSuite.InstallationValidator.Core.Presentation.Views.IMainView;
 
 namespace OSPSuite.InstallationValidator.Presentation
 {
@@ -54,15 +54,51 @@ namespace OSPSuite.InstallationValidator.Presentation
       }
    }
 
-   public class When_responding_to_published_events : concern_for_MainPresenter
+   public class When_the_main_presenter_is_notified_that_text_should_be_appended_to_the_log : concern_for_MainPresenter
    {
-      private string _newText = "Text";
+      private readonly string _newText = "Text";
+
+      protected override void Because()
+      {
+         sut.Handle(new AppendTextToLogEvent(_newText));
+      }
 
       [Observation]
-      public void view_is_notified_of_append_events()
+      public void should_append_the_text_to_the_log()
       {
-         sut.Handle(new LogAppendedEvent(_newText));
-         A.CallTo(() => _mainView.AppendText(_newText)).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendHTML(_newText)).MustHaveHappened();
+      }
+   }
+
+   public class When_the_main_presenter_is_notified_that_a_line_should_be_appended_to_the_log_in_non_html_format : concern_for_MainPresenter
+   {
+      private readonly string _newText = "Text";
+
+      protected override void Because()
+      {
+         sut.Handle(new AppendLineToLogEvent(_newText,isHtml:false));
+      }
+
+      [Observation]
+      public void should_append_the_text_to_the_log()
+      {
+         A.CallTo(() => _mainView.AppendText($"{Environment.NewLine}{_newText}")).MustHaveHappened();
+      }
+   }
+
+   public class When_the_main_presenter_is_notified_that_a_line_should_be_appended_to_the_log_in_html_format : concern_for_MainPresenter
+   {
+      private readonly string _newText = "Text";
+
+      protected override void Because()
+      {
+         sut.Handle(new AppendLineToLogEvent(_newText, isHtml: true));
+      }
+
+      [Observation]
+      public void should_append_the_text_to_the_log()
+      {
+         A.CallTo(() => _mainView.AppendHTML($"<br>{_newText}")).MustHaveHappened();
       }
    }
 
@@ -78,9 +114,10 @@ namespace OSPSuite.InstallationValidator.Presentation
       public async Task the_view_should_be_notified_that_the_cancel_was_triggered()
       {
          await sut.StartInstallationValidation();
-         A.CallTo(() => _mainView.AppendText(A<string>.That.Matches(x => x.Contains(Captions.TheValidationWasCanceled)))).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendHTML(A<string>.That.Matches(x => x.Contains(Captions.TheValidationWasCanceled)))).MustHaveHappened();
       }
    }
+
    public class When_the_batch_start_throws_exception : concern_for_MainPresenter
    {
       protected override void Context()
