@@ -19,8 +19,8 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
          _builderRepository.Report(new object[]
          {
             new LineBreak(),
-            Captions.OutputComparisonValidation,
-            new LineBreak(), validationMessageFor(outputToReport),
+            Assets.Reporting.OutputComparisonValidation,
+            new LineBreak(), ValidationMessageFor(outputToReport),
             new LineBreak(), outputPathFor(outputToReport),
             new LineBreak(), DeviationFor(outputToReport)
          }, buildTracker);
@@ -28,12 +28,7 @@ namespace OSPSuite.InstallationValidator.Core.Reporting
 
       private static string outputPathFor(OutputComparisonResult outputToReport)
       {
-         return $"{Captions.OutputPath}: {outputToReport.Path}";
-      }
-
-      private static string validationMessageFor(OutputComparisonResult outputToReport)
-      {
-         return $"{outputToReport.Message}";
+         return $"{Assets.Reporting.OutputPath}: {outputToReport.Path}";
       }
    }
 }
