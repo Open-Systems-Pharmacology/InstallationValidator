@@ -7,8 +7,10 @@ using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core;
 using OSPSuite.InstallationValidator.Core.Assets;
+using OSPSuite.InstallationValidator.Core.Domain;
 using OSPSuite.InstallationValidator.Core.Events;
 using OSPSuite.InstallationValidator.Core.Presentation;
+using OSPSuite.InstallationValidator.Core.Presentation.DTO;
 using OSPSuite.InstallationValidator.Core.Presentation.Views;
 using OSPSuite.InstallationValidator.Core.Services;
 using OSPSuite.Presentation.Presenters;
@@ -21,9 +23,10 @@ namespace OSPSuite.InstallationValidator.Presentation
       protected ILogPresenter _logPresenter;
       protected IDialogCreator _dialogCreator;
       protected IBatchStarterTask _batchStarterTask;
-      private IBatchComparisonTask _batchComparisonTask;
-      private IApplicationConfiguration _applicationConfiguration;
-      private IValidationReportingTask _validationReportingTask;
+      protected IBatchComparisonTask _batchComparisonTask;
+      protected IApplicationConfiguration _applicationConfiguration;
+      protected IValidationReportingTask _validationReportingTask;
+      protected FolderDTO _outputFolderDTO;
 
       protected override void Context()
       {
@@ -36,6 +39,10 @@ namespace OSPSuite.InstallationValidator.Presentation
          _applicationConfiguration = A.Fake<IApplicationConfiguration>();
          A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.ISSUE_TRACKER_URL);
          _validationReportingTask = A.Fake<IValidationReportingTask>();
+
+         A.CallTo(() => _mainView.BindTo(A<FolderDTO>._))
+            .Invokes(x => _outputFolderDTO = x.GetArgument<FolderDTO>(0));
+
          sut = new MainPresenter(_mainView, _dialogCreator, _batchStarterTask, _batchComparisonTask, _applicationConfiguration, _validationReportingTask);
       }
    }
@@ -76,7 +83,7 @@ namespace OSPSuite.InstallationValidator.Presentation
 
       protected override void Because()
       {
-         sut.Handle(new AppendLineToLogEvent(_newText,isHtml:false));
+         sut.Handle(new AppendLineToLogEvent(_newText, isHtml: false));
       }
 
       [Observation]
@@ -135,6 +142,40 @@ namespace OSPSuite.InstallationValidator.Presentation
       public void the_view_should_be_updated_with_exception_information()
       {
          A.CallTo(() => _mainView.AppendHTML(Exceptions.ExceptionViewDescription(Constants.ISSUE_TRACKER_URL))).MustHaveHappened();
+      }
+   }
+
+   public class When_the_main_presenter_is_starting_the_installation_validation : concern_for_MainPresenter
+   {
+      private InstallationValidationResult _result;
+
+      protected override void Context()
+      {
+         base.Context();
+         _outputFolderDTO.FolderPath = "XXX";
+      }
+
+      protected override void Because()
+      {
+         _result = sut.StartInstallationValidation().Result;
+      }
+
+      [Observation]
+      public void should_start_the_batch_calculation()
+      {
+         A.CallTo(() => _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, A<CancellationToken>._)).MustHaveHappened();
+      }
+
+      [Observation]
+      public void should_state_the_comparison_task()
+      {
+         A.CallTo(() => _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, A<CancellationToken>._)).MustHaveHappened();
+      }
+
+      [Observation]
+      public void should_generate_the_report()
+      {
+         A.CallTo(() => _validationReportingTask.CreateReport(_result, _outputFolderDTO.FolderPath, true)).MustHaveHappened();
       }
    }
 

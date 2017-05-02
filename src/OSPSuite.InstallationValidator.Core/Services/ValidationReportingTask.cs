@@ -6,13 +6,14 @@ using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.InstallationValidator.Core.Assets;
 using OSPSuite.InstallationValidator.Core.Domain;
+using OSPSuite.Utility;
 using OSPSuite.Utility.Extensions;
 
 namespace OSPSuite.InstallationValidator.Core.Services
 {
    public interface IValidationReportingTask
    {
-      Task StartReport(InstallationValidationResult installationValidationResult, string outputFolderPath);
+      Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false);
    }
 
    public class ValidationReportingTask : IValidationReportingTask
@@ -28,7 +29,7 @@ namespace OSPSuite.InstallationValidator.Core.Services
          _validationLogger = validationLogger;
       }
 
-      public async Task StartReport(InstallationValidationResult installationValidationResult, string outputFolderPath)
+      public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
       {
          var dateTime = installationValidationResult.RunSummary.StartTime;
 
@@ -36,11 +37,15 @@ namespace OSPSuite.InstallationValidator.Core.Services
          {
             Template = _reportTemplateRepository.All().FirstOrDefault(),
             Title = Assets.Reporting.ValidationReport,
-            SubTitle = dateTime.ToIsoFormat(withTime:true, withSeconds:true),
+            SubTitle = dateTime.ToIsoFormat(withTime: true, withSeconds: true),
             ReportFile = reportOutputPath(outputFolderPath, dateTime)
          };
 
          await startCreationProcess(installationValidationResult, reportConfiguration);
+
+         if (openReport)
+            FileHelper.TryOpenFile(reportConfiguration.ReportFile);
+
          _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
       }
 

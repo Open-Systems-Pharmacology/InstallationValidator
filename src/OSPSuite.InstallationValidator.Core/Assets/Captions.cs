@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Text;
 using OSPSuite.Core.Domain;
 using OSPSuite.Utility.Format;
@@ -29,10 +30,10 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string StartingBatchCalculation = InBold("Starting batch calculations...");
       public static readonly string StartingComparison = InBold("Starting output comparisons...");
       public static readonly string StartingReport = InBold("Starting report creation...");
-      public static readonly string ValidationCompleted = InBold("Validation Completed");
+      public static readonly string ValidationCompleted = InBold("Validation completed");
       public static readonly string Valid = InGreen("Valid");
       public static readonly string Invalid = InRed("Invalid");
-      public static readonly string ValidWithWarnings = InOrange("ValidWithWarnings");
+      public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
 
       public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
 
@@ -87,7 +88,6 @@ namespace OSPSuite.InstallationValidator.Core.Assets
    {
       public static readonly string CopyToClipboard = "Copy to Clipboard";
       public const string OutputNotDefined = "Output not defined!";
-      public static string ArraysHaveDifferentLength(int length1, int length2) => $"Array used in comparison have different lengths ({length1} vs {length2}";
 
       // TODO - change the implementation in Core and modify ExceptionView to use a RichEditControl instead of a label if the text does not display correctly
       public static string ExceptionViewDescription(string issueTrackerUrl)
@@ -124,6 +124,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       private static readonly NumericFormatter<double> _formatter = new NumericFormatter<double>(NumericFormatterOptions.Instance);
 
       public static string FolderDoesNotExist(string fileFullPath) => $"Folder '{fileFullPath}' does not exist";
+
+      public static string ArraysHaveDifferentLength(int length1, int length2) => $"Array used in comparison have different lengths ({length1} vs {length2}";
 
       public static string TimeArraysHaveDifferentLength(string simulationName, int length1, int length2)
       {
@@ -175,11 +177,15 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string OperatingSystem = "Operating System";
       public static readonly string ApplicationVersions = "Application Versions";
       public static readonly string ComparisonFolders = "Folders for Comparison";
-      public static readonly string DefaultTolerances = "Default Tolerances";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";
       public static readonly string BatchRunDuration = "Batch Run Duration";
+
+      public static string InstallationValidationPerformedIn(string startTime, string endTime, string delay)
+      {
+         return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
+      }
 
       public static readonly string Deviation = "Deviation";
       public static readonly string OutputPath = "Output Path";

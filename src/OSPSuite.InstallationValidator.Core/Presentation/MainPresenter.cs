@@ -21,7 +21,7 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
    {
       void SelectOutputFolder();
       void Abort();
-      Task StartInstallationValidation();
+      Task<InstallationValidationResult> StartInstallationValidation();
    }
 
    public class MainPresenter : AbstractDisposablePresenter<IMainView, IMainPresenter>, IMainPresenter
@@ -65,33 +65,39 @@ namespace OSPSuite.InstallationValidator.Core.Presentation
          _cancellationTokenSource?.Cancel();
       }
 
-      public async Task StartInstallationValidation()
+      public async Task<InstallationValidationResult> StartInstallationValidation()
       {
          _cancellationTokenSource = new CancellationTokenSource();
+         var validationResult = new InstallationValidationResult();
          try
          {
             updateValidationRunningState(running: true);
             resetLog();
+
             logLine(Logs.StartingBatchCalculation);
             logLine();
-            var validationResult = new InstallationValidationResult {RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token)};
-
+            validationResult.RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            
             logLine(Logs.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             logLine();
 
             logLine(Logs.StartingReport);
-            await _validationReportingTask.StartReport(validationResult, _outputFolderDTO.FolderPath);
+            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport:true);
             logLine();
+
             logLine(Logs.ValidationCompleted);
+            return validationResult;
          }
          catch (OperationCanceledException)
          {
             logLine(Captions.TheValidationWasCanceled);
+            return validationResult;
          }
          catch (Exception e)
          {
             logException(e);
+            return validationResult;
          }
          finally
          {
