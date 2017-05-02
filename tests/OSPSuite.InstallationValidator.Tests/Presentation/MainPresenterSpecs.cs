@@ -169,7 +169,7 @@ namespace OSPSuite.InstallationValidator.Presentation
       [Observation]
       public void should_state_the_comparison_task()
       {
-         A.CallTo(() => _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, A<CancellationToken>._)).MustHaveHappened();
+         A.CallTo(() => _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, A<CancellationToken>._, A<string>._, A<string>._)).MustHaveHappened();
       }
 
       [Observation]
