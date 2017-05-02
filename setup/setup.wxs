@@ -27,7 +27,7 @@
         <Directory Id="INSTALLDIR" Name="$(var.ProductFullName)">
           <Component Id="OSPSuite.InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E">
             <File Name="OSPSuite.InstallationValidator.exe" Id="OSPSuite.InstallationValidator.exe" KeyPath="yes" Source="OSPSuite.InstallationValidator.exe">
-              <Shortcut Name="$(var.ProductName)" Id="OSPSuiteInstallationValidatorShortCut" Icon="OSPSuiteInstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
+              <Shortcut Name="Installation Validator" Id="OSPSuiteInstallationValidatorShortCut" Icon="OSPSuiteInstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
             </File>
 
             <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\OSPSuite.InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallPath" Type="string" KeyPath="no" Value="[INSTALLDIR]OSPSuite.InstallationValidator.exe" />
