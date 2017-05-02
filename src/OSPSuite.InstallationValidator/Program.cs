@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using DevExpress.Skins;
+using DevExpress.UserSkins;
 using OSPSuite.InstallationValidator.Bootstrap;
 using OSPSuite.InstallationValidator.Core.Presentation;
+using OSPSuite.InstallationValidator.Views;
 using OSPSuite.Presentation.Services;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Extensions;
@@ -20,6 +23,8 @@ namespace OSPSuite.InstallationValidator
          {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            BonusSkins.Register();
+            SkinManager.EnableFormSkins();
 
             ApplicationStartup.Initialize();
             var mainPresenter = IoC.Resolve<IMainPresenter>();

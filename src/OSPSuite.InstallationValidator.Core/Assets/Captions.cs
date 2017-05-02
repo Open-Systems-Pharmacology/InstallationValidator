@@ -6,9 +6,10 @@ namespace OSPSuite.InstallationValidator.Core.Assets
 {
    public static class Captions
    {
-      public static readonly string OutputFolder = "Output Folder";
+      public static readonly string OutputFolder = "Specify the folder where validation outputs will be generated";
       public static readonly string SelectOutputFolder = "Select Output Folder";
-      public static readonly string Start = "Start";
+      public static readonly string StartValidation = "Start Validation";
+      public static readonly string StopValidation = "Stop Validation";
       public static string TheValidationWasCanceled = "The validation was canceled";
       public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
 
@@ -18,6 +19,8 @@ namespace OSPSuite.InstallationValidator.Core.Assets
                                                             "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
                                                             "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                                                             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+      public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
 
       public static string ReportCreatedUnder(string reportConfigurationReportFile)
       {
