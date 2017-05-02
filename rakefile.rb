@@ -20,6 +20,7 @@ task :create_setup, [:product_version, :configuration] do |t, args|
 		'packages/**/OSPSuite.TeXReporting/**/*.*',
 		'data/*.wxs',
 		'src/OSPSuite.InstallationValidator/*.ico',
+		'dimensions/*.xml',
 		'setup/setup.wxs',
 		'setup/**/*.{msm,rtf,bmp}',
 	]
