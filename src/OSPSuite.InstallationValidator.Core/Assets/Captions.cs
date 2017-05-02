@@ -19,12 +19,6 @@ namespace OSPSuite.InstallationValidator.Core.Assets
                                                             "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                                                             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-      public static readonly string Deviation = "Deviation";
-      public static readonly string OutputPath = "Output Path";
-      public static readonly string TimeComparisonValidation = "Time Comparison Validation";
-      public static readonly string OutputComparisonValidation = "Output Comparison Validation";
-      public static readonly string MissingFileValidation = "Missing File Validation";
-
       public static string ReportCreatedUnder(string reportConfigurationReportFile)
       {
          return $"Installation report was created and saved at '{reportConfigurationReportFile}'";
@@ -180,5 +174,11 @@ namespace OSPSuite.InstallationValidator.Core.Assets
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";
       public static readonly string BatchRunDuration = "Batch Run Duration";
+
+      public static readonly string Deviation = "Deviation";
+      public static readonly string OutputPath = "Output Path";
+      public static readonly string TimeComparisonValidation = "Time Comparison Validation";
+      public static readonly string OutputComparisonValidation = "Output Comparison Validation";
+      public static readonly string MissingFileValidation = "Missing File Validation";
    }
 }
