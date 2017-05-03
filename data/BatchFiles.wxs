@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
-        <DirectoryRef Id="OSPSuiteInstallationValidatorCommonDataVersionFolder">
+        <DirectoryRef Id="InstallationValidatorCommonDataVersionFolder">
             <Directory Id="dirF597E611A4FB8093C73505D52539DB80" Name="Inputs" />
             <Directory Id="dir62BE37BACCAC5718B7D00DA538D28F78" Name="Outputs" />
         </DirectoryRef>
