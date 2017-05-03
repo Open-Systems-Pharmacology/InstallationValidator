@@ -10,7 +10,7 @@ namespace InstallationValidator.Core.Services
 {
    public interface IBatchComparisonTask
    {
-      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = Captions.Old, string folderPathCaption2 = Captions.New);
+      Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token);
       Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1 = Captions.Old, string folderPathCaption2 = Captions.New);
    }
 
@@ -29,9 +29,9 @@ namespace InstallationValidator.Core.Services
          _validationLogger = validationLogger;
       }
 
-      public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token, string folderPathCaption1 = "Old", string folderPathCaption2 = "New")
+      public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token)
       {
-         return StartComparison(_validatorConfiguration.BatchOutputsFolderPath, folderPath, token, folderPathCaption1, folderPathCaption2);
+         return StartComparison(_validatorConfiguration.BatchOutputsFolderPath, folderPath, token, Captions.Installation, Captions.Computed);
       }
 
       public async Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1, string folderPathCaption2)

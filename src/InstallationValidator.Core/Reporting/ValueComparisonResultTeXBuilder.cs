@@ -1,14 +1,22 @@
 using System;
 using InstallationValidator.Core.Domain;
+using OSPSuite.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
 
 namespace InstallationValidator.Core.Reporting
 {
-   public abstract class ValueComparisonResultTeXBuilder<T> : OSPSuiteTeXBuilder<T> where T:  ValueComparisonResult
+   public abstract class ValueComparisonResultTeXBuilder<T> : OSPSuiteTeXBuilder<T> where T : ValueComparisonResult
    {
-      protected static string DeviationFor(T outputToReport)
+      private readonly DoubleFormatter _doubleFormatter;
+
+      protected ValueComparisonResultTeXBuilder()
       {
-         return $"{Assets.Reporting.Deviation}: {outputToReport.Deviation:0.####}{Environment.NewLine}";
+         _doubleFormatter = new DoubleFormatter();
+      }
+
+      protected string DeviationFor(T outputToReport)
+      {
+         return $"{Assets.Reporting.Deviation}: {_doubleFormatter.Format(outputToReport.Deviation)}{Environment.NewLine}";
       }
 
       protected static string ValidationMessageFor(T outputToReport)
