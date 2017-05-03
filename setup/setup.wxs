@@ -25,13 +25,13 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="OSP_SUITE" Name="$(var.Manufacturer)">
         <Directory Id="INSTALLDIR" Name="$(var.ProductFullName)">
-          <Component Id="OSPSuite.InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E">
-            <File Name="OSPSuite.InstallationValidator.exe" Id="OSPSuite.InstallationValidator.exe" KeyPath="yes" Source="OSPSuite.InstallationValidator.exe">
-              <Shortcut Name="Installation Validator" Id="OSPSuiteInstallationValidatorShortCut" Icon="OSPSuiteInstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
+          <Component Id="InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E">
+            <File Name="InstallationValidator.exe" Id="InstallationValidator.exe" KeyPath="yes" Source="InstallationValidator.exe">
+              <Shortcut Name="Installation Validator" Id="InstallationValidatorShortCut" Icon="InstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
             </File>
 
-            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\OSPSuite.InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallPath" Type="string" KeyPath="no" Value="[INSTALLDIR]OSPSuite.InstallationValidator.exe" />
-            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\OSPSuite.InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallDir" Type="string" KeyPath="no" Value="[INSTALLDIR]" />
+            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallPath" Type="string" KeyPath="no" Value="[INSTALLDIR]InstallationValidator.exe" />
+            <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\InstallationValidator\$(var.ProductReleaseVersion)" Name="InstallDir" Type="string" KeyPath="no" Value="[INSTALLDIR]" />
           </Component>
         </Directory>
       </Directory>
@@ -47,16 +47,16 @@
             </CreateFolder>
           </Component>
          
-          <Directory Id="OSPSuiteInstallationValidatorCommonDataFolder" Name="$(var.ProductName)">
-            <Component Id="OSPSuiteInstallationValidatorCommonDataFolder" Guid="F0CE361E-A4C5-43E6-8217-76A000FBED64">
-              <CreateFolder Directory="OSPSuiteInstallationValidatorCommonDataFolder">
+          <Directory Id="InstallationValidatorCommonDataFolder" Name="$(var.ProductName)">
+            <Component Id="InstallationValidatorCommonDataFolder" Guid="F0CE361E-A4C5-43E6-8217-76A000FBED64">
+              <CreateFolder Directory="InstallationValidatorCommonDataFolder">
                 <Permission User="Everyone" GenericAll="yes" />
               </CreateFolder>
             </Component>
 
-            <Directory Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" Name="$(var.ProductReleaseVersion)">
-              <Component Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" Guid="A3E63345-3313-42B4-B46B-396D2B0C7E6E">
-                <CreateFolder Directory="OSPSuiteInstallationValidatorCommonDataVersionFolder">
+            <Directory Id="InstallationValidatorCommonDataVersionFolder" Name="$(var.ProductReleaseVersion)">
+              <Component Id="InstallationValidatorCommonDataVersionFolder" Guid="A3E63345-3313-42B4-B46B-396D2B0C7E6E">
+                <CreateFolder Directory="InstallationValidatorCommonDataVersionFolder">
                   <Permission User="Everyone" GenericAll="yes" />
                 </CreateFolder>
               </Component>
@@ -89,11 +89,11 @@
       </Directory>
     </Directory>
 
-    <Icon Id="OSPSuiteInstallationValidatorIcon.exe" SourceFile="$(var.DeployDir)/OSPSuite.InstallationValidator.exe" />
-    <Icon Id="OSPSuiteInstallationValidatorIcon.ico" SourceFile="$(var.DeployDir)/OSPSuiteInstallationValidator.ico" />
+    <Icon Id="InstallationValidatorIcon.exe" SourceFile="$(var.DeployDir)/InstallationValidator.exe" />
+    <Icon Id="InstallationValidatorIcon.ico" SourceFile="$(var.DeployDir)/InstallationValidator.ico" />
 
     <Property Id="ARPHELPLINK" Value="http://www.open-systems-pharmacology.org" />
-    <Property Id="ARPPRODUCTICON" Value="OSPSuiteInstallationValidatorIcon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="InstallationValidatorIcon.ico" />
     <Property Id="ARPCONTACT" Value="http://forum.open-systems-pharmacology.org" />
     <Property Id="ARPURLUPDATEINFO" Value="http://www.open-systems-pharmacology.org" />
     <Property Id="ARPURLINFOABOUT" Value="http://www.open-systems-pharmacology.org" />
@@ -104,11 +104,11 @@
       <ComponentGroupRef Id="OSPSuite.TeXReporting" />
       <ComponentGroupRef Id="BatchFiles" />
 
-      <ComponentRef Id="OSPSuite.InstallationValidator.exe" />
+      <ComponentRef Id="InstallationValidator.exe" />
       <ComponentRef Id="OSPSuiteMenuDir" />
       <ComponentRef Id="OSPSuiteDataFolder" />
-      <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataFolder" />
-      <ComponentRef Id="OSPSuiteInstallationValidatorCommonDataVersionFolder" />
+      <ComponentRef Id="InstallationValidatorCommonDataFolder" />
+      <ComponentRef Id="InstallationValidatorCommonDataVersionFolder" />
       <ComponentRef Id="TeXTemplatesFolder" />
       <ComponentRef Id="OSPSuite.Dimensions" />
     </Feature>
