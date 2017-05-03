@@ -1,1 +1,1 @@
-# OSPSuite.InstallationValidator
+# InstallationValidator

@@ -32,7 +32,7 @@ before_build:
 
 test:
   assemblies:
-    - OSPSuite.InstallationValidator.Tests.dll
+    - InstallationValidator.Tests.dll
   categories:
     except:
       - Reporting

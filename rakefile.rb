@@ -6,20 +6,20 @@ require_relative 'scripts/utils'
 task :create_setup, [:product_version, :configuration] do |t, args|
 
 	setup_dir = File.join(solution_dir, 'setup')
-	src_dir = File.join(solution_dir, 'src', 'OSPSuite.InstallationValidator', 'bin', args.configuration)
+	src_dir = File.join(solution_dir, 'src', 'InstallationValidator', 'bin', args.configuration)
 	product_version = args.product_version
 	suite_name = 'Open Systems Pharmacology Suite'
 
 	#Ignore files from automatic harvesting that will be installed specifically
 	harvest_ignored_files = [
-		'OSPSuite.InstallationValidator.exe' 
+		'InstallationValidator.exe' 
 	]
 
 	#Files required for setup creation only and that will not be harvested automatically
 	setup_files	 = [
 		'packages/**/OSPSuite.TeXReporting/**/*.*',
 		'data/*.wxs',
-		'src/OSPSuite.InstallationValidator/*.ico',
+		'src/InstallationValidator/*.ico',
 		'dimensions/*.xml',
 		'setup/setup.wxs',
 		'setup/**/*.{msm,rtf,bmp}',
@@ -64,5 +64,5 @@ def	manufacturer
 end
 
 def	product_name
-	'OSPSuite.InstallationValidator'
+	'InstallationValidator'
 end

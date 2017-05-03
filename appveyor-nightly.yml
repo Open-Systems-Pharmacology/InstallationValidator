@@ -41,7 +41,7 @@ after_build:
 
 test:
   assemblies:
-    - OSPSuite.InstallationValidator.Tests.dll
+    - InstallationValidator.Tests.dll
 
 skip_commits:
   files:
