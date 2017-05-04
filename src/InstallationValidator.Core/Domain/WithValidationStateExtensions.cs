@@ -8,18 +8,33 @@ namespace InstallationValidator.Core.Domain
    {
       public static ValidationState CombineStates(this IReadOnlyCollection<IWithValidationState> withValidationStates)
       {
-         if (withValidationStates.Any(x => x.State == ValidationState.Invalid))
+         if (withValidationStates.Any(x => x.IsInvalid()))
             return ValidationState.Invalid;
 
-         if (withValidationStates.Any(x => x.State == ValidationState.ValidWithWarnings))
+         if (withValidationStates.Any(x => x.IsValidWithWarnings()))
             return ValidationState.ValidWithWarnings;
 
          return ValidationState.Valid;
       }
 
-      public static bool IsStateValid(this IWithValidationState withValidationState)
+      public static bool IsValid(this IWithValidationState withValidationState)
       {
-         return withValidationState.State == ValidationState.Valid;
+         return withValidationState.Is(ValidationState.Valid);
+      }
+
+      public static bool IsInvalid(this IWithValidationState withValidationState)
+      {
+         return withValidationState.Is(ValidationState.Invalid);
+      }
+
+      public static bool IsValidWithWarnings(this IWithValidationState withValidationState)
+      {
+         return withValidationState.Is(ValidationState.ValidWithWarnings);
+      }
+
+      public static bool Is(this IWithValidationState withValidationState, ValidationState state)
+      {
+         return withValidationState.State == state;
       }
    }
 }

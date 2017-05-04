@@ -1,9 +1,11 @@
 ﻿using System;
 using FakeItEasy;
+using InstallationValidator.Core;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Services;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
+using OSPSuite.Core;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.Utility;
@@ -19,6 +21,7 @@ namespace InstallationValidator.Services
       protected string _fileName = "TOTO";
       private Action<string> _tryOpenFile;
       protected string _fileToOpen;
+      private IInstallationValidatorConfiguration _applicationConfiguration;
 
       public override void GlobalContext()
       {
@@ -33,7 +36,8 @@ namespace InstallationValidator.Services
          _reportingTask = A.Fake<IReportingTask>();
          _reportTemplateRepository = A.Fake<IReportTemplateRepository>();
          _validationLogger = A.Fake<IValidationLogger>();
-         sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask, _validationLogger);
+         _applicationConfiguration= A.Fake<IInstallationValidatorConfiguration>();
+         sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask, _validationLogger, _applicationConfiguration);
          _installationValidationResult = new InstallationValidationResult
          {
             RunSummary = new BatchRunSummary(),

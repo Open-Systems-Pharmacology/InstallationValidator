@@ -17,10 +17,10 @@ namespace InstallationValidator.Core.Reporting
          base.Build(fileComparisonResult, buildTracker);
          var comparisonResults = new List<ValueComparisonResult>();
 
-         comparisonResults.AddRange(fileComparisonResult.OutputComparisonResults.Where(x => !x.IsStateValid()));
-
-         if (!fileComparisonResult.TimeComparison.IsStateValid())
+         if (!fileComparisonResult.TimeComparison.IsValid())
             comparisonResults.Add(fileComparisonResult.TimeComparison);
+
+         comparisonResults.AddRange(fileComparisonResult.OutputComparisonResults.Where(x => !x.IsValid()));
 
          _builderRepository.Report(comparisonResults, buildTracker);
       }

@@ -13,6 +13,7 @@ namespace InstallationValidator.Core
       public static readonly string DIMENSION_FILE = "OSPSuite.Dimensions.xml";
       public static readonly string DEFAULT_SKIN = "Metropolis"; //"Office 2013 Light Gray";
       public const int BUTTON_HEIGHT = 48;
+      public static readonly string SUITE_NAME = "Open Systems Pharmacology Suite";
 
       public static class Tools
       {

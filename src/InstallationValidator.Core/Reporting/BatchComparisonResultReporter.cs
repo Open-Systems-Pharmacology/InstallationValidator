@@ -8,11 +8,11 @@ using OSPSuite.TeXReporting.Items;
 
 namespace InstallationValidator.Core.Reporting
 {
-   public class BatchComparisonResultBuilder : OSPSuiteTeXBuilder<BatchComparisonResult>
+   public class BatchComparisonResultTeXBuilder : OSPSuiteTeXBuilder<BatchComparisonResult>
    {
       private readonly ITeXBuilderRepository _teXBuilderRepository;
 
-      public BatchComparisonResultBuilder(ITeXBuilderRepository teXBuilderRepository)
+      public BatchComparisonResultTeXBuilder(ITeXBuilderRepository teXBuilderRepository)
       {
          _teXBuilderRepository = teXBuilderRepository;
       }
@@ -30,9 +30,9 @@ namespace InstallationValidator.Core.Reporting
             validationResultFor(comparisonResult)
          };
 
-         var fileComparisonResults = comparisonResult.FileComparisonResults.Where(x => x.State != ValidationState.Valid).ToList();
-         if (fileComparisonResults.Any())
-            objectsToReport.Add(new Paragraph(Assets.Reporting.FailedValidations));
+         var fileComparisonResults = comparisonResult.FileComparisonResults
+            .OrderByDescending(x => x.State)
+            .ThenBy(x => x.FileName);
 
          objectsToReport.AddRange(fileComparisonResults);
 
