@@ -15,6 +15,8 @@ namespace InstallationValidator.Core.Reporting
          return new List<object>
          {
             validationResultsChapter,
+            new Paragraph(Assets.Reporting.OverallValidationResult),
+            new ValidationStateReport(installationValidationResult),
             installationValidationResult.RunSummary,
             installationValidationResult.ComparisonResult
          };

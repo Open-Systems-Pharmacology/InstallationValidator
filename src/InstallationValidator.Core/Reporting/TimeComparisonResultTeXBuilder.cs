@@ -18,10 +18,10 @@ namespace InstallationValidator.Core.Reporting
       {
          _builderRepository.Report(new object[]
          {
+            new SubParagraph(Assets.Reporting.TimeComparisonValidation),
+            ValidationMessageFor(timeComparisonResult),
             new LineBreak(),
-            Assets.Reporting.TimeComparisonValidation,
-            new LineBreak(), ValidationMessageFor(timeComparisonResult),
-            new LineBreak(), DeviationFor(timeComparisonResult)
+            DeviationFor(timeComparisonResult)
          }, buildTracker);
       }
    }

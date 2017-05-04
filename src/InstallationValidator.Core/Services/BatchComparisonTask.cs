@@ -47,7 +47,9 @@ namespace InstallationValidator.Core.Services
          var comparison = new BatchComparisonResult
          {
             FolderPath1 = folderPath1,
-            FolderPath2 = folderPath2
+            FolderPath2 = folderPath2,
+            FolderPathCaption1 = folderPathCaption1,
+            FolderPathCaption2 = folderPathCaption2
          };
 
          comparison.AddFileComparisons(allMissingFilesFrom(folderInfo1, folderInfo2));

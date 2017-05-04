@@ -25,12 +25,8 @@ namespace InstallationValidator.Core.Reporting
       {
          var objectsToReport = new List<object>
          {
-            new LineBreak(),
-            Assets.Reporting.OutputComparisonValidation,
-            new LineBreak(),
+            new SubParagraph($"{Assets.Reporting.OutputPath}: {outputToReport.Path}"),
             ValidationMessageFor(outputToReport),
-            new LineBreak(),
-            outputPathFor(outputToReport),
             new LineBreak(),
             DeviationFor(outputToReport)
          };
@@ -51,11 +47,6 @@ namespace InstallationValidator.Core.Reporting
       private IEnumerable<CurveChart> chartsFor(OutputComparisonResult outputComparisonResult)
       {
          return _outputComparisonResultToCurveChartMapper.MapFrom(outputComparisonResult);
-      }
-
-      private static string outputPathFor(OutputComparisonResult outputToReport)
-      {
-         return $"{Assets.Reporting.OutputPath}: {outputToReport.Path}";
       }
    }
 }

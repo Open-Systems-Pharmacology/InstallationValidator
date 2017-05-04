@@ -35,7 +35,7 @@ namespace InstallationValidator.Core.Reporting
       public override void Build(T fileComparisonResult, OSPSuiteTracker buildTracker)
       {
          var subParagraph = new SubParagraph(titleFor(fileComparisonResult));
-         var report = new List<object> {subParagraph, fileComparisonResult.State};
+         var report = new List<object> {subParagraph, new ValidationStateReport(fileComparisonResult, Assets.Reporting.ValidationResult)};
          buildTracker.Track(subParagraph);
 
          _builderRepository.Report(report, buildTracker);

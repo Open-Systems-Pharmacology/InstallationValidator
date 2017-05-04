@@ -1,4 +1,3 @@
-using System;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.TeXReporting.Builder;
@@ -21,12 +20,11 @@ namespace InstallationValidator.Core.Reporting
             Assets.Reporting.MissingFileValidation,
             new LineBreak(), missingFileReport(fileComparisonResult)
          }, buildTracker);
-         
       }
 
-      private string missingFileReport(MissingFileComparisonResult fileComparisonResult)
+      private string missingFileReport(MissingFileComparisonResult missingFileComparisonResult)
       {
-         return $"{fileComparisonResult.FileName} was contained in folder:{Environment.NewLine}{fileComparisonResult.FolderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{fileComparisonResult.FolderWithoutFile}";
+         return Assets.Reporting.MissingFileValidationMessage(missingFileComparisonResult.FileName, missingFileComparisonResult.FolderContainingFile, missingFileComparisonResult.FolderWithoutFile);
       }
    }
 }

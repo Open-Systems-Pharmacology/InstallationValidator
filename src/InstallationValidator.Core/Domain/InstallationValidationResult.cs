@@ -1,13 +1,15 @@
 ﻿using System;
+using OSPSuite.Core.Domain;
 
 namespace InstallationValidator.Core.Domain
 {
-   public class InstallationValidationResult
+   public class InstallationValidationResult : IWithValidationState
    {
       public BatchRunSummary RunSummary { set; get; }
       public BatchComparisonResult ComparisonResult { set; get; }
-   }
 
+      public ValidationState State => ComparisonResult?.State ?? ValidationState.Invalid;
+   }
 
    public class BatchRunSummary
    {

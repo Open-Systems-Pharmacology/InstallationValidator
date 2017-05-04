@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using OSPSuite.Core.Domain;
 
@@ -35,6 +36,11 @@ namespace InstallationValidator.Core.Domain
       public static bool Is(this IWithValidationState withValidationState, ValidationState state)
       {
          return withValidationState.State == state;
+      }
+
+      public static Color ValidationColor(this IWithValidationState withValidationState)
+      {
+         return withValidationState.State.ValidationColor();
       }
    }
 }
