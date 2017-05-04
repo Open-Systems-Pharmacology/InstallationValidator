@@ -187,6 +187,7 @@ namespace InstallationValidator.Core.Assets
       public static string AbsoluteToleranceIs(string tolerance) => $"Absolute Tolerance: {tolerance}";
       public static string RelativeToleranceIs(string tolerance) => $"Relative Tolerance: {tolerance}";
 
+
       public static string InstallationValidationPerformedIn(string startTime, string endTime, string delay)
       {
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
