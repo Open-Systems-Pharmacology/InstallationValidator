@@ -186,7 +186,7 @@ namespace InstallationValidator.Core.Assets
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
       }
 
-      public static string ComparisonFolder(string folerName) => $"{folerName} folder";
+      public static string ComparisonFolder(string folerName) => $"{folerName} Folder";
       public static readonly string Deviation = "Deviation";
       public static readonly string OutputPath = "Output Path";
       public static readonly string TimeComparisonValidation = "Time Comparison Validation";
