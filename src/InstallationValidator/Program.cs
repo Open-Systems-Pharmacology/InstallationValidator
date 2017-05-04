@@ -4,7 +4,7 @@ using DevExpress.Skins;
 using DevExpress.UserSkins;
 using InstallationValidator.Bootstrap;
 using InstallationValidator.Core.Presentation;
-using OSPSuite.Presentation.Services;
+using OSPSuite.Core.Extensions;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Extensions;
 
@@ -13,7 +13,7 @@ namespace InstallationValidator
    static class Program
    {
       /// <summary>
-      /// The main entry point for the application.
+      ///    The main entry point for the application.
       /// </summary>
       [STAThread]
       static void Main()
@@ -31,7 +31,7 @@ namespace InstallationValidator
          }
          catch (Exception e)
          {
-            MessageBox.Show(ExceptionManager.ExceptionMessageWithStackTraceFrom(e), "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.ExceptionMessageWithStackTrace(), "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             e.LogError();
          }
       }

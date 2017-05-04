@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentNHibernate.Utils;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
+using static OSPSuite.Core.Domain.Constants;
 
 namespace InstallationValidator.Core.Services
 {
@@ -36,8 +37,8 @@ namespace InstallationValidator.Core.Services
 
       public async Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1, string folderPathCaption2)
       {
-         var folderInfo1 = _folderInfoFactory.CreateFor(folderPath1, Constants.Filter.JSON_FILTER);
-         var folderInfo2 = _folderInfoFactory.CreateFor(folderPath2, Constants.Filter.JSON_FILTER);
+         var folderInfo1 = _folderInfoFactory.CreateFor(folderPath1, Filter.JSON_FILTER);
+         var folderInfo2 = _folderInfoFactory.CreateFor(folderPath2, Filter.JSON_FILTER);
 
          var tasks = new[] {folderInfo1.ComputeFiles(), folderInfo2.ComputeFiles()};
 

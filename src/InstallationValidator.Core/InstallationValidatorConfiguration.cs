@@ -18,7 +18,6 @@ namespace InstallationValidator.Core
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
       string DimensionFilePath { get; set; }
-      string OSPSuiteNameWithVersion { get; }
    }
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
@@ -76,7 +75,5 @@ namespace InstallationValidator.Core
             return string.Empty;
          }
       }
-
-      public string OSPSuiteNameWithVersion => $"{Constants.SUITE_NAME} - {Version}";
    }
 }

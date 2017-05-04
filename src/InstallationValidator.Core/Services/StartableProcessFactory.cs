@@ -1,4 +1,4 @@
-﻿using InstallationValidator.Core.Domain;
+﻿using OSPSuite.Infrastructure.Services;
 
 namespace InstallationValidator.Core.Services
 {
