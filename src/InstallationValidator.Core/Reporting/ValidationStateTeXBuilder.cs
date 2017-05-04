@@ -23,7 +23,7 @@ namespace InstallationValidator.Core.Reporting
       public override void Build(ValidationState validationState, OSPSuiteTracker buildTracker)
       {
          var color = colorFor(validationState);
-         _builderRepository.Report(new object[] {"Result of the Validation: ", new ColorText($"{validationState}", color), Environment.NewLine}, buildTracker);
+         _builderRepository.Report(new object[] {Assets.Reporting.ValidationResult, new ColorText($"{validationState}", color), Environment.NewLine}, buildTracker);
       }
 
       private Color colorFor(ValidationState validationState)

@@ -184,6 +184,8 @@ namespace InstallationValidator.Core.Assets
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";
       public static readonly string BatchRunDuration = "Run Duration";
+      public static readonly string ValidationResult = "Result of the validation: ";
+
 
       public static string InstallationValidationPerformedIn(string startTime, string endTime, string delay)
       {
