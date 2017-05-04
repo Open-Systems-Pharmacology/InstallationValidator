@@ -192,6 +192,7 @@ namespace InstallationValidator.Core.Assets
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
       }
 
+
       public static string ComparisonFolder(string folerName) => $"{folerName} Folder";
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
