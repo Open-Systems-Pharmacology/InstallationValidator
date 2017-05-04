@@ -19,9 +19,7 @@ namespace InstallationValidator.Core.Domain
       /// </summary>
       public string FolderPath2 { get; set; }
 
-
       public string FolderPathCaption1 { get; set; } = Captions.Old;
-
 
       public string FolderPathCaption2 { get; set; } = Captions.New;
 
