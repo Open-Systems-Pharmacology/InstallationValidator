@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
+using OSPSuite.Core;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.Utility;
@@ -21,13 +22,15 @@ namespace InstallationValidator.Core.Services
       private readonly IReportTemplateRepository _reportTemplateRepository;
       private readonly IReportingTask _reportingTask;
       private readonly IValidationLogger _validationLogger;
+      private readonly IInstallationValidatorConfiguration _applicationConfiguration;
 
-      public ValidationReportingTask(IReportTemplateRepository reportTemplateRepository, IReportingTask reportingTask, IValidationLogger validationLogger)
+      public ValidationReportingTask(IReportTemplateRepository reportTemplateRepository, IReportingTask reportingTask, IValidationLogger validationLogger, IInstallationValidatorConfiguration applicationConfiguration)
       {
          _reportTemplateRepository = reportTemplateRepository;
          _reportingTask = reportingTask;
          _validationLogger = validationLogger;
-      }
+         _applicationConfiguration = applicationConfiguration;
+       }
 
       public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
       {
@@ -36,8 +39,8 @@ namespace InstallationValidator.Core.Services
          var reportConfiguration = new ReportConfiguration
          {
             Template = _reportTemplateRepository.All().FirstOrDefault(),
-            Title = Assets.Reporting.ValidationReport,
-            SubTitle = dateTime.ToIsoFormat(withTime: true, withSeconds: true),
+            Title = _applicationConfiguration.OSPSuiteNameWithVersion,
+            SubTitle = Assets.Reporting.InstallationValidation,
             ReportFile = reportOutputPath(outputFolderPath, dateTime)
          };
 
@@ -56,7 +59,7 @@ namespace InstallationValidator.Core.Services
 
       private string reportOutputPath(string outputFilePath, DateTime dateTime)
       {
-         return Path.Combine($"{outputFilePath}", $"{Assets.Reporting.ValidationReport}_{dateTime:MM_dd_yy_H_mm_ss}.pdf");
+         return Path.Combine($"{outputFilePath}", $"{_applicationConfiguration.OSPSuiteNameWithVersion}-{Assets.Reporting.InstallationValidation}_{dateTime:MM_dd_yy_H_mm_ss}.pdf");
       }
    }
 }

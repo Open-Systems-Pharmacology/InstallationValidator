@@ -169,7 +169,7 @@ namespace InstallationValidator.Core.Assets
 
    public static class Reporting
    {
-      public static readonly string ValidationReport = "Validation Report";
+      public static readonly string InstallationValidation = $"Installation Validation";
       public static readonly string InstallationValidationResults = "Installation Validation Results";
       public static readonly string BatchRunSummary = "Batch Run Summary";
       public static readonly string BatchComparisonResults = "Batch Comparison Results";
