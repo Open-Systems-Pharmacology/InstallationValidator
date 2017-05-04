@@ -25,6 +25,8 @@ namespace InstallationValidator.Core.Assets
       public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
       public const string New = "New";
       public const string Old = "Old";
+      public static readonly string Installation = "Installation";
+      public static readonly string Computed = "Computed";
    }
 
    public static class Logs
@@ -123,7 +125,7 @@ namespace InstallationValidator.Core.Assets
 
    public static class Validation
    {
-      private static readonly NumericFormatter<double> _formatter = new NumericFormatter<double>(NumericFormatterOptions.Instance);
+      private static readonly DoubleFormatter _formatter = new DoubleFormatter();
 
       public static string FolderDoesNotExist(string fileFullPath) => $"Folder '{fileFullPath}' does not exist";
 

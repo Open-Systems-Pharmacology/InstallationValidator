@@ -20,23 +20,24 @@ namespace InstallationValidator.Core.Reporting
          _builderRepository = builderRepository;
          _outputComparisonResultToCurveChartMapper = outputComparisonResultToCurveChartMapper;
       }
+
       public override void Build(OutputComparisonResult outputToReport, OSPSuiteTracker buildTracker)
       {
          var objectsToReport = new List<object>
          {
             new LineBreak(),
             Assets.Reporting.OutputComparisonValidation,
-            new LineBreak(), ValidationMessageFor(outputToReport),
-            new LineBreak(), outputPathFor(outputToReport),
-            new LineBreak(), DeviationFor(outputToReport)
+            new LineBreak(),
+            ValidationMessageFor(outputToReport),
+            new LineBreak(),
+            outputPathFor(outputToReport),
+            new LineBreak(),
+            DeviationFor(outputToReport)
          };
 
          if (canCreateChartFor(outputToReport))
          {
-            chartsFor(outputToReport).Each(chart =>
-            {
-               objectsToReport.AddRange(new object[] { new LineBreak(), chart});
-            });
+            chartsFor(outputToReport).Each(chart => { objectsToReport.AddRange(new object[] {new LineBreak(), chart}); });
          }
 
          _builderRepository.Report(objectsToReport, buildTracker);
