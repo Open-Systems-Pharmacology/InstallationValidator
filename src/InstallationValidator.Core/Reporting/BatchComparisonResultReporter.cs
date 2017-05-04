@@ -30,7 +30,10 @@ namespace InstallationValidator.Core.Reporting
             validationResultFor(comparisonResult)
          };
 
-         var fileComparisonResults = comparisonResult.FileComparisonResults.OrderByDescending(x => x.State);
+         var fileComparisonResults = comparisonResult.FileComparisonResults
+            .OrderByDescending(x => x.State)
+            .ThenBy(x => x.FileName);
+
          objectsToReport.AddRange(fileComparisonResults);
 
          _teXBuilderRepository.Report(objectsToReport, buildTracker);
