@@ -196,6 +196,5 @@ namespace InstallationValidator.Core.Assets
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
          $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";
-
    }
 }
