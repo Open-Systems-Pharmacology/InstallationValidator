@@ -35,6 +35,8 @@ namespace InstallationValidator.Core.Services
             outputFileComparision.TimeComparison = compareTime(simulation1, simulation2);
             outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation1, simulation2));
             outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation2, simulation1));
+            outputFileComparision.AbsTol = simulation1.Simulation.AbsTol;
+            outputFileComparision.RelTol = simulation1.Simulation.RelTol;
 
             foreach (var outputValue in simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)))
             {

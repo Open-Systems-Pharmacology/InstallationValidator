@@ -145,8 +145,9 @@
     </Compile>
     <Compile Include="Domain\InstallationValidationResult.cs" />
     <Compile Include="Domain\ValidationLogger.cs" />
+    <Compile Include="Domain\ValidationStateExtensions.cs" />
     <Compile Include="Extensions\OutputResultExtensions.cs" />
-    <Compile Include="Reporting\BatchComparisonResultReporter.cs" />
+    <Compile Include="Reporting\BatchComparisonResultTeXBuilder.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
     <Compile Include="Domain\FileComparisonResult.cs" />
@@ -169,17 +170,18 @@
     <Compile Include="Presentation\MainPresenter.cs" />
     <Compile Include="Presentation\Views\IMainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporting\BatchRunSummaryTexBuilder.cs" />
+    <Compile Include="Reporting\BatchRunSummaryTeXBuilder.cs" />
     <Compile Include="Reporting\FileComparisonResultsTeXBuilder.cs" />
     <Compile Include="Reporting\InstallationValidationResultReporter.cs" />
-    <Compile Include="Reporting\MissingFileComparisonResultTexBuilder.cs" />
-    <Compile Include="Reporting\OperatingSystemTexBuilder.cs" />
+    <Compile Include="Reporting\MissingFileComparisonResultTeXBuilder.cs" />
+    <Compile Include="Reporting\OperatingSystemTeXBuilder.cs" />
     <Compile Include="Reporting\OutputComparisonResultTeXBuilder.cs" />
+    <Compile Include="Reporting\ValidationStateReport.cs" />
     <Compile Include="Services\OutputComparisonResultToCurveChartMapper.cs" />
-    <Compile Include="Reporting\OutputFileComparisonResultTexBuilder.cs" />
+    <Compile Include="Reporting\OutputFileComparisonResultTeXBuilder.cs" />
     <Compile Include="Services\OutputResultToDataRepositoryMapper.cs" />
     <Compile Include="Reporting\TimeComparisonResultTeXBuilder.cs" />
-    <Compile Include="Reporting\ValidationStateTeXBuilder.cs" />
+    <Compile Include="Reporting\ValidationStateReportTeXBuilder.cs" />
     <Compile Include="Reporting\ValueComparisonResultTeXBuilder.cs" />
     <Compile Include="Reporting\ValueComparisonsResultTeXBuilder.cs" />
     <Compile Include="Services\BatchComparisonTask.cs" />

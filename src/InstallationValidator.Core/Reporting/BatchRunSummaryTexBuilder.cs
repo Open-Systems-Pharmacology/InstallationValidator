@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Core.Extensions;
 using OSPSuite.Infrastructure.Reporting;
@@ -20,9 +19,7 @@ namespace InstallationValidator.Core.Reporting
 
       public override void Build(BatchRunSummary batchRunSummary, OSPSuiteTracker buildTracker)
       {
-         var report = new List<object>();
-
-         report.AddRange(new List<object>
+         var report = new object[]
          {
             new Section(Assets.Reporting.RunSummary),
             new Paragraph(Assets.Reporting.BatchRunDuration),
@@ -37,7 +34,7 @@ namespace InstallationValidator.Core.Reporting
             operatingSystem(batchRunSummary),
             new Paragraph(Assets.Reporting.ApplicationVersions),
             applicationVersions(batchRunSummary)
-         });
+         };
 
          _builderRepository.Report(report, buildTracker);
       }

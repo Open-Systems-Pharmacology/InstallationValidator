@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using OSPSuite.Core.Domain;
+using InstallationValidator.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.TeXReporting.Builder;
 using OSPSuite.TeXReporting.Items;
@@ -11,34 +11,24 @@ using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Reporting
 {
-   public class ValidationStateTeXBuilder : OSPSuiteTeXBuilder<ValidationState>
+   public class ValidationStateReportTeXBuilder : OSPSuiteTeXBuilder<ValidationStateReport>
    {
       private readonly ITeXBuilderRepository _builderRepository;
 
-      public ValidationStateTeXBuilder(ITeXBuilderRepository builderRepository)
+      public ValidationStateReportTeXBuilder(ITeXBuilderRepository builderRepository)
       {
          _builderRepository = builderRepository;
       }
 
-      public override void Build(ValidationState validationState, OSPSuiteTracker buildTracker)
+      public override void Build(ValidationStateReport validationStateReport, OSPSuiteTracker buildTracker)
       {
-         var color = colorFor(validationState);
-         _builderRepository.Report(new object[] {"Result of the Validation: ", new ColorText($"{validationState}", color), Environment.NewLine}, buildTracker);
-      }
+         var color = validationStateReport.ValidationColor();
+         var report = new List<object> {new ColorText($"{validationStateReport.State}", color), Environment.NewLine};
 
-      private Color colorFor(ValidationState validationState)
-      {
-         switch (validationState)
-         {
-            case ValidationState.Invalid:
-               return Color.Red;
-            case ValidationState.ValidWithWarnings:
-               return Color.Orange;
-            case ValidationState.Valid:
-               return Color.Green;
-            default:
-               return Color.Empty;
-         }
+         if (!string.IsNullOrEmpty(validationStateReport.Caption))
+            report.Insert(0, validationStateReport.Caption);
+
+         _builderRepository.Report(report, buildTracker);
       }
    }
 

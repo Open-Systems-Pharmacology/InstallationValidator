@@ -59,6 +59,8 @@ namespace InstallationValidator.Services
 
          _simulationExport1.OutputValues.Add(new BatchOutputValues {Path = "P1"});
          _simulationExport1.OutputValues.Add(new BatchOutputValues {Path = "P2"});
+         _simulationExport1.AbsTol = 1e-2;
+         _simulationExport1.RelTol = 1e-3;
 
          _simulationExport2.OutputValues.Add(new BatchOutputValues {Path = "P1"});
          _simulationExport2.OutputValues.Add(new BatchOutputValues {Path = "P3"});
@@ -73,6 +75,13 @@ namespace InstallationValidator.Services
       public void should_return_an_output_file_comparison_result()
       {
          _result.ShouldNotBeNull();
+      }
+
+      [Observation]
+      public void should_have_set_absolute_and_relative_tolerances_according_to_tolerances_defined_in_simulation_1()
+      {
+         _result.AbsTol.ShouldBeEqualTo(_simulationExport1.AbsTol);   
+         _result.RelTol.ShouldBeEqualTo(_simulationExport1.RelTol);   
       }
 
       [Observation]

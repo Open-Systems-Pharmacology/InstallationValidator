@@ -10,7 +10,7 @@ namespace InstallationValidator.Core.Domain
       public string FileName { get; }
       public string Folder1 { get; }
       public string Folder2 { get; }
-      public virtual ValidationState State { get; }
+      public virtual ValidationState State { get; } = ValidationState.Invalid;
 
       protected FileComparisonResult(string fileName, string folder1, string folder2)
       {
@@ -22,8 +22,6 @@ namespace InstallationValidator.Core.Domain
 
    public class MissingFileComparisonResult : FileComparisonResult
    {
-      public override ValidationState State => ValidationState.Invalid;
-
       public MissingFileComparisonResult(string fileName, string folderContainingFile, string folderWithoutFile) : base(fileName, folderContainingFile, folderWithoutFile)
       {
       }
@@ -36,6 +34,8 @@ namespace InstallationValidator.Core.Domain
    {
       private readonly List<OutputComparisonResult> _outputComparisonResults = new List<OutputComparisonResult>();
       public TimeComparisonResult TimeComparison { get; set; }
+      public double AbsTol { get; set; }
+      public double RelTol { get; set; }
 
       public OutputFileComparisonResult(string fileName, string folder1, string folder2) : base(fileName, folder1, folder2)
       {

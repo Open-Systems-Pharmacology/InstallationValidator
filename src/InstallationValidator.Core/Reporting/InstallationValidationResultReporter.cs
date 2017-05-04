@@ -11,9 +11,14 @@ namespace InstallationValidator.Core.Reporting
       {
          var validationResultsChapter = new Chapter(Assets.Reporting.InstallationValidationResults);
          buildTracker.Track(validationResultsChapter);
+
          return new List<object>
          {
-            validationResultsChapter, installationValidationResult.RunSummary, installationValidationResult.ComparisonResult
+            validationResultsChapter,
+            new Paragraph(Assets.Reporting.OverallValidationResult),
+            new ValidationStateReport(installationValidationResult),
+            installationValidationResult.RunSummary,
+            installationValidationResult.ComparisonResult
          };
       }
    }

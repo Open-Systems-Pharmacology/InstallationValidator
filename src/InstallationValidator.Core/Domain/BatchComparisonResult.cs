@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InstallationValidator.Core.Assets;
 using OSPSuite.Core.Domain;
 using OSPSuite.Utility.Extensions;
 
@@ -18,6 +19,9 @@ namespace InstallationValidator.Core.Domain
       /// </summary>
       public string FolderPath2 { get; set; }
 
+      public string FolderPathCaption1 { get; set; } = Captions.Old;
+
+      public string FolderPathCaption2 { get; set; } = Captions.New;
 
       public void AddFileComparisons(IEnumerable<FileComparisonResult> fileComparisonResults)
       {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
+using InstallationValidator.Core.Domain;
 using OSPSuite.Core.Domain;
-using OSPSuite.Utility.Format;
 
 namespace InstallationValidator.Core.Assets
 {
@@ -78,13 +78,7 @@ namespace InstallationValidator.Core.Assets
 
       public static string StateDisplayFor(ValidationState validationState)
       {
-         if (validationState == ValidationState.Invalid)
-            return Invalid;
-
-         if (validationState == ValidationState.ValidWithWarnings)
-            return ValidWithWarnings;
-
-         return Valid;
+         return InColor(validationState.ToString(), validationState.ValidationColor());
       }
    }
 
@@ -174,26 +168,34 @@ namespace InstallationValidator.Core.Assets
       public static readonly string BatchComparisonResults = "Comparison Results";
       public static readonly string RunSummary = "Run Summary";
       public static readonly string DateAndTime = "Date and Time";
-
       public static readonly string BatchOutputFolder = "Local Outputs Location";
       public static readonly string ComputerName = "Computer Name";
       public static readonly string OperatingSystem = "Operating System";
       public static readonly string ApplicationVersions = "Application Versions";
-      public static readonly string ComparisonFolders = "Folders for Comparison";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
+      public static readonly string OverallValidationResult = "Overall Validation Result";
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";
       public static readonly string BatchRunDuration = "Run Duration";
+      public static readonly string ValidationResult = "Result of the validation: ";
+      public static readonly string Simulation = "Simulation";
+      public static readonly string Deviation = "Deviation";
+      public static readonly string OutputPath = "Output Path";
+      public static readonly string TimeComparisonValidation = "Time Comparison Validation";
+      public static readonly string OutputComparisonValidation = "Output Comparison Validation";
+      public static readonly string MissingFileValidation = "Missing File Validation";
+      public static string AbsoluteToleranceIs(string tolerance) => $"Absolute Tolerance: {tolerance}";
+      public static string RelativeToleranceIs(string tolerance) => $"Relative Tolerance: {tolerance}";
 
       public static string InstallationValidationPerformedIn(string startTime, string endTime, string delay)
       {
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
       }
 
-      public static readonly string Deviation = "Deviation";
-      public static readonly string OutputPath = "Output Path";
-      public static readonly string TimeComparisonValidation = "Time Comparison Validation";
-      public static readonly string OutputComparisonValidation = "Output Comparison Validation";
-      public static readonly string MissingFileValidation = "Missing File Validation";
+      public static string ComparisonFolder(string folerName) => $"{folerName} Folder";
+
+      public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
+         $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";
+
    }
 }
