@@ -166,11 +166,14 @@ namespace InstallationValidator.Core.Assets
       public static readonly string InstallationValidation = $"Installation Validation";
       public static readonly string InstallationValidationResults = "Installation Validation Results";
       public static readonly string BatchComparisonResults = "Comparison Results";
-      public static readonly string RunSummary = "Run Summary";
+      public static readonly string ValidationSummary = "Validation Summary";
       public static readonly string DateAndTime = "Date and Time";
       public static readonly string BatchOutputFolder = "Local Outputs Location";
       public static readonly string ComputerName = "Computer Name";
       public static readonly string OperatingSystem = "Operating System";
+      public static readonly string Architecture = "Architecture";
+      public static readonly string RunningOnTerminalSession = "Running on Terminal Session";
+      public static readonly string RunningOnVirtualMachine = "Running on Virtual Machine";
       public static readonly string ApplicationVersions = "Application Versions";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
       public static readonly string OverallValidationResult = "Overall Validation Result";

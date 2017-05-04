@@ -9,7 +9,7 @@ namespace InstallationValidator.Core.Services
 {
    public interface IBatchStarterTask
    {
-      Task<BatchRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken);
+      Task<ValidationRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken);
    }
 
    public class BatchStarterTask : IBatchStarterTask
@@ -27,24 +27,20 @@ namespace InstallationValidator.Core.Services
 
       private string logFilePath(string basePath) => Path.Combine(basePath, Constants.Tools.BATCH_LOG);
 
-      public async Task<BatchRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken)
+      public async Task<ValidationRunSummary> StartBatch(string outputFolderPath, CancellationToken cancellationToken)
       {
-         var batchRunResult = new BatchRunSummary
+         var batchRunResult = new ValidationRunSummary
          {
-            ComputerName = Environment.MachineName,
-            StartTime = DateTime.Now,
             MoBiVersion = moBiVersion(),
             PKSimVersion = pkSimVersion(),
-            BatchOutputFolder = outputFolderPath,
-            OperatingSystem = Environment.OSVersion,
-            ConfigurationInputFolder = _applicationConfiguration.BatchInputsFolderPath
+            OutputFolder = outputFolderPath,
+            InputFolder = _applicationConfiguration.BatchInputsFolderPath
          };
 
          return await Task.Run(() =>
          {
             var logFile = logFilePath(outputFolderPath);
             startBatchProcess(outputFolderPath, cancellationToken, logFile);
-            batchRunResult.EndTime = DateTime.Now;
             return batchRunResult;
          }, cancellationToken);
       }

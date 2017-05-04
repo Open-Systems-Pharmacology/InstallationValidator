@@ -74,19 +74,26 @@ namespace InstallationValidator.Core.Presentation
             updateValidationRunningState(running: true);
             resetLog();
 
+            var startTime = DateTime.Now;
+
             logLine(Logs.StartingBatchCalculation);
             logLine();
-            validationResult.RunSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            var runSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
+            runSummary.StartTime = startTime;
             
             logLine(Logs.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             logLine();
+
+            runSummary.EndTime = DateTime.Now;
+            validationResult.RunSummary = runSummary;
 
             logLine(Logs.StartingReport);
             await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport:true);
             logLine();
 
             logLine(Logs.ValidationCompleted);
+
             return validationResult;
          }
          catch (OperationCanceledException)
