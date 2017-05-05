@@ -6,6 +6,7 @@ using OSPSuite.Core;
 using OSPSuite.Core.Domain.UnitSystem;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Serialization.Xml;
+using OSPSuite.Core.Services;
 using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.Infrastructure.Services;
@@ -55,7 +56,6 @@ namespace InstallationValidator.Core
          container.Register<IExceptionManager, ExceptionManager>(LifeStyle.Singleton);
          container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
          container.Register<DirectoryMapSettings, DirectoryMapSettings>(LifeStyle.Singleton);
-
          container.Register<StartableProcess, StartableProcess>();
       }
 

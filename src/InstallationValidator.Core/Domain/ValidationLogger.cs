@@ -8,7 +8,7 @@ namespace InstallationValidator.Core.Domain
       /// <summary>
       /// Line will be appended as html in the log
       /// </summary>
-      void AppendLine(string line);
+      void AppendLine(string line="");
 
       /// <summary>
       /// Text will be appended as html in the log
@@ -30,7 +30,7 @@ namespace InstallationValidator.Core.Domain
          _eventPublisher = eventPublisher;
       }
 
-      public void AppendLine(string line)
+      public void AppendLine(string line="")
       {
          _eventPublisher.PublishEvent(new AppendLineToLogEvent(line));
       }

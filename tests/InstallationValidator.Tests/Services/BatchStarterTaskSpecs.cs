@@ -6,7 +6,7 @@ using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Services;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
-using OSPSuite.Infrastructure.Services;
+using OSPSuite.Core.Services;
 
 namespace InstallationValidator.Services
 {

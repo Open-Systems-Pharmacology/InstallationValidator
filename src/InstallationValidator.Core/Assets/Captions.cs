@@ -25,15 +25,15 @@ namespace InstallationValidator.Core.Assets
             sb.AppendLine("The key functionalities are tested through comparison of reference simulation outputs with locally calculated outputs for a set of predefined test simulations.");
             sb.AppendLine();
             sb.AppendLine("The validation report will include:");
-            sb.AppendLine("  - overall validation result (VALID / INVALID)");
-            sb.AppendLine("  - validation result for every test simulation (VALID / INVALID)");
-            sb.AppendLine("  - summary of the deviations (if any) for each INVALID simulation (numerical values and comparison plots)");
+            sb.AppendLine("  - overall validation result (<b>Valid/ Invalid</b>)");
+            sb.AppendLine("  - validation result for every test simulation (<b>Valid/ Invalid</b>)");
+            sb.AppendLine("  - summary of the deviations (if any) for each <b>Invalid</b> simulation (numerical values and comparison plots)");
             sb.AppendLine("  - information about installed software versiosns and local computing environment");
             return sb.ToString();
          }
       }
 
-      public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
+      public static string MainViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Installation Validator";
       public const string New = "New";
       public const string Old = "Old";
       public static readonly string Installation = "Installation";
@@ -49,6 +49,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string Valid = InGreen("Valid");
       public static readonly string Invalid = InRed("Invalid");
       public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
+      public static readonly string OverallComparisonResult = InBold("Overall Comparison Result:");
 
       public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
 
@@ -89,7 +90,7 @@ namespace InstallationValidator.Core.Assets
 
       public static string StateDisplayFor(ValidationState validationState)
       {
-         return InColor(validationState.ToString(), validationState.ValidationColor());
+         return InBold(InColor(validationState.ToString(), validationState.ValidationColor()));
       }
    }
 

@@ -66,6 +66,9 @@ namespace InstallationValidator.Core.Services
             _validationLogger.AppendText(Logs.StateDisplayFor(fileComparison.State));
          }
 
+         _validationLogger.AppendLine();
+         _validationLogger.AppendLine($"{Logs.OverallComparisonResult} {Logs.StateDisplayFor(comparison.State)}");
+
          return comparison;
       }
 
