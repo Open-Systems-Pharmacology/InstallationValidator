@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraLayout.Utils;
+﻿using System.Windows.Forms;
+using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraRichEdit;
 using InstallationValidator.Core;
 using InstallationValidator.Core.Presentation;
@@ -77,6 +78,25 @@ namespace SimulationOutputComparer.Views
       public void AttachPresenter(ISimulationComparisonPresenter presenter)
       {
          _presenter = presenter;
+      }
+
+      public override bool HasError => _screenBinderFolder1.HasError || _screenBinderFolder2.HasError;
+
+      protected override void OnValidationError(Control control, string error)
+      {
+         base.OnValidationError(control, error);
+         setOkButtonEnable();
+      }
+
+      private void setOkButtonEnable()
+      {
+         layoutItemButtonStart.Enabled = !HasError;
+      }
+
+      protected override void OnClearError(Control control)
+      {
+         base.OnClearError(control);
+         setOkButtonEnable();
       }
 
       public void AppendText(string newText)
