@@ -40,7 +40,7 @@ namespace InstallationValidator.Services
          sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask, _validationLogger, _applicationConfiguration);
          _installationValidationResult = new InstallationValidationResult
          {
-            RunSummary = new BatchRunSummary(),
+            RunSummary = new ValidationRunSummary(),
             ComparisonResult = new BatchComparisonResult()
          };
       }

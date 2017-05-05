@@ -79,14 +79,12 @@ namespace InstallationValidator.IntegrationTests
             outputFileComparisonResult,
             timeFileComparisonResult
          });
-         var batchRunSummary = new BatchRunSummary
+         var batchRunSummary = new ValidationRunSummary
          {
-            BatchOutputFolder = "a folder",
-            ComputerName = "a computer",
-            ConfigurationInputFolder = "input configuration folder",
+            OutputFolder = "a folder",
+            InputFolder = "input configuration folder",
             EndTime = DateTime.Now,
             MoBiVersion = "1",
-            OperatingSystem = Environment.OSVersion,
             PKSimVersion = "1",
             StartTime = DateTime.Now
          };
