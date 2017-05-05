@@ -50,7 +50,7 @@ namespace InstallationValidator.Views
 
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Captions.ValidationDescription.FormatForDescription();
+         labelValidationDescription.Text = Captions.ValidationDescription;
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;

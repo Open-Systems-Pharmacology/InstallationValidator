@@ -15,12 +15,23 @@ namespace InstallationValidator.Core.Assets
       public static string TheValidationWasCanceled = "The validation was canceled";
       public static readonly string ReallyCancelInstallationValidation = "Really cancel installation validation?";
 
-      public static readonly string ValidationDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-                                                            "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
-                                                            "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-                                                            "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+      public static string ValidationDescription
+      {
+         get
+         {
+            var sb = new StringBuilder();
+            sb.AppendLine($"A validation of the <b>{OSPSuite.Core.Domain.Constants.SUITE_NAME}</b> installation is performed to ensure that the software works fully as intended when installed in the computing environment.");
+            sb.AppendLine();
+            sb.AppendLine("The key functionalities are tested through comparison of reference simulation outputs with locally calculated outputs for a set of predefined test simulations.");
+            sb.AppendLine();
+            sb.AppendLine("The validation report will include:");
+            sb.AppendLine("  - overall validation result (VALID / INVALID)");
+            sb.AppendLine("  - validation result for every test simulation (VALID / INVALID)");
+            sb.AppendLine("  - summary of the deviations (if any) for each INVALID simulation (numerical values and comparison plots)");
+            sb.AppendLine("  - information about installed software versiosns and local computing environment");
+            return sb.ToString();
+         }
+      }
 
       public static string MainViewTitle = "Open Systems Pharmacology Suite - Installation Validator";
       public const string New = "New";
@@ -199,6 +210,5 @@ namespace InstallationValidator.Core.Assets
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
          $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";
-
    }
 }
