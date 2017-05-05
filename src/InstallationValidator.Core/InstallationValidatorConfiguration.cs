@@ -18,6 +18,7 @@ namespace InstallationValidator.Core
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
       string DimensionFilePath { get; set; }
+      string DefaultOutputPath { get; }
    }
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
@@ -34,7 +35,7 @@ namespace InstallationValidator.Core
 
       protected override string[] LatestVersionWithOtherMajor { get; }
       public override string ChartLayoutTemplateFolderPath { get; }
-      public override string TEXTemplateFolderPath => Path.Combine(applicationSettingsFolderPath, Constants.Tools.TEX_TEMPLATES);
+      public override string TEXTemplateFolderPath => Path.Combine(applicationFolderPath, Constants.Tools.TEX_TEMPLATES);
       public override string ProductName => Constants.PRODUCT_NAME_WITH_TRADEMARK;
       public override Origin Product { get; }
       public override string ProductNameWithTrademark => Constants.PRODUCT_NAME_WITH_TRADEMARK;
@@ -42,12 +43,12 @@ namespace InstallationValidator.Core
       public override string UserSettingsFileName { get; }
       public override string IssueTrackerUrl { get; } = Constants.ISSUE_TRACKER_URL;
       private string applicationFolderPathWithMajorVersion => ApplicationFolderPathWithRevision(MajorVersion);
-      private string applicationSettingsFolderPath => applicationSettingsFolderPathFor(applicationFolderPathWithMajorVersion);
+      private string applicationFolderPath => applicationFolderPathFor(applicationFolderPathWithMajorVersion);
       public string DimensionFilePath { get; set; }
 
-      private string applicationSettingsFolderPathFor(string applicationFolderPath)
+      private string applicationFolderPathFor(string folderPath)
       {
-         return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), applicationFolderPath);
+         return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), folderPath);
       }
 
       public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.PKSIM_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_PATH);
@@ -62,7 +63,7 @@ namespace InstallationValidator.Core
 
       public string PKSimBatchToolPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_BATCH_TOOL);
 
-      private string createApplicationDataPathFor(string fileName) => Path.Combine(applicationSettingsFolderPath, fileName);
+      private string createApplicationDataPathFor(string fileName) => Path.Combine(applicationFolderPath, fileName);
 
       private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacologyPKSim, string installDir)
       {
@@ -75,5 +76,10 @@ namespace InstallationValidator.Core
             return string.Empty;
          }
       }
+
+      private string userApplicationFolderPath => Path.Combine(EnvironmentHelper.UserApplicationDataFolder(), applicationFolderPathWithMajorVersion);
+
+
+      public string DefaultOutputPath => Path.Combine(userApplicationFolderPath, Constants.Tools.CALCULATION_OUTPUTS);
    }
 }

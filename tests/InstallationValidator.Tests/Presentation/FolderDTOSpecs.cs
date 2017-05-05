@@ -25,7 +25,6 @@ namespace InstallationValidator.Presentation
 
       protected override void Context()
       {
-
          sut = new FolderDTO();
       }
    }
@@ -45,11 +44,12 @@ namespace InstallationValidator.Presentation
       }
    }
 
-   public class When_the_target_directory_does_not_exist : concern_for_FolderDTO
+   public class When_the_target_directory_does_not_exist_and_target_folder_should_exist : concern_for_FolderDTO
    {
       protected override void Context()
       {
          base.Context();
+         sut.FolderPath = "a folder";
          DirectoryHelper.DirectoryExists = path => false;
       }
 
@@ -57,6 +57,22 @@ namespace InstallationValidator.Presentation
       public void the_dto_is_invalidated()
       {
          sut.IsValid().ShouldBeEqualTo(false);
+      }
+   }
+
+   public class When_the_target_directory_does_not_exist_and_target_folder_does_not_have_to_exist : concern_for_FolderDTO
+   {
+      protected override void Context()
+      {
+         base.Context();
+         sut = new FolderDTO(folderMustExist: false) {FolderPath = "a folder"};
+         DirectoryHelper.DirectoryExists = path => false;
+      }
+
+      [Observation]
+      public void the_dto_is_invalidated()
+      {
+         sut.IsValid().ShouldBeEqualTo(true);
       }
    }
 

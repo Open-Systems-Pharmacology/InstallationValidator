@@ -11,7 +11,7 @@ using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
 using OSPSuite.BDDHelper;
-using OSPSuite.Core;
+using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
 
@@ -24,9 +24,11 @@ namespace InstallationValidator.Presentation
       protected IDialogCreator _dialogCreator;
       protected IBatchStarterTask _batchStarterTask;
       protected IBatchComparisonTask _batchComparisonTask;
-      protected IApplicationConfiguration _applicationConfiguration;
+      protected IInstallationValidatorConfiguration _applicationConfiguration;
       protected IValidationReportingTask _validationReportingTask;
       protected FolderDTO _outputFolderDTO;
+      protected readonly string _defaultPath = "AA";
+
 
       protected override void Context()
       {
@@ -35,10 +37,11 @@ namespace InstallationValidator.Presentation
          _dialogCreator = A.Fake<IDialogCreator>();
          _batchStarterTask = A.Fake<IBatchStarterTask>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
-
-         _applicationConfiguration = A.Fake<IApplicationConfiguration>();
-         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.ISSUE_TRACKER_URL);
+         _applicationConfiguration = A.Fake<IInstallationValidatorConfiguration>();
          _validationReportingTask = A.Fake<IValidationReportingTask>();
+
+         A.CallTo(() => _applicationConfiguration.IssueTrackerUrl).Returns(Constants.ISSUE_TRACKER_URL);
+         A.CallTo(() => _applicationConfiguration.DefaultOutputPath).Returns(_defaultPath);
 
          A.CallTo(() => _mainView.BindTo(A<FolderDTO>._))
             .Invokes(x => _outputFolderDTO = x.GetArgument<FolderDTO>(0));
@@ -176,6 +179,21 @@ namespace InstallationValidator.Presentation
       public void should_generate_the_report()
       {
          A.CallTo(() => _validationReportingTask.CreateReport(_result, _outputFolderDTO.FolderPath, true)).MustHaveHappened();
+      }
+   }
+
+   public class When_the_main_presenter_is_starting_the_view : concern_for_MainPresenter
+   {
+      protected override void Context()
+      {
+         base.Context();
+         A.CallTo(() => _applicationConfiguration.DefaultOutputPath).Returns(_defaultPath);
+      }
+
+      [Observation]
+      public void should_set_the_default_output_folder_to_the_predefined_default_folder()
+      {
+         _outputFolderDTO.FolderPath.ShouldBeEqualTo(_defaultPath);
       }
    }
 

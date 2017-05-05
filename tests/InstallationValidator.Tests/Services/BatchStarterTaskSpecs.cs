@@ -6,7 +6,9 @@ using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Services;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
+using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Services;
+using OSPSuite.Utility;
 
 namespace InstallationValidator.Services
 {
@@ -34,26 +36,26 @@ namespace InstallationValidator.Services
       }
    }
 
-   public class When_starting_a_validation : concern_for_BatchStarterTask
+   public class When_starting_a_batch_calculation : concern_for_BatchStarterTask
    {
       private Func<string, string> _getVersionInfo;
+      private Func<string, string> _createDirectory;
+      private readonly string _outputFolderPath = "outputfolder";
+      private string _createdFolderPath;
 
       public override void GlobalContext()
       {
          base.GlobalContext();
          _getVersionInfo = ValidationFileHelper.GetVersion;
+         _createDirectory = DirectoryHelper.CreateDirectory;
          ValidationFileHelper.GetVersion = path => "1.0.0";
-      }
 
-      public override void GlobalCleanup()
-      {
-         base.GlobalCleanup();
-         ValidationFileHelper.GetVersion = _getVersionInfo;
+         DirectoryHelper.CreateDirectory = s => _createdFolderPath = s;
       }
 
       protected override void Because()
       {
-         sut.StartBatch("./outputfolder", new CancellationToken()).Wait();
+         sut.StartBatch(_outputFolderPath, new CancellationToken()).Wait();
       }
 
       [Test]
@@ -73,6 +75,19 @@ namespace InstallationValidator.Services
       {
          A.CallTo(() => _startableProcess.Start()).MustHaveHappened();
          A.CallTo(() => _startableProcess.Wait(A<CancellationToken>._)).MustHaveHappened();
+      }
+
+      [Observation]
+      public void should_create_the_target_folder_if_it_does_not_exist()
+      {
+         _createdFolderPath.ShouldBeEqualTo(_outputFolderPath);
+      }
+
+      public override void GlobalCleanup()
+      {
+         base.GlobalCleanup();
+         ValidationFileHelper.GetVersion = _getVersionInfo;
+         DirectoryHelper.CreateDirectory = _createDirectory;
       }
    }
 }

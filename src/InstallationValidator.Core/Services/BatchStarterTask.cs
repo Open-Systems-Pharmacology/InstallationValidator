@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Extensions;
 using OSPSuite.Core.Services;
+using OSPSuite.Utility;
 
 namespace InstallationValidator.Core.Services
 {
@@ -36,6 +37,8 @@ namespace InstallationValidator.Core.Services
             OutputFolder = outputFolderPath,
             InputFolder = _applicationConfiguration.BatchInputsFolderPath
          };
+
+         DirectoryHelper.CreateDirectory(outputFolderPath);
 
          return await Task.Run(() =>
          {
