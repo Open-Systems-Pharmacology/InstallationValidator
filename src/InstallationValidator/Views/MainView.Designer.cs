@@ -39,7 +39,7 @@
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemRichEdit = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
-         this.layoutItemButtomStop = new DevExpress.XtraLayout.LayoutControlItem();
+         this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -54,7 +54,7 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtomStop)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
@@ -132,7 +132,7 @@
          this.layoutControlGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItemRichEdit,
             this.layoutItemButtonStart,
-            this.layoutItemButtomStop,
+            this.layoutItemButtonStop,
             this.emptySpaceItem3,
             this.emptySpaceItem1,
             this.emptySpaceItem2,
@@ -163,11 +163,11 @@
          // 
          // layoutItemButtomStop
          // 
-         this.layoutItemButtomStop.Control = this.stopButton;
-         this.layoutItemButtomStop.Location = new System.Drawing.Point(287, 724);
-         this.layoutItemButtomStop.Name = "layoutItemButtomStop";
-         this.layoutItemButtomStop.Size = new System.Drawing.Size(740, 26);
-         this.layoutItemButtomStop.TextSize = new System.Drawing.Size(153, 13);
+         this.layoutItemButtonStop.Control = this.stopButton;
+         this.layoutItemButtonStop.Location = new System.Drawing.Point(423, 538);
+         this.layoutItemButtonStop.Name = "layoutItemButtonStop";
+         this.layoutItemButtonStop.Size = new System.Drawing.Size(413, 26);
+         this.layoutItemButtonStop.TextSize = new System.Drawing.Size(153, 13);
          // 
          // emptySpaceItem3
          // 
@@ -238,7 +238,7 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtomStop)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
@@ -260,7 +260,7 @@
       private DevExpress.XtraEditors.SimpleButton stopButton;
       private DevExpress.XtraEditors.SimpleButton startButton;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemButtonStart;
-      private DevExpress.XtraLayout.LayoutControlItem layoutItemButtomStop;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemButtonStop;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
       private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;

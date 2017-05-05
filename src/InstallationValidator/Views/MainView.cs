@@ -58,12 +58,12 @@ namespace InstallationValidator.Views
          layoutItemButtonStart.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
          layoutItemButtonStart.TextVisible = false;
-         layoutItemButtomStop.TextVisible = false;
+         layoutItemButtonStop.TextVisible = false;
 
-         layoutItemButtomStop.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStop.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
 
-         layoutItemButtomStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
+         layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
          defaultLookAndFeel.LookAndFeel.SetSkinStyle(Constants.DEFAULT_SKIN);
 
          Caption = Captions.MainViewTitle;
@@ -100,7 +100,7 @@ namespace InstallationValidator.Views
 
       public void ValidationIsRunning(bool validationRunning)
       {
-         layoutItemButtomStop.Visibility = LayoutVisibilityConvertor.FromBoolean(validationRunning);
+         layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(validationRunning);
          layoutItemButtonStart.Visibility = LayoutVisibilityConvertor.FromBoolean(!validationRunning);
       }
 

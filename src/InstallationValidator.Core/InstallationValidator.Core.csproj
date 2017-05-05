@@ -151,6 +151,7 @@
     <Compile Include="Domain\ValidationLogger.cs" />
     <Compile Include="Domain\ValidationStateExtensions.cs" />
     <Compile Include="Extensions\OutputResultExtensions.cs" />
+    <Compile Include="Presentation\SimulationComparisonPresenter.cs" />
     <Compile Include="Reporting\BatchComparisonResultTeXBuilder.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Reporting\OperatingSystemInfoTeXBuilder.cs" />
     <Compile Include="Reporting\OutputComparisonResultTeXBuilder.cs" />
     <Compile Include="Reporting\ValidationStateReport.cs" />
+    <Compile Include="Services\BatchComparisonReportingTask.cs" />
     <Compile Include="Services\OutputComparisonResultToCurveChartMapper.cs" />
     <Compile Include="Reporting\OutputFileComparisonResultTeXBuilder.cs" />
     <Compile Include="Services\OutputResultToDataRepositoryMapper.cs" />

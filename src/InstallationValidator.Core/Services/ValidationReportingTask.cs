@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
-using OSPSuite.Core;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.Utility;
-using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Services
 {

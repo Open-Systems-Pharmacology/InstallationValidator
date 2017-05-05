@@ -38,6 +38,10 @@ namespace InstallationValidator.Core.Assets
       public const string Old = "Old";
       public static readonly string Installation = "Installation";
       public static readonly string Computed = "Computed";
+
+      public static readonly string ComparisonFolder1 = "Comparison Folder 1";
+      public static readonly string ComparisonFolder2 = "Comparison Folder 2";
+      public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
    }
 
    public static class Logs
@@ -199,6 +203,11 @@ namespace InstallationValidator.Core.Assets
       public static readonly string TimeComparisonValidation = "Time Comparison Validation";
       public static readonly string OutputComparisonValidation = "Output Comparison Validation";
       public static readonly string MissingFileValidation = "Missing File Validation";
+      public static readonly string FolderComparisonResults = "Folder Comparison Results";
+      public static readonly string FolderComparison = "Folder Comparison";
+      public static readonly string First = "First";
+      public static readonly string Second = "Second";
+
       public static string AbsoluteToleranceIs(string tolerance) => $"Absolute Tolerance: {tolerance}";
       public static string RelativeToleranceIs(string tolerance) => $"Relative Tolerance: {tolerance}";
 
