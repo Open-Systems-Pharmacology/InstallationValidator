@@ -11,13 +11,4 @@ namespace InstallationValidator.Core.Presentation.Views
       void ResetText(string newText);
       void AppendHTML(string htmlToLog);
    }
-
-   public interface ISimulationComparisonView : IView<ISimulationComparisonPresenter>
-   {
-      void ResetText(string empty);
-      void AppendText(string textToLog);
-      void AppendHTML(string htmlToLog);
-      void ValidationIsRunning(bool validationRunning);
-      void BindTo(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO);
-   }
 }

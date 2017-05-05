@@ -2,12 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
-using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
-using OSPSuite.Core;
 using OSPSuite.Core.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
@@ -30,21 +28,21 @@ namespace InstallationValidator.Core.Presentation
    {
       private readonly FolderDTO _firstFolderDTO = new FolderDTO();
       private readonly FolderDTO _secondFolderDTO = new FolderDTO();
-      private readonly IApplicationConfiguration _configuration;
+      private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IDialogCreator _dialogCreator;
       private CancellationTokenSource _cancellationTokenSource;
-      private bool _validationRunning;
+      private bool _comparisonRunning;
       private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly IBatchComparisonReportingTask _batchComparisonReportingTask;
 
-      public SimulationComparisonPresenter(ISimulationComparisonView view, IApplicationConfiguration configuration, IDialogCreator dialogCreator, 
+      public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator, 
          IBatchComparisonTask batchComparisonTask, IBatchComparisonReportingTask batchComparisonReportingTask) : base(view)
       {
          _configuration = configuration;
          _dialogCreator = dialogCreator;
          _batchComparisonTask = batchComparisonTask;
          _batchComparisonReportingTask = batchComparisonReportingTask;
-
+         _secondFolderDTO.FolderPath = configuration.BatchOutputsFolderPath;
          view.BindTo(_firstFolderDTO, _secondFolderDTO);
       }
 
@@ -81,7 +79,7 @@ namespace InstallationValidator.Core.Presentation
          _cancellationTokenSource = new CancellationTokenSource();
          try
          {
-            updateValidationRunningState(running: true);
+            updateComparisonRunningState(running: true);
             resetLog();
 
             logLine(Logs.StartingComparison);
@@ -92,11 +90,11 @@ namespace InstallationValidator.Core.Presentation
             await _batchComparisonReportingTask.CreateReport(comparisonResult, _firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, openReport: true);
             logLine();
 
-            logLine(Logs.ValidationCompleted);
+            logLine(Logs.ComparisonCompleted);
          }
          catch (OperationCanceledException)
          {
-            logLine(Captions.TheValidationWasCanceled);
+            logLine(Captions.TheComparisonWasCanceled);
          }
          catch (Exception e)
          {
@@ -104,7 +102,7 @@ namespace InstallationValidator.Core.Presentation
          }
          finally
          {
-            updateValidationRunningState(running: false);
+            updateComparisonRunningState(running: false);
          }
       }
 
@@ -117,10 +115,10 @@ namespace InstallationValidator.Core.Presentation
          logLine();
       }
 
-      private void updateValidationRunningState(bool running)
+      private void updateComparisonRunningState(bool running)
       {
-         _validationRunning = running;
-         View.ValidationIsRunning(_validationRunning);
+         _comparisonRunning = running;
+         View.ComparisonIsRunning(_comparisonRunning);
       }
 
       private void logLine(string textToLog = "", bool isHtml = true)
@@ -133,7 +131,7 @@ namespace InstallationValidator.Core.Presentation
 
       public void Abort()
       {
-         if (!_validationRunning)
+         if (!_comparisonRunning)
             return;
 
          if (_dialogCreator.MessageBoxYesNo(Captions.ReallyCancelFolderComparison) == ViewResult.No)

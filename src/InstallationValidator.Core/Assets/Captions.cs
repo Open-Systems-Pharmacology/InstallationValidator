@@ -33,6 +33,10 @@ namespace InstallationValidator.Core.Assets
          }
       }
 
+      public static readonly string StopComparison = "Stop Comparison";
+      public static readonly string StartComparison = "Start Comparison";
+      public static readonly string TheComparisonWasCanceled = "The comparison was canceled";
+
       public static string MainViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Installation Validator";
       public const string New = "New";
       public const string Old = "Old";
@@ -54,6 +58,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string Invalid = InRed("Invalid");
       public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
       public static readonly string OverallComparisonResult = InBold("Overall Comparison Result:");
+      public static readonly string ComparisonCompleted = InBold("Comparison completed");
 
       public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
 

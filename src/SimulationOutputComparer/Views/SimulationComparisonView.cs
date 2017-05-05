@@ -41,12 +41,12 @@ namespace SimulationOutputComparer.Views
          richEditControl.ActiveViewType = RichEditViewType.Simple;
 
          layoutItemButtonStart.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
-         startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
+         startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartComparison);
          layoutItemButtonStart.TextVisible = false;
          layoutItemButtonStop.TextVisible = false;
 
          layoutItemButtonStop.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
-         stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
+         stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopComparison);
 
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
          defaultLookAndFeel.LookAndFeel.SetSkinStyle(Constants.DEFAULT_SKIN);
@@ -94,10 +94,10 @@ namespace SimulationOutputComparer.Views
          richEditControl.Document.AppendHtmlText(htmlToLog);
       }
 
-      public void ValidationIsRunning(bool validationRunning)
+      public void ComparisonIsRunning(bool comparisonRunning)
       {
-         layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(validationRunning);
-         layoutItemButtonStart.Visibility = LayoutVisibilityConvertor.FromBoolean(!validationRunning);
+         layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(comparisonRunning);
+         layoutItemButtonStart.Visibility = LayoutVisibilityConvertor.FromBoolean(!comparisonRunning);
       }
 
       public void BindTo(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO)

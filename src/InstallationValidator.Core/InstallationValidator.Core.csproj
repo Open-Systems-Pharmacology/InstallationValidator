@@ -152,6 +152,7 @@
     <Compile Include="Domain\ValidationStateExtensions.cs" />
     <Compile Include="Extensions\OutputResultExtensions.cs" />
     <Compile Include="Presentation\SimulationComparisonPresenter.cs" />
+    <Compile Include="Presentation\Views\ISimulationComparisonView.cs" />
     <Compile Include="Reporting\BatchComparisonResultTeXBuilder.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
