@@ -10,6 +10,14 @@ namespace InstallationValidator.Core.Presentation.DTO
    {
       private string _folderPath;
 
+      public FolderDTO(bool folderMustExist = true)
+      {
+         Rules.Add(AllRules.FolderNotEmpty);
+
+         if (folderMustExist)
+            Rules.Add(AllRules.FolderExists);
+      }
+
       public string FolderPath
       {
          get { return _folderPath; }
@@ -20,20 +28,14 @@ namespace InstallationValidator.Core.Presentation.DTO
          }
       }
 
-      public FolderDTO()
-      {
-         Rules.Add(AllRules.TargetFolderNotEmpty);
-         Rules.Add(AllRules.TargetFolderExists);
-      }
-
       private static class AllRules
       {
-         public static IBusinessRule TargetFolderNotEmpty
+         public static IBusinessRule FolderNotEmpty
          {
             get { return GenericRules.NonEmptyRule<FolderDTO>(x => x.FolderPath); }
          }
 
-         public static IBusinessRule TargetFolderExists
+         public static IBusinessRule FolderExists
          {
             get
             {

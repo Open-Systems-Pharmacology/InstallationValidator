@@ -7,7 +7,6 @@ using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
-using OSPSuite.Core;
 using OSPSuite.Core.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
@@ -29,19 +28,20 @@ namespace InstallationValidator.Core.Presentation
       private readonly IDialogCreator _dialogCreator;
       private readonly IBatchStarterTask _batchStarterTask;
       private readonly IBatchComparisonTask _batchComparisonTask;
-      private readonly IApplicationConfiguration _configuration;
+      private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IValidationReportingTask _validationReportingTask;
-      private readonly FolderDTO _outputFolderDTO = new FolderDTO();
+      private readonly FolderDTO _outputFolderDTO = new FolderDTO(folderMustExist: false);
       private CancellationTokenSource _cancellationTokenSource;
       private bool _validationRunning;
 
-      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask, IApplicationConfiguration configuration, IValidationReportingTask validationReportingTask) : base(view)
+      public MainPresenter(IMainView view, IDialogCreator dialogCreator, IBatchStarterTask batchStarterTask, IBatchComparisonTask batchComparisonTask, IInstallationValidatorConfiguration configuration, IValidationReportingTask validationReportingTask) : base(view)
       {
          _dialogCreator = dialogCreator;
          _batchStarterTask = batchStarterTask;
          _batchComparisonTask = batchComparisonTask;
          _configuration = configuration;
          _validationReportingTask = validationReportingTask;
+         _outputFolderDTO.FolderPath = configuration.DefaultOutputPath;
          view.BindTo(_outputFolderDTO);
       }
 
@@ -80,7 +80,7 @@ namespace InstallationValidator.Core.Presentation
             logLine();
             var runSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             runSummary.StartTime = startTime;
-            
+
             logLine(Logs.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             logLine();
@@ -89,7 +89,7 @@ namespace InstallationValidator.Core.Presentation
             validationResult.RunSummary = runSummary;
 
             logLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport:true);
+            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport: true);
             logLine();
 
             logLine(Logs.ValidationCompleted);
