@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Extensions;
+using OSPSuite.Core.Services;
 
 namespace InstallationValidator.Core.Services
 {
