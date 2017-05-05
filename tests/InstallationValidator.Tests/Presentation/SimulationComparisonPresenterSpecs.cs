@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using FakeItEasy;
+using InstallationValidator.Core;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation;
@@ -16,7 +17,7 @@ namespace InstallationValidator.Presentation
    public abstract class concern_for_SimulationComparisonPresenter : ContextSpecification<SimulationComparisonPresenter>
    {
       protected ISimulationComparisonView _simulationComparisonView;
-      protected IApplicationConfiguration _applicationConfiguration;
+      protected IInstallationValidatorConfiguration _applicationConfiguration;
       protected IDialogCreator _dialogCreator;
       protected IBatchComparisonTask _batchComparisonTask;
       protected IBatchComparisonReportingTask _batchComparisonReportingTask;
@@ -26,7 +27,7 @@ namespace InstallationValidator.Presentation
       protected override void Context()
       {
          _simulationComparisonView = A.Fake<ISimulationComparisonView>();
-         _applicationConfiguration = A.Fake<IApplicationConfiguration>();
+         _applicationConfiguration = A.Fake<IInstallationValidatorConfiguration>();
          _dialogCreator = A.Fake<IDialogCreator>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
          _batchComparisonReportingTask = A.Fake<IBatchComparisonReportingTask>();
