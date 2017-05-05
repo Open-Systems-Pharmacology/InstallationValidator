@@ -261,6 +261,9 @@
   <ItemGroup>
     <Compile Include="Bootstrap\ApplicationStartup.cs" />
     <Compile Include="Views\SimulationComparisonView.cs" />
+    <Compile Include="Views\SimulationComparisonView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\SimulationComparisonView.Designer.cs">
       <DependentUpon>SimulationComparisonView.cs</DependentUpon>
     </Compile>
