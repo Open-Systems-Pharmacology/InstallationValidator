@@ -33,10 +33,13 @@ namespace InstallationValidator.Core.Assets
          }
       }
 
+      
+
       public static readonly string StopComparison = "Stop Comparison";
       public static readonly string StartComparison = "Start Comparison";
       public static readonly string TheComparisonWasCanceled = "The comparison was canceled";
 
+      public static string SimulationComparisonViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Simulation Output Comparer";
       public static string MainViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Installation Validator";
       public const string New = "New";
       public const string Old = "Old";

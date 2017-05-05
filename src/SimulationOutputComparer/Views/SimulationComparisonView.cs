@@ -51,7 +51,7 @@ namespace SimulationOutputComparer.Views
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
          defaultLookAndFeel.LookAndFeel.SetSkinStyle(Constants.DEFAULT_SKIN);
 
-         Caption = Captions.MainViewTitle;
+         Caption = Captions.SimulationComparisonViewTitle;
       }
 
       public override void InitializeBinding()
