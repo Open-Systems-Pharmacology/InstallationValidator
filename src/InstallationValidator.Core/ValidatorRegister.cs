@@ -55,6 +55,8 @@ namespace InstallationValidator.Core
          container.Register<IExceptionManager, ExceptionManager>(LifeStyle.Singleton);
          container.Register<IEventPublisher, EventPublisher>(LifeStyle.Singleton);
          container.Register<DirectoryMapSettings, DirectoryMapSettings>(LifeStyle.Singleton);
+
+         container.Register<StartableProcess, StartableProcess>();
       }
 
       private static void registerDimensions(IContainer container)
