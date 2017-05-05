@@ -13,7 +13,6 @@ namespace InstallationValidator.Core
       public static readonly string DIMENSION_FILE = "OSPSuite.Dimensions.xml";
       public static readonly string DEFAULT_SKIN = "Metropolis"; //"Office 2013 Light Gray";
       public const int BUTTON_HEIGHT = 48;
-      public static readonly string SUITE_NAME = "Open Systems Pharmacology Suite";
 
       public static class Tools
       {
@@ -22,12 +21,6 @@ namespace InstallationValidator.Core
          public static readonly string BATCH_OUTPUTS = Path.Combine("Outputs", "BatchFiles");
          public static readonly string BATCH_LOG = "batch.log";
          public static readonly string TEX_TEMPLATES = "TexTemplates";
-      }
-
-      public static class Filter
-      {
-         //TODO MOVE TO CORE
-         public static readonly string JSON_FILTER = $"*{OSPSuite.Core.Domain.Constants.Filter.JSON_EXTENSION}";
       }
    }
 }
