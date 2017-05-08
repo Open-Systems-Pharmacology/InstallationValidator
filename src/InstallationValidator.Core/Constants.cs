@@ -16,7 +16,6 @@ namespace InstallationValidator.Core
       public static readonly string DIMENSION_FILE = "OSPSuite.Dimensions.xml";
       public static readonly string DEFAULT_SKIN = "Metropolis"; //"Office 2013 Light Gray";
       public const int BUTTON_HEIGHT = 48;
-      public static readonly string CONCENTRATION = "Concentration in container";
 
       public static IReadOnlyList<string> PREDEFINED_OUTPUT_PATHS = new[]
       {
