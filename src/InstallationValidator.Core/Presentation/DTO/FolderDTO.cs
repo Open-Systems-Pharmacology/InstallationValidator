@@ -6,6 +6,18 @@ using OSPSuite.Utility.Validation;
 
 namespace InstallationValidator.Core.Presentation.DTO
 {
+   public class FolderComparisonDTO
+   {
+      public FolderComparisonDTO(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO)
+      {
+         firstFolder = firstFolderDTO;
+         secondFolder = secondFolderDTO;
+      }
+
+      public FolderDTO firstFolder { get; }
+      public FolderDTO secondFolder { get; }
+   }
+
    public class FolderDTO : ValidatableDTO
    {
       private string _folderPath;

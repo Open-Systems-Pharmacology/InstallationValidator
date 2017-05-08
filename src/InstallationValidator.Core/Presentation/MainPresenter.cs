@@ -4,19 +4,16 @@ using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
+using InstallationValidator.Core.Extensions;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
-using OSPSuite.Core.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
-using OSPSuite.Utility.Events;
 
 namespace InstallationValidator.Core.Presentation
 {
-   public interface IMainPresenter : IDisposablePresenter,
-      IListener<AppendTextToLogEvent>,
-      IListener<AppendLineToLogEvent>
+   public interface IMainPresenter : IDisposablePresenter, IComparisonPresenter
    {
       void SelectOutputFolder();
       void Abort();
@@ -72,38 +69,38 @@ namespace InstallationValidator.Core.Presentation
          try
          {
             updateValidationRunningState(running: true);
-            resetLog();
+            this.ResetLog();
 
             var startTime = DateTime.Now;
 
-            logLine(Logs.StartingBatchCalculation);
-            logLine();
+            this.LogLine(Logs.StartingBatchCalculation);
+            this.LogLine();
             var runSummary = await _batchStarterTask.StartBatch(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
             runSummary.StartTime = startTime;
 
-            logLine(Logs.StartingComparison);
+            this.LogLine(Logs.StartingComparison);
             validationResult.ComparisonResult = await _batchComparisonTask.StartComparison(_outputFolderDTO.FolderPath, _cancellationTokenSource.Token);
-            logLine();
+            this.LogLine();
 
             runSummary.EndTime = DateTime.Now;
             validationResult.RunSummary = runSummary;
 
-            logLine(Logs.StartingReport);
+            this.LogLine(Logs.StartingReport);
             await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport: true);
-            logLine();
+            this.LogLine();
 
-            logLine(Logs.ValidationCompleted);
+            this.LogLine(Logs.ValidationCompleted);
 
             return validationResult;
          }
          catch (OperationCanceledException)
          {
-            logLine(Captions.TheValidationWasCanceled);
+            this.LogLine(Captions.TheValidationWasCanceled);
             return validationResult;
          }
          catch (Exception e)
          {
-            logException(e);
+            this.LogException(e, _configuration.IssueTrackerUrl);
             return validationResult;
          }
          finally
@@ -112,55 +109,22 @@ namespace InstallationValidator.Core.Presentation
          }
       }
 
-      private void logLine(string textToLog = "", bool isHtml = true)
-      {
-         if (isHtml)
-            logHTML($"<br>{textToLog}");
-         else
-            logText($"{Environment.NewLine}{textToLog}", isHtml: false);
-      }
-
       private void updateValidationRunningState(bool running)
       {
          _validationRunning = running;
          View.ValidationIsRunning(_validationRunning);
       }
 
-      private void logText(string textToLog, bool isHtml = true)
-      {
-         if (isHtml)
-            logHTML(textToLog);
-         else
-            View.AppendText(textToLog);
-      }
-
-      private void logException(Exception e)
-      {
-         logLine();
-         logHTML(Exceptions.ExceptionViewDescription(_configuration.IssueTrackerUrl));
-         logLine();
-         logLine(e.ExceptionMessageWithStackTrace());
-         logLine();
-      }
-
-      private void logHTML(string htmlToLog)
-      {
-         View.AppendHTML(htmlToLog);
-      }
-
       public void Handle(AppendTextToLogEvent eventToHandle)
       {
-         logText(eventToHandle.Text, eventToHandle.IsHtml);
-      }
-
-      private void resetLog()
-      {
-         View.ResetText(string.Empty);
+         this.LogText(eventToHandle.Text, eventToHandle.IsHtml);
       }
 
       public void Handle(AppendLineToLogEvent eventToHandle)
       {
-         logLine(eventToHandle.Line, eventToHandle.IsHtml);
+         this.LogLine(eventToHandle.Line, eventToHandle.IsHtml);
       }
+
+      public IComparisonView ComparisonView => View;
    }
 }

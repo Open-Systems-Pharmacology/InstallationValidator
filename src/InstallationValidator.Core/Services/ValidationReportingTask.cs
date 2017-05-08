@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
-using OSPSuite.Core;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
 using OSPSuite.Utility;
-using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Services
 {
    public interface IValidationReportingTask
    {
       Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false);
+      Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport);
    }
 
    public class ValidationReportingTask : IValidationReportingTask
@@ -30,19 +29,34 @@ namespace InstallationValidator.Core.Services
          _reportingTask = reportingTask;
          _validationLogger = validationLogger;
          _applicationConfiguration = applicationConfiguration;
-       }
+      }
 
-      public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
+      public async Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport = false)
       {
-         var dateTime = installationValidationResult.RunSummary.StartTime;
+         var reportConfiguration = createReportConfiguration(Assets.Reporting.FolderComparison, secondFolderPath, DateTime.Now);
 
-         var reportConfiguration = new ReportConfiguration
+         await startCreationProcess(comparisonResult, reportConfiguration);
+
+         if (openReport)
+            FileHelper.TryOpenFile(reportConfiguration.ReportFile);
+
+         _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
+      }
+
+      private ReportConfiguration createReportConfiguration(string reportSubtitle, string outputFilePath, DateTime reportDateAndTime)
+      {
+         return new ReportConfiguration
          {
             Template = _reportTemplateRepository.All().FirstOrDefault(),
             Title = _applicationConfiguration.OSPSuiteNameWithVersion,
-            SubTitle = Assets.Reporting.InstallationValidation,
-            ReportFile = reportOutputPath(outputFolderPath, dateTime)
+            SubTitle = reportSubtitle,
+            ReportFile = reportOutputPath(outputFilePath, reportDateAndTime)
          };
+      }
+
+      public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
+      {
+         var reportConfiguration = createReportConfiguration(Assets.Reporting.InstallationValidation, outputFolderPath, installationValidationResult.RunSummary.StartTime);
 
          await startCreationProcess(installationValidationResult, reportConfiguration);
 
@@ -52,7 +66,7 @@ namespace InstallationValidator.Core.Services
          _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
       }
 
-      private Task startCreationProcess(InstallationValidationResult batchComparisonResult, ReportConfiguration reportConfiguration)
+      private Task startCreationProcess(IWithValidationState batchComparisonResult, ReportConfiguration reportConfiguration)
       {
          return _reportingTask.CreateReportAsync(batchComparisonResult, reportConfiguration);
       }

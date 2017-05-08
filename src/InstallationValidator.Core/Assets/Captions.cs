@@ -33,11 +33,22 @@ namespace InstallationValidator.Core.Assets
          }
       }
 
+      
+
+      public static readonly string StopComparison = "Stop Comparison";
+      public static readonly string StartComparison = "Start Comparison";
+      public static readonly string TheComparisonWasCanceled = "The comparison was canceled";
+
+      public static string SimulationComparisonViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Simulation Output Comparer";
       public static string MainViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Installation Validator";
       public const string New = "New";
       public const string Old = "Old";
       public static readonly string Installation = "Installation";
       public static readonly string Computed = "Computed";
+
+      public static readonly string ComparisonFolder1 = "Comparison Folder 1";
+      public static readonly string ComparisonFolder2 = "Comparison Folder 2";
+      public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
    }
 
    public static class Logs
@@ -50,6 +61,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string Invalid = InRed("Invalid");
       public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
       public static readonly string OverallComparisonResult = InBold("Overall Comparison Result:");
+      public static readonly string ComparisonCompleted = InBold("Comparison completed");
 
       public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
 
@@ -199,6 +211,11 @@ namespace InstallationValidator.Core.Assets
       public static readonly string TimeComparisonValidation = "Time Comparison Validation";
       public static readonly string OutputComparisonValidation = "Output Comparison Validation";
       public static readonly string MissingFileValidation = "Missing File Validation";
+      public static readonly string FolderComparisonResults = "Folder Comparison Results";
+      public static readonly string FolderComparison = "Folder Comparison";
+      public static readonly string First = "First";
+      public static readonly string Second = "Second";
+
       public static string AbsoluteToleranceIs(string tolerance) => $"Absolute Tolerance: {tolerance}";
       public static string RelativeToleranceIs(string tolerance) => $"Relative Tolerance: {tolerance}";
 

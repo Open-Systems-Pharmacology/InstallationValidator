@@ -150,7 +150,12 @@
     <Compile Include="Domain\OperatingSystemInfo.cs" />
     <Compile Include="Domain\ValidationLogger.cs" />
     <Compile Include="Domain\ValidationStateExtensions.cs" />
+    <Compile Include="Extensions\ComparisonPresenterExtensions.cs" />
     <Compile Include="Extensions\OutputResultExtensions.cs" />
+    <Compile Include="Presentation\IComparisonPresenter.cs" />
+    <Compile Include="Presentation\SimulationComparisonPresenter.cs" />
+    <Compile Include="Presentation\Views\IComparisonView.cs" />
+    <Compile Include="Presentation\Views\ISimulationComparisonView.cs" />
     <Compile Include="Reporting\BatchComparisonResultTeXBuilder.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
     <Compile Include="Domain\BatchOutputComparison.cs" />
