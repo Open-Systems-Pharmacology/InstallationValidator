@@ -167,7 +167,6 @@
     <Compile Include="Presentation\MainPresenterSpecs.cs" />
     <Compile Include="Presentation\SimulationComparisonPresenterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BatchComparisonReportingTaskSpecs.cs" />
     <Compile Include="Services\BatchComparisonResultSpecs.cs" />
     <Compile Include="Services\BatchComparisonTaskSpecs.cs" />
     <Compile Include="Services\BatchOutputFileComparerSpecs.cs" />

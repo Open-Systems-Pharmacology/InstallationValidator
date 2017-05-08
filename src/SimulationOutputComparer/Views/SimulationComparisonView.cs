@@ -120,10 +120,10 @@ namespace SimulationOutputComparer.Views
          layoutItemButtonStart.Visibility = LayoutVisibilityConvertor.FromBoolean(!comparisonRunning);
       }
 
-      public void BindTo(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO)
+      public void BindTo(FolderComparisonDTO folderComparisonDTO)
       {
-         _screenBinderFolder1.BindToSource(firstFolderDTO);
-         _screenBinderFolder2.BindToSource(secondFolderDTO);
+         _screenBinderFolder1.BindToSource(folderComparisonDTO.firstFolder);
+         _screenBinderFolder2.BindToSource(folderComparisonDTO.secondFolder);
       }
    }
 }

@@ -20,7 +20,7 @@ namespace InstallationValidator.Presentation
       protected IInstallationValidatorConfiguration _applicationConfiguration;
       protected IDialogCreator _dialogCreator;
       protected IBatchComparisonTask _batchComparisonTask;
-      protected IBatchComparisonReportingTask _batchComparisonReportingTask;
+      protected IValidationReportingTask _validationReportingTask;
       protected FolderDTO _firstFolder;
       protected FolderDTO _secondFolder;
 
@@ -30,16 +30,17 @@ namespace InstallationValidator.Presentation
          _applicationConfiguration = A.Fake<IInstallationValidatorConfiguration>();
          _dialogCreator = A.Fake<IDialogCreator>();
          _batchComparisonTask = A.Fake<IBatchComparisonTask>();
-         _batchComparisonReportingTask = A.Fake<IBatchComparisonReportingTask>();
+         _validationReportingTask = A.Fake<IValidationReportingTask>();
 
-         A.CallTo(() => _simulationComparisonView.BindTo(A<FolderDTO>._, A<FolderDTO>._))
+         A.CallTo(() => _simulationComparisonView.BindTo(A<FolderComparisonDTO>._))
             .Invokes(x =>
             {
-               _firstFolder = x.GetArgument<FolderDTO>(0);
-               _secondFolder = x.GetArgument<FolderDTO>(1);
+               var folderComparisonDTO = x.GetArgument<FolderComparisonDTO>(0);
+               _firstFolder = folderComparisonDTO.firstFolder;
+               _secondFolder = folderComparisonDTO.secondFolder;
             });
 
-         sut = new SimulationComparisonPresenter(_simulationComparisonView, _applicationConfiguration, _dialogCreator, _batchComparisonTask, _batchComparisonReportingTask);
+         sut = new SimulationComparisonPresenter(_simulationComparisonView, _applicationConfiguration, _dialogCreator, _batchComparisonTask, _validationReportingTask);
       }
    }
 
@@ -128,7 +129,7 @@ namespace InstallationValidator.Presentation
       [Observation]
       public void should_generate_the_report()
       {
-         A.CallTo(() => _batchComparisonReportingTask.CreateReport(A<BatchComparisonResult>._, _firstFolder.FolderPath, _secondFolder.FolderPath, true)).MustHaveHappened();
+         A.CallTo(() => _validationReportingTask.CreateReport(A<BatchComparisonResult>._, _firstFolder.FolderPath, _secondFolder.FolderPath, true)).MustHaveHappened();
       }
    }
 

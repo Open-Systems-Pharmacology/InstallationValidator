@@ -259,7 +259,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="Bootstrap\ApplicationStartup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\SimulationComparisonView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,7 +271,6 @@
       <DependentUpon>SimulationComparisonView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

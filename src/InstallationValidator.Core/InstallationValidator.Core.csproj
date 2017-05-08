@@ -150,8 +150,11 @@
     <Compile Include="Domain\OperatingSystemInfo.cs" />
     <Compile Include="Domain\ValidationLogger.cs" />
     <Compile Include="Domain\ValidationStateExtensions.cs" />
+    <Compile Include="Extensions\ComparisonPresenterExtensions.cs" />
     <Compile Include="Extensions\OutputResultExtensions.cs" />
+    <Compile Include="Presentation\IComparisonPresenter.cs" />
     <Compile Include="Presentation\SimulationComparisonPresenter.cs" />
+    <Compile Include="Presentation\Views\IComparisonView.cs" />
     <Compile Include="Presentation\Views\ISimulationComparisonView.cs" />
     <Compile Include="Reporting\BatchComparisonResultTeXBuilder.cs" />
     <Compile Include="Domain\BatchComparisonResult.cs" />
@@ -181,7 +184,6 @@
     <Compile Include="Reporting\OperatingSystemInfoTeXBuilder.cs" />
     <Compile Include="Reporting\OutputComparisonResultTeXBuilder.cs" />
     <Compile Include="Reporting\ValidationStateReport.cs" />
-    <Compile Include="Services\BatchComparisonReportingTask.cs" />
     <Compile Include="Services\OutputComparisonResultToCurveChartMapper.cs" />
     <Compile Include="Reporting\OutputFileComparisonResultTeXBuilder.cs" />
     <Compile Include="Services\OutputResultToDataRepositoryMapper.cs" />

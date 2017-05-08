@@ -6,17 +6,13 @@ using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
-using OSPSuite.Core.Extensions;
+using InstallationValidator.Core.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
-using OSPSuite.Utility.Events;
 
 namespace InstallationValidator.Core.Presentation
 {
-
-   public interface ISimulationComparisonPresenter : IDisposablePresenter,
-      IListener<AppendTextToLogEvent>,
-      IListener<AppendLineToLogEvent>
+   public interface ISimulationComparisonPresenter : IDisposablePresenter, IComparisonPresenter
    {
       Task StartComparison();
       void Abort();
@@ -33,45 +29,26 @@ namespace InstallationValidator.Core.Presentation
       private CancellationTokenSource _cancellationTokenSource;
       private bool _comparisonRunning;
       private readonly IBatchComparisonTask _batchComparisonTask;
-      private readonly IBatchComparisonReportingTask _batchComparisonReportingTask;
+      private readonly IValidationReportingTask _validationReportingTask;
 
       public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator, 
-         IBatchComparisonTask batchComparisonTask, IBatchComparisonReportingTask batchComparisonReportingTask) : base(view)
+         IBatchComparisonTask batchComparisonTask, IValidationReportingTask validationReportingTask) : base(view)
       {
          _configuration = configuration;
          _dialogCreator = dialogCreator;
          _batchComparisonTask = batchComparisonTask;
-         _batchComparisonReportingTask = batchComparisonReportingTask;
-         _secondFolderDTO.FolderPath = configuration.BatchOutputsFolderPath;
-         view.BindTo(_firstFolderDTO, _secondFolderDTO);
-      }
-
-      private void logText(string textToLog, bool isHtml = true)
-      {
-         if (isHtml)
-            logHTML(textToLog);
-         else
-            View.AppendText(textToLog);
-      }
-
-      private void logHTML(string htmlToLog)
-      {
-         View.AppendHTML(htmlToLog);
+         _validationReportingTask = validationReportingTask;
+         view.BindTo(new FolderComparisonDTO(_firstFolderDTO, _secondFolderDTO));
       }
 
       public void Handle(AppendTextToLogEvent eventToHandle)
       {
-         logText(eventToHandle.Text, eventToHandle.IsHtml);
-      }
-
-      private void resetLog()
-      {
-         View.ResetText(string.Empty);
+         this.LogText(eventToHandle.Text, eventToHandle.IsHtml);
       }
 
       public void Handle(AppendLineToLogEvent eventToHandle)
       {
-         logLine(eventToHandle.Line, eventToHandle.IsHtml);
+         this.LogLine(eventToHandle.Line, eventToHandle.IsHtml);
       }
 
       public async Task StartComparison()
@@ -80,39 +57,30 @@ namespace InstallationValidator.Core.Presentation
          try
          {
             updateComparisonRunningState(running: true);
-            resetLog();
+            this.ResetLog();
 
-            logLine(Logs.StartingComparison);
+            this.LogLine(Logs.StartingComparison);
             var comparisonResult = await _batchComparisonTask.StartComparison(_firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, _cancellationTokenSource.Token, Assets.Reporting.First, Assets.Reporting.Second);
-            logLine();
+            this.LogLine();
 
-            logLine(Logs.StartingReport);
-            await _batchComparisonReportingTask.CreateReport(comparisonResult, _firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, openReport: true);
-            logLine();
+            this.LogLine(Logs.StartingReport);
+            await _validationReportingTask.CreateReport(comparisonResult, _firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, openReport: true);
+            this.LogLine();
 
-            logLine(Logs.ComparisonCompleted);
+            this.LogLine(Logs.ComparisonCompleted);
          }
          catch (OperationCanceledException)
          {
-            logLine(Captions.TheComparisonWasCanceled);
+            this.LogLine(Captions.TheComparisonWasCanceled);
          }
          catch (Exception e)
          {
-            logException(e);
+            this.LogException(e, _configuration.IssueTrackerUrl);
          }
          finally
          {
             updateComparisonRunningState(running: false);
          }
-      }
-
-      private void logException(Exception e)
-      {
-         logLine();
-         logHTML(Exceptions.ExceptionViewDescription(_configuration.IssueTrackerUrl));
-         logLine();
-         logLine(e.ExceptionMessageWithStackTrace());
-         logLine();
       }
 
       private void updateComparisonRunningState(bool running)
@@ -121,13 +89,6 @@ namespace InstallationValidator.Core.Presentation
          View.ComparisonIsRunning(_comparisonRunning);
       }
 
-      private void logLine(string textToLog = "", bool isHtml = true)
-      {
-         if (isHtml)
-            logHTML($"<br>{textToLog}");
-         else
-            logText($"{Environment.NewLine}{textToLog}", isHtml: false);
-      }
 
       public void Abort()
       {
@@ -160,5 +121,7 @@ namespace InstallationValidator.Core.Presentation
       {
          selectFolder(_secondFolderDTO);
       }
+
+      public IComparisonView ComparisonView => View;
    }
 }

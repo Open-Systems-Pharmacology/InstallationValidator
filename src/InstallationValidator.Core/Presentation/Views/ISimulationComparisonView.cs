@@ -3,12 +3,9 @@ using OSPSuite.Presentation.Views;
 
 namespace InstallationValidator.Core.Presentation.Views
 {
-   public interface ISimulationComparisonView : IView<ISimulationComparisonPresenter>
+   public interface ISimulationComparisonView : IComparisonView, IView<ISimulationComparisonPresenter>
    {
-      void ResetText(string empty);
-      void AppendText(string textToLog);
-      void AppendHTML(string htmlToLog);
       void ComparisonIsRunning(bool comparisonRunning);
-      void BindTo(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO);
+      void BindTo(FolderComparisonDTO folderComparisonDTO);
    }
 }
