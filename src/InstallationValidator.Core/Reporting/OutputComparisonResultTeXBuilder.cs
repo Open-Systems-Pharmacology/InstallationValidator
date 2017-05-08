@@ -39,10 +39,7 @@ namespace InstallationValidator.Core.Reporting
          _builderRepository.Report(objectsToReport, buildTracker);
       }
 
-      private static bool canCreateChartFor(OutputComparisonResult outputToReport)
-      {
-         return !(outputToReport.Output1.IsNullOutput() || outputToReport.Output2.IsNullOutput());
-      }
+      private static bool canCreateChartFor(OutputComparisonResult outputToReport) => outputToReport.HasData;
 
       private IEnumerable<CurveChart> chartsFor(OutputComparisonResult outputComparisonResult)
       {

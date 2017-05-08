@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using InstallationValidator.Core.Assets;
 using OSPSuite.Core.Domain;
 using OSPSuite.Utility.Extensions;
 
@@ -9,19 +8,7 @@ namespace InstallationValidator.Core.Domain
    {
       private readonly List<FileComparisonResult> _fileComparisonResults = new List<FileComparisonResult>();
 
-      /// <summary>
-      ///    First folder used for comparison
-      /// </summary>
-      public string FolderPath1 { get; set; }
-
-      /// <summary>
-      ///    Second folder used for comparison
-      /// </summary>
-      public string FolderPath2 { get; set; }
-
-      public string FolderPathCaption1 { get; set; } = Captions.Old;
-
-      public string FolderPathCaption2 { get; set; } = Captions.New;
+      public ComparisonSettings ComparisonSettings = new ComparisonSettings();
 
       public void AddFileComparisons(IEnumerable<FileComparisonResult> fileComparisonResults)
       {
@@ -36,5 +23,13 @@ namespace InstallationValidator.Core.Domain
       public IReadOnlyList<FileComparisonResult> FileComparisonResults => _fileComparisonResults;
 
       public ValidationState State => _fileComparisonResults.CombineStates();
+
+      public string FolderPathCaption1 => ComparisonSettings.FolderPathCaption1;
+
+      public string FolderPathCaption2 => ComparisonSettings.FolderPathCaption2;
+
+      public string FolderPath1 => ComparisonSettings.FolderPath1;
+
+      public string FolderPath2 => ComparisonSettings.FolderPath2;
    }
 }

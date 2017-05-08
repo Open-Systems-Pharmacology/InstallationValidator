@@ -19,6 +19,7 @@ namespace InstallationValidator.Domain
       protected BatchOutputValues _outputValues1;
       protected BatchOutputValues _outputValues2;
       protected readonly double _threshold = 1e-4;
+      protected ComparisonSettings _comparisonSettings;
 
       protected override void Context()
       {
@@ -34,6 +35,12 @@ namespace InstallationValidator.Domain
          _outputValues2 = new BatchOutputValues {Path = "P1", ComparisonThreshold = _threshold};
          _outputComparison1 = new BatchOutputComparison(_simulationComparison1, _outputValues1);
          _outputComparison2 = new BatchOutputComparison(_simulationComparison2, _outputValues2);
+
+         _comparisonSettings = new ComparisonSettings
+         {
+            FolderPath1 = "Folder1",
+            FolderPath2 = "Folder2"
+         };
       }
    }
 
@@ -50,7 +57,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -73,7 +80,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -97,7 +104,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -120,7 +127,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -144,7 +151,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -167,7 +174,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -191,7 +198,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -215,8 +222,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] { 1f, 2f, 3f };
-         _simulation2.Times = new[] { 1f, 2f, 4f };
+         _simulation1.Times = new[] {1f, 2f, 3f};
+         _simulation2.Times = new[] {1f, 2f, 4f};
 
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, 0.01f};
          _outputValues2.Values = new[] {1f, 2f, 0, 4f, 0.05f};
@@ -224,7 +231,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]

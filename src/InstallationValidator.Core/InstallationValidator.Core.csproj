@@ -145,6 +145,7 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\ComparisonSettings.cs" />
     <Compile Include="Domain\ValidationRunSummary.cs" />
     <Compile Include="Domain\InstallationValidationResult.cs" />
     <Compile Include="Domain\OperatingSystemInfo.cs" />

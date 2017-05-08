@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
+using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
@@ -60,7 +61,7 @@ namespace InstallationValidator.Core.Presentation
             this.ResetLog();
 
             this.LogLine(Logs.StartingComparison);
-            var comparisonResult = await _batchComparisonTask.StartComparison(_firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, _cancellationTokenSource.Token, Assets.Reporting.First, Assets.Reporting.Second);
+            var comparisonResult = await _batchComparisonTask.StartComparison(new ComparisonSettings {FolderPath1 = _firstFolderDTO.FolderPath, FolderPath2  = _secondFolderDTO.FolderPath}, _cancellationTokenSource.Token);
             this.LogLine();
 
             this.LogLine(Logs.StartingReport);

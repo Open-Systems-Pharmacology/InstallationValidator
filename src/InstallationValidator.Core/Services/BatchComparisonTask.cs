@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentNHibernate.Utils;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using static OSPSuite.Core.Domain.Constants;
@@ -12,7 +11,7 @@ namespace InstallationValidator.Core.Services
    public interface IBatchComparisonTask
    {
       Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token);
-      Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1 = Captions.Old, string folderPathCaption2 = Captions.New);
+      Task<BatchComparisonResult> StartComparison(ComparisonSettings comparisonSettings, CancellationToken token);
    }
 
    public class BatchComparisonTask : IBatchComparisonTask
@@ -32,13 +31,21 @@ namespace InstallationValidator.Core.Services
 
       public Task<BatchComparisonResult> StartComparison(string folderPath, CancellationToken token)
       {
-         return StartComparison(_validatorConfiguration.BatchOutputsFolderPath, folderPath, token, Captions.Installation, Captions.Computed);
+         return StartComparison(new ComparisonSettings
+         {
+            FolderPath1 = _validatorConfiguration.BatchOutputsFolderPath,
+            FolderPath2 = folderPath,
+            FolderPathCaption1 = Captions.Installation,
+            FolderPathCaption2 = Captions.Computed,
+            GenerateResultsForValidSimulation = true,
+            PredefinedOutputPaths = Constants.PREDEFINED_OUTPUT_PATHS
+         }, token);
       }
 
-      public async Task<BatchComparisonResult> StartComparison(string folderPath1, string folderPath2, CancellationToken token, string folderPathCaption1, string folderPathCaption2)
+      public async Task<BatchComparisonResult> StartComparison(ComparisonSettings comparisonSettings, CancellationToken token)
       {
-         var folderInfo1 = _folderInfoFactory.CreateFor(folderPath1, Filter.JSON_FILTER);
-         var folderInfo2 = _folderInfoFactory.CreateFor(folderPath2, Filter.JSON_FILTER);
+         var folderInfo1 = _folderInfoFactory.CreateFor(comparisonSettings.FolderPath1, Filter.JSON_FILTER);
+         var folderInfo2 = _folderInfoFactory.CreateFor(comparisonSettings.FolderPath2, Filter.JSON_FILTER);
 
          var tasks = new[] {folderInfo1.ComputeFiles(), folderInfo2.ComputeFiles()};
 
@@ -47,10 +54,7 @@ namespace InstallationValidator.Core.Services
 
          var comparison = new BatchComparisonResult
          {
-            FolderPath1 = folderPath1,
-            FolderPath2 = folderPath2,
-            FolderPathCaption1 = folderPathCaption1,
-            FolderPathCaption2 = folderPathCaption2
+            ComparisonSettings = comparisonSettings
          };
 
          comparison.AddFileComparisons(allMissingFilesFrom(folderInfo1, folderInfo2));
@@ -60,8 +64,7 @@ namespace InstallationValidator.Core.Services
          foreach (var file in folderInfo1.FileNames.Where(folderInfo2.HasFile))
          {
             _validationLogger.AppendLine(Logs.ComparingFilles(file));
-            var fileComparison = await compareFile(file, folderPath1, folderPath2, token);
-            fileComparison.OutputComparisonResults.Each(x => captionOutputs(x, folderPathCaption1, folderPathCaption2));
+            var fileComparison = await compareFile(file, comparisonSettings, token);
             comparison.AddFileComparison(fileComparison);
             _validationLogger.AppendText(Logs.StateDisplayFor(fileComparison.State));
          }
@@ -72,15 +75,9 @@ namespace InstallationValidator.Core.Services
          return comparison;
       }
 
-      private void captionOutputs(OutputComparisonResult outputComparisonResult, string folderPathCaption1, string folderPathCaption2)
+      private Task<OutputFileComparisonResult> compareFile(string fileName, ComparisonSettings comparisonSettings, CancellationToken token)
       {
-         outputComparisonResult.Output1.Caption = folderPathCaption1;
-         outputComparisonResult.Output2.Caption = folderPathCaption2;
-      }
-
-      private Task<OutputFileComparisonResult> compareFile(string fileName, string folderPath1, string folderPath2, CancellationToken token)
-      {
-         return _batchOutputFileComparer.Compare(fileName, folderPath1, folderPath2, token);
+         return _batchOutputFileComparer.Compare(fileName, comparisonSettings, token);
       }
 
       private IEnumerable<FileComparisonResult> allMissingFilesFrom(FolderInfo folderInfo1, FolderInfo folderInfo2)

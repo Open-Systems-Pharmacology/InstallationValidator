@@ -3,28 +3,52 @@ using System.Linq;
 using InstallationValidator.Core.Assets;
 using OSPSuite.Core.Batch;
 using OSPSuite.Core.Domain;
+using OSPSuite.Core.Extensions;
 
 namespace InstallationValidator.Core.Domain
 {
    public class PointwiseComparisonStrategy : IComparisonStrategy
    {
-      public OutputComparisonResult CompareOutputs(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2)
+      public OutputComparisonResult CompareOutputs(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, ComparisonSettings comparisonSettings)
       {
-         var comparisonResult = outputConsistencyCheckComparisonResult(outputValues1, outputValues2);
+         var comparisonResult = outputConsistencyCheckComparisonResult(outputValues1, outputValues2, comparisonSettings);
          if (comparisonResult != null)
             return comparisonResult;
 
          var deviation = calculateDeviation(outputValues1, outputValues2);
 
-         comparisonResult = deviation > Constants.MAX_DEVIATION_OUTPUT
-            ? outputDeviationTooLargeComparisonResult(outputValues1, outputValues2, deviation)
-            : new OutputComparisonResult(outputValues1.Path, ValidationState.Valid);
-
-         comparisonResult.Deviation = deviation;
-         return comparisonResult;
+         return deviation > Constants.MAX_DEVIATION_OUTPUT
+            ? outputDeviationTooLargeComparisonResult(outputValues1, outputValues2, deviation, comparisonSettings)
+            : validOutputComparison(outputValues1, outputValues2, deviation, comparisonSettings);
       }
 
-      public TimeComparisonResult CompareTime(BatchSimulationComparison simulation1, BatchSimulationComparison simulation2)
+      private static OutputComparisonResult validOutputComparison(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings)
+      {
+
+         if (!shouldGenerateOutputsFor(comparisonSettings, outputValues1.Path))
+            return new OutputComparisonResult(outputValues1.Path, comparisonSettings, ValidationState.Valid)
+            {
+               Deviation = deviation
+            };
+
+         return outputComparisonResultFrom(outputValues1, outputValues2, deviation, comparisonSettings, ValidationState.Valid);
+      }
+
+      private static bool shouldGenerateOutputsFor(ComparisonSettings comparisonSettings, string outputValues1Path)
+      {
+         //we need to remove first entry (simulation name, and one before last entry). So we need at least 3 entries in the path
+         var path = outputValues1Path.ToPathArray().ToList();
+         if (path.Count < 3)
+            return false;
+
+         path.RemoveAt(0);
+         path.RemoveAt(path.Count - 2);
+
+         var consolidatedPath = path.ToPathString();
+         return comparisonSettings.PredefinedOutputPaths.Contains(consolidatedPath);
+      }
+
+      public TimeComparisonResult CompareTime(BatchSimulationComparison simulation1, BatchSimulationComparison simulation2, ComparisonSettings comparisonSettings)
       {
          var timeComparison = timeConsistencyCheckComparisonResult(simulation1, simulation2);
          if (timeComparison != null)
@@ -57,19 +81,19 @@ namespace InstallationValidator.Core.Domain
          return null;
       }
 
-      private OutputComparisonResult outputConsistencyCheckComparisonResult(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2)
+      private OutputComparisonResult outputConsistencyCheckComparisonResult(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, ComparisonSettings comparisonSettings)
       {
          var values1 = outputValues1.OutputValues;
          var values2 = outputValues2.OutputValues;
 
          if (values1.Values == null)
-            return undefinedValuesComparisonResult(outputValues1);
+            return undefinedValuesComparisonResult(outputValues1, comparisonSettings);
 
          if (values2.Values == null)
-            return undefinedValuesComparisonResult(outputValues2);
+            return undefinedValuesComparisonResult(outputValues2, comparisonSettings);
 
          if (values1.Values.Length != values2.Values.Length)
-            return differentOutputLengthComparisonResult(outputValues1, values1, values2);
+            return differentOutputLengthComparisonResult(outputValues1, values1, values2, comparisonSettings);
 
          return null;
       }
@@ -114,23 +138,38 @@ namespace InstallationValidator.Core.Domain
          return new TimeComparisonResult(ValidationState.Invalid, Validation.DeviationForTimeGreaterThanMaxTolearance(deviation, Constants.MAX_DEVIATION_TIME));
       }
 
-      private static OutputComparisonResult outputDeviationTooLargeComparisonResult(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation)
+      private static OutputComparisonResult outputDeviationTooLargeComparisonResult(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings)
       {
-         return new OutputComparisonResult(outputValues1.Path, ValidationState.Invalid, Validation.DeviationForVariableGreaterThanMaxTolerance(outputValues1.Path, deviation, Constants.MAX_DEVIATION_OUTPUT))
+         return outputComparisonResultFrom(outputValues1, outputValues2, deviation, comparisonSettings, ValidationState.Invalid, Validation.DeviationForVariableGreaterThanMaxTolerance(outputValues1.Path, deviation, Constants.MAX_DEVIATION_OUTPUT));
+      }
+
+      private static OutputComparisonResult outputComparisonResultFrom(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings, ValidationState state, string message = null)
+      {
+         return new OutputComparisonResult(outputValues1.Path, comparisonSettings, state, message)
          {
-            Output1 = new OutputResult(outputValues1.Times, outputValues1.Values) { Dimension = outputValues1.OutputValues.Dimension },
-            Output2 = new OutputResult(outputValues2.Times, outputValues2.Values) { Dimension = outputValues2.OutputValues.Dimension }
+            Output1 = outputResultFrom(outputValues1, comparisonSettings.FolderPathCaption1),
+            Output2 = outputResultFrom(outputValues2, comparisonSettings.FolderPathCaption2),
+            Deviation = deviation
          };
       }
 
-      private static OutputComparisonResult differentOutputLengthComparisonResult(BatchOutputComparison outputValues1, BatchOutputValues values1, BatchOutputValues values2)
+      private static OutputResult outputResultFrom(BatchOutputComparison outputValue, string caption)
       {
-         return new OutputComparisonResult(outputValues1.Path, ValidationState.Invalid, Validation.ValueArraysHaveDifferentLength(outputValues1.SimulationName, outputValues1.Path, values1.Values.Length, values2.Values.Length));
+         return new OutputResult(outputValue.Times, outputValue.Values)
+         {
+            Dimension = outputValue.OutputValues.Dimension,
+            Caption = caption
+         };
       }
 
-      private static OutputComparisonResult undefinedValuesComparisonResult(BatchOutputComparison batchOutputComparison)
+      private static OutputComparisonResult differentOutputLengthComparisonResult(BatchOutputComparison outputValues1, BatchOutputValues values1, BatchOutputValues values2, ComparisonSettings comparisonSettings)
       {
-         return new OutputComparisonResult(batchOutputComparison.Path, ValidationState.Invalid, Validation.ValueArrayDoesNotExist(batchOutputComparison.SimulationName, batchOutputComparison.Folder, batchOutputComparison.Path));
+         return new OutputComparisonResult(outputValues1.Path, comparisonSettings, ValidationState.Invalid, Validation.ValueArraysHaveDifferentLength(outputValues1.SimulationName, outputValues1.Path, values1.Values.Length, values2.Values.Length));
+      }
+
+      private static OutputComparisonResult undefinedValuesComparisonResult(BatchOutputComparison batchOutputComparison, ComparisonSettings comparisonSettings)
+      {
+         return new OutputComparisonResult(batchOutputComparison.Path, comparisonSettings, ValidationState.Invalid, Validation.ValueArrayDoesNotExist(batchOutputComparison.SimulationName, batchOutputComparison.Folder, batchOutputComparison.Path));
       }
 
       private static TimeComparisonResult differentTimeLengthComparisonResult(BatchSimulationComparison simulation1, float[] time1, float[] time2)

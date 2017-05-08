@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using OSPSuite.Core.Extensions;
 
 namespace InstallationValidator.Core
 {
@@ -13,6 +15,18 @@ namespace InstallationValidator.Core
       public static readonly string DIMENSION_FILE = "OSPSuite.Dimensions.xml";
       public static readonly string DEFAULT_SKIN = "Metropolis"; //"Office 2013 Light Gray";
       public const int BUTTON_HEIGHT = 48;
+      public static readonly string CONCENTRATION = "Concentration in container";
+
+      public static IReadOnlyList<string> PREDEFINED_OUTPUT_PATHS = new string[]
+      {
+         concentrationFor("PeripheralVenousBlood", "Plasma"),
+         concentrationFor("ArterialBlood", "Plasma"),
+      };
+
+      private static string concentrationFor(string organ, string compartment)
+      {
+         return new[] {"Organism", organ, compartment, CONCENTRATION}.ToPathString();
+      }
 
       public static class Tools
       {

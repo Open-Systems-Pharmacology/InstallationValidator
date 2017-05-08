@@ -32,7 +32,11 @@ namespace InstallationValidator.Core.Reporting
          if (!fileComparisonResult.TimeComparison.IsValid())
             objectsToReport.Add(fileComparisonResult.TimeComparison);
 
-         objectsToReport.AddRange(fileComparisonResult.OutputComparisonResults.Where(x => !x.IsValid()));
+         var allInvalidOutputs = fileComparisonResult.OutputComparisonResults.Where(x => !x.IsValid());
+         objectsToReport.AddRange(allInvalidOutputs);
+
+         var allValidOutputsWithData = fileComparisonResult.OutputComparisonResults.Where(x => x.IsValid()).Where(x => x.HasData);
+         objectsToReport.AddRange(allValidOutputsWithData);
 
          _builderRepository.Report(objectsToReport, buildTracker);
       }

@@ -1,4 +1,6 @@
 ﻿using InstallationValidator.Core.Assets;
+using InstallationValidator.Core.Domain;
+using InstallationValidator.Core.Extensions;
 using OSPSuite.Core.Domain;
 
 namespace InstallationValidator.Core.Domain
@@ -25,32 +27,36 @@ namespace InstallationValidator.Core.Domain
 
    public class OutputComparisonResult : ValueComparisonResult
    {
+      public ComparisonSettings ComparisonSettings { get; }
+
       public string Path { get; }
 
       /// <summary>
       ///    Values of output 1. Can be null typically for a valid state
       /// </summary>
-      public OutputResult Output1 { get; set; }
+      public OutputResult Output1 { get; set; } = new NullOutputResult();
 
       /// <summary>
       ///    Values of output 2. Can be null typically for a valid state
       /// </summary>
-      public OutputResult Output2 { get; set; }
+      public OutputResult Output2 { get; set; } = new NullOutputResult();
 
-      public OutputComparisonResult(string path, ValidationState state, string message = null) : base(state, message)
+      public OutputComparisonResult(string path, ComparisonSettings comparisonSettings,  ValidationState state, string message = null) : base(state, message)
       {
+         ComparisonSettings = comparisonSettings;
          Path = path;
-         Output1 = new NullOutputResult();
-         Output2 = new NullOutputResult();
       }
+
+      public bool HasData => !Output1.IsNullOutput() && !Output2.IsNullOutput();
+
    }
 
    public class OutputResult
    {
+      public string Caption { get; set; }
       public float[] Times { get; }
       public float[] Values { get; }
       public string Dimension { get; set; }
-      public string Caption { get; set; }
 
       public OutputResult(float[] times, float[] values)
       {
@@ -68,8 +74,8 @@ namespace InstallationValidator.Core.Domain
 
    public class MissingOutputComparisonResult : OutputComparisonResult
    {
-      public MissingOutputComparisonResult(string path, string simulationName, string folderPath)
-         : base(path, ValidationState.Invalid, Validation.OutputIsMissingFromSimulation(path, simulationName, folderPath))
+      public MissingOutputComparisonResult(string path,  ComparisonSettings comparisonSettings,  string simulationName, string folderPath)
+         : base(path, comparisonSettings, ValidationState.Invalid, Validation.OutputIsMissingFromSimulation(path, simulationName, folderPath))
       {
       }
    }

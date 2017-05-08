@@ -22,6 +22,7 @@ namespace InstallationValidator.Services
       private CancellationTokenSource _cancellationTokenSource;
       protected BatchSimulationExport _simulationExport1;
       protected BatchSimulationExport _simulationExport2;
+      protected ComparisonSettings _comparsionSettings;
 
       protected override void Context()
       {
@@ -33,6 +34,7 @@ namespace InstallationValidator.Services
          _comparisonStrategy = A.Fake<IComparisonStrategy>();
          _cancellationTokenSource = new CancellationTokenSource();
          _token = _cancellationTokenSource.Token;
+
          sut = new BatchOutputFileComparer(_batchOutputLoader, _comparisonStrategy);
 
          _simulationExport1 = new BatchSimulationExport();
@@ -40,6 +42,12 @@ namespace InstallationValidator.Services
 
          A.CallTo(() => _batchOutputLoader.LoadFrom(Path.Combine(_folderPath1, _fileName))).Returns(_simulationExport1);
          A.CallTo(() => _batchOutputLoader.LoadFrom(Path.Combine(_folderPath2, _fileName))).Returns(_simulationExport2);
+
+         _comparsionSettings = new ComparisonSettings
+         {
+            FolderPath1 = _folderPath1,
+            FolderPath2 = _folderPath2
+         };
       }
    }
 
@@ -53,9 +61,9 @@ namespace InstallationValidator.Services
       {
          base.Context();
          _timeComparison = new TimeComparisonResult(ValidationState.Valid);
-         _outputComparison = new OutputComparisonResult("P1", ValidationState.Valid);
-         A.CallTo(() => _comparisonStrategy.CompareTime(A<BatchSimulationComparison>._, A<BatchSimulationComparison>._)).Returns(_timeComparison);
-         A.CallTo(() => _comparisonStrategy.CompareOutputs(A<BatchOutputComparison>._, A<BatchOutputComparison>._)).Returns(_outputComparison);
+         _outputComparison = new OutputComparisonResult("P1", _comparsionSettings, ValidationState.Valid);
+         A.CallTo(() => _comparisonStrategy.CompareTime(A<BatchSimulationComparison>._, A<BatchSimulationComparison>._, _comparsionSettings)).Returns(_timeComparison);
+         A.CallTo(() => _comparisonStrategy.CompareOutputs(A<BatchOutputComparison>._, A<BatchOutputComparison>._, _comparsionSettings)).Returns(_outputComparison);
 
          _simulationExport1.OutputValues.Add(new BatchOutputValues {Path = "P1"});
          _simulationExport1.OutputValues.Add(new BatchOutputValues {Path = "P2"});
@@ -68,7 +76,7 @@ namespace InstallationValidator.Services
 
       protected override void Because()
       {
-         _result = sut.Compare(_fileName, _folderPath1, _folderPath2, _token).Result;
+         _result = sut.Compare( _fileName, _comparsionSettings, _token).Result;
       }
 
       [Observation]

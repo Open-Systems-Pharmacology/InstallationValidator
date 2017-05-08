@@ -34,7 +34,8 @@ namespace InstallationValidator.Services
          protected override void Context()
          {
             base.Context();
-            _outputComparisonResult = new OutputComparisonResult("path", ValidationState.Invalid, string.Empty);
+            var comparsionSettings = new ComparisonSettings();
+            _outputComparisonResult = new OutputComparisonResult("path", comparsionSettings, ValidationState.Invalid, string.Empty);
          }
 
          protected override void Because()
@@ -55,10 +56,8 @@ namespace InstallationValidator.Services
          [Observation]
          public void two_repositories_should_be_returned()
          {
-            _repositories.Count.ShouldBeEqualTo(2);  
+            _repositories.Count.ShouldBeEqualTo(2);
          }
-      }      
+      }
    }
-
-
 }
