@@ -13,7 +13,7 @@ using OSPSuite.Presentation.Presenters;
 
 namespace InstallationValidator.Core.Presentation
 {
-   public interface IMainPresenter : IDisposablePresenter, IComparisonPresenter
+   public interface IMainPresenter : IDisposablePresenter, ILoggerPresenter
    {
       void SelectOutputFolder();
       void Abort();
@@ -125,6 +125,6 @@ namespace InstallationValidator.Core.Presentation
          this.LogLine(eventToHandle.Line, eventToHandle.IsHtml);
       }
 
-      public IComparisonView ComparisonView => View;
+      public ILoggerView LoggerView => View;
    }
 }

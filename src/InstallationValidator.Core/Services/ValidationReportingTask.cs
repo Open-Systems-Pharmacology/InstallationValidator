@@ -37,6 +37,20 @@ namespace InstallationValidator.Core.Services
 
          await startCreationProcess(comparisonResult, reportConfiguration);
 
+         openReportIfRequired(openReport, reportConfiguration);
+      }
+
+      public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
+      {
+         var reportConfiguration = createReportConfiguration(Assets.Reporting.InstallationValidation, outputFolderPath, installationValidationResult.RunSummary.StartTime);
+
+         await startCreationProcess(installationValidationResult, reportConfiguration);
+
+         openReportIfRequired(openReport, reportConfiguration);
+      }
+
+      private void openReportIfRequired(bool openReport, ReportConfiguration reportConfiguration)
+      {
          if (openReport)
             FileHelper.TryOpenFile(reportConfiguration.ReportFile);
 
@@ -54,21 +68,9 @@ namespace InstallationValidator.Core.Services
          };
       }
 
-      public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
+      private Task startCreationProcess(object objectToReport, ReportConfiguration reportConfiguration)
       {
-         var reportConfiguration = createReportConfiguration(Assets.Reporting.InstallationValidation, outputFolderPath, installationValidationResult.RunSummary.StartTime);
-
-         await startCreationProcess(installationValidationResult, reportConfiguration);
-
-         if (openReport)
-            FileHelper.TryOpenFile(reportConfiguration.ReportFile);
-
-         _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
-      }
-
-      private Task startCreationProcess(IWithValidationState batchComparisonResult, ReportConfiguration reportConfiguration)
-      {
-         return _reportingTask.CreateReportAsync(batchComparisonResult, reportConfiguration);
+         return _reportingTask.CreateReportAsync(objectToReport, reportConfiguration);
       }
 
       private string reportOutputPath(string outputFilePath, DateTime dateTime)

@@ -12,7 +12,7 @@ using OSPSuite.Presentation.Presenters;
 
 namespace InstallationValidator.Core.Presentation
 {
-   public interface ISimulationComparisonPresenter : IDisposablePresenter, IComparisonPresenter
+   public interface ISimulationComparisonPresenter : IDisposablePresenter, ILoggerPresenter
    {
       Task StartComparison();
       void Abort();
@@ -122,6 +122,6 @@ namespace InstallationValidator.Core.Presentation
          selectFolder(_secondFolderDTO);
       }
 
-      public IComparisonView ComparisonView => View;
+      public ILoggerView LoggerView => View;
    }
 }

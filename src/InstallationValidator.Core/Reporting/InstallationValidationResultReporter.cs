@@ -22,20 +22,4 @@ namespace InstallationValidator.Core.Reporting
          };
       }
    }
-
-   public class ComparisonResultReporter : OSPSuiteTeXReporter<BatchComparisonResult>
-   {
-      public override IReadOnlyCollection<object> Report(BatchComparisonResult batchComparisonResult, OSPSuiteTracker buildTracker)
-      {
-         var folderComparisonResultsChapter = new Chapter(Assets.Reporting.FolderComparisonResults);
-         buildTracker.Track(folderComparisonResultsChapter);
-
-         return new List<object>
-         {
-            folderComparisonResultsChapter,
-            new ValidationStateReport(batchComparisonResult),
-            batchComparisonResult
-         };
-      }
-   }
 }
