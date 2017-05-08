@@ -21,7 +21,7 @@ namespace InstallationValidator.Core.Reporting
 
       protected static string ValidationMessageFor(T outputToReport)
       {
-         return $"{outputToReport.Message}";
+         return $"{outputToReport.Message}{Environment.NewLine}";
       }
    }
 }

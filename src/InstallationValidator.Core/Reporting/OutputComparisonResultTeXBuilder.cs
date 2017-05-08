@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Extensions;
 using InstallationValidator.Core.Services;
 using OSPSuite.Core.Chart;
 using OSPSuite.Infrastructure.Reporting;
@@ -27,7 +26,6 @@ namespace InstallationValidator.Core.Reporting
          {
             new SubParagraph($"{Assets.Reporting.OutputPath}: {outputToReport.Path}"),
             ValidationMessageFor(outputToReport),
-            new LineBreak(),
             DeviationFor(outputToReport)
          };
 
