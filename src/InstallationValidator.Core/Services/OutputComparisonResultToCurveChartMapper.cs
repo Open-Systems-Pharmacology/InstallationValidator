@@ -30,11 +30,11 @@ namespace InstallationValidator.Core.Services
          var dataRepository1 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output1);
          var dataRepository2 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output2);
 
-         var linearCurveChart = createCurveChartWithScaling(outputComparisonResult, Scalings.Linear, dataRepository1, dataRepository2);
-         var logCurveChart = createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
+         yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
 
-         addToCurveChart(logCurveChart, dataRepository1, dataRepository2);
-         return new []{ linearCurveChart, logCurveChart};
+         //only show linear plit if output is invalid
+         if (!outputComparisonResult.IsValid())
+            yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Linear, dataRepository1, dataRepository2);
       }
 
       private CurveChart createCurveChartWithScaling(OutputComparisonResult outputComparisonResult, Scalings defaultYAxisScaling, DataRepository dataRepository1, DataRepository dataRepository2)
@@ -51,17 +51,17 @@ namespace InstallationValidator.Core.Services
 
       private void addToCurveChart(CurveChart curveChart, DataRepository dataRepository1, DataRepository dataRepository2)
       {
-         curveChart.AddCurvesFor(dataRepository1, x => x.PathAsString, _dimensionFactory, (column, curve) =>
+         addCurve(curveChart, dataRepository1, Color.CornflowerBlue);
+         addCurve(curveChart, dataRepository2, Color.OrangeRed);
+      }
+
+      private void addCurve(CurveChart curveChart, DataRepository dataRepository, Color color)
+      {
+         curveChart.AddCurvesFor(dataRepository, x => x.PathAsString, _dimensionFactory, (column, curve) =>
          {
-            curve.Color = Color.CornflowerBlue;
+            curve.Color = color;
             curve.VisibleInLegend = true;
             curve.Name = column.Name;
-         });
-         curveChart.AddCurvesFor(dataRepository2, x => x.PathAsString, _dimensionFactory, (column, curve) =>
-         {
-            curve.Color = Color.OrangeRed;
-            curve.Name = column.Name;
-            curve.VisibleInLegend = true;
          });
       }
    }

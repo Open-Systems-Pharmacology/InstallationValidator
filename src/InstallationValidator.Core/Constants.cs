@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using OSPSuite.Core.Extensions;
 
 namespace InstallationValidator.Core
@@ -17,15 +18,16 @@ namespace InstallationValidator.Core
       public const int BUTTON_HEIGHT = 48;
       public static readonly string CONCENTRATION = "Concentration in container";
 
-      public static IReadOnlyList<string> PREDEFINED_OUTPUT_PATHS = new string[]
+      public static IReadOnlyList<string> PREDEFINED_OUTPUT_PATHS = new[]
       {
-         concentrationFor("PeripheralVenousBlood", "Plasma"),
-         concentrationFor("ArterialBlood", "Plasma"),
+         concentrationFor("PeripheralVenousBlood", "Plasma (Peripheral Venous Blood)"),
       };
 
-      private static string concentrationFor(string organ, string compartment)
+      private static string concentrationFor(params string [] pathElements)
       {
-         return new[] {"Organism", organ, compartment, CONCENTRATION}.ToPathString();
+         var path = pathElements.ToList();
+         path.Insert(0, "Organism");
+         return path.ToPathString();
       }
 
       public static class Tools

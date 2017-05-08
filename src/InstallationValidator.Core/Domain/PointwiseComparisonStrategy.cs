@@ -24,7 +24,6 @@ namespace InstallationValidator.Core.Domain
 
       private static OutputComparisonResult validOutputComparison(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings)
       {
-
          if (!shouldGenerateOutputsFor(comparisonSettings, outputValues1.Path))
             return new OutputComparisonResult(outputValues1.Path, comparisonSettings, ValidationState.Valid)
             {

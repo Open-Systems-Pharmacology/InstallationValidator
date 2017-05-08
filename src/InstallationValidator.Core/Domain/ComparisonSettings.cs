@@ -21,7 +21,6 @@ namespace InstallationValidator.Core.Domain
 
       public bool GenerateResultsForValidSimulation { get; set; } = false;
 
-      public IReadOnlyList<string> PredefinedOutputPaths { get; set; }  =new List<string>();
-
+      public IReadOnlyList<string> PredefinedOutputPaths { get; set; } = new List<string>();
    }
 }

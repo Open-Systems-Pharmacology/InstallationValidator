@@ -1,5 +1,4 @@
 ﻿using InstallationValidator.Core.Assets;
-using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Extensions;
 using OSPSuite.Core.Domain;
 
@@ -41,14 +40,13 @@ namespace InstallationValidator.Core.Domain
       /// </summary>
       public OutputResult Output2 { get; set; } = new NullOutputResult();
 
-      public OutputComparisonResult(string path, ComparisonSettings comparisonSettings,  ValidationState state, string message = null) : base(state, message)
+      public OutputComparisonResult(string path, ComparisonSettings comparisonSettings, ValidationState state, string message = null) : base(state, message)
       {
          ComparisonSettings = comparisonSettings;
          Path = path;
       }
 
       public bool HasData => !Output1.IsNullOutput() && !Output2.IsNullOutput();
-
    }
 
    public class OutputResult
@@ -74,7 +72,7 @@ namespace InstallationValidator.Core.Domain
 
    public class MissingOutputComparisonResult : OutputComparisonResult
    {
-      public MissingOutputComparisonResult(string path,  ComparisonSettings comparisonSettings,  string simulationName, string folderPath)
+      public MissingOutputComparisonResult(string path, ComparisonSettings comparisonSettings, string simulationName, string folderPath)
          : base(path, comparisonSettings, ValidationState.Invalid, Validation.OutputIsMissingFromSimulation(path, simulationName, folderPath))
       {
       }

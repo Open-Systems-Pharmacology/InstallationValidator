@@ -1,4 +1,5 @@
-﻿using InstallationValidator.Core.Assets;
+﻿using System.Collections.Generic;
+using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
@@ -212,6 +213,54 @@ namespace InstallationValidator.Domain
       {
          _result.Output1.ShouldBeAnInstanceOf<NullOutputResult>();
          _result.Output2.ShouldBeAnInstanceOf<NullOutputResult>();
+      }
+
+      [Observation]
+      public void should_not_have_any_data()
+      {
+         _result.HasData.ShouldBeFalse();
+      }
+   }
+
+   public class When_comparing_output_values_based_on_two_simulations_having_comparable_values_and_the_output_should_be_generated_for_simulations : concern_for_PointwiseComparisonStrategy
+   {
+      private OutputComparisonResult _result;
+
+      protected override void Context()
+      {
+         base.Context();
+         _comparisonSettings.GenerateResultsForValidSimulation = true;
+         _comparisonSettings.PredefinedOutputPaths = new List<string> {"Organ|ObserverName"};
+         _outputValues1.Path = "Sim|Organ|Drug|ObserverName";
+         _outputValues2.Path = "Sim|Organ|Drug|ObserverName";
+         _outputValues1.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 10, float.NaN};
+         _outputValues2.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 20, float.NaN};
+      }
+
+      protected override void Because()
+      {
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
+      }
+
+      [Observation]
+      public void should_return_an_output_comparison_results_indicating_a_valid_state()
+      {
+         _result.State.ShouldBeEqualTo(ValidationState.Valid);
+      }
+
+      [Observation]
+      public void should_have_set_the_output_values_to_default_output_values()
+      {
+         _result.Output1.ShouldBeAnInstanceOf<OutputResult>();
+         _result.Output2.ShouldBeAnInstanceOf<OutputResult>();
+      }
+
+      [Observation]
+      public void should_have_data()
+      {
+         _result.HasData.ShouldBeTrue();
+         _result.Output1.Values.ShouldBeEqualTo(_outputValues1.Values);
+         _result.Output2.Values.ShouldBeEqualTo(_outputValues2.Values);
       }
    }
 
