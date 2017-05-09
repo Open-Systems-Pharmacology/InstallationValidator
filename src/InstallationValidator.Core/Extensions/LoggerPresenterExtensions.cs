@@ -1,5 +1,4 @@
 ﻿using System;
-using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Presentation;
 using OSPSuite.Core.Extensions;
 
@@ -28,7 +27,7 @@ namespace InstallationValidator.Core.Extensions
       public static void LogException(this ILoggerPresenter presenter, Exception e, string issueTrackerUrl)
       {
          presenter.LogLine();
-         presenter.LogHTML(Exceptions.ExceptionViewDescription(issueTrackerUrl));
+         presenter.LogHTML(OSPSuite.Assets.Captions.ExceptionViewDescription(issueTrackerUrl));
          presenter.LogLine();
          presenter.LogLine(e.ExceptionMessageWithStackTrace());
          presenter.LogLine();
