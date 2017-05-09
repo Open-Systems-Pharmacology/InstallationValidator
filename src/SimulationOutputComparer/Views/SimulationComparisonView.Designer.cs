@@ -42,9 +42,9 @@
          this.layoutControlItemFolder2 = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
-         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
@@ -205,6 +205,7 @@
          this.ClientSize = new System.Drawing.Size(716, 486);
          this.Controls.Add(this.layoutControl);
          this.Name = "SimulationComparisonView";
+         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
          this.Text = "SimulationComparisonView";
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();

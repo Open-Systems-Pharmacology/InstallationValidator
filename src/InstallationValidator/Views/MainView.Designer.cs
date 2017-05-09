@@ -29,7 +29,6 @@
       /// </summary>
       private void InitializeComponent()
       {
-         this.components = new System.ComponentModel.Container();
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
          this.stopButton = new DevExpress.XtraEditors.SimpleButton();
          this.startButton = new DevExpress.XtraEditors.SimpleButton();
@@ -39,14 +38,14 @@
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemRichEdit = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
-         this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.layoutControlItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutControlItemOutputButton = new DevExpress.XtraLayout.LayoutControlItem();
-         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+         this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
@@ -54,12 +53,12 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemDescription)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
          this.SuspendLayout();
          // 
@@ -161,14 +160,6 @@
          this.layoutItemButtonStart.Size = new System.Drawing.Size(795, 26);
          this.layoutItemButtonStart.TextSize = new System.Drawing.Size(153, 13);
          // 
-         // layoutItemButtonStop
-         // 
-         this.layoutItemButtonStop.Control = this.stopButton;
-         this.layoutItemButtonStop.Location = new System.Drawing.Point(10, 724);
-         this.layoutItemButtonStop.Name = "layoutItemButtonStop";
-         this.layoutItemButtonStop.Size = new System.Drawing.Size(222, 26);
-         this.layoutItemButtonStop.TextSize = new System.Drawing.Size(153, 13);
-         // 
          // emptySpaceItem3
          // 
          this.emptySpaceItem3.AllowHotTrack = false;
@@ -210,9 +201,13 @@
          this.layoutControlItemOutputButton.TextLocation = DevExpress.Utils.Locations.Top;
          this.layoutControlItemOutputButton.TextSize = new System.Drawing.Size(153, 13);
          // 
-         // defaultLookAndFeel
+         // layoutItemButtonStop
          // 
-         this.defaultLookAndFeel.LookAndFeel.SkinName = "Metropolis";
+         this.layoutItemButtonStop.Control = this.stopButton;
+         this.layoutItemButtonStop.Location = new System.Drawing.Point(10, 724);
+         this.layoutItemButtonStop.Name = "layoutItemButtonStop";
+         this.layoutItemButtonStop.Size = new System.Drawing.Size(222, 26);
+         this.layoutItemButtonStop.TextSize = new System.Drawing.Size(153, 13);
          // 
          // emptySpaceItem2
          // 
@@ -234,17 +229,16 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
-         this.layoutControl.PerformLayout();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemDescription)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
          this.ResumeLayout(false);
 
