@@ -32,21 +32,22 @@ namespace InstallationValidator.Core.Services
 
          yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
 
-         //only show linear plit if output is invalid
+         //only show linear plot if output is invalid
          if (!outputComparisonResult.IsValid())
             yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Linear, dataRepository1, dataRepository2);
       }
 
       private CurveChart createCurveChartWithScaling(OutputComparisonResult outputComparisonResult, Scalings defaultYAxisScaling, DataRepository dataRepository1, DataRepository dataRepository2)
       {
-         var linearCurveChart = new CurveChart
+         var curveChart = new CurveChart
          {
             DefaultYAxisScaling = defaultYAxisScaling,
             ChartSettings = {LegendPosition = LegendPositions.RightInside},
             Title = outputComparisonResult.Path
          };
-         addToCurveChart(linearCurveChart, dataRepository1, dataRepository2);
-         return linearCurveChart;
+
+         addToCurveChart(curveChart, dataRepository1, dataRepository2);
+         return curveChart;
       }
 
       private void addToCurveChart(CurveChart curveChart, DataRepository dataRepository1, DataRepository dataRepository2)

@@ -64,7 +64,8 @@ namespace InstallationValidator.Core.Services
             Template = _reportTemplateRepository.All().FirstOrDefault(),
             Title = _applicationConfiguration.OSPSuiteNameWithVersion,
             SubTitle = reportSubtitle,
-            ReportFile = reportOutputPath(outputFilePath, reportDateAndTime)
+            ReportFile = reportOutputPath(outputFilePath, reportDateAndTime),
+            NumberOfCompilations = 1
          };
       }
 
