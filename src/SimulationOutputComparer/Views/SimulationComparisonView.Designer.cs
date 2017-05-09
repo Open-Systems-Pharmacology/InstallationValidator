@@ -43,6 +43,8 @@
          this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
          this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+         this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+         this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
@@ -54,6 +56,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemFolder2)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
@@ -73,48 +77,48 @@
          // 
          // startButton
          // 
-         this.startButton.Location = new System.Drawing.Point(482, 452);
+         this.startButton.Location = new System.Drawing.Point(502, 452);
          this.startButton.Name = "startButton";
-         this.startButton.Size = new System.Drawing.Size(222, 22);
+         this.startButton.Size = new System.Drawing.Size(202, 22);
          this.startButton.StyleController = this.layoutControl;
          this.startButton.TabIndex = 10;
          this.startButton.Text = "startButton";
          // 
          // stopButton
          // 
-         this.stopButton.Location = new System.Drawing.Point(138, 452);
+         this.stopButton.Location = new System.Drawing.Point(310, 452);
          this.stopButton.Name = "stopButton";
-         this.stopButton.Size = new System.Drawing.Size(214, 22);
+         this.stopButton.Size = new System.Drawing.Size(62, 22);
          this.stopButton.StyleController = this.layoutControl;
          this.stopButton.TabIndex = 9;
          this.stopButton.Text = "stopButton";
          // 
          // buttonEditFolder2
          // 
-         this.buttonEditFolder2.Location = new System.Drawing.Point(12, 68);
+         this.buttonEditFolder2.Location = new System.Drawing.Point(138, 36);
          this.buttonEditFolder2.Name = "buttonEditFolder2";
          this.buttonEditFolder2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-         this.buttonEditFolder2.Size = new System.Drawing.Size(692, 20);
+         this.buttonEditFolder2.Size = new System.Drawing.Size(566, 20);
          this.buttonEditFolder2.StyleController = this.layoutControl;
          this.buttonEditFolder2.TabIndex = 8;
          // 
          // buttonEditFolder1
          // 
-         this.buttonEditFolder1.Location = new System.Drawing.Point(12, 28);
+         this.buttonEditFolder1.Location = new System.Drawing.Point(138, 12);
          this.buttonEditFolder1.Name = "buttonEditFolder1";
          this.buttonEditFolder1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-         this.buttonEditFolder1.Size = new System.Drawing.Size(692, 20);
+         this.buttonEditFolder1.Size = new System.Drawing.Size(566, 20);
          this.buttonEditFolder1.StyleController = this.layoutControl;
          this.buttonEditFolder1.TabIndex = 7;
          // 
          // richEditControl
          // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 92);
+         this.richEditControl.Location = new System.Drawing.Point(12, 70);
          this.richEditControl.Name = "richEditControl";
          this.richEditControl.Options.Export.Rtf.ExportTheme = true;
-         this.richEditControl.Size = new System.Drawing.Size(692, 356);
+         this.richEditControl.Size = new System.Drawing.Size(692, 378);
          this.richEditControl.TabIndex = 6;
          // 
          // layoutControlGroup
@@ -126,7 +130,9 @@
             this.layoutControlItemFolder1,
             this.layoutControlItemFolder2,
             this.layoutItemButtonStop,
-            this.layoutItemButtonStart});
+            this.layoutItemButtonStart,
+            this.emptySpaceItem1,
+            this.emptySpaceItem2});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(716, 486);
@@ -135,9 +141,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 80);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 58);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 360);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 382);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -146,44 +152,60 @@
          this.layoutControlItemFolder1.Control = this.buttonEditFolder1;
          this.layoutControlItemFolder1.Location = new System.Drawing.Point(0, 0);
          this.layoutControlItemFolder1.Name = "layoutControlItemFolder1";
-         this.layoutControlItemFolder1.Size = new System.Drawing.Size(696, 40);
-         this.layoutControlItemFolder1.TextLocation = DevExpress.Utils.Locations.Top;
+         this.layoutControlItemFolder1.Size = new System.Drawing.Size(696, 24);
+         this.layoutControlItemFolder1.TextLocation = DevExpress.Utils.Locations.Left;
          this.layoutControlItemFolder1.TextSize = new System.Drawing.Size(123, 13);
          // 
          // layoutControlItemFolder2
          // 
          this.layoutControlItemFolder2.Control = this.buttonEditFolder2;
-         this.layoutControlItemFolder2.Location = new System.Drawing.Point(0, 40);
+         this.layoutControlItemFolder2.Location = new System.Drawing.Point(0, 24);
          this.layoutControlItemFolder2.Name = "layoutControlItemFolder2";
-         this.layoutControlItemFolder2.Size = new System.Drawing.Size(696, 40);
-         this.layoutControlItemFolder2.TextLocation = DevExpress.Utils.Locations.Top;
+         this.layoutControlItemFolder2.Size = new System.Drawing.Size(696, 24);
+         this.layoutControlItemFolder2.TextLocation = DevExpress.Utils.Locations.Left;
          this.layoutControlItemFolder2.TextSize = new System.Drawing.Size(123, 13);
          // 
          // layoutItemButtonStop
          // 
          this.layoutItemButtonStop.Control = this.stopButton;
-         this.layoutItemButtonStop.Location = new System.Drawing.Point(0, 440);
+         this.layoutItemButtonStop.Location = new System.Drawing.Point(172, 440);
          this.layoutItemButtonStop.Name = "layoutItemButtonStop";
-         this.layoutItemButtonStop.Size = new System.Drawing.Size(344, 26);
+         this.layoutItemButtonStop.Size = new System.Drawing.Size(192, 26);
          this.layoutItemButtonStop.TextSize = new System.Drawing.Size(123, 13);
          // 
          // layoutItemButtonStart
          // 
          this.layoutItemButtonStart.Control = this.startButton;
-         this.layoutItemButtonStart.Location = new System.Drawing.Point(344, 440);
+         this.layoutItemButtonStart.Location = new System.Drawing.Point(364, 440);
          this.layoutItemButtonStart.Name = "layoutItemButtonStart";
-         this.layoutItemButtonStart.Size = new System.Drawing.Size(352, 26);
+         this.layoutItemButtonStart.Size = new System.Drawing.Size(332, 26);
          this.layoutItemButtonStart.TextSize = new System.Drawing.Size(123, 13);
+         // 
+         // emptySpaceItem1
+         // 
+         this.emptySpaceItem1.AllowHotTrack = false;
+         this.emptySpaceItem1.Location = new System.Drawing.Point(0, 440);
+         this.emptySpaceItem1.Name = "emptySpaceItem1";
+         this.emptySpaceItem1.Size = new System.Drawing.Size(172, 26);
+         this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+         // 
+         // emptySpaceItem2
+         // 
+         this.emptySpaceItem2.AllowHotTrack = false;
+         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 48);
+         this.emptySpaceItem2.Name = "emptySpaceItem2";
+         this.emptySpaceItem2.Size = new System.Drawing.Size(696, 10);
+         this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
          // 
          // SimulationComparisonView
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.Caption = "Form1";
+         this.Caption = "SimulationComparisonView";
          this.ClientSize = new System.Drawing.Size(716, 486);
          this.Controls.Add(this.layoutControl);
          this.Name = "SimulationComparisonView";
-         this.Text = "Form1";
+         this.Text = "SimulationComparisonView";
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
@@ -195,6 +217,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemFolder2)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -214,6 +238,8 @@
       private DevExpress.XtraLayout.LayoutControlItem layoutItemButtonStop;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemButtonStart;
       private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel;
+      private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+      private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
    }
 }
 
