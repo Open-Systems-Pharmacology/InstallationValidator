@@ -18,6 +18,7 @@ namespace InstallationValidator.IntegrationTests
    {
       private DirectoryInfo _reportsDir;
       private ReportConfiguration _reportConfiguration;
+      protected static ComparisonSettings _comparsionSettings;
 
       public override void GlobalContext()
       {
@@ -38,6 +39,12 @@ namespace InstallationValidator.IntegrationTests
             DeleteWorkingDir = true,
             ColorStyle = ReportSettings.ReportColorStyles.Color,
             Template = new ReportTemplate { Path = TEXTemplateFolder() }
+         };
+
+         _comparsionSettings = new ComparisonSettings
+         {
+            FolderPath1 = "F1",
+            FolderPath2 = "F2",
          };
       }
 
@@ -68,7 +75,7 @@ namespace InstallationValidator.IntegrationTests
          var outputComparisonResult = createOutputDeviationFailureResult();
          var timeComparisonResult = new TimeComparisonResult(ValidationState.Invalid, "the time message") { Deviation = 1.0 };
          timeFileComparisonResult.TimeComparison = timeComparisonResult;
-         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", ValidationState.Valid, ""));
+         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", _comparsionSettings, ValidationState.Valid, ""));
          outputFileComparisonResult.AddOutputComparison(outputComparisonResult);
          outputFileComparisonResult.TimeComparison = new TimeComparisonResult(ValidationState.Valid, "valid");
 
@@ -96,9 +103,9 @@ namespace InstallationValidator.IntegrationTests
          CreateReportAndValidate(installationValidationResult, "validationReport");
       }
 
-      private static OutputComparisonResult createOutputDeviationFailureResult()
+      private  OutputComparisonResult createOutputDeviationFailureResult()
       {
-         var outputDeviationFailureResult = new OutputComparisonResult("the path", ValidationState.Invalid, "the message")
+         var outputDeviationFailureResult = new OutputComparisonResult("the path", _comparsionSettings, ValidationState.Invalid, "the message")
          {
             Deviation = 44.0,
             Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)) { Dimension = "Mass", Caption = "name1" },

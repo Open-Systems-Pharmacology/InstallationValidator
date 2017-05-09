@@ -2,7 +2,7 @@
 
 namespace InstallationValidator.Core.Presentation.Views
 {
-   public interface IComparisonView : IView
+   public interface ILoggerView : IView
    {
       void ResetText(string empty);
       void AppendText(string textToLog);

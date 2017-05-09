@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Extensions;
 using InstallationValidator.Core.Services;
 using OSPSuite.Core.Chart;
 using OSPSuite.Infrastructure.Reporting;
@@ -27,7 +26,6 @@ namespace InstallationValidator.Core.Reporting
          {
             new SubParagraph($"{Assets.Reporting.OutputPath}: {outputToReport.Path}"),
             ValidationMessageFor(outputToReport),
-            new LineBreak(),
             DeviationFor(outputToReport)
          };
 
@@ -39,10 +37,7 @@ namespace InstallationValidator.Core.Reporting
          _builderRepository.Report(objectsToReport, buildTracker);
       }
 
-      private static bool canCreateChartFor(OutputComparisonResult outputToReport)
-      {
-         return !(outputToReport.Output1.IsNullOutput() || outputToReport.Output2.IsNullOutput());
-      }
+      private static bool canCreateChartFor(OutputComparisonResult outputToReport) => outputToReport.HasData;
 
       private IEnumerable<CurveChart> chartsFor(OutputComparisonResult outputComparisonResult)
       {

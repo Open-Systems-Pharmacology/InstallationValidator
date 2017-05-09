@@ -71,7 +71,7 @@ namespace InstallationValidator.Services
 
       protected override void Because()
       {
-         _result = sut.StartComparison(_calculatedOutputPath1, _calculatedOutputPath2, _token).Result;
+         _result = sut.StartComparison(new ComparisonSettings{ FolderPath1 = _calculatedOutputPath1 , FolderPath2 = _calculatedOutputPath2 }, _token).Result;
       }
 
       [Observation]  

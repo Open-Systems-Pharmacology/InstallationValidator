@@ -123,7 +123,7 @@ namespace InstallationValidator.Presentation
       [Observation]
       public void should_start_the_comparison_task()
       {
-         A.CallTo(() => _batchComparisonTask.StartComparison(_firstFolder.FolderPath, _secondFolder.FolderPath, A<CancellationToken>._, Core.Assets.Reporting.First, Core.Assets.Reporting.Second)).MustHaveHappened();
+         A.CallTo(() => _batchComparisonTask.StartComparison(A<ComparisonSettings>._, A<CancellationToken>._)).MustHaveHappened();
       }
 
       [Observation]

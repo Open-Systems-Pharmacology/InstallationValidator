@@ -41,13 +41,13 @@ namespace InstallationValidator.Core.Assets
 
       public static string SimulationComparisonViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Simulation Output Comparer";
       public static string MainViewTitle = $"{OSPSuite.Core.Domain.Constants.SUITE_NAME} - Installation Validator";
-      public const string New = "New";
-      public const string Old = "Old";
       public static readonly string Installation = "Installation";
       public static readonly string Computed = "Computed";
 
-      public static readonly string ComparisonFolder1 = "Comparison Folder 1";
-      public static readonly string ComparisonFolder2 = "Comparison Folder 2";
+      public const string DefaultCaptionFolder1 = "Old";
+      public const string DefaultCaptionFolder2 = "New";
+      public static readonly string ComparisonFolder1 = "Old Results";
+      public static readonly string ComparisonFolder2 = "New Results";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
    }
 
@@ -213,8 +213,11 @@ namespace InstallationValidator.Core.Assets
       public static readonly string MissingFileValidation = "Missing File Validation";
       public static readonly string FolderComparisonResults = "Folder Comparison Results";
       public static readonly string FolderComparison = "Folder Comparison";
-      public static readonly string First = "First";
-      public static readonly string Second = "Second";
+      public static string InvalidSimulations(int number, int total) => numberOfSimulationsWithState(number, total, ValidationState.Invalid);
+      public static string ValidWithWarningSimulations(int number, int total) => numberOfSimulationsWithState(number, total, ValidationState.ValidWithWarnings);
+      public static string ValidSimulations(int number, int total) => numberOfSimulationsWithState(number, total, ValidationState.Valid);
+
+      private static string numberOfSimulationsWithState(int number, int total, ValidationState state) => $"{state} Simulations ({number}/{total})";
 
       public static string AbsoluteToleranceIs(string tolerance) => $"Absolute Tolerance: {tolerance}";
       public static string RelativeToleranceIs(string tolerance) => $"Relative Tolerance: {tolerance}";

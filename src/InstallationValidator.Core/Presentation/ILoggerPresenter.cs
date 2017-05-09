@@ -5,8 +5,10 @@ using OSPSuite.Utility.Events;
 
 namespace InstallationValidator.Core.Presentation
 {
-   public interface IComparisonPresenter : IListener<AppendTextToLogEvent>, IListener<AppendLineToLogEvent>, IPresenter
+   public interface ILoggerPresenter : IPresenter,
+      IListener<AppendTextToLogEvent>,
+      IListener<AppendLineToLogEvent>
    {
-      IComparisonView ComparisonView { get; }
+      ILoggerView LoggerView { get; }
    }
 }

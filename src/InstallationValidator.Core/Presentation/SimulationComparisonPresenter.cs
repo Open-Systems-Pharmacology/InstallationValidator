@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
+using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
@@ -12,7 +13,7 @@ using OSPSuite.Presentation.Presenters;
 
 namespace InstallationValidator.Core.Presentation
 {
-   public interface ISimulationComparisonPresenter : IDisposablePresenter, IComparisonPresenter
+   public interface ISimulationComparisonPresenter : IDisposablePresenter, ILoggerPresenter
    {
       Task StartComparison();
       void Abort();
@@ -60,7 +61,7 @@ namespace InstallationValidator.Core.Presentation
             this.ResetLog();
 
             this.LogLine(Logs.StartingComparison);
-            var comparisonResult = await _batchComparisonTask.StartComparison(_firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, _cancellationTokenSource.Token, Assets.Reporting.First, Assets.Reporting.Second);
+            var comparisonResult = await _batchComparisonTask.StartComparison(new ComparisonSettings {FolderPath1 = _firstFolderDTO.FolderPath, FolderPath2  = _secondFolderDTO.FolderPath}, _cancellationTokenSource.Token);
             this.LogLine();
 
             this.LogLine(Logs.StartingReport);
@@ -122,6 +123,6 @@ namespace InstallationValidator.Core.Presentation
          selectFolder(_secondFolderDTO);
       }
 
-      public IComparisonView ComparisonView => View;
+      public ILoggerView LoggerView => View;
    }
 }

@@ -1,4 +1,5 @@
-﻿using InstallationValidator.Core.Assets;
+﻿using System.Collections.Generic;
+using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
@@ -19,6 +20,7 @@ namespace InstallationValidator.Domain
       protected BatchOutputValues _outputValues1;
       protected BatchOutputValues _outputValues2;
       protected readonly double _threshold = 1e-4;
+      protected ComparisonSettings _comparisonSettings;
 
       protected override void Context()
       {
@@ -34,6 +36,12 @@ namespace InstallationValidator.Domain
          _outputValues2 = new BatchOutputValues {Path = "P1", ComparisonThreshold = _threshold};
          _outputComparison1 = new BatchOutputComparison(_simulationComparison1, _outputValues1);
          _outputComparison2 = new BatchOutputComparison(_simulationComparison2, _outputValues2);
+
+         _comparisonSettings = new ComparisonSettings
+         {
+            FolderPath1 = "Folder1",
+            FolderPath2 = "Folder2"
+         };
       }
    }
 
@@ -50,7 +58,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -73,7 +81,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -97,7 +105,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -120,7 +128,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2);
+         _result = sut.CompareTime(_simulationComparison1, _simulationComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -144,7 +152,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -167,7 +175,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -191,7 +199,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
@@ -206,6 +214,54 @@ namespace InstallationValidator.Domain
          _result.Output1.ShouldBeAnInstanceOf<NullOutputResult>();
          _result.Output2.ShouldBeAnInstanceOf<NullOutputResult>();
       }
+
+      [Observation]
+      public void should_not_have_any_data()
+      {
+         _result.HasData.ShouldBeFalse();
+      }
+   }
+
+   public class When_comparing_output_values_based_on_two_simulations_having_comparable_values_and_the_output_should_be_generated_for_simulations : concern_for_PointwiseComparisonStrategy
+   {
+      private OutputComparisonResult _result;
+
+      protected override void Context()
+      {
+         base.Context();
+         _comparisonSettings.GenerateResultsForValidSimulation = true;
+         _comparisonSettings.PredefinedOutputPaths = new List<string> {"Organ|ObserverName"};
+         _outputValues1.Path = "Sim|Organ|Drug|ObserverName";
+         _outputValues2.Path = "Sim|Organ|Drug|ObserverName";
+         _outputValues1.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 10, float.NaN};
+         _outputValues2.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 20, float.NaN};
+      }
+
+      protected override void Because()
+      {
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
+      }
+
+      [Observation]
+      public void should_return_an_output_comparison_results_indicating_a_valid_state()
+      {
+         _result.State.ShouldBeEqualTo(ValidationState.Valid);
+      }
+
+      [Observation]
+      public void should_have_set_the_output_values_to_default_output_values()
+      {
+         _result.Output1.ShouldBeAnInstanceOf<OutputResult>();
+         _result.Output2.ShouldBeAnInstanceOf<OutputResult>();
+      }
+
+      [Observation]
+      public void should_have_data()
+      {
+         _result.HasData.ShouldBeTrue();
+         _result.Output1.Values.ShouldBeEqualTo(_outputValues1.Values);
+         _result.Output2.Values.ShouldBeEqualTo(_outputValues2.Values);
+      }
    }
 
    public class When_comparing_output_values_based_on_two_simulations_leading_to_a_deviation_greater_than_allowed_tolerance : concern_for_PointwiseComparisonStrategy
@@ -215,8 +271,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] { 1f, 2f, 3f };
-         _simulation2.Times = new[] { 1f, 2f, 4f };
+         _simulation1.Times = new[] {1f, 2f, 3f};
+         _simulation2.Times = new[] {1f, 2f, 4f};
 
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, 0.01f};
          _outputValues2.Values = new[] {1f, 2f, 0, 4f, 0.05f};
@@ -224,7 +280,7 @@ namespace InstallationValidator.Domain
 
       protected override void Because()
       {
-         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2);
+         _result = sut.CompareOutputs(_outputComparison1, _outputComparison2, _comparisonSettings);
       }
 
       [Observation]
