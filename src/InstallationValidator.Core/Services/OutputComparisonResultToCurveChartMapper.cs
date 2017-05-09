@@ -32,7 +32,7 @@ namespace InstallationValidator.Core.Services
 
          yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
 
-         //only show linear plit if output is invalid
+         //only show linear plot if output is invalid
          if (!outputComparisonResult.IsValid())
             yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Linear, dataRepository1, dataRepository2);
       }
