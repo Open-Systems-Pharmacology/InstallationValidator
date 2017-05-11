@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Core.Domain;
-
+using Html= OSPSuite.Assets.Captions;
 namespace InstallationValidator.Core.Assets
 {
    public static class Captions
@@ -20,20 +20,20 @@ namespace InstallationValidator.Core.Assets
          get
          {
             var sb = new StringBuilder();
-            sb.AppendLine($"A validation of the <b>{OSPSuite.Core.Domain.Constants.SUITE_NAME}</b> installation is performed to ensure that the software works fully as intended when installed in the computing environment.");
-            sb.AppendLine();
-            sb.AppendLine("The key functionalities are tested through comparison of reference simulation outputs with locally calculated outputs for a set of predefined test simulations.");
-            sb.AppendLine();
-            sb.AppendLine("The validation report will include:");
-            sb.AppendLine("  - overall validation result (<b>Valid/ Invalid</b>)");
-            sb.AppendLine("  - validation result for every test simulation (<b>Valid/ Invalid</b>)");
-            sb.AppendLine("  - summary of the deviations (if any) for each <b>Invalid</b> simulation (numerical values and comparison plots)");
-            sb.AppendLine("  - information about installed software versiosns and local computing environment");
+            Html.AppendLine($"A validation of the <b>{OSPSuite.Core.Domain.Constants.SUITE_NAME}</b> installation is performed to ensure that the software works fully as intended when installed in the computing environment.", sb);
+            Html.AppendLine(string.Empty, sb);
+            Html.AppendLine("The key functionalities are tested through comparison of reference simulation outputs with locally calculated outputs for a set of predefined test simulations.", sb);
+            Html.AppendLine(string.Empty, sb);
+            Html.AppendLine("The validation report will include:", sb);
+            Html.AppendLine("<ul>", sb);
+            Html.AppendListItem("overall validation result (<b>Valid/ Invalid</b>)",sb);
+            Html.AppendListItem("validation result for every test simulation (<b>Valid/ Invalid</b>)",sb);
+            Html.AppendListItem("summary of the deviations (if any) for each <b>Invalid</b> simulation (numerical values and comparison plots)", sb);
+            Html.AppendListItem("information about installed software versiosns and local computing environment", sb);
+            Html.AppendLine("</ul>",sb);
             return sb.ToString();
          }
       }
-
-      
 
       public static readonly string StopComparison = "Stop Comparison";
       public static readonly string StartComparison = "Start Comparison";
