@@ -49,8 +49,7 @@ namespace InstallationValidator.Views
          StartPosition = FormStartPosition.CenterScreen;
 
          layoutControlItemDescription.TextVisible = false;
-         labelValidationDescription.AsDescription();
-         labelValidationDescription.Text = Captions.ValidationDescription;
+         labelDescription.Caption = Captions.ValidationDescription;
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
