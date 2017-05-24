@@ -27,13 +27,12 @@ namespace InstallationValidator.Core.Assets
             sb.AppendLine("The validation report will include:");
             sb.AppendLine("  - overall validation result (<b>Valid/ Invalid</b>)");
             sb.AppendLine("  - validation result for every test simulation (<b>Valid/ Invalid</b>)");
-            sb.AppendLine("  - summary of the deviations (if any) for each <b>Invalid</b> simulation (numerical values and comparison plots)");
-            sb.AppendLine("  - information about installed software versiosns and local computing environment");
+            sb.AppendLine("  - summary of the deviations for each <b>Invalid</b> simulation (numerical values and comparison plots)");
+            sb.AppendLine("  - selected comparison plots for each <b>Valid</b> simulation");
+            sb.AppendLine("  - information about installed software versions and local computing environment");
             return sb.ToString();
          }
       }
-
-      
 
       public static readonly string StopComparison = "Stop Comparison";
       public static readonly string StartComparison = "Start Comparison";
