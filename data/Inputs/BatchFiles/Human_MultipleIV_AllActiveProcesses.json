@@ -1,0 +1,87 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8,
+        "Enzymes": [{
+            "Name": "CYP3A4",
+            "ReferenceConcentration": 3,
+            "Expressions": {
+                "Pericentral": 1,
+                "Periportal": 1,
+                "Duodenum": 0.5
+            }
+        }],
+        "OtherProteins": [{
+            "Name": "BIND",
+            "ReferenceConcentration": 2,
+            "Expressions": {
+                "Kidney": 1,
+                "Muscle": 0.3
+            }
+        }],
+        "Transporters": [{
+            "Name": "TRANS",
+            "TransportType": "Influx",
+            "ReferenceConcentration": 4,
+            "Expressions": {
+               "Pericentral": 1,
+                "Periportal": 1,
+                "Brain": 0.8
+            }
+        }]
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
+        "PartialProcesses": [
+            {
+                "MoleculeName": "TRANS",
+                "InternalName": "ActiveTransportSpecific_MM",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Km": 0.01,
+                    "Vmax": 15
+                }
+            },
+            {
+                "MoleculeName": "CYP3A4",
+                "InternalName": "MetabolizationSpecific_FirstOrder",
+                "DataSource": "Lab",
+                "ParameterValues": {"Specific clearance": 3}
+            },
+            {
+                "MoleculeName": "BIND",
+                "InternalName": "SpecificBinding",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Kd": 8,
+                    "koff": 10
+                }
+            }
+        ]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "DI_6_6_12",
+        "ApplicationType": "IntravenousBolus",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 4320
+    }],
+    "Configuration": {
+        "Model": "4Comp",
+        "EndTime": 5000
+    }
+}

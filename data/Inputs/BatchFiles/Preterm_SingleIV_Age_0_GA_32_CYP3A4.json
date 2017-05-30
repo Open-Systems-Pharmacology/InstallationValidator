@@ -1,0 +1,51 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "Preterm",
+        "Gender": "MALE",
+        "Age": 0,
+        "GestationalAge": 32,
+        "Enzymes": [{
+            "Name": "CYP3A4",
+            "ReferenceConcentration": 3,
+            "Expressions": {
+                "Pericentral": 1,
+                "Periportal": 1,
+                "Duodenum": 0.5
+            }
+        }],
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
+        "PartialProcesses": [
+            {
+                "MoleculeName": "CYP3A4",
+                "InternalName": "MetabolizationSpecific_FirstOrder",
+                "DataSource": "Lab",
+                "ParameterValues": {"Specific clearance": 3}
+            },
+        ]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "Single",
+        "ApplicationType": "IntravenousBolus",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 1440
+    }],
+    "Configuration": {
+        "Model": "4Comp",
+        "EndTime": 43200,
+        "AllowAging":  true
+    }
+}

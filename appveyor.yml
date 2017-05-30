@@ -1,0 +1,57 @@
+configuration: Debug
+
+environment:
+  app_version: '7.1.0'
+
+version: '%app_version%.{build}'
+
+assembly_info:
+  patch: true
+  file: SolutionInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"	
+
+cache:
+  packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+
+install:
+- git submodule update --init --recursive
+
+before_build:
+  - nuget sources add -name bddhelper -source https://ci.appveyor.com/nuget/ospsuite-bddhelper 
+  - nuget sources add -name utility -source https://ci.appveyor.com/nuget/ospsuite-utility 
+  - nuget sources add -name serializer -source https://ci.appveyor.com/nuget/ospsuite-serializer
+  - nuget sources add -name texreporting -source https://ci.appveyor.com/nuget/ospsuite-texreporting  
+  - nuget sources add -name databinding -source https://ci.appveyor.com/nuget/ospsuite-databinding 
+  - nuget sources add -name databinding-devexpress -source https://ci.appveyor.com/nuget/ospsuite-databinding-devexpress 
+  - nuget sources add -name funcparser -source https://ci.appveyor.com/nuget/ospsuite-funcparser 
+  - nuget sources add -name simmodel -source https://ci.appveyor.com/nuget/ospsuite-simmodel
+  - nuget sources add -name cvodes -source https://ci.appveyor.com/nuget/ospsuite-simmodel-solver-cvodes-282
+  - nuget sources add -name core -source https://ci.appveyor.com/nuget/ospsuite-core
+  - nuget restore
+
+test:
+  assemblies:
+    - InstallationValidator.Tests.dll
+  categories:
+    except:
+      - Reporting
+
+skip_commits:
+  files:
+    - '*.md'
+
+skip_branch_with_pr: true
+
+pull_requests: 
+  do_not_increment_build_number: true     
+
+branches:
+  only:
+  - master
+  - develop
+
+notifications:
+  - provider: Slack
+    incoming_webhook:      
+      secure: 4MH9Em6TtrKalq6808dhPOqypTfYBJvVlqPaa9akNyF1h7st5qNdNezFp6T+bWXqrcZ4q/smtPcJ7LkUFHL46JDYUFlIL8FDz+ApX/vP+x0=

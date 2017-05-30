@@ -1,0 +1,94 @@
+{
+    "Individual": {
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": 30,
+        "Weight": 80,
+        "Height": 17.8,
+        "Transporters": [
+            {
+                "Name": "TRANS1",
+                "TransportType": "Influx",
+                "ReferenceConcentration": 0.5,
+                "Expressions": {
+                    "Duodenum": 1,
+                    "UpperJejunum": 0.8,
+                    "Skin": 0.2
+                }
+            },
+            {
+                "Name": "TRANS2",
+                "TransportType": "Efflux",
+                "ReferenceConcentration": 1.2,
+                "Expressions": {
+                    "Pericentral": 1,
+                    "Periportal": 1,
+                    "Brain": 0.8
+                }
+            },
+            {
+                "Name": "TRANS3",
+                "TransportType": "PgpLike",
+                "ReferenceConcentration": 0.45,
+                "Expressions": {
+                    "Kidney": 1,
+                    "Heart": 0.8
+                }
+            }
+        ]
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+         "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
+        "PartialProcesses": [
+            {
+                "MoleculeName": "TRANS1",
+                "InternalName": "ActiveTransportSpecific_MM",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Km": 0.6,
+                    "Vmax": 0.59
+                }
+            },
+            {
+                "MoleculeName": "TRANS2",
+                "InternalName": "ActiveTransportSpecific_MM",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Km": 5,
+                    "Vmax": 0.22
+                }
+            },
+            {
+                "MoleculeName": "TRANS3",
+                "InternalName": "ActiveTransportSpecific_MM",
+                "DataSource": "Lab",
+                "ParameterValues": {
+                    "Km": 10,
+                    "Vmax": 150
+                }
+            }
+        ]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "DI_6_6_12",
+        "ApplicationType": "IntravenousBolus",
+        "Dose": 10,
+        "DoseUnit": "mg",
+        "EndTime": 4320
+    }],
+    "Configuration": {
+        "Model": "4Comp",
+        "EndTime": 5000       
+    }
+}

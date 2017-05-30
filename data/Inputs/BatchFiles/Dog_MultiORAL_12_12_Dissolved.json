@@ -1,0 +1,37 @@
+{
+    "Individual": {
+        "Species": "Dog",
+        "Weight": 8,
+    },
+    "Compounds": [{
+        "Name": "drug",
+        "Lipophilicity": 3,
+        "FractionUnbound": 0.8,
+        "MolWeight": 4E-7,
+        "SolubilityAtRefpH": 1E-7,
+        "RefpH": 9,
+        "PkaTypes": [{
+            "Type": "Acid",
+            "Value": 8
+        }],
+        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+    }],
+    "ApplicationProtocols": [{
+        "DosingInterval": "DI_12_12",
+        "ApplicationType": "Oral",
+        "Dose": 10,
+        "DoseUnit": "mg/kg",
+        "EndTime": 4000
+    }],
+    "Formulation":{
+		"Name": "F",
+		"FormulationType": "Formulation_Dissolved",
+    },
+    "Configuration": {
+        "Model": "4Comp",
+        "Resolution": 0.1,
+        "EndTime": 5000,
+        "RelTol": 1e-6,
+        "AbsTol": 1e-11
+    }
+}
