@@ -22,9 +22,12 @@ namespace InstallationValidator.Core.Presentation.DTO
    {
       private string _folderPath;
 
-      public FolderDTO(bool folderMustExist = true)
+      public FolderDTO(bool folderMustExist = true, bool limitFolderLength = false)
       {
          Rules.Add(AllRules.FolderNotEmpty);
+
+         if(limitFolderLength)
+            Rules.Add(AllRules.FolderPathNotTooLong);
 
          if (folderMustExist)
             Rules.Add(AllRules.FolderExists);
@@ -42,9 +45,22 @@ namespace InstallationValidator.Core.Presentation.DTO
 
       private static class AllRules
       {
+         private const int MAXIMUM_FOLDER_PATH_LENGTH = 130;
+
          public static IBusinessRule FolderNotEmpty
          {
             get { return GenericRules.NonEmptyRule<FolderDTO>(x => x.FolderPath); }
+         }
+
+         public static IBusinessRule FolderPathNotTooLong
+         {
+            get
+            {
+               return CreateRule.For<FolderDTO>()
+                  .Property(x => x.FolderPath)
+                  .WithRule((item, folderPath) => string.IsNullOrEmpty(folderPath) || folderPath.Length <= MAXIMUM_FOLDER_PATH_LENGTH)
+                  .WithError((item, folderPath) => Validation.FolderPathTooLong(folderPath, MAXIMUM_FOLDER_PATH_LENGTH));
+            }
          }
 
          public static IBusinessRule FolderExists

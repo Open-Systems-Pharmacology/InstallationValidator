@@ -29,6 +29,24 @@ namespace InstallationValidator.Presentation
       }
    }
 
+   public class When_the_target_directory_path_is_too_long : concern_for_FolderDTO
+   {
+      protected override void Context()
+      {
+         sut = new FolderDTO(limitFolderLength: true) {FolderPath = "A very long path with many, many, many, many, " +
+                                                                    "many, many, many, many, many, many, many, many, " +
+                                                                    "many, many, many, many, many, many characters"
+         };
+         DirectoryHelper.DirectoryExists = path => true;
+      }
+
+      [Observation]
+      public void the_dto_is_invalidated()
+      {
+         sut.IsValid().ShouldBeEqualTo(false);
+      }
+   }
+
    public class When_the_target_directory_is_empty : concern_for_FolderDTO
    {
       protected override void Context()

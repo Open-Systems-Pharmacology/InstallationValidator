@@ -153,6 +153,11 @@ namespace InstallationValidator.Core.Assets
       {
          return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}'";
       }
+
+      public static string FolderPathTooLong(string folderPath, int maximumFolderPathLength)
+      {
+         return $"The folder path '{folderPath}' is too long. It must be less than or equal to {maximumFolderPathLength} characters";
+      }
    }
 
    public static class Reporting
