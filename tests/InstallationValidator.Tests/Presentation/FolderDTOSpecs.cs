@@ -33,7 +33,7 @@ namespace InstallationValidator.Presentation
    {
       protected override void Context()
       {
-         sut = new FolderDTO(limitFolderLength: true) {FolderPath = "A very long path with many, many, many, many, " +
+         sut = new FolderDTO {FolderPath = "A very long path with many, many, many, many, " +
                                                                     "many, many, many, many, many, many, many, many, " +
                                                                     "many, many, many, many, many, many characters"
          };

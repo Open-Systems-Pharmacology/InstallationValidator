@@ -22,12 +22,10 @@ namespace InstallationValidator.Core.Presentation.DTO
    {
       private string _folderPath;
 
-      public FolderDTO(bool folderMustExist = true, bool limitFolderLength = false)
+      public FolderDTO(bool folderMustExist = true)
       {
          Rules.Add(AllRules.FolderNotEmpty);
-
-         if(limitFolderLength)
-            Rules.Add(AllRules.FolderPathNotTooLong);
+         Rules.Add(AllRules.FolderPathNotTooLong);
 
          if (folderMustExist)
             Rules.Add(AllRules.FolderExists);

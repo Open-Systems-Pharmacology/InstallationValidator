@@ -27,7 +27,7 @@ namespace InstallationValidator.Core.Presentation
       private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IValidationReportingTask _validationReportingTask;
-      private readonly FolderDTO _outputFolderDTO = new FolderDTO(folderMustExist: false, limitFolderLength: true);
+      private readonly FolderDTO _outputFolderDTO = new FolderDTO(folderMustExist: false);
       private CancellationTokenSource _cancellationTokenSource;
       private bool _validationRunning;
 

@@ -24,7 +24,7 @@ namespace InstallationValidator.Core.Presentation
    public class SimulationComparisonPresenter : AbstractDisposablePresenter<ISimulationComparisonView, ISimulationComparisonPresenter>, ISimulationComparisonPresenter
    {
       private readonly FolderDTO _firstFolderDTO = new FolderDTO();
-      private readonly FolderDTO _secondFolderDTO = new FolderDTO(limitFolderLength:true);
+      private readonly FolderDTO _secondFolderDTO = new FolderDTO();
       private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IDialogCreator _dialogCreator;
       private CancellationTokenSource _cancellationTokenSource;
