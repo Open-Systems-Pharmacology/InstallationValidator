@@ -76,7 +76,7 @@ namespace InstallationValidator.Core.Services
          };
 
          using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimBatchToolPath, args))
-         using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile))
+         using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile, new [] {outputFolderPath}))
          {
             watcher.Watch();
             process.Start();

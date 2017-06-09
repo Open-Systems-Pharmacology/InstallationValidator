@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using FakeItEasy;
 using InstallationValidator.Core;
@@ -32,7 +33,7 @@ namespace InstallationValidator.Services
          _startableProcess = A.Fake<StartableProcess>();
 
          A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).Returns(_startableProcess);
-         A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._)).Returns(_logWatcher);
+         A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._, A<IEnumerable<string>>._)).Returns(_logWatcher);
       }
    }
 
