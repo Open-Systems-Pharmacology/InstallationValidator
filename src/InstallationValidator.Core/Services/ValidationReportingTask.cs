@@ -65,7 +65,7 @@ namespace InstallationValidator.Core.Services
             Title = _applicationConfiguration.OSPSuiteNameWithVersion,
             SubTitle = reportSubtitle,
             ReportFile = reportOutputPath(outputFilePath, reportDateAndTime),
-            NumberOfCompilations = 1
+            NumberOfCompilations = 2
          };
       }
 
