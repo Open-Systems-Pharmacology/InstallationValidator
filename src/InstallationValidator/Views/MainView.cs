@@ -55,12 +55,12 @@ namespace InstallationValidator.Views
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
 
-         layoutItemButtonStart.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStart.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
          layoutItemButtonStart.TextVisible = false;
          layoutItemButtonStop.TextVisible = false;
 
-         layoutItemButtonStop.AdjustButtonSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStop.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
 
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);

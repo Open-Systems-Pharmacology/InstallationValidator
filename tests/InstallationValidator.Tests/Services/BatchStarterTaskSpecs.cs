@@ -47,9 +47,9 @@ namespace InstallationValidator.Services
       public override void GlobalContext()
       {
          base.GlobalContext();
-         _getVersionInfo = ValidationFileHelper.GetVersion;
+         _getVersionInfo = FileHelper.GetVersion;
          _createDirectory = DirectoryHelper.CreateDirectory;
-         ValidationFileHelper.GetVersion = path => "1.0.0";
+         FileHelper.GetVersion = path => "1.0.0";
 
          DirectoryHelper.CreateDirectory = s => _createdFolderPath = s;
       }
@@ -87,7 +87,7 @@ namespace InstallationValidator.Services
       public override void GlobalCleanup()
       {
          base.GlobalCleanup();
-         ValidationFileHelper.GetVersion = _getVersionInfo;
+         FileHelper.GetVersion = _getVersionInfo;
          DirectoryHelper.CreateDirectory = _createDirectory;
       }
    }
