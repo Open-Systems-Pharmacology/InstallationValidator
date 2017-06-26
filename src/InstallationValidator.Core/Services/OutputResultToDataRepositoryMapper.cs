@@ -22,12 +22,12 @@ namespace InstallationValidator.Core.Services
       {
          var repository = new DataRepository();
 
-         var timeGrid = new BaseGrid(OSPSuite.Core.Domain.Constants.TIME, _dimensionFactory.GetDimension(OSPSuite.Core.Domain.Constants.TIME))
+         var timeGrid = new BaseGrid(OSPSuite.Core.Domain.Constants.TIME, _dimensionFactory.Dimension(OSPSuite.Core.Domain.Constants.TIME))
          {
             Values = outputResult.Times
          };
 
-         var outputColumn = new DataColumn("Values", _dimensionFactory.GetDimension(outputResult.Dimension), timeGrid)
+         var outputColumn = new DataColumn("Values", _dimensionFactory.Dimension(outputResult.Dimension), timeGrid)
          {
             Values = outputResult.Values,
             Name = outputResult.Caption

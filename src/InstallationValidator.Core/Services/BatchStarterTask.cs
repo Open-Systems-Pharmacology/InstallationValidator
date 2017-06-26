@@ -60,7 +60,7 @@ namespace InstallationValidator.Core.Services
 
       private static string versionForPath(string binaryExecutablePath)
       {
-         return ValidationFileHelper.GetVersion(binaryExecutablePath);
+         return FileHelper.GetVersion(binaryExecutablePath);
       }
 
       private void startBatchProcess(string outputFolderPath, CancellationToken cancellationToken, string logFile)
