@@ -60,7 +60,7 @@ namespace InstallationValidator.Core.Services
 
       private static string versionForPath(string binaryExecutablePath)
       {
-         return ValidationFileHelper.GetVersion(binaryExecutablePath);
+         return FileHelper.GetVersion(binaryExecutablePath);
       }
 
       private void startBatchProcess(string outputFolderPath, CancellationToken cancellationToken, string logFile)
@@ -76,7 +76,7 @@ namespace InstallationValidator.Core.Services
          };
 
          using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimBatchToolPath, args))
-         using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile))
+         using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile, new [] {outputFolderPath}))
          {
             watcher.Watch();
             process.Start();

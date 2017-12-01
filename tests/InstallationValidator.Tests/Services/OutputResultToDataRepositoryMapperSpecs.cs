@@ -19,7 +19,7 @@ namespace InstallationValidator.Services
          _dimensionFactory = A.Fake<IDimensionFactory>();
          sut = new OutputResultToDataRepositoryMapper(_dimensionFactory);
          _timeDimension = A.Fake<IDimension>();
-         A.CallTo(() => _dimensionFactory.GetDimension("Time")).Returns(_timeDimension);
+         A.CallTo(() => _dimensionFactory.Dimension("Time")).Returns(_timeDimension);
       }
    }
 
@@ -41,7 +41,7 @@ namespace InstallationValidator.Services
          };
 
          _theDimension = A.Fake<IDimension>();
-         A.CallTo(() => _dimensionFactory.GetDimension("TheDimension")).Returns(_theDimension);
+         A.CallTo(() => _dimensionFactory.Dimension("TheDimension")).Returns(_theDimension);
       }
 
       protected override void Because()

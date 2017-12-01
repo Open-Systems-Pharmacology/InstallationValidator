@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using FluentNHibernate.Utils;
 using OSPSuite.Utility;
 
 namespace InstallationValidator.Core.Domain
@@ -8,18 +10,27 @@ namespace InstallationValidator.Core.Domain
    {
       void Watch();
    }
+
    public class LogWatcher : ILogWatcher
    {
       private readonly string _logFile;
       private readonly IValidationLogger _validationLogger;
-      private FileSystemWatcher _fileSystemWatcher;
+      private bool _disposed;
+      private readonly string[] _foldersToWatch;
+      private readonly List<FileSystemWatcher> _fileSystemWatchers;
       private StreamReader _sr;
+      private FileSystemWatcher _logFileWatcher;
 
-      public LogWatcher(string logFile, IValidationLogger validationLogger)
+      /// <summary>
+      ///    Creates a log file watcher that will update the <paramref name="validationLogger"/> when either the <paramref name="logFile"/> changes
+      ///    or when one of the <paramref name="additionalFoldersToWatch"/> changes
+      /// </summary>
+      public LogWatcher(string logFile, IValidationLogger validationLogger, params string[] additionalFoldersToWatch)
       {
          _logFile = logFile;
+         _foldersToWatch = additionalFoldersToWatch;
          _validationLogger = validationLogger;
-
+         _fileSystemWatchers = new List<FileSystemWatcher>();
          configureFileSystemWatcher(logFile);
 
          subscribe();
@@ -31,22 +42,42 @@ namespace InstallationValidator.Core.Domain
          var fileNameEndExtension = Path.GetFileName(_logFile);
 
          FileHelper.DeleteFile(logFile);
-         _fileSystemWatcher = new FileSystemWatcher(string.IsNullOrEmpty(folderFromFileFullPath) ? "./" : folderFromFileFullPath, fileNameEndExtension)
+
+         _logFileWatcher = new FileSystemWatcher(string.IsNullOrEmpty(folderFromFileFullPath) ? "./" : folderFromFileFullPath, fileNameEndExtension)
          {
             NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.Size
          };
+
+         _fileSystemWatchers.Add(_logFileWatcher);
+
+         _foldersToWatch.Each(folder =>
+         {
+            _fileSystemWatchers.Add(new FileSystemWatcher(folder, "*.json"));
+         });
+         
+      }
+
+      private void forAllWatchers(Action<FileSystemWatcher> actionForFileSystemWatcher)
+      {
+         _fileSystemWatchers.Each(actionForFileSystemWatcher);
       }
 
       private void subscribe()
       {
-         _fileSystemWatcher.Changed += onChanged;
-         _fileSystemWatcher.Created += onCreated;
+         _logFileWatcher.Created += onCreated;
+         forAllWatchers(watcher =>
+         {
+            watcher.Changed += onChanged;
+         });
       }
 
       private void unsubscribe()
       {
-         _fileSystemWatcher.Changed -= onChanged;
-         _fileSystemWatcher.Created -= onCreated;
+         _logFileWatcher.Created -= onCreated;
+         forAllWatchers(watcher =>
+         {
+            watcher.Changed -= onChanged;
+         });
       }
 
       private void onCreated(object sender, FileSystemEventArgs e)
@@ -64,7 +95,13 @@ namespace InstallationValidator.Core.Domain
 
       private void onChanged(object sender, FileSystemEventArgs e)
       {
-         appendTextToLog();
+         if(logFileCreated())
+            appendTextToLog();
+      }
+
+      private bool logFileCreated()
+      {
+         return _sr != null;
       }
 
       private void appendTextToLog()
@@ -74,10 +111,8 @@ namespace InstallationValidator.Core.Domain
 
       public virtual void Watch()
       {
-         _fileSystemWatcher.EnableRaisingEvents = true;
+         forAllWatchers(watcher => watcher.EnableRaisingEvents = true);
       }
-
-      private bool _disposed;
 
       public void Dispose()
       {
@@ -96,7 +131,7 @@ namespace InstallationValidator.Core.Domain
       protected virtual void Cleanup()
       {
          unsubscribe();
-         _fileSystemWatcher.Dispose();
+         forAllWatchers(watcher => watcher.Dispose());
          _sr?.Close();
          _sr?.Dispose();
       }

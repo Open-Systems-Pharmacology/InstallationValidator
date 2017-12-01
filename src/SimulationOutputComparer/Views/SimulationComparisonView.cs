@@ -41,12 +41,12 @@ namespace SimulationOutputComparer.Views
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
 
-         layoutItemButtonStart.AdjustButtonSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStart.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartComparison);
          layoutItemButtonStart.TextVisible = false;
          layoutItemButtonStop.TextVisible = false;
 
-         layoutItemButtonStop.AdjustButtonSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStop.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopComparison);
 
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);

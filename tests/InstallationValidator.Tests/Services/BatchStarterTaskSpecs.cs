@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using FakeItEasy;
 using InstallationValidator.Core;
@@ -32,7 +33,7 @@ namespace InstallationValidator.Services
          _startableProcess = A.Fake<StartableProcess>();
 
          A.CallTo(() => _startableProcessFactory.CreateStartableProcess(A<string>._, A<string[]>._)).Returns(_startableProcess);
-         A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._)).Returns(_logWatcher);
+         A.CallTo(() => _logWatcherFactory.CreateLogWatcher(A<string>._, A<IEnumerable<string>>._)).Returns(_logWatcher);
       }
    }
 
@@ -46,9 +47,9 @@ namespace InstallationValidator.Services
       public override void GlobalContext()
       {
          base.GlobalContext();
-         _getVersionInfo = ValidationFileHelper.GetVersion;
+         _getVersionInfo = FileHelper.GetVersion;
          _createDirectory = DirectoryHelper.CreateDirectory;
-         ValidationFileHelper.GetVersion = path => "1.0.0";
+         FileHelper.GetVersion = path => "1.0.0";
 
          DirectoryHelper.CreateDirectory = s => _createdFolderPath = s;
       }
@@ -86,7 +87,7 @@ namespace InstallationValidator.Services
       public override void GlobalCleanup()
       {
          base.GlobalCleanup();
-         ValidationFileHelper.GetVersion = _getVersionInfo;
+         FileHelper.GetVersion = _getVersionInfo;
          DirectoryHelper.CreateDirectory = _createDirectory;
       }
    }

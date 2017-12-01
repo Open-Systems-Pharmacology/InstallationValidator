@@ -5,7 +5,6 @@ using OSPSuite.Assets;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain;
 using OSPSuite.Infrastructure.Configuration;
-using OSPSuite.Utility;
 
 namespace InstallationValidator.Core
 {
@@ -17,39 +16,21 @@ namespace InstallationValidator.Core
       string PKSimBatchToolPath { get; }
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
-      string DimensionFilePath { get; set; }
       string DefaultOutputPath { get; }
    }
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
    {
-      public InstallationValidatorConfiguration()
-      {
-         DimensionFilePath = createApplicationDataPathFor(Constants.DIMENSION_FILE);
-      }
-
-      protected override string ApplicationFolderPathWithRevision(string revision)
-      {
-         return Path.Combine(Constants.APPLICATION_FOLDER_PATH, revision);
-      }
-
-      protected override string[] LatestVersionWithOtherMajor { get; }
-      public override string ChartLayoutTemplateFolderPath { get; }
-      public override string TEXTemplateFolderPath => Path.Combine(applicationFolderPath, Constants.Tools.TEX_TEMPLATES);
       public override string ProductName => Constants.PRODUCT_NAME_WITH_TRADEMARK;
-      public override Origin Product { get; }
+      public override Origin Product { get; } = Origins.Other;
       public override string ProductNameWithTrademark => Constants.PRODUCT_NAME_WITH_TRADEMARK;
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
-      public override string UserSettingsFileName { get; }
+      public override string UserSettingsFileName { get; } = "UserSettings.xml";
+      public override string ApplicationSettingsFileName { get; } = "ApplicationSettings.xml";
       public override string IssueTrackerUrl { get; } = Constants.ISSUE_TRACKER_URL;
-      private string applicationFolderPathWithMajorVersion => ApplicationFolderPathWithRevision(MajorVersion);
-      private string applicationFolderPath => applicationFolderPathFor(applicationFolderPathWithMajorVersion);
-      public string DimensionFilePath { get; set; }
-
-      private string applicationFolderPathFor(string folderPath)
-      {
-         return Path.Combine(EnvironmentHelper.ApplicationDataFolder(), folderPath);
-      }
+      protected override string[] LatestVersionWithOtherMajor { get; } = new String [0];
+      public override string WatermarkOptionLocation { get; } = "Options -> Settings -> Application";
+      public override string ApplicationFolderPathName { get; } = Constants.APPLICATION_FOLDER_PATH;
 
       public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.PKSIM_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_PATH);
 
@@ -57,19 +38,17 @@ namespace InstallationValidator.Core
 
       public string PKSimInstallFolderPath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.PKSIM_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_DIR);
 
-      public string BatchInputsFolderPath => createApplicationDataPathFor(Constants.Tools.BATCH_INPUTS);
+      public string BatchInputsFolderPath => AllUsersFile(Constants.Tools.BATCH_INPUTS);
 
-      public string BatchOutputsFolderPath => createApplicationDataPathFor(Constants.Tools.BATCH_OUTPUTS);
+      public string BatchOutputsFolderPath => AllUsersFile(Constants.Tools.BATCH_OUTPUTS);
 
       public string PKSimBatchToolPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_BATCH_TOOL);
 
-      private string createApplicationDataPathFor(string fileName) => Path.Combine(applicationFolderPath, fileName);
-
-      private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacologyPKSim, string installDir)
+      private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacology, string installDir)
       {
          try
          {
-            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacologyPKSim}{MajorVersion}", installDir, null);
+            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacology}{MajorVersion}", installDir, null);
          }
          catch (Exception)
          {
@@ -77,9 +56,6 @@ namespace InstallationValidator.Core
          }
       }
 
-      private string userApplicationFolderPath => Path.Combine(EnvironmentHelper.UserApplicationDataFolder(), applicationFolderPathWithMajorVersion);
-
-
-      public string DefaultOutputPath => Path.Combine(userApplicationFolderPath, Constants.Tools.CALCULATION_OUTPUTS);
+      public string DefaultOutputPath => Path.Combine(CurrentUserFolderPath, Constants.Tools.CALCULATION_OUTPUTS);
    }
 }

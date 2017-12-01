@@ -144,7 +144,7 @@ namespace InstallationValidator.Presentation
       [Observation]
       public void the_view_should_be_updated_with_exception_information()
       {
-         A.CallTo(() => _mainView.AppendHTML(OSPSuite.Assets.Captions.ExceptionViewDescription(Constants.ISSUE_TRACKER_URL))).MustHaveHappened();
+         A.CallTo(() => _mainView.AppendHTML(OSPSuite.Assets.Captions.ExceptionViewDescription(Constants.ISSUE_TRACKER_URL, true))).MustHaveHappened();
       }
    }
 

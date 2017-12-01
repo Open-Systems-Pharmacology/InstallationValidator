@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using FakeItEasy;
 using InstallationValidator.Core;
 using OSPSuite.BDDHelper;
@@ -19,8 +17,6 @@ namespace InstallationValidator.IntegrationTests
 
          var container = ValidatorRegister.Initialize();
 
-         var configuration = container.Resolve<IInstallationValidatorConfiguration>();
-         configuration.DimensionFilePath = localDimensionFilePath();
          //use only in tests
          using (container.OptimizeDependencyResolution())
          {
@@ -32,11 +28,6 @@ namespace InstallationValidator.IntegrationTests
          }
 
          sut = IoC.Resolve<T>();
-      }
-
-      private string localDimensionFilePath()
-      {
-         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.DIMENSION_FILE);
       }
    }
 }
