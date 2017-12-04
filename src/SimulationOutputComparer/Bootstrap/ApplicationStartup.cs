@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using InstallationValidator.Core;
 using InstallationValidator.Core.Presentation.Views;
 using OSPSuite.Assets;
-using OSPSuite.Core;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Views;
 using OSPSuite.UI.Mappers;
@@ -45,7 +44,6 @@ namespace SimulationOutputComparer.Bootstrap
             container.Register<IExceptionView, ExceptionView>(LifeStyle.Singleton);
             container.Register<IDialogCreator, DialogCreator>();
             container.Register<IDialogResultToViewResultMapper, DialogResultToViewResultMapper>();
-            
          }
       }
 
