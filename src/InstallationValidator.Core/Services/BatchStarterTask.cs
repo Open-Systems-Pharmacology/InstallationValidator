@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Domain;
@@ -67,18 +68,21 @@ namespace InstallationValidator.Core.Services
       {
          var args = new[]
          {
+            "run",
             "-i",
             _applicationConfiguration.BatchInputsFolderPath.InQuotes(),
             "-o",
             outputFolderPath.InQuotes(),
             "-l",
             logFile.InQuotes(),
+            "-j"
          };
 
-         using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimBatchToolPath, args))
+         using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimCLIPath, args))
          using (var watcher = _logWatcherFactory.CreateLogWatcher(logFile, new [] {outputFolderPath}))
          {
             watcher.Watch();
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             process.Start();
             process.Wait(cancellationToken);
          }

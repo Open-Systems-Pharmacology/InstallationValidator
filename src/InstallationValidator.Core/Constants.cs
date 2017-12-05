@@ -31,7 +31,7 @@ namespace InstallationValidator.Core
 
       public static class Tools
       {
-         public static readonly string PKSIM_BATCH_TOOL = "PKSim.BatchTool.exe";
+         public static readonly string PKSIM_CLI = "PKSim.CLI.exe";
          public static readonly string BATCH_INPUTS = Path.Combine("Inputs", "BatchFiles");
          public static readonly string BATCH_OUTPUTS = Path.Combine("Outputs", "BatchFiles");
          public static readonly string CALCULATION_OUTPUTS = "Outputs";
