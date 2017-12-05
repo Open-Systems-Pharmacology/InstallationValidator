@@ -13,7 +13,7 @@ namespace InstallationValidator.Core
       string PKSimInstallFolderPath { get; }
       string BatchInputsFolderPath { get; }
       string BatchOutputsFolderPath { get; }
-      string PKSimBatchToolPath { get; }
+      string PKSimCLIPath { get; }
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
       string DefaultOutputPath { get; }
@@ -42,7 +42,7 @@ namespace InstallationValidator.Core
 
       public string BatchOutputsFolderPath => AllUsersFile(Constants.Tools.BATCH_OUTPUTS);
 
-      public string PKSimBatchToolPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_BATCH_TOOL);
+      public string PKSimCLIPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_CLI);
 
       private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacology, string installDir)
       {
