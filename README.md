@@ -12,7 +12,7 @@ cd scripts
 rake "heat[C:\\projects\\InstallationValidator\\data, BatchFiles]"
 ```
 
-then in`BatchFiles.wxs` file, replace `$(var.DeployDir)` with `$(var.DeployDir)\..\..\data`
+then in `BatchFiles.wxs` file, replace `$(var.DeployDir)` with `$(var.DeployDir)\..\..\data`
 
 
 ## Code of conduct
