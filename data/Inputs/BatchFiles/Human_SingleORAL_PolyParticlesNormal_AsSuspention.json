@@ -40,8 +40,7 @@
             "Particle radius (mean)": 1E-4,
             "Type of particle size distribution": 1,
             "Particle size distribution": 0,
-            "Thickness (unstirred water layer)": 2E-4,
-            "Use as suspension":1
+            "Thickness (unstirred water layer)": 2E-4
         }
     },
     "Configuration": {
