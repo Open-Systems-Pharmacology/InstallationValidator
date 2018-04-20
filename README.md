@@ -5,6 +5,16 @@ Installation Validation Tool for the Open Systems Pharmacology Suite.
 ## Code Status
 [![Build status](https://ci.appveyor.com/api/projects/status/hffh219angc4svdh/branch/develop?svg=true)](https://ci.appveyor.com/project/open-systems-pharmacology-ci/installationvalidator/branch/develop)
 
+## Building WIX output for setup
+The following command should be run to create the `BatchFiles.wxs`
+```
+cd scripts
+rake "heat[C:\\projects\\InstallationValidator\\data, BatchFiles]"
+```
+
+then in`BatchFiles.wxs` file, replace `$(var.DeployDir)` with `$(var.DeployDir)\..\..\data`
+
+
 ## Code of conduct
 Everyone interacting in the Open Systems Pharmacology community (codebases, issue trackers, chat rooms, mailing lists etc...) is expected to follow the Open Systems Pharmacology [code of conduct](https://github.com/Open-Systems-Pharmacology/Suite/blob/master/CODE_OF_CONDUCT.md).
 

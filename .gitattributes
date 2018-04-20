@@ -16,6 +16,9 @@
 *.TIF binary
 *.ico binary
 *.msm binary
+*.pdf binary
+*.zip binary
+*.7z binary
 
 *.ascx text
 *.cd text
