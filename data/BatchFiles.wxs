@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
-        <DirectoryRef Id="INSTALLDIR">
+        <DirectoryRef Id="InstallationValidatorCommonDataVersionFolder">
             <Directory Id="dirF597E611A4FB8093C73505D52539DB80" Name="Inputs" />
             <Directory Id="dir62BE37BACCAC5718B7D00DA538D28F78" Name="Outputs" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="BatchFiles">
-            <Component Id="cmp13A4178393191151F1B8E1B775461B2F" Directory="INSTALLDIR" Guid="{987B585D-A511-4C89-BAAA-EAE9BEAAA75B}">
-                <File Id="filBC6D16323CE0BFB57B1EC864EC37BEAB" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\BatchFiles.wxs" />
-            </Component>
             <Component Id="cmp8EFE619026F8C40BA4D0A646235C057E" Directory="dir26BE88F606607BC4126056BFC29E3711" Guid="{2BEC2DEC-17B1-491E-8AD8-147A51EB8C62}">
                 <File Id="fil1299C31199DCB2ADBDD4EFC1867C04FF" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Inputs\BatchFiles\Beagle_SingleORAL_Dissolved.json" />
             </Component>
