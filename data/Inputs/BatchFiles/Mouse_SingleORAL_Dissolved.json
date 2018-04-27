@@ -1,72 +1,375 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Mouse",
-        "Weight": 0.200,
-    },
-    "Compounds": [{
-        "Name": "drug",
-        "Lipophilicity": 3,
-        "FractionUnbound": 0.8,
-        "MolWeight": 4E-7,
-        "SolubilityAtRefpH": 1E-7,
-        "RefpH": 9,
-        "PkaTypes": [{
-            "Type": "Acid",
-            "Value": 8
-        }],
-        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
-
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "Oral",
-        "Dose": 10,
-        "DoseUnit": "mg",
-        "EndTime": 1440
-    }],
-    "Formulation":{
-		"Name": "F",
-		"FormulationType": "Formulation_Dissolved",
-    },
-    "Configuration": {
-        "Model": "4Comp",
-        "RelTol": 1e-7,
-        "AbsTol": 1e-12
-    },
-    "ParameterVariationSets": [
+        "Weight": {
+          "Value": 0.2,
+          "Unit": "kg"
+        }
+      }
+    }
+  ],
+  "Compounds": [
+    {
+      "Name": "drug",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
         {
-            "Name": "MW_200_fu_0.2_LogP_5",
-            "ParameterValues": [
-                {
-                    "ParameterPath": "drug|Fraction unbound (plasma)",
-                    "Value": 0.2
-                },
-                {
-                    "ParameterPath": "drug|Molecular weight",
-                    "Value": 2E-7
-                },
-                {
-                    "ParameterPath": "drug|Lipophilicity",
-                    "Value": 5
-                }
-            ]
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.8
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.1,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 9.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 8.0
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "F",
+      "FormulationType": "Formulation_Dissolved"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "Oral",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 10.0,
+          "Unit": "mg"
         },
         {
-            "Name": "MW_800_fu_0.6_LogP_-5",
-            "ParameterValues": [
-                {
-                    "ParameterPath": "drug|Fraction unbound (plasma)",
-                    "Value": 0.6
-                },
-                {
-                    "ParameterPath": "drug|Molecular weight",
-                    "Value": 8E-7
-                },
-                {
-                    "ParameterPath": "drug|Lipophilicity",
-                    "Value": -5
-                }
-            ]
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
         }
-    ]
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "Mouse_SingleORAL_Dissolved",
+      "Model": "4Comp",
+      "Solver": {
+        "AbsTol": 1E-12,
+        "RelTol": 1E-07
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "drug|Compound type 0",
+          "Value": -1.0
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma, reference value)",
+          "Value": 0.8
+        },
+        {
+          "Path": "drug|Lipophilicity",
+          "Value": 3.0,
+          "Unit": "Log Units"
+        },
+        {
+          "Path": "drug|Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        },
+        {
+          "Path": "drug|pKa value 0",
+          "Value": 8.0
+        },
+        {
+          "Path": "drug|Plasma protein binding partner",
+          "Value": 1.0
+        },
+        {
+          "Path": "drug|Reference pH",
+          "Value": 9.0
+        },
+        {
+          "Path": "drug|Solubility at reference pH",
+          "Value": 0.1,
+          "Unit": "mg/l"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "Mouse_SingleORAL_Dissolved_MW_200_fu_0.2_LogP_5",
+      "Model": "4Comp",
+      "Solver": {
+        "AbsTol": 1E-12,
+        "RelTol": 1E-07
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "drug|Compound type 0",
+          "Value": -1.0
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma)",
+          "Value": 0.2
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma, reference value)",
+          "Value": 0.8
+        },
+        {
+          "Path": "drug|Lipophilicity",
+          "Value": 5.0,
+          "Unit": "Log Units"
+        },
+        {
+          "Path": "drug|Molecular weight",
+          "Value": 200.0,
+          "Unit": "g/mol"
+        },
+        {
+          "Path": "drug|pKa value 0",
+          "Value": 8.0
+        },
+        {
+          "Path": "drug|Plasma protein binding partner",
+          "Value": 1.0
+        },
+        {
+          "Path": "drug|Reference pH",
+          "Value": 9.0
+        },
+        {
+          "Path": "drug|Solubility at reference pH",
+          "Value": 0.1,
+          "Unit": "mg/l"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "Mouse_SingleORAL_Dissolved_MW_800_fu_0.6_LogP_-5",
+      "Model": "4Comp",
+      "Solver": {
+        "AbsTol": 1E-12,
+        "RelTol": 1E-07
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "drug|Compound type 0",
+          "Value": -1.0
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma)",
+          "Value": 0.6
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma, reference value)",
+          "Value": 0.8
+        },
+        {
+          "Path": "drug|Lipophilicity",
+          "Value": -5.0,
+          "Unit": "Log Units"
+        },
+        {
+          "Path": "drug|Molecular weight",
+          "Value": 800.0,
+          "Unit": "g/mol"
+        },
+        {
+          "Path": "drug|pKa value 0",
+          "Value": 8.0
+        },
+        {
+          "Path": "drug|Plasma protein binding partner",
+          "Value": 1.0
+        },
+        {
+          "Path": "drug|Reference pH",
+          "Value": 9.0
+        },
+        {
+          "Path": "drug|Solubility at reference pH",
+          "Value": 0.1,
+          "Unit": "mg/l"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }

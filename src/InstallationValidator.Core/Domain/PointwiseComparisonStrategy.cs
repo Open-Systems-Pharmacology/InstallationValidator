@@ -35,12 +35,11 @@ namespace InstallationValidator.Core.Domain
 
       private static bool shouldGenerateOutputsFor(ComparisonSettings comparisonSettings, string outputValues1Path)
       {
-         //we need to remove first entry (simulation name, and one before last entry). So we need at least 3 entries in the path
+         //we need to remove one before last entry. So we need at least 3 entries in the path
          var path = outputValues1Path.ToPathArray().ToList();
-         if (path.Count < 3)
+         if (path.Count < 2)
             return false;
 
-         path.RemoveAt(0);
          path.RemoveAt(path.Count - 2);
 
          var consolidatedPath = path.ToPathString();

@@ -231,8 +231,8 @@ namespace InstallationValidator.Domain
          base.Context();
          _comparisonSettings.GenerateResultsForValidSimulation = true;
          _comparisonSettings.PredefinedOutputPaths = new List<string> {"Organ|ObserverName"};
-         _outputValues1.Path = "Sim|Organ|Drug|ObserverName";
-         _outputValues2.Path = "Sim|Organ|Drug|ObserverName";
+         _outputValues1.Path = "Organ|Drug|ObserverName";
+         _outputValues2.Path = "Organ|Drug|ObserverName";
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 10, float.NaN};
          _outputValues2.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 20, float.NaN};
       }

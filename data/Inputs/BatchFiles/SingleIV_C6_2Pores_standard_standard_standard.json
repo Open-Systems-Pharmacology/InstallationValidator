@@ -1,49 +1,216 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
         "Gender": "MALE",
-        "Age": 30,
-        "Weight": 80,
-        "Height": 17.8
-    },
-    "Compounds": [{
-        "Name": "C6",
-        "Lipophilicity": 3,
-        "FractionUnbound": 0.1,
-        "MolWeight": 4E-7,
-        "SolubilityAtRefpH": 1E-5,
-        "IsSmallMolecule": false,
-        "RefpH": 7,
-        "PkaTypes": [
-            {
-                "Type": "Base",
-                "Value": 9
-            },
-            {
-                "Type": "Base",
-                "Value": 10
-            },
-            {
-                "Type": "Neutral",
-                "Value": 7
-            }
-        ],
-        "CalculationMethods": [
-            "Cellular partition coefficient method - PK-Sim Standard",
-            "Cellular permeability - PK-Sim Standard",
-            "IntestinalPermeability_PKSim"
-        ]
-
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "IntravenousBolus",
-        "Dose": 10,
-        "DoseUnit": "mg",
-        "EndTime": 1440
-    }],
-    "Configuration": {
-        "Model": "TwoPores",
+        "Age": {
+          "Value": 30.0,
+          "Unit": "year(s)"
+        },
+        "GestationalAge": {
+          "Value": 40.0,
+          "Unit": "week(s)"
+        },
+        "Weight": {
+          "Value": 80.0,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 178.0,
+          "Unit": "cm"
+        }
+      }
     }
+  ],
+  "Compounds": [
+    {
+      "Name": "C6",
+      "IsSmallMolecule": false,
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.1
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 10.0,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 7.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Base",
+          "Pka": 9.0
+        },
+        {
+          "Type": "Base",
+          "Pka": 10.0
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - PK-Sim Standard",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "IntravenousBolus",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 10.0,
+          "Unit": "mg"
+        },
+        {
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "SingleIV_C6_2Pores_standard_standard_standard",
+      "Model": "TwoPores",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "C6|Compound type 0",
+          "Value": 1.0
+        },
+        {
+          "Path": "C6|Compound type 1",
+          "Value": 1.0
+        },
+        {
+          "Path": "C6|Fraction unbound (plasma, reference value)",
+          "Value": 0.1
+        },
+        {
+          "Path": "C6|Is small molecule",
+          "Value": 0.0
+        },
+        {
+          "Path": "C6|Lipophilicity",
+          "Value": 3.0,
+          "Unit": "Log Units"
+        },
+        {
+          "Path": "C6|Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        },
+        {
+          "Path": "C6|pKa value 0",
+          "Value": 9.0
+        },
+        {
+          "Path": "C6|pKa value 1",
+          "Value": 10.0
+        },
+        {
+          "Path": "C6|pKa value 2",
+          "Value": 7.0
+        },
+        {
+          "Path": "C6|Plasma protein binding partner",
+          "Value": 1.0
+        },
+        {
+          "Path": "C6|Reference pH",
+          "Value": 7.0
+        },
+        {
+          "Path": "C6|Solubility at reference pH",
+          "Value": 10.0,
+          "Unit": "mg/l"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "C6",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol"
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }
