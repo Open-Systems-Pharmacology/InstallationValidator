@@ -19,7 +19,7 @@
         "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
          "SystemicProcesses": [
             {
-                "SystemicProcessType": "Renal",
+                "SystemicProcessType": "GFR",
                 "InternalName": "GlomerularFiltration",
                 "DataSource": "GFR",
                 "ParameterValues": {
