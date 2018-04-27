@@ -1,56 +1,271 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
         "Gender": "MALE",
-        "Age": 1,
-         "Enzymes": [{
-            "Name": "CYP3A4",
-            "ReferenceConcentration": 3,
-            "Expressions": {
-                "Pericentral": 1,
-                "Periportal": 1,
-                "Duodenum": 0.5
-            }
-        }]
-    },
-    "Compounds": [{
-        "Name": "drug",
-        "Lipophilicity": 3,
-        "FractionUnbound": 0.8,
-        "MolWeight": 4E-7,
-        "SolubilityAtRefpH": 1E-7,
-        "RefpH": 9,
-        "PkaTypes": [{
-            "Type": "Acid",
-            "Value": 8
-        }],
-        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"],
-        "PartialProcesses": [
+        "Age": {
+          "Value": 1.0,
+          "Unit": "year(s)"
+        },
+        "GestationalAge": {
+          "Value": 40.0,
+          "Unit": "week(s)"
+        },
+        "Weight": {
+          "Value": 10.0,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 76.0,
+          "Unit": "cm"
+        }
+      },
+      "Molecules": [
+        {
+          "Name": "CYP3A4",
+          "Type": "Enzyme",
+          "MembraneLocation": "Apical",
+          "TissueLocation": "Intracellular",
+          "IntracellularVascularEndoLocation": "Endosomal",
+          "Expression": [
             {
-                "MoleculeName": "CYP3A4",
-                "InternalName": "MetabolizationSpecific_FirstOrder",
-                "DataSource": "Lab",
-                "ParameterValues": {"Specific clearance": 3}
+              "Name": "Periportal",
+              "Value": 1.0
             },
-        ]
-    }],
-   "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "Oral",
-        "Dose": 10,
-        "DoseUnit": "mg",
-        "EndTime": 1440
-     }],
-    "Formulation":{
-        "Name": "F",
-        "FormulationType": "Formulation_Dissolved"
-    },
-    "Configuration": {
-        "Model": "4Comp",
-        "EndTime": 525600,
-        "AllowAging":  true,
-        "RelTol": 1e-8,
-        "AbsTol": 1e-13,
+            {
+              "Name": "Pericentral",
+              "Value": 1.0
+            },
+            {
+              "Name": "Duodenum",
+              "Value": 0.5
+            }
+          ],
+          "Parameters": [
+            {
+              "Name": "Reference concentration",
+              "Value": 3.0,
+              "Unit": "µmol/l"
+            }
+          ]
+        }
+      ]
     }
+  ],
+  "Compounds": [
+    {
+      "Name": "drug",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.8
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.1,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 9.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 8.0
+        }
+      ],
+      "Processes": [
+        {
+          "InternalName": "MetabolizationSpecific_FirstOrder",
+          "DataSource": "Lab",
+          "Molecule": "CYP3A4",
+          "Parameters": [
+            {
+              "Name": "Specific clearance",
+              "Value": 3.0,
+              "Unit": "1/min"
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "F",
+      "FormulationType": "Formulation_Dissolved"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "Oral",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 10.0,
+          "Unit": "mg"
+        },
+        {
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "European_SingleORAL_Age_1_CYP3A4",
+      "Model": "4Comp",
+      "AllowAging": true,
+      "Solver": {
+        "AbsTol": 1E-13,
+        "RelTol": 1E-08
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 8760.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "CYP3A4|Reference concentration",
+          "Value": 3.0,
+          "Unit": "µmol/l"
+        },
+        {
+          "Path": "drug|Compound type 0",
+          "Value": -1.0
+        },
+        {
+          "Path": "drug|Fraction unbound (plasma, reference value)",
+          "Value": 0.8
+        },
+        {
+          "Path": "drug|Lipophilicity",
+          "Value": 3.0,
+          "Unit": "Log Units"
+        },
+        {
+          "Path": "drug|Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        },
+        {
+          "Path": "drug|pKa value 0",
+          "Value": 8.0
+        },
+        {
+          "Path": "drug|Plasma protein binding partner",
+          "Value": 1.0
+        },
+        {
+          "Path": "drug|Reference pH",
+          "Value": 9.0
+        },
+        {
+          "Path": "drug|Solubility at reference pH",
+          "Value": 0.1,
+          "Unit": "mg/l"
+        },
+        {
+          "Path": "drug-CYP3A4-Lab|Specific clearance",
+          "Value": 3.0,
+          "Unit": "1/min"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Processes": [
+            {
+              "Name": "CYP3A4-Lab",
+              "MoleculeName": "CYP3A4"
+            }
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }
