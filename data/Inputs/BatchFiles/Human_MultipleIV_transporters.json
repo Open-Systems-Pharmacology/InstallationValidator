@@ -36,22 +36,6 @@
           "TransportType": "Influx",
           "Expression": [
             {
-              "Name": "Brain",
-              "MembraneLocation": "BloodBrainBarrier"
-            },
-            {
-              "Name": "Kidney",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Periportal",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Pericentral",
-              "MembraneLocation": "Apical"
-            },
-            {
               "Name": "Skin",
               "Value": 0.2
             },
@@ -65,42 +49,6 @@
               "MembraneLocation": "Apical",
               "Value": 0.8
             },
-            {
-              "Name": "LowerJejunum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "UpperIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "LowerIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Caecum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonAscendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonTransversum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonDescendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonSigmoid",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Rectum",
-              "MembraneLocation": "Apical"
-            }
           ],
           "Parameters": [
             {
@@ -121,10 +69,6 @@
               "Value": 0.8
             },
             {
-              "Name": "Kidney",
-              "MembraneLocation": "Apical"
-            },
-            {
               "Name": "Periportal",
               "MembraneLocation": "Apical",
               "Value": 1.0
@@ -134,50 +78,6 @@
               "MembraneLocation": "Apical",
               "Value": 1.0
             },
-            {
-              "Name": "Duodenum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "UpperJejunum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "LowerJejunum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "UpperIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "LowerIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Caecum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonAscendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonTransversum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonDescendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonSigmoid",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Rectum",
-              "MembraneLocation": "Apical"
-            }
           ],
           "Parameters": [
             {
@@ -193,10 +93,6 @@
           "TransportType": "PgpLike",
           "Expression": [
             {
-              "Name": "Brain",
-              "MembraneLocation": "BloodBrainBarrier"
-            },
-            {
               "Name": "Heart",
               "Value": 0.8
             },
@@ -205,58 +101,6 @@
               "MembraneLocation": "Apical",
               "Value": 1.0
             },
-            {
-              "Name": "Periportal",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Pericentral",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Duodenum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "UpperJejunum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "LowerJejunum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "UpperIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "LowerIleum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Caecum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonAscendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonTransversum",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonDescendens",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "ColonSigmoid",
-              "MembraneLocation": "Apical"
-            },
-            {
-              "Name": "Rectum",
-              "MembraneLocation": "Apical"
-            }
           ],
           "Parameters": [
             {
@@ -419,8 +263,8 @@
             },
             {
               "Name": "End time",
-              "Value": 83.3333333333,
-              "Unit": "h"
+              "Value": 5000,
+              "Unit": "min"
             },
             {
               "Name": "Resolution",
@@ -428,88 +272,6 @@
               "Unit": "pts/h"
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "drug|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 0.8
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|pKa value 0",
-          "Value": 8.0
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 9.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.1,
-          "Unit": "mg/l"
-        },
-        {
-          "Path": "drug|TRANS1-Lab|Km",
-          "Value": 0.6,
-          "Unit": "µmol/l"
-        },
-        {
-          "Path": "drug|TRANS1-Lab|Vmax",
-          "Value": 0.59,
-          "Unit": "µmol/l/min"
-        },
-        {
-          "Path": "drug|TRANS2-Lab|Km",
-          "Value": 5.0,
-          "Unit": "µmol/l"
-        },
-        {
-          "Path": "drug|TRANS2-Lab|Vmax",
-          "Value": 0.22,
-          "Unit": "µmol/l/min"
-        },
-        {
-          "Path": "drug|TRANS3-Lab|Km",
-          "Value": 10.0,
-          "Unit": "µmol/l"
-        },
-        {
-          "Path": "drug|TRANS3-Lab|Vmax",
-          "Value": 150.0,
-          "Unit": "µmol/l/min"
-        },
-        {
-          "Path": "TRANS1|Reference concentration",
-          "Value": 0.5,
-          "Unit": "µmol/l"
-        },
-        {
-          "Path": "TRANS2|Reference concentration",
-          "Value": 1.2,
-          "Unit": "µmol/l"
-        },
-        {
-          "Path": "TRANS3|Reference concentration",
-          "Value": 0.45,
-          "Unit": "µmol/l"
         }
       ],
       "Individual": "Individual",

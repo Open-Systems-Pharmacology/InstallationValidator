@@ -119,39 +119,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Is small molecule",
-          "Value": 0.0
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 0.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 150000.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 0.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.0,
-          "Unit": "mg/l"
-        }
-      ],
       "Individual": "Individual",
       "Compounds": [
         {
@@ -193,42 +160,12 @@
         }
       ],
       "Parameters": [
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Is small molecule",
-          "Value": 0.0
-        },
+        
         {
           "Path": "drug|Kd (FcRn) in endosomal space",
           "Value": 0.75,
           "Unit": "µmol/l"
         },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 0.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 150000.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 0.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.0,
-          "Unit": "mg/l"
-        }
       ],
       "Individual": "Individual",
       "Compounds": [
@@ -270,43 +207,12 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Is small molecule",
-          "Value": 0.0
-        },
+      "Parameters": [       
         {
           "Path": "drug|Kd (FcRn) in endosomal space",
           "Value": 0.75,
           "Unit": "µmol/l"
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 0.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 150000.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 0.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.0,
-          "Unit": "mg/l"
-        },
+        },      
         {
           "Path": "Organism|EndogenousIgG|Endosome|Start concentration of free FcRn (endosome)",
           "Value": 0.0,
@@ -355,41 +261,10 @@
       ],
       "Parameters": [
         {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Is small molecule",
-          "Value": 0.0
-        },
-        {
           "Path": "drug|Kd (FcRn) in endosomal space",
           "Value": 0.75,
           "Unit": "µmol/l"
         },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 0.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 150000.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 0.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.0,
-          "Unit": "mg/l"
-        }
       ],
       "Individual": "Individual",
       "Compounds": [

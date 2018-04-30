@@ -141,43 +141,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "drug|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 0.8
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|pKa value 0",
-          "Value": 8.0
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 9.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.1,
-          "Unit": "mg/l"
-        }
-      ],
       "Individual": "Individual",
       "Compounds": [
         {
