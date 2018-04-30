@@ -175,61 +175,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "C1|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "C1|Compound type 1",
-          "Value": 1.0
-        },
-        {
-          "Path": "C1|Fraction unbound (plasma, reference value)",
-          "Value": 0.85
-        },
-        {
-          "Path": "C1|Lipophilicity",
-          "Value": -0.097,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "C1|Molecular weight",
-          "Value": 225.2,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "C1|pKa value 0",
-          "Value": 9.2
-        },
-        {
-          "Path": "C1|pKa value 1",
-          "Value": 2.2
-        },
-        {
-          "Path": "C1|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "C1|Reference pH",
-          "Value": 7.0
-        },
-        {
-          "Path": "C1|Solubility at reference pH",
-          "Value": 33990.0,
-          "Unit": "mg/l"
-        },
-        {
-          "Path": "C1-Total Hepatic Clearance-Lab|Specific clearance",
-          "Value": 0.088,
-          "Unit": "1/min"
-        },
-        {
-          "Path": "Neighborhoods|Kidney_pls_Kidney_ur|C1|Renal Clearances-Lab|Specific clearance",
-          "Value": 1.57,
-          "Unit": "1/min"
-        }
-      ],
       "Individual": "Individual",
       "Compounds": [
         {

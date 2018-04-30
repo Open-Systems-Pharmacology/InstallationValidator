@@ -148,63 +148,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "C9|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "C9|Compound type 1",
-          "Value": 1.0
-        },
-        {
-          "Path": "C9|Compound type 2",
-          "Value": 1.0
-        },
-        {
-          "Path": "C9|Fraction unbound (plasma, reference value)",
-          "Value": 0.1
-        },
-        {
-          "Path": "C9|Is small molecule",
-          "Value": 0.0
-        },
-        {
-          "Path": "C9|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "C9|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "C9|pKa value 0",
-          "Value": 4.0
-        },
-        {
-          "Path": "C9|pKa value 1",
-          "Value": 9.0
-        },
-        {
-          "Path": "C9|pKa value 2",
-          "Value": 10.0
-        },
-        {
-          "Path": "C9|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "C9|Reference pH",
-          "Value": 7.0
-        },
-        {
-          "Path": "C9|Solubility at reference pH",
-          "Value": 10.0,
-          "Unit": "mg/l"
-        }
-      ],
       "Individual": "Individual",
       "Compounds": [
         {

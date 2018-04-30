@@ -155,51 +155,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Protocol|F|Number of bins",
-          "Value": 11.0
-        },
-        {
-          "Path": "Applications|Protocol|F|Type of particle size distribution",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 0.8
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|pKa value 0",
-          "Value": 8.0
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 9.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.1,
-          "Unit": "mg/l"
-        }
-      ],
       "Individual": "Individual",
       "Compounds": [
         {
@@ -248,53 +203,10 @@
       ],
       "Parameters": [
         {
-          "Path": "Applications|Protocol|F|Number of bins",
-          "Value": 11.0
-        },
-        {
-          "Path": "Applications|Protocol|F|Type of particle size distribution",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 0.8
-        },
-        {
           "Path": "drug|Immediately dissolve particles smaller than",
           "Value": 0.0004,
           "Unit": "cm"
         },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|pKa value 0",
-          "Value": 8.0
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 9.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.1,
-          "Unit": "mg/l"
-        }
       ],
       "Individual": "Individual",
       "Compounds": [
@@ -344,48 +256,9 @@
       ],
       "Parameters": [
         {
-          "Path": "Applications|Protocol|F|Number of bins",
-          "Value": 11.0
+          "Path": "drug|Treat precipitated drug as",
+          "Value": 1
         },
-        {
-          "Path": "Applications|Protocol|F|Type of particle size distribution",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Compound type 0",
-          "Value": -1.0
-        },
-        {
-          "Path": "drug|Fraction unbound (plasma, reference value)",
-          "Value": 0.8
-        },
-        {
-          "Path": "drug|Lipophilicity",
-          "Value": 3.0,
-          "Unit": "Log Units"
-        },
-        {
-          "Path": "drug|Molecular weight",
-          "Value": 400.0,
-          "Unit": "g/mol"
-        },
-        {
-          "Path": "drug|pKa value 0",
-          "Value": 8.0
-        },
-        {
-          "Path": "drug|Plasma protein binding partner",
-          "Value": 1.0
-        },
-        {
-          "Path": "drug|Reference pH",
-          "Value": 9.0
-        },
-        {
-          "Path": "drug|Solubility at reference pH",
-          "Value": 0.1,
-          "Unit": "mg/l"
-        }
       ],
       "Individual": "Individual",
       "Compounds": [
