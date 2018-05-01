@@ -59,7 +59,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string Valid = InGreen("Valid");
       public static readonly string Invalid = InRed("Invalid");
       public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
-      public static readonly string OverallComparisonResult = InBold("Overall Comparison Result:");
+      public static readonly string OverallComparisonResult = InBold("Overall comparison result:");
       public static readonly string NumberOfComparedFiles = InBold("Number of compared files:");
       public static readonly string ComparisonCompleted = InBold("Comparison completed");
 
