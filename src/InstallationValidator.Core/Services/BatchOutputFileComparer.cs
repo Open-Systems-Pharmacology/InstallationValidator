@@ -55,7 +55,7 @@ namespace InstallationValidator.Core.Services
       private IEnumerable<OutputComparisonResult> selectOutputComparisonFrom(IReadOnlyList<OutputComparisonResult> outputComparisonResults, ComparisonSettings comparisonSettings)
       {
          if (!comparisonSettings.NumberOfCurves.HasValue)
-            return null;
+            return outputComparisonResults;
 
          return outputComparisonResults.OrderByDescending(x => x.Deviation).Take(comparisonSettings.NumberOfCurves.Value);
       }
