@@ -47,6 +47,7 @@ namespace InstallationValidator.Core.Assets
       public const string DefaultCaptionFolder2 = "New";
       public static readonly string ComparisonFolder1 = "Old Results";
       public static readonly string ComparisonFolder2 = "New Results";
+      public static readonly string NumberOfCurvesToDisplay= "Num. of curves";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
    }
 

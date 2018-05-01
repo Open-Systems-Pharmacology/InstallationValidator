@@ -23,14 +23,13 @@ namespace InstallationValidator.Core.Presentation
 
    public class SimulationComparisonPresenter : AbstractDisposablePresenter<ISimulationComparisonView, ISimulationComparisonPresenter>, ISimulationComparisonPresenter
    {
-      private readonly FolderDTO _firstFolderDTO = new FolderDTO();
-      private readonly FolderDTO _secondFolderDTO = new FolderDTO();
       private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IDialogCreator _dialogCreator;
       private CancellationTokenSource _cancellationTokenSource;
       private bool _comparisonRunning;
       private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly IValidationReportingTask _validationReportingTask;
+      private readonly FolderComparisonDTO _folderComparisonDTO;
 
       public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator, 
          IBatchComparisonTask batchComparisonTask, IValidationReportingTask validationReportingTask) : base(view)
@@ -39,7 +38,8 @@ namespace InstallationValidator.Core.Presentation
          _dialogCreator = dialogCreator;
          _batchComparisonTask = batchComparisonTask;
          _validationReportingTask = validationReportingTask;
-         view.BindTo(new FolderComparisonDTO(_firstFolderDTO, _secondFolderDTO));
+         _folderComparisonDTO = new FolderComparisonDTO();
+         view.BindTo(_folderComparisonDTO);
       }
 
       public void Handle(AppendTextToLogEvent eventToHandle)
@@ -61,11 +61,11 @@ namespace InstallationValidator.Core.Presentation
             this.ResetLog();
 
             this.LogLine(Logs.StartingComparison);
-            var comparisonResult = await _batchComparisonTask.StartComparison(new ComparisonSettings {FolderPath1 = _firstFolderDTO.FolderPath, FolderPath2  = _secondFolderDTO.FolderPath}, _cancellationTokenSource.Token);
+            var comparisonResult = await _batchComparisonTask.StartComparison(comparisonSettingsFromDTO(), _cancellationTokenSource.Token);
             this.LogLine();
 
             this.LogLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(comparisonResult, _firstFolderDTO.FolderPath, _secondFolderDTO.FolderPath, openReport: true);
+            await _validationReportingTask.CreateReport(comparisonResult, _folderComparisonDTO.FirstFolder.FolderPath, _folderComparisonDTO.SecondFolder.FolderPath, openReport: true);
             this.LogLine();
 
             this.LogLine(Logs.ComparisonCompleted);
@@ -82,6 +82,16 @@ namespace InstallationValidator.Core.Presentation
          {
             updateComparisonRunningState(running: false);
          }
+      }
+
+      private ComparisonSettings comparisonSettingsFromDTO()
+      {
+         return new ComparisonSettings
+         {
+            FolderPath1 = _folderComparisonDTO.FirstFolder.FolderPath,
+            FolderPath2  = _folderComparisonDTO.SecondFolder.FolderPath,
+            NumberOfCurves= _folderComparisonDTO.NumberOfCurves
+         };
       }
 
       private void updateComparisonRunningState(bool running)
@@ -104,7 +114,7 @@ namespace InstallationValidator.Core.Presentation
 
       public void SelectFirstFolder()
       {
-         selectFolder(_firstFolderDTO);
+         selectFolder(_folderComparisonDTO.FirstFolder);
       }
 
       private void selectFolder(FolderDTO folderDTO)
@@ -120,7 +130,7 @@ namespace InstallationValidator.Core.Presentation
 
       public void SelectSecondFolder()
       {
-         selectFolder(_secondFolderDTO);
+         selectFolder(_folderComparisonDTO.SecondFolder);
       }
 
       public ILoggerView LoggerView => View;

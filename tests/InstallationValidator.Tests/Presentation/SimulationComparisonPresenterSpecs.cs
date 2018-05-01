@@ -36,8 +36,8 @@ namespace InstallationValidator.Presentation
             .Invokes(x =>
             {
                var folderComparisonDTO = x.GetArgument<FolderComparisonDTO>(0);
-               _firstFolder = folderComparisonDTO.firstFolder;
-               _secondFolder = folderComparisonDTO.secondFolder;
+               _firstFolder = folderComparisonDTO.FirstFolder;
+               _secondFolder = folderComparisonDTO.SecondFolder;
             });
 
          sut = new SimulationComparisonPresenter(_simulationComparisonView, _applicationConfiguration, _dialogCreator, _batchComparisonTask, _validationReportingTask);

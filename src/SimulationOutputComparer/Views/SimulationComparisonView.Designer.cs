@@ -19,6 +19,7 @@
          }
          _screenBinderFolder1.Dispose();
          _screenBinderFolder2.Dispose();
+         _screenBinder.Dispose();
          base.Dispose(disposing);
       }
 
@@ -30,6 +31,7 @@
       /// </summary>
       private void InitializeComponent()
       {
+         this.components = new System.ComponentModel.Container();
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
          this.startButton = new DevExpress.XtraEditors.SimpleButton();
          this.stopButton = new DevExpress.XtraEditors.SimpleButton();
@@ -44,7 +46,9 @@
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+         this.textEditNumberOfCurves = new DevExpress.XtraEditors.TextEdit();
+         this.layoutItemNumberOfCurvesToDisplay = new DevExpress.XtraLayout.LayoutControlItem();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
@@ -58,10 +62,13 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
          // 
+         this.layoutControl.Controls.Add(this.textEditNumberOfCurves);
          this.layoutControl.Controls.Add(this.startButton);
          this.layoutControl.Controls.Add(this.stopButton);
          this.layoutControl.Controls.Add(this.buttonEditFolder2);
@@ -77,16 +84,16 @@
          // 
          // startButton
          // 
-         this.startButton.Location = new System.Drawing.Point(502, 452);
+         this.startButton.Location = new System.Drawing.Point(618, 452);
          this.startButton.Name = "startButton";
-         this.startButton.Size = new System.Drawing.Size(202, 22);
+         this.startButton.Size = new System.Drawing.Size(86, 22);
          this.startButton.StyleController = this.layoutControl;
          this.startButton.TabIndex = 10;
          this.startButton.Text = "startButton";
          // 
          // stopButton
          // 
-         this.stopButton.Location = new System.Drawing.Point(310, 452);
+         this.stopButton.Location = new System.Drawing.Point(368, 452);
          this.stopButton.Name = "stopButton";
          this.stopButton.Size = new System.Drawing.Size(62, 22);
          this.stopButton.StyleController = this.layoutControl;
@@ -95,30 +102,29 @@
          // 
          // buttonEditFolder2
          // 
-         this.buttonEditFolder2.Location = new System.Drawing.Point(138, 36);
+         this.buttonEditFolder2.Location = new System.Drawing.Point(196, 36);
          this.buttonEditFolder2.Name = "buttonEditFolder2";
          this.buttonEditFolder2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-         this.buttonEditFolder2.Size = new System.Drawing.Size(566, 20);
+         this.buttonEditFolder2.Size = new System.Drawing.Size(508, 20);
          this.buttonEditFolder2.StyleController = this.layoutControl;
          this.buttonEditFolder2.TabIndex = 8;
          // 
          // buttonEditFolder1
          // 
-         this.buttonEditFolder1.Location = new System.Drawing.Point(138, 12);
+         this.buttonEditFolder1.Location = new System.Drawing.Point(196, 12);
          this.buttonEditFolder1.Name = "buttonEditFolder1";
          this.buttonEditFolder1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-         this.buttonEditFolder1.Size = new System.Drawing.Size(566, 20);
+         this.buttonEditFolder1.Size = new System.Drawing.Size(508, 20);
          this.buttonEditFolder1.StyleController = this.layoutControl;
          this.buttonEditFolder1.TabIndex = 7;
          // 
          // richEditControl
          // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 70);
+         this.richEditControl.Location = new System.Drawing.Point(12, 94);
          this.richEditControl.Name = "richEditControl";
-         this.richEditControl.Options.Export.Rtf.ExportTheme = true;
-         this.richEditControl.Size = new System.Drawing.Size(692, 378);
+         this.richEditControl.Size = new System.Drawing.Size(692, 354);
          this.richEditControl.TabIndex = 6;
          // 
          // layoutControlGroup
@@ -132,7 +138,8 @@
             this.layoutItemButtonStop,
             this.layoutItemButtonStart,
             this.emptySpaceItem1,
-            this.emptySpaceItem2});
+            this.emptySpaceItem2,
+            this.layoutItemNumberOfCurvesToDisplay});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(716, 486);
@@ -141,9 +148,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 58);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 82);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 382);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 358);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -154,7 +161,7 @@
          this.layoutControlItemFolder1.Name = "layoutControlItemFolder1";
          this.layoutControlItemFolder1.Size = new System.Drawing.Size(696, 24);
          this.layoutControlItemFolder1.TextLocation = DevExpress.Utils.Locations.Left;
-         this.layoutControlItemFolder1.TextSize = new System.Drawing.Size(123, 13);
+         this.layoutControlItemFolder1.TextSize = new System.Drawing.Size(181, 13);
          // 
          // layoutControlItemFolder2
          // 
@@ -163,23 +170,23 @@
          this.layoutControlItemFolder2.Name = "layoutControlItemFolder2";
          this.layoutControlItemFolder2.Size = new System.Drawing.Size(696, 24);
          this.layoutControlItemFolder2.TextLocation = DevExpress.Utils.Locations.Left;
-         this.layoutControlItemFolder2.TextSize = new System.Drawing.Size(123, 13);
+         this.layoutControlItemFolder2.TextSize = new System.Drawing.Size(181, 13);
          // 
          // layoutItemButtonStop
          // 
          this.layoutItemButtonStop.Control = this.stopButton;
          this.layoutItemButtonStop.Location = new System.Drawing.Point(172, 440);
          this.layoutItemButtonStop.Name = "layoutItemButtonStop";
-         this.layoutItemButtonStop.Size = new System.Drawing.Size(192, 26);
-         this.layoutItemButtonStop.TextSize = new System.Drawing.Size(123, 13);
+         this.layoutItemButtonStop.Size = new System.Drawing.Size(250, 26);
+         this.layoutItemButtonStop.TextSize = new System.Drawing.Size(181, 13);
          // 
          // layoutItemButtonStart
          // 
          this.layoutItemButtonStart.Control = this.startButton;
-         this.layoutItemButtonStart.Location = new System.Drawing.Point(364, 440);
+         this.layoutItemButtonStart.Location = new System.Drawing.Point(422, 440);
          this.layoutItemButtonStart.Name = "layoutItemButtonStart";
-         this.layoutItemButtonStart.Size = new System.Drawing.Size(332, 26);
-         this.layoutItemButtonStart.TextSize = new System.Drawing.Size(123, 13);
+         this.layoutItemButtonStart.Size = new System.Drawing.Size(274, 26);
+         this.layoutItemButtonStart.TextSize = new System.Drawing.Size(181, 13);
          // 
          // emptySpaceItem1
          // 
@@ -192,10 +199,26 @@
          // emptySpaceItem2
          // 
          this.emptySpaceItem2.AllowHotTrack = false;
-         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 48);
+         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 72);
          this.emptySpaceItem2.Name = "emptySpaceItem2";
          this.emptySpaceItem2.Size = new System.Drawing.Size(696, 10);
          this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+         // 
+         // numberOfCurvesTextEdit
+         // 
+         this.textEditNumberOfCurves.Location = new System.Drawing.Point(196, 60);
+         this.textEditNumberOfCurves.Name = "textEditNumberOfCurves";
+         this.textEditNumberOfCurves.Size = new System.Drawing.Size(508, 20);
+         this.textEditNumberOfCurves.StyleController = this.layoutControl;
+         this.textEditNumberOfCurves.TabIndex = 11;
+         // 
+         // layoutItemNumberOfCurvesToDisplay
+         // 
+         this.layoutItemNumberOfCurvesToDisplay.Control = this.textEditNumberOfCurves;
+         this.layoutItemNumberOfCurvesToDisplay.Location = new System.Drawing.Point(0, 48);
+         this.layoutItemNumberOfCurvesToDisplay.Name = "layoutItemNumberOfCurvesToDisplay";
+         this.layoutItemNumberOfCurvesToDisplay.Size = new System.Drawing.Size(696, 24);
+         this.layoutItemNumberOfCurvesToDisplay.TextSize = new System.Drawing.Size(181, 13);
          // 
          // SimulationComparisonView
          // 
@@ -220,6 +243,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -241,6 +266,8 @@
       private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+      private DevExpress.XtraEditors.TextEdit textEditNumberOfCurves;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemNumberOfCurvesToDisplay;
    }
 }
 
