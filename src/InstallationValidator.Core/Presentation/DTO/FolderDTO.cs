@@ -8,14 +8,9 @@ namespace InstallationValidator.Core.Presentation.DTO
 {
    public class FolderComparisonDTO
    {
-      public FolderComparisonDTO(FolderDTO firstFolderDTO, FolderDTO secondFolderDTO)
-      {
-         firstFolder = firstFolderDTO;
-         secondFolder = secondFolderDTO;
-      }
-
-      public FolderDTO firstFolder { get; }
-      public FolderDTO secondFolder { get; }
+      public FolderDTO FirstFolder { get; } = new FolderDTO();
+      public FolderDTO SecondFolder { get; } = new FolderDTO();
+      public byte? NumberOfCurves { get; set; } = 1;
    }
 
    public class FolderDTO : ValidatableDTO
@@ -33,12 +28,8 @@ namespace InstallationValidator.Core.Presentation.DTO
 
       public string FolderPath
       {
-         get { return _folderPath; }
-         set
-         {
-            _folderPath = value;
-            OnPropertyChanged();
-         }
+         get => _folderPath;
+         set => SetProperty(ref _folderPath, value);
       }
 
       private static class AllRules

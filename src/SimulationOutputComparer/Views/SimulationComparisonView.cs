@@ -21,12 +21,14 @@ namespace SimulationOutputComparer.Views
       private ISimulationComparisonPresenter _presenter;
       private readonly ScreenBinder<FolderDTO> _screenBinderFolder1;
       private readonly ScreenBinder<FolderDTO> _screenBinderFolder2;
+      private readonly ScreenBinder<FolderComparisonDTO> _screenBinder;
 
       public SimulationComparisonView()
       {
          InitializeComponent();
          _screenBinderFolder1 = new ScreenBinder<FolderDTO>();
          _screenBinderFolder2 = new ScreenBinder<FolderDTO>();
+         _screenBinder = new ScreenBinder<FolderComparisonDTO>();
       }
 
       public override void InitializeResources()
@@ -37,6 +39,7 @@ namespace SimulationOutputComparer.Views
 
          layoutControlItemFolder1.Text = Captions.ComparisonFolder1.FormatForLabel();
          layoutControlItemFolder2.Text = Captions.ComparisonFolder2.FormatForLabel();
+         layoutItemNumberOfCurvesToDisplay.Text = Captions.NumberOfCurvesToDisplay.FormatForLabel();
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
@@ -65,8 +68,12 @@ namespace SimulationOutputComparer.Views
          _screenBinderFolder2.Bind(x => x.FolderPath)
             .To(buttonEditFolder2);
 
+         _screenBinder.Bind(x => x.NumberOfCurves)
+            .To(textEditNumberOfCurves);
+
          RegisterValidationFor(_screenBinderFolder1);
          RegisterValidationFor(_screenBinderFolder2);
+         RegisterValidationFor(_screenBinder);
 
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartComparison());
@@ -122,8 +129,9 @@ namespace SimulationOutputComparer.Views
 
       public void BindTo(FolderComparisonDTO folderComparisonDTO)
       {
-         _screenBinderFolder1.BindToSource(folderComparisonDTO.firstFolder);
-         _screenBinderFolder2.BindToSource(folderComparisonDTO.secondFolder);
+         _screenBinder.BindToSource(folderComparisonDTO);
+         _screenBinderFolder1.BindToSource(folderComparisonDTO.FirstFolder);
+         _screenBinderFolder2.BindToSource(folderComparisonDTO.SecondFolder);
       }
    }
 }

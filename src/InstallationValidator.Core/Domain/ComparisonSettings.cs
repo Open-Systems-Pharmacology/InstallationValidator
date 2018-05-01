@@ -22,5 +22,10 @@ namespace InstallationValidator.Core.Domain
       public bool GenerateResultsForValidSimulation { get; set; } = false;
 
       public IReadOnlyList<string> PredefinedOutputPaths { get; set; } = new List<string>();
+
+      /// <summary>
+      /// Number of curves to add to the report when file being compared are not the same
+      /// </summary>
+      public byte? NumberOfCurves { get; set; }
    }
 }
