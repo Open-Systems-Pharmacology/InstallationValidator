@@ -59,7 +59,8 @@ namespace InstallationValidator.Core.Assets
       public static readonly string Valid = InGreen("Valid");
       public static readonly string Invalid = InRed("Invalid");
       public static readonly string ValidWithWarnings = InOrange("Valid with warnings");
-      public static readonly string OverallComparisonResult = InBold("Overall Comparison Result:");
+      public static readonly string OverallComparisonResult = InBold("Overall comparison result:");
+      public static readonly string NumberOfComparedFiles = InBold("Number of compared files:");
       public static readonly string ComparisonCompleted = InBold("Comparison completed");
 
       public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
@@ -162,7 +163,7 @@ namespace InstallationValidator.Core.Assets
 
    public static class Reporting
    {
-      public static readonly string InstallationValidation = $"Installation Validation";
+      public static readonly string InstallationValidation = "Installation Validation";
       public static readonly string InstallationValidationResults = "Installation Validation Results";
       public static readonly string BatchComparisonResults = "Comparison Results";
       public static readonly string ValidationSummary = "Validation Summary";
@@ -175,6 +176,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string RunningOnVirtualMachine = "Running on Virtual Machine";
       public static readonly string ApplicationVersions = "Application Versions";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
+      public static readonly string NumberOfComparedFiles = "Number of Compared Files";
       public static readonly string OverallValidationResult = "Overall Validation Result";
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";

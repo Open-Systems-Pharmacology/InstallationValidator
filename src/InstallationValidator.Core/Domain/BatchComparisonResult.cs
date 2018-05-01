@@ -31,5 +31,7 @@ namespace InstallationValidator.Core.Domain
       public string FolderPath1 => ComparisonSettings.FolderPath1;
 
       public string FolderPath2 => ComparisonSettings.FolderPath2;
+
+      public int NumberOfComparedFiles => _fileComparisonResults.Count;
    }
 }

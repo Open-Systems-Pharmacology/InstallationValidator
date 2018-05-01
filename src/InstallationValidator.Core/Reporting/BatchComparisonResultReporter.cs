@@ -15,6 +15,7 @@ namespace InstallationValidator.Core.Reporting
          {
             folderComparisonResultsChapter,
             new ValidationStateReport(batchComparisonResult, $"{Assets.Reporting.OverallComparisonResult}: "),
+            new Text($"{Assets.Reporting.NumberOfComparedFiles}: {batchComparisonResult.NumberOfComparedFiles}"),
             batchComparisonResult
          };
       }

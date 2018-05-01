@@ -70,6 +70,7 @@ namespace InstallationValidator.Core.Services
          }
 
          _validationLogger.AppendLine();
+         _validationLogger.AppendLine($"{Logs.NumberOfComparedFiles} {comparison.NumberOfComparedFiles}");
          _validationLogger.AppendLine($"{Logs.OverallComparisonResult} {Logs.StateDisplayFor(comparison.State)}");
 
          return comparison;
