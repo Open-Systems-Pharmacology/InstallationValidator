@@ -22,6 +22,8 @@ namespace InstallationValidator.Core
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
    {
       public override string ProductName => Constants.PRODUCT_NAME_WITH_TRADEMARK;
+      //not used in this context
+      public override int InternalVersion { get; } = 1;
       public override Origin Product { get; } = Origins.Other;
       public override string ProductNameWithTrademark => Constants.PRODUCT_NAME_WITH_TRADEMARK;
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
