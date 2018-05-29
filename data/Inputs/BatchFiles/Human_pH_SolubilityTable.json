@@ -306,18 +306,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|App1|WB|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|App1|WB|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        }
-      ],
       "Individual": "I1",
       "Compounds": [
         {
@@ -372,18 +360,6 @@
               "Unit": "pts/h"
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "Applications|App1|WB|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|App1|WB|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
         }
       ],
       "Individual": "I1",
@@ -449,17 +425,7 @@
         }
       ],
       "Parameters": [
-        {
-          "Path": "Applications|App1|WB|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|App1|WB|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
+       {
           "Path": "Organism|Lumen|Caecum|C1|Solubility",
           "Value": 25.0,
           "Unit": "mg/l",
@@ -571,16 +537,6 @@
         }
       ],
       "Parameters": [
-        {
-          "Path": "Applications|App1|WB|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|App1|WB|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
         {
           "Path": "C1|Solubility table",
           "Value": 100.0,

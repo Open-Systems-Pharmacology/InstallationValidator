@@ -248,13 +248,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
-        }
-      ],
       "Individual": "01_ICRP_0y_Male",
       "Compounds": [
         {
@@ -312,13 +305,6 @@
               "Unit": "pts/h"
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
         }
       ],
       "Individual": "02_ICRP_0.05y_Female",
@@ -380,13 +366,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
-        }
-      ],
       "Individual": "03_ICRP_0.18y_Male",
       "Compounds": [
         {
@@ -444,13 +423,6 @@
               "Unit": "pts/h"
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
         }
       ],
       "Individual": "04_ICRP_1y_Female",
@@ -512,13 +484,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
-        }
-      ],
       "Individual": "05_ICRP_12y_Male",
       "Compounds": [
         {
@@ -578,13 +543,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
-        }
-      ],
       "Individual": "06_ICRP_30y_Female",
       "Compounds": [
         {
@@ -642,13 +600,6 @@
               "Unit": "pts/h"
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "Applications|Infusion|Application_1|ProtocolSchemaItem|Infusion time",
-          "Value": 240.0,
-          "Unit": "min"
         }
       ],
       "Individual": "07_ICRP_100y_Male",
