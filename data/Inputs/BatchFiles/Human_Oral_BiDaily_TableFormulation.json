@@ -1,0 +1,474 @@
+{
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "I1",
+      "Seed": 1137903428,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": {
+          "Value": 30.0,
+          "Unit": "year(s)"
+        }
+      }
+    }
+  ],
+  "Compounds": [
+    {
+      "Name": "C1",
+      "IsSmallMolecule": true,
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.11
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 9999.0,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 7.0
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - PK-Sim Standard",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "Table_Suspension",
+      "FormulationType": "Formulation_Table",
+      "Parameters": [
+        {
+          "Name": "Fraction (dose)",
+          "Value": 0.0,
+          "TableFormula": {
+            "Name": "Fraction (dose)",
+            "XName": "Time",
+            "XDimension": "Time",
+            "XUnit": "h",
+            "YName": "Fraction (dose)",
+            "YDimension": "Dimensionless",
+            "UseDerivedValues": true,
+            "Points": [
+              {
+                "X": 0.0,
+                "Y": 0.0,
+                "RestartSolver": false
+              },
+              {
+                "X": 1.014,
+                "Y": 0.08,
+                "RestartSolver": false
+              },
+              {
+                "X": 1.065,
+                "Y": 0.17,
+                "RestartSolver": false
+              },
+              {
+                "X": 2.25,
+                "Y": 0.25,
+                "RestartSolver": false
+              },
+              {
+                "X": 3.5,
+                "Y": 0.33,
+                "RestartSolver": false
+              },
+              {
+                "X": 5.25,
+                "Y": 0.42,
+                "RestartSolver": false
+              },
+              {
+                "X": 7.0,
+                "Y": 0.5,
+                "RestartSolver": false
+              },
+              {
+                "X": 9.5,
+                "Y": 0.58,
+                "RestartSolver": false
+              },
+              {
+                "X": 13.5,
+                "Y": 0.67,
+                "RestartSolver": false
+              },
+              {
+                "X": 26.25,
+                "Y": 0.75,
+                "RestartSolver": false
+              },
+              {
+                "X": 34.75,
+                "Y": 0.83,
+                "RestartSolver": false
+              },
+              {
+                "X": 45.0,
+                "Y": 0.92,
+                "RestartSolver": false
+              },
+              {
+                "X": 45.25,
+                "Y": 1.0,
+                "RestartSolver": false
+              }
+            ]
+          }
+        },
+        {
+          "Name": "Use as suspension",
+          "Value": 1.0
+        }
+      ],
+      "Description": "Same table points as in NO-Suspension case"
+    },
+    {
+      "Name": "Table_NoSuspension",
+      "FormulationType": "Formulation_Table",
+      "Parameters": [
+        {
+          "Name": "Fraction (dose)",
+          "Value": 0.0,
+          "TableFormula": {
+            "Name": "Fraction (dose)",
+            "XName": "Time",
+            "XDimension": "Time",
+            "XUnit": "h",
+            "YName": "Fraction (dose)",
+            "YDimension": "Dimensionless",
+            "UseDerivedValues": true,
+            "Points": [
+              {
+                "X": 0.0,
+                "Y": 0.0,
+                "RestartSolver": false
+              },
+              {
+                "X": 1.014,
+                "Y": 0.08,
+                "RestartSolver": false
+              },
+              {
+                "X": 1.065,
+                "Y": 0.17,
+                "RestartSolver": false
+              },
+              {
+                "X": 2.25,
+                "Y": 0.25,
+                "RestartSolver": false
+              },
+              {
+                "X": 3.5,
+                "Y": 0.33,
+                "RestartSolver": false
+              },
+              {
+                "X": 5.25,
+                "Y": 0.42,
+                "RestartSolver": false
+              },
+              {
+                "X": 7.0,
+                "Y": 0.5,
+                "RestartSolver": false
+              },
+              {
+                "X": 9.5,
+                "Y": 0.58,
+                "RestartSolver": false
+              },
+              {
+                "X": 13.5,
+                "Y": 0.67,
+                "RestartSolver": false
+              },
+              {
+                "X": 26.25,
+                "Y": 0.75,
+                "RestartSolver": false
+              },
+              {
+                "X": 34.75,
+                "Y": 0.83,
+                "RestartSolver": false
+              },
+              {
+                "X": 45.0,
+                "Y": 0.92,
+                "RestartSolver": false
+              },
+              {
+                "X": 45.25,
+                "Y": 1.0,
+                "RestartSolver": false
+              }
+            ]
+          }
+        },
+        {
+          "Name": "Use as suspension",
+          "Value": 0.0
+        }
+      ],
+      "Description": "Trying to set time points so that the same fraction of drug (1/12) is dissolved while tablet is going through each of GI segments (Stomach to Rectum)\r\n(time values set accordingly to tablet location)"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Oral_BD",
+      "DosingInterval": "Single",
+      "Schemas": [
+        {
+          "Name": "Schema 1",
+          "SchemaItems": [
+            {
+              "Name": "Schema Item 1",
+              "ApplicationType": "Oral",
+              "FormulationKey": "Formulation",
+              "Parameters": [
+                {
+                  "Name": "Start time",
+                  "Value": 0.0,
+                  "Unit": "h"
+                },
+                {
+                  "Name": "InputDose",
+                  "Value": 1.0,
+                  "Unit": "mg/kg"
+                },
+                {
+                  "Name": "Volume of water/body weight",
+                  "Value": 3.5,
+                  "Unit": "ml/kg"
+                }
+              ]
+            },
+            {
+              "Name": "Schema Item 2",
+              "ApplicationType": "Oral",
+              "FormulationKey": "Formulation",
+              "Parameters": [
+                {
+                  "Name": "Start time",
+                  "Value": 12.0,
+                  "Unit": "h"
+                },
+                {
+                  "Name": "InputDose",
+                  "Value": 5.0,
+                  "Unit": "mg/kg"
+                },
+                {
+                  "Name": "Volume of water/body weight",
+                  "Value": 3.5,
+                  "Unit": "ml/kg"
+                }
+              ]
+            }
+          ],
+          "Parameters": [
+            {
+              "Name": "NumberOfRepetitions",
+              "Value": 1.0,
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "TimeUnit": "h"
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "S1_suspension",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "End time",
+              "Value": 72.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "Resolution",
+              "Value": 10.0,
+              "Unit": "pts/h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "Applications|Oral_BD|Table_Suspension|Application_1|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        },
+        {
+          "Path": "Applications|Oral_BD|Table_Suspension|Application_2|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ],
+      "OutputSelections": [
+        "Organism|PeripheralVenousBlood|C1|Plasma (Peripheral Venous Blood)",
+        "Organism|Lumen|C1|Fraction of oral drug mass absorbed into mucosa"
+      ],
+      "Individual": "I1",
+      "Compounds": [
+        {
+          "Name": "C1",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Oral_BD",
+            "Formulations": [
+              {
+                "Name": "Table_Suspension",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "S2_NoSuspension",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "End time",
+              "Value": 72.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "Resolution",
+              "Value": 10.0,
+              "Unit": "pts/h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "Applications|Oral_BD|Table_NoSuspension|Application_1|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        },
+        {
+          "Path": "Applications|Oral_BD|Table_NoSuspension|Application_2|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ],
+      "OutputSelections": [
+        "Organism|Lumen|C1|Fraction of oral drug mass absorbed into mucosa"
+      ],
+      "Individual": "I1",
+      "Compounds": [
+        {
+          "Name": "C1",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Oral_BD",
+            "Formulations": [
+              {
+                "Name": "Table_NoSuspension",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
+}
