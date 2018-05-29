@@ -363,18 +363,6 @@
           ]
         }
       ],
-      "Parameters": [
-        {
-          "Path": "Applications|Oral_BD|Table_Suspension|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|Oral_BD|Table_Suspension|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        }
-      ],
       "OutputSelections": [
         "Organism|PeripheralVenousBlood|C1|Plasma (Peripheral Venous Blood)",
         "Organism|Lumen|C1|Fraction of oral drug mass absorbed into mucosa"
@@ -432,18 +420,6 @@
               }
             }
           ]
-        }
-      ],
-      "Parameters": [
-        {
-          "Path": "Applications|Oral_BD|Table_NoSuspension|Application_1|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
-        },
-        {
-          "Path": "Applications|Oral_BD|Table_NoSuspension|Application_2|ProtocolSchemaItem|Volume of water/body weight",
-          "Value": 3.5,
-          "Unit": "ml/kg"
         }
       ],
       "OutputSelections": [
