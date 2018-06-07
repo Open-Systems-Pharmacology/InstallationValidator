@@ -72,7 +72,7 @@
                 <File Id="fil898A3F073DA5D336C470E334E34F672A" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Inputs\BatchFiles\Human_SingleORAL_Dissolved.json" />
             </Component>
             <Component Id="cmpBD8DA7801B672C15F4AEA663DD677D85" Directory="dir26BE88F606607BC4126056BFC29E3711" Guid="{2D43DC01-10E4-43A1-AC61-FA646DB8B157}">
-                <File Id="fil52BFAE34E7FEF0207BA610E115040F92" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Inputs\BatchFiles\Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance.json" />
+                <File Id="fil52BFAE34E7FEF0207BA610E115040F92" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Inputs\BatchFiles\Human_SingleORAL_Dissolved_PlasmaClearance.json" />
             </Component>
             <Component Id="cmpE565F019745A1D02A059857F0916BC6C" Directory="dir26BE88F606607BC4126056BFC29E3711" Guid="{19166CC8-3A62-4005-B909-157B0266B7BA}">
                 <File Id="filACB9F9FCC9526AF687B47F3821EFF4AD" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Inputs\BatchFiles\Human_SingleORAL_Lint80.json" />
@@ -375,13 +375,13 @@
                 <File Id="filF78F80447581B7869CB48F7D6CBB6529" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved-Human_SingleORAL_Dissolved_MW_800_fu_0.6_LogP_-5.json" />
             </Component>
             <Component Id="cmp3D02FEDBACCC82100F0523D2BAB83802" Directory="dir187673E41FC996AC6282BF816FE4B23F" Guid="{B1BAE593-59D4-4B0D-98CA-166D0BE06EE8}">
-                <File Id="filFD3AC1E3861BF669B11045F2F9DDB29A" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance-Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance.json" />
+                <File Id="filFD3AC1E3861BF669B11045F2F9DDB29A" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_PlasmaClearance-Human_SingleORAL_Dissolved_PlasmaClearance.json" />
             </Component>
             <Component Id="cmpF7A523BAAE53E90E3BA8ECC38D369E39" Directory="dir187673E41FC996AC6282BF816FE4B23F" Guid="{37D87325-6DDC-4FC0-AA97-ED89B36131D6}">
-                <File Id="filA08B7DE59B866F268C73BE3FAD2373FC" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance-Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance_MW_200_fu_0.2_LogP_5.json" />
+                <File Id="filA08B7DE59B866F268C73BE3FAD2373FC" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_PlasmaClearance-Human_SingleORAL_Dissolved_PlasmaClearance_MW_200_fu_0.2_LogP_5.json" />
             </Component>
             <Component Id="cmp257CB835AC83A341E76599AE0C52213B" Directory="dir187673E41FC996AC6282BF816FE4B23F" Guid="{D4721737-AD1F-422D-A5A4-1CD2DFADBCF8}">
-                <File Id="fil3CCA1927DB2DC82BD01FE5A7316A8783" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance-Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance_MW_800_fu_0.6_LogP_-5.json" />
+                <File Id="fil3CCA1927DB2DC82BD01FE5A7316A8783" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Dissolved_PlasmaClearance-Human_SingleORAL_Dissolved_PlasmaClearance_MW_800_fu_0.6_LogP_-5.json" />
             </Component>
             <Component Id="cmpE5EE7DCCCFBF23CBA2FB442E5F5F9FE6" Directory="dir187673E41FC996AC6282BF816FE4B23F" Guid="{50B5A77C-B81A-478E-A807-56D5770A60AB}">
                 <File Id="fil64E40AA423661D840FE8A78EAC354B3A" KeyPath="yes" Source="$(var.DeployDir)\..\..\data\Outputs\BatchFiles\Human_SingleORAL_Lint80-Human_SingleORAL_Lint80.json" />

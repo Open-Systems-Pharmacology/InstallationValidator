@@ -147,7 +147,7 @@
   ],
   "Simulations": [
     {
-      "Name": "Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance",
+      "Name": "Human_SingleORAL_Dissolved_PlasmaClearance",
       "Model": "4Comp",
       "Solver": {
         "AbsTol": 1E-13,
@@ -204,7 +204,7 @@
       "HasResults": false
     },
     {
-      "Name": "Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance_MW_200_fu_0.2_LogP_5",
+      "Name": "Human_SingleORAL_Dissolved_PlasmaClearance_MW_200_fu_0.2_LogP_5",
       "Model": "4Comp",
       "Solver": {
         "AbsTol": 1E-13,
@@ -277,7 +277,7 @@
       "HasResults": false
     },
     {
-      "Name": "Human_SingleORAL_Dissolved_LiverPlasmaClearance_KidneyPlasmaClearance_MW_800_fu_0.6_LogP_-5",
+      "Name": "Human_SingleORAL_Dissolved_PlasmaClearance_MW_800_fu_0.6_LogP_-5",
       "Model": "4Comp",
       "Solver": {
         "AbsTol": 1E-13,
