@@ -1,63 +1,207 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
         "Gender": "MALE",
-        "Age": 33,
-        "Height": 17.6,
-        "Weight": 83,
-    },
-    "Compounds": [{
-        "Name": "C3",
-        "Lipophilicity": 0.778,
-        "FractionUnbound": 0.4,
-        "MolWeight": 2.322E-7,
-        "SolubilityAtRefpH": 1110E-6,
-        "RefpH": 7,
-        "PkaTypes": [
-            {
-                "Type": "Acid",
-                "Value": 7.3
-            }
-        ],
-        "CalculationMethods": [
-            "Cellular partition coefficient method - Rodgers and Rowland",
-            "Cellular permeability - PK-Sim Standard",
-            "IntestinalPermeability_PKSim"
-        ],
-       "SystemicProcesses": [
-            {
-                "SystemicProcessType": "Hepatic",
-                "InternalName": "LiverClearance",
-                "DataSource": "Lab",
-                "ParameterValues": {
-                    "Specific clearance": 1.78E-3
-                }
-            },
-            {
-                "SystemicProcessType": "Renal",
-                "InternalName": "KidneyClearance",
-                "DataSource": "Lab",
-                "ParameterValues": {
-                    "Plasma clearance": 2.26E-3
-                }
-            },
-        ],
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "Oral",
-        "Dose": 400,
-        "DoseUnit": "mg",
-        "EndTime": 600
-     }],
-    "Formulation":{
-        "Name": "F",
-        "FormulationType": "Formulation_Dissolved"
-    },
-    "Configuration": {
-        "Model": "4Comp",
-        "RelTol": 1e-7,
-        "AbsTol": 1e-12
+        "Age": {
+          "Value": 33.0,
+          "Unit": "year(s)"
+        },
+        "GestationalAge": {
+          "Value": 40.0,
+          "Unit": "week(s)"
+        },
+        "Weight": {
+          "Value": 83.0,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 176.0,
+          "Unit": "cm"
+        }
+      }
     }
+  ],
+  "Compounds": [
+    {
+      "Name": "C3",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 0.778,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.4
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 1110.0,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 7.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 7.3
+        }
+      ],
+      "Processes": [
+        {
+          "InternalName": "LiverClearance",
+          "DataSource": "Lab",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Specific clearance",
+              "Value": 0.00178,
+              "Unit": "1/min"
+            }
+          ]
+        },
+        {
+          "InternalName": "KidneyClearance",
+          "DataSource": "Lab",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Plasma clearance",
+              "Value": 2.26,
+              "Unit": "ml/min/kg"
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 232.2,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "F",
+      "FormulationType": "Formulation_Dissolved"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "Oral",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 400.0,
+          "Unit": "mg"
+        },
+        {
+          "Name": "End time",
+          "Value": 10.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "Test 18.1_I2_C3_A1_Config2",
+      "Model": "4Comp",
+      "Solver": {
+        "AbsTol": 1E-12,
+        "RelTol": 1E-07
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "C3",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Processes": [
+            {
+              "Name": "Total Hepatic Clearance-Lab"
+            },
+            {
+              "Name": "Renal Clearances-Lab"
+            }
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }

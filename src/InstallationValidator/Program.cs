@@ -32,7 +32,6 @@ namespace InstallationValidator
          catch (Exception e)
          {
             MessageBox.Show(e.ExceptionMessageWithStackTrace(), "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            e.LogError();
          }
       }
    }

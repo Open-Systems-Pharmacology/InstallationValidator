@@ -1,35 +1,155 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Rat",
-        "Weight": 0.5,
-    },
-    "Compounds": [{
-        "Name": "drug",
-        "Lipophilicity": 3,
-        "FractionUnbound": 0.8,
-        "MolWeight": 4E-7,
-        "SolubilityAtRefpH": 1E-7,
-        "RefpH": 9,
-        "PkaTypes": [{
-            "Type": "Acid",
-            "Value": 8
-        }],
-        "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "DI_6_6_12",
-        "ApplicationType": "Oral",
-        "Dose": 10,
-        "DoseUnit": "mg/kg",
-        "EndTime": 2880
-    }],
-    "Formulation":{
-		"Name": "F",
-		"FormulationType": "Formulation_Dissolved",
-    },
-    "Configuration": {
-        "Model": "4Comp",
-        "Resolution": 0.1,
-        "EndTime": 3000,
+        "Weight": {
+          "Value": 0.5,
+          "Unit": "kg"
+        }
+      }
     }
+  ],
+  "Compounds": [
+    {
+      "Name": "drug",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.8
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.1,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 9.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 8.0
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "F",
+      "FormulationType": "Formulation_Dissolved"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "Oral",
+      "DosingInterval": "DI_6_6_12",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 10.0,
+          "Unit": "mg/kg"
+        },
+        {
+          "Name": "End time",
+          "Value": 48.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "Rat_MultiORAL_6_6_12_Dissolved",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 50.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 6.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }

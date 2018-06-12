@@ -1,60 +1,285 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Mouse",
-    },
-    "Compounds": [{
-        "Name": "drug",
-        "IsSmallMolecule": false,
-        "FractionUnbound": 1,
-        "MolWeight": 1.5E-4,
-         "CalculationMethods": [
+        "Weight": {
+          "Value": 0.021011,
+          "Unit": "kg"
+        }
+      }
+    }
+  ],
+  "Compounds": [
+    {
+      "Name": "drug",
+      "IsSmallMolecule": false,
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 0.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 1.0
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.0,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 0.0
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - PK-Sim Standard",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 150000.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "IntravenousBolus",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 8.0,
+          "Unit": "mg/kg"
+        },
+        {
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "SingleIV_2Pores_Mouse",
+      "Model": "TwoPores",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
             "Cellular partition coefficient method - PK-Sim Standard",
-            "Cellular permeability - PK-Sim Standard",
-            "IntestinalPermeability_PKSim"
-        ]
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "IntravenousBolus",
-        "Dose": 8,
-        "DoseUnit": "mg/kg",
-        "EndTime": 1440
-    }],
-    "Configuration": {
-        "Model": "TwoPores",
-
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol"
+          }
+        }
+      ],
+      "HasResults": false
     },
-    "ParameterVariationSets": [
+    {
+      "Name": "SingleIV_2Pores_Mouse_SimulationA",
+      "Model": "TwoPores",
+      "Solver": {},
+      "OutputSchema": [
         {
-            "Name": "SimulationA",
-            "ParameterValues": [
-                {
-                    "ParameterPath": "drug|Kd (FcRn) in endosomal space",
-                    "Value": 0.75
-                }
-            ]
-        },
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        
         {
-            "Name": "SimulationB",
-            "ParameterValues": [
-                {
-                    "ParameterPath": "drug|Kd (FcRn) in endosomal space",
-                    "Value": 0.75
-                },
-                {
-                    "ParameterPath": "Organism|EndogenousIgG|Endosome|Start concentration of free FcRn (endosome)",
-                    "Value": 0
-                }
-            ]
+          "Path": "drug|Kd (FcRn) in endosomal space",
+          "Value": 0.75,
+          "Unit": "µmol/l"
         },
+      ],
+      "Individual": "Individual",
+      "Compounds": [
         {
-            "Name": "SimulationE",
-            "ParameterValues": [
-                {
-                    "ParameterPath": "drug|Kd (FcRn) in endosomal space",
-                    "Value": 0.75
-                }
-            ]
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol"
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "SingleIV_2Pores_Mouse_SimulationB",
+      "Model": "TwoPores",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [       
+        {
+          "Path": "drug|Kd (FcRn) in endosomal space",
+          "Value": 0.75,
+          "Unit": "µmol/l"
+        },      
+        {
+          "Path": "Organism|EndogenousIgG|Endosome|Start concentration of free FcRn (endosome)",
+          "Value": 0.0,
+          "Unit": "µmol/l"
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol"
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "SingleIV_2Pores_Mouse_SimulationE",
+      "Model": "TwoPores",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "drug|Kd (FcRn) in endosomal space",
+          "Value": 0.75,
+          "Unit": "µmol/l"
         },
-    ]
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "Protocol"
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }

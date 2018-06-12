@@ -38,14 +38,26 @@ namespace InstallationValidator.Core.Services
             outputFileComparision.AbsTol = simulation1.Simulation.AbsTol;
             outputFileComparision.RelTol = simulation1.Simulation.RelTol;
 
+
+            var outputComparisonResults = new List<OutputComparisonResult>();
             foreach (var outputValue in simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)))
             {
                token.ThrowIfCancellationRequested();
-               outputFileComparision.AddOutputComparison(compareOutputs(simulation1, simulation2, outputValue, simulation2.OutputByPath(outputValue.Path),comparisonSettings));
+               outputComparisonResults.Add(compareOutputs(simulation1, simulation2, outputValue, simulation2.OutputByPath(outputValue.Path), comparisonSettings));
             }
 
+            outputFileComparision.AddOutputComparisons(selectOutputComparisonFrom(outputComparisonResults, comparisonSettings));
+           
             return outputFileComparision;
          }, token);
+      }
+
+      private IEnumerable<OutputComparisonResult> selectOutputComparisonFrom(IReadOnlyList<OutputComparisonResult> outputComparisonResults, ComparisonSettings comparisonSettings)
+      {
+         if (!comparisonSettings.NumberOfCurves.HasValue)
+            return outputComparisonResults;
+
+         return outputComparisonResults.OrderByDescending(x => x.Deviation).Take(comparisonSettings.NumberOfCurves.Value);
       }
 
       private TimeComparisonResult compareTime(BatchSimulationComparison simulationComparison1, BatchSimulationComparison simulationComparison2, ComparisonSettings comparisonSettings)

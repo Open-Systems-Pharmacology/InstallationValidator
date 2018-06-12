@@ -1,54 +1,173 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
         "Gender": "MALE",
-        "Age": 30,
-        "Weight": 80,
-        "Height": 17.8
-    },
-    "Compounds": [{
-        "Name": "C3",
-        "Lipophilicity": 3,
-        "FractionUnbound": 0.1,
-        "MolWeight": 4E-7,
-        "SolubilityAtRefpH": 1E-5,
-        "IsSmallMolecule": true,
-        "RefpH": 7,
-        "PkaTypes": [
-            {
-                "Type": "Base",
-                "Value": 9
-            },
-            {
-                "Type": "Neutral",
-                "Value": 7
-            },
-            {
-                "Type": "Neutral",
-                "Value": 7
-            }
-        ],
-        "CalculationMethods": [
-            "Cellular partition coefficient method - PK-Sim Standard",
-            "Cellular permeability - Charge dependent Schmitt",
-            "IntestinalPermeability_PKSim"
-        ]
-    }],
-    "ApplicationProtocols": [{
-        "DosingInterval": "Single",
-        "ApplicationType": "Oral",
-        "Dose": 10,
-        "DoseUnit": "mg",
-        "EndTime": 1440
-    }],
-    "Formulation":{
-		"Name": "F",
-		"FormulationType": "Formulation_Dissolved",
-    },
-    "Configuration": {
-        "Model": "TwoPores",
-        "RelTol": 1e-8,
-        "AbsTol": 1e-13,
+        "Age": {
+          "Value": 30.0,
+          "Unit": "year(s)"
+        },
+        "GestationalAge": {
+          "Value": 40.0,
+          "Unit": "week(s)"
+        },
+        "Weight": {
+          "Value": 80.0,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 178.0,
+          "Unit": "cm"
+        }
+      }
     }
+  ],
+  "Compounds": [
+    {
+      "Name": "C3",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.1
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 10.0,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 7.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Base",
+          "Pka": 9.0
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - PK-Sim Standard",
+        "Cellular permeability - Charge dependent Schmitt"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "F",
+      "FormulationType": "Formulation_Dissolved"
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Protocol",
+      "ApplicationType": "Oral",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 10.0,
+          "Unit": "mg"
+        },
+        {
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "SingleORAL_C3_2Pores_standard_schmitt_standard",
+      "Model": "TwoPores",
+      "Solver": {
+        "AbsTol": 1E-13,
+        "RelTol": 1E-08
+      },
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "C3",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - PK-Sim Standard",
+            "Cellular permeability - Charge dependent Schmitt"
+          ],
+          "Protocol": {
+            "Name": "Protocol",
+            "Formulations": [
+              {
+                "Name": "F",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
 }

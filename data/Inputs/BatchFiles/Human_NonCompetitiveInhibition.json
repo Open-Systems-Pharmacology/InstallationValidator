@@ -1,86 +1,316 @@
 {
-    "Individual": {
+  "Version": 74,
+  "Individuals": [
+    {
+      "Name": "Individual",
+      "Seed": 123456,
+      "OriginData": {
+        "CalculationMethods": [
+          "Body surface area - Mosteller",
+          "SurfaceAreaPlsInt_VAR1"
+        ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
         "Gender": "MALE",
-        "Age": 30,
-        "Weight": 80,
-        "Height": 17.8,
-        "Enzymes": [{
-            "Name": "CYP3A4",
-            "ReferenceConcentration": 4.32,
-            "HalfLifeLiver": 2220,
-            "HalfLifeIntestine": 960,
-            "Expressions": {
-                "Pericentral": 1,
-                "Periportal": 1
+        "Age": {
+          "Value": 30.0,
+          "Unit": "year(s)"
+        },
+        "GestationalAge": {
+          "Value": 40.0,
+          "Unit": "week(s)"
+        },
+        "Weight": {
+          "Value": 80.0,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 178.0,
+          "Unit": "cm"
+        }
+      },
+      "Molecules": [
+        {
+          "Name": "CYP3A4",
+          "Type": "Enzyme",
+          "MembraneLocation": "Apical",
+          "TissueLocation": "Intracellular",
+          "IntracellularVascularEndoLocation": "Endosomal",
+          "Expression": [
+            {
+              "Name": "Periportal",
+              "Value": 1.0
+            },
+            {
+              "Name": "Pericentral",
+              "Value": 1.0
             }
-        }]
+          ],
+          "Parameters": [
+            {
+              "Name": "Reference concentration",
+              "Value": 4.32,
+              "Unit": "µmol/l"
+            },
+            {
+              "Name": "t1/2 (liver)",
+              "Value": 37.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "t1/2 (intestine)",
+              "Value": 16.0,
+              "Unit": "h"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Compounds": [
+    {
+      "Name": "drug",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 3.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.8
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.1,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 9.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 8.0
+        }
+      ],
+      "Processes": [
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "Lab",
+          "Molecule": "CYP3A4",
+          "Parameters": [
+            {
+              "Name": "Vmax",
+              "Value": 10.0,
+              "Unit": "µmol/l/min"
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 400.0,
+          "Unit": "g/mol"
+        }
+      ]
     },
-    "Compounds": [
+    {
+      "Name": "inhibitor",
+      "PlasmaProteinBindingPartner": "Albumin",
+      "Lipophilicity": [
         {
-            "Name": "drug",
-            "Lipophilicity": 3,
-            "FractionUnbound": 0.8,
-            "MolWeight": 4.0E-7,
-            "SolubilityAtRefpH": 1.0E-7,
-            "RefpH": 9,
-            "PkaTypes": [{
-                "Type": "Acid",
-                "Value": 8
-            }],
-            "PartialProcesses": [{
-                "MoleculeName": "CYP3A4",
-                "InternalName": "MetabolizationSpecific_MM",
-                "DataSource": "Lab",
-                "ParameterValues": {"Vmax": 10}
-            }],
-            "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": 2.0,
+              "Unit": "Log Units"
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.6
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 0.1,
+              "Unit": "mg/l"
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 9.0
+            }
+          ]
+        }
+      ],
+      "PkaTypes": [
+        {
+          "Type": "Acid",
+          "Pka": 8.0
+        }
+      ],
+      "Processes": [
+        {
+          "InternalName": "NoncompetitiveInhibition",
+          "DataSource": "Lab",
+          "Molecule": "CYP3A4"
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 300.0,
+          "Unit": "g/mol"
+        }
+      ]
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "iv1",
+      "ApplicationType": "IntravenousBolus",
+      "DosingInterval": "DI_12_12",
+      "Parameters": [
+        {
+          "Name": "InputDose",
+          "Value": 2.0,
+          "Unit": "mg"
         },
         {
-            "Name": "inhibitor",
-            "Lipophilicity": 2,
-            "FractionUnbound": 0.6,
-            "MolWeight": 3.0E-7,
-            "SolubilityAtRefpH": 1.0E-7,
-            "RefpH": 9,
-            "PkaTypes": [{
-                "Type": "Acid",
-                "Value": 8
-            }],
-             "PartialProcesses": [{
-                "MoleculeName": "CYP3A4",
-                "InternalName": "NoncompetitiveInhibition",
-                "DataSource": "Lab",
-                "ParameterValues": {"Ki": 1}
-            }],
-            "CalculationMethods": ["Cellular partition coefficient method - Rodgers and Rowland"]
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
         }
-    ],
-    "ApplicationProtocols": [
+      ]
+    },
+    {
+      "Name": "iv2",
+      "ApplicationType": "IntravenousBolus",
+      "DosingInterval": "DI_6_6_6_6",
+      "Parameters": [
         {
-            "Name": "iv1",
-            "CompoundName": "drug",
-            "DosingInterval": "DI_12_12",
-            "ApplicationType": "IntravenousBolus",
-            "Dose": 2,
-            "DoseUnit": "mg",
-            "EndTime": 1440
+          "Name": "InputDose",
+          "Value": 5.0,
+          "Unit": "mg"
         },
         {
-            "Name": "iv2",
-            "CompoundName": "inhibitor",
-            "DosingInterval": "DI_6_6_6_6",
-            "ApplicationType": "IntravenousBolus",
-            "Dose": 5,
-            "DoseUnit": "mg",
-            "EndTime": 1440
+          "Name": "End time",
+          "Value": 24.0,
+          "Unit": "h"
         }
-    ],
-    "Interactions": [{
-        "ProcessName": "CYP3A4-Lab",
-        "MoleculeName": "CYP3A4",
-        "CompoundName": "inhibitor"
-    }],
-    "Configuration": {"Model": "4Comp"}
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "Human_NonCompetitiveInhibition",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 24.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+     "Individual": "Individual",
+      "Compounds": [
+        {
+          "Name": "drug",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Processes": [
+            {
+              "Name": "CYP3A4-Lab",
+              "MoleculeName": "CYP3A4"
+            }
+          ],
+          "Protocol": {
+            "Name": "iv1"
+          }
+        },
+        {
+          "Name": "inhibitor",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Protocol": {
+            "Name": "iv2"
+          }
+        }
+      ],
+      "HasResults": false,
+      "Interactions": [
+        {
+          "Name": "CYP3A4-Lab",
+          "MoleculeName": "CYP3A4",
+          "CompoundName": "inhibitor"
+        }
+      ]
+    }
+  ]
 }

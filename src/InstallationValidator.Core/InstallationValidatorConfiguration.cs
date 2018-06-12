@@ -13,7 +13,7 @@ namespace InstallationValidator.Core
       string PKSimInstallFolderPath { get; }
       string BatchInputsFolderPath { get; }
       string BatchOutputsFolderPath { get; }
-      string PKSimBatchToolPath { get; }
+      string PKSimCLIPath { get; }
       string PKSimBinaryExecutablePath { get; }
       string MoBiBinaryExecutablePath { get; }
       string DefaultOutputPath { get; }
@@ -22,6 +22,8 @@ namespace InstallationValidator.Core
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
    {
       public override string ProductName => Constants.PRODUCT_NAME_WITH_TRADEMARK;
+      //not used in this context
+      public override int InternalVersion { get; } = 1;
       public override Origin Product { get; } = Origins.Other;
       public override string ProductNameWithTrademark => Constants.PRODUCT_NAME_WITH_TRADEMARK;
       public override ApplicationIcon Icon { get; } = ApplicationIcons.Comparison;
@@ -42,7 +44,7 @@ namespace InstallationValidator.Core
 
       public string BatchOutputsFolderPath => AllUsersFile(Constants.Tools.BATCH_OUTPUTS);
 
-      public string PKSimBatchToolPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_BATCH_TOOL);
+      public string PKSimCLIPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_CLI);
 
       private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacology, string installDir)
       {

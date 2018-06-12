@@ -23,7 +23,7 @@ namespace InstallationValidator.Core.Reporting
          var objectsToReport = new List<object>
          {
             new Section(Assets.Reporting.BatchComparisonResults),
-            new Paragraph(Assets.Reporting.OverallComparisonResult),
+            new SubParagraph(Assets.Reporting.OverallComparisonResult),
             new ValidationStateReport(comparisonResult),
             new SubParagraph(Assets.Reporting.ComparisonFolder(comparisonResult.FolderPathCaption1)),
             comparisonResult.FolderPath1,
