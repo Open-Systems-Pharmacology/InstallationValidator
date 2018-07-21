@@ -10,7 +10,6 @@ namespace InstallationValidator.Core
 {
    public interface IInstallationValidatorConfiguration : IApplicationConfiguration
    {
-      string PKSimInstallFolderPath { get; }
       string BatchInputsFolderPath { get; }
       string BatchOutputsFolderPath { get; }
       string PKSimCLIPath { get; }
