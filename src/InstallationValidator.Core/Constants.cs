@@ -13,7 +13,7 @@ namespace InstallationValidator.Core
       public const double MAX_DEVIATION_OUTPUT = 0.02; //2%
       public static readonly string PRODUCT_NAME = "Installation Validator";
       public static readonly string PRODUCT_NAME_WITH_TRADEMARK = $"{PRODUCT_NAME}®";
-      public static readonly string DEFAULT_SKIN = "Metropolis"; //"Office 2013 Light Gray";
+      public static readonly string DEFAULT_SKIN = "Metropolis";
       public const int BUTTON_HEIGHT = 48;
 
       public static IReadOnlyList<string> PREDEFINED_OUTPUT_PATHS = new[]
