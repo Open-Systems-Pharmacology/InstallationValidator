@@ -18,7 +18,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="OSP_SUITE" Name="$(var.Manufacturer)">
         <Directory Id="INSTALLDIR" Name="$(var.ProductFullName)">
-          <Component Id="InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E">
+          <Component Id="InstallationValidator.exe" Guid="AB6B9A7A-44F5-4518-A209-B1485C033F0E" Win64="yes">
             <File Name="InstallationValidator.exe" Id="InstallationValidator.exe" KeyPath="yes" Source="InstallationValidator.exe">
               <Shortcut Name="Installation Validator" Id="InstallationValidatorShortCut" Icon="InstallationValidatorIcon.exe" Directory="OSPSuiteMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" />
             </File>
@@ -74,7 +74,7 @@
       <!--Start menu Programms -->
       <Directory Id="ProgramMenuFolder">
         <Directory Id="OSPSuiteMenuDir" Name="$(var.SuiteName) $(var.ProductReleaseVersion)">
-          <Component Id="OSPSuiteMenuDir" Guid="E6CBAC46-7A96-4FCA-AF4E-7DF7B6A10C98">
+          <Component Id="OSPSuiteMenuDir" Guid="E6CBAC46-7A96-4FCA-AF4E-7DF7B6A10C98" Win64="yes">
             <RemoveFolder Id="OSPSuiteMenuDir" On="uninstall" />
             <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\OSP" Type="string" Value="" KeyPath="yes" />
           </Component>
