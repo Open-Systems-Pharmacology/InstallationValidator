@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentNHibernate.Utils;
 using OSPSuite.Core.Domain;
+using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Domain
 {
