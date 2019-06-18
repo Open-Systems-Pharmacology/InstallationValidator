@@ -8,7 +8,6 @@ using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core.Domain;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Services;
-using OSPSuite.TeXReporting;
 using OSPSuite.Utility;
 
 namespace InstallationValidator.IntegrationTests
@@ -18,7 +17,7 @@ namespace InstallationValidator.IntegrationTests
    {
       private DirectoryInfo _reportsDir;
       private ReportConfiguration _reportConfiguration;
-      protected static ComparisonSettings _comparsionSettings;
+      protected static ComparisonSettings _comparisonSettings;
 
       public override void GlobalContext()
       {
@@ -31,17 +30,13 @@ namespace InstallationValidator.IntegrationTests
          {
             Title = "Testing Reports",
             Author = "Unit Tests Engine",
-            Keywords = new[] { "Tests", "PKReporting", "SBSuite" },
-            Software = "SBSuite",
             SubTitle = "SubTitle",
-            SoftwareVersion = "5.2",
-            ContentFileName = "Content",
             DeleteWorkingDir = true,
-            ColorStyle = ReportSettings.ReportColorStyles.Color,
+            ColorStyle = ReportColorStyles.Color,
             Template = new ReportTemplate { Path = TEXTemplateFolder() }
          };
 
-         _comparsionSettings = new ComparisonSettings
+         _comparisonSettings = new ComparisonSettings
          {
             FolderPath1 = "F1",
             FolderPath2 = "F2",
@@ -75,7 +70,7 @@ namespace InstallationValidator.IntegrationTests
          var outputComparisonResult = createOutputDeviationFailureResult();
          var timeComparisonResult = new TimeComparisonResult(ValidationState.Invalid, "the time message") { Deviation = 1.0 };
          timeFileComparisonResult.TimeComparison = timeComparisonResult;
-         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", _comparsionSettings, ValidationState.Valid, ""));
+         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", _comparisonSettings, ValidationState.Valid, ""));
          outputFileComparisonResult.AddOutputComparison(outputComparisonResult);
          outputFileComparisonResult.TimeComparison = new TimeComparisonResult(ValidationState.Valid, "valid");
 
@@ -105,7 +100,7 @@ namespace InstallationValidator.IntegrationTests
 
       private  OutputComparisonResult createOutputDeviationFailureResult()
       {
-         var outputDeviationFailureResult = new OutputComparisonResult("the path", _comparsionSettings, ValidationState.Invalid, "the message")
+         var outputDeviationFailureResult = new OutputComparisonResult("the path", _comparisonSettings, ValidationState.Invalid, "the message")
          {
             Deviation = 44.0,
             Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)) { Dimension = "Mass", Caption = "name1" },

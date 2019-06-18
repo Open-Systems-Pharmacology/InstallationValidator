@@ -7,6 +7,7 @@ using OSPSuite.Core.Domain.UnitSystem;
 using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Serialization.Xml;
 using OSPSuite.Core.Services;
+using OSPSuite.Engine;
 using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.Infrastructure.Services;
@@ -33,6 +34,8 @@ namespace InstallationValidator.Core
             x.WithConvention(new OSPSuiteRegistrationConvention(registerConcreteType: true));
             x.RegisterAs(LifeStyle.Transient);
          });
+
+         container.AddRegister(x => x.FromType<EngineRegister>());
 
          registerReportingComponents(container);
 
