@@ -45,7 +45,7 @@ namespace InstallationValidator.IntegrationTests
 
       public static string TEXTemplateFolder()
       {
-         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..\\Templates", "StandardTemplate");
+         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TeXTemplates", "StandardTemplate");
       }
 
       public void CreateReportAndValidate(object objectToReport, string reportName)
