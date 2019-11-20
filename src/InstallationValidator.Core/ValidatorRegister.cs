@@ -4,15 +4,12 @@ using InstallationValidator.Core.Reporting;
 using InstallationValidator.Core.Services;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain.UnitSystem;
-using OSPSuite.Core.Reporting;
 using OSPSuite.Core.Serialization.Xml;
 using OSPSuite.Core.Services;
-using OSPSuite.Engine;
+using OSPSuite.Infrastructure;
 using OSPSuite.Infrastructure.Container.Castle;
 using OSPSuite.Infrastructure.Reporting;
-using OSPSuite.Infrastructure.Services;
 using OSPSuite.Presentation.Services;
-using OSPSuite.Utility.Compression;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Events;
 using OSPSuite.Utility.Exceptions;
@@ -35,10 +32,9 @@ namespace InstallationValidator.Core
             x.RegisterAs(LifeStyle.Transient);
          });
 
-         container.AddRegister(x => x.FromType<EngineRegister>());
-
          registerReportingComponents(container);
 
+         container.AddRegister(x => x.FromType<InfrastructureRegister>());
          container.Register<FolderInfo, FolderInfo>();
          container.Register<IComparisonStrategy, PointwiseComparisonStrategy>();
 
@@ -49,9 +45,6 @@ namespace InstallationValidator.Core
 
       private void registerCoreDependencies(IContainer container)
       {
-         container.Register<ICompression, SharpLibCompression>();
-         container.Register<IStringCompression, StringCompression>();
-
          container.Register<IUnitSystemXmlSerializerRepository, UnitSystemXmlSerializerRepository>(LifeStyle.Singleton);
          container.Resolve<IUnitSystemXmlSerializerRepository>().PerformMapping();
          container.Register<IDimensionFactoryPersistor, DimensionFactoryPersistor>();
@@ -78,7 +71,7 @@ namespace InstallationValidator.Core
       private static void registerReportingComponents(IContainer container)
       {
          container.AddRegister(x => x.FromType<ReportingRegister>());
-         container.AddRegister(x => x.FromType<OSPSuite.Infrastructure.Reporting.ReportingRegister>());
+         container.AddRegister(x => x.FromType<OSPSuite.Infrastructure.Reporting.InfrastructureReportingRegister>());
 
          container.AddScanner(scan =>
          {
@@ -86,7 +79,6 @@ namespace InstallationValidator.Core
             scan.IncludeNamespaceContainingType<InstallationValidationResultReporter>();
             scan.WithConvention<ReporterRegistrationConvention>();
          });
-         container.Register<IReportTemplateRepository, ReportTemplateRepository>();
       }
 
       private static void registerAbstractFactories(IContainer container)
