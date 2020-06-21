@@ -6,7 +6,8 @@ require_relative 'scripts/utils'
 task :create_setup, [:product_version, :configuration] do |t, args|
 
 	setup_dir = File.join(solution_dir, 'setup')
-	src_dir = File.join(solution_dir, 'src', 'InstallationValidator', 'bin', args.configuration)
+	src_dir = src_dir_for(args.configuration)
+	relative_src_dir = relative_src_dir_for(args.configuration)
 	product_version = args.product_version
 	suite_name = 'Open Systems Pharmacology Suite'
 
@@ -17,7 +18,7 @@ task :create_setup, [:product_version, :configuration] do |t, args|
 
 	#Files required for setup creation only and that will not be harvested automatically
 	setup_files	 = [
-		'packages/**/OSPSuite.TeXReporting/**/*.*',
+		"#{relative_src_dir}/TeXTemplates/**/*.*",
 		'data/*.wxs',
 		'src/InstallationValidator/*.ico',
 		'dimensions/*.xml',
@@ -39,21 +40,30 @@ task :create_setup, [:product_version, :configuration] do |t, args|
 end
 
 task :postclean do |t, args| 
-	packages_dir =  File.join(solution_dir, 'packages')
+	src_dir =  src_dir_for("Debug")
 
 	all_users_dir = ENV['ALLUSERSPROFILE']
-	all_users_application_dir = File.join(all_users_dir, manufacturer, product_name, '8.0')
+	all_users_application_dir = File.join(all_users_dir, manufacturer, product_name, '9.0')
 
-	copy_depdencies solution_dir,  all_users_application_dir do
+	copy_dependencies solution_dir,  all_users_application_dir do
 		copy_dimensions_xml
 	end
 
-	copy_depdencies packages_dir,   File.join(all_users_application_dir, 'TeXTemplates', 'StandardTemplate') do
+	copy_dependencies src_dir,  File.join(all_users_application_dir, 'TeXTemplates', 'StandardTemplate') do
 		copy_files 'StandardTemplate', '*'
 	end
 end
 
 private
+
+def relative_src_dir_for(configuration)
+	File.join('src', 'InstallationValidator', 'bin', configuration, 'net472')
+end
+
+def src_dir_for(configuration)
+	File.join(solution_dir, relative_src_dir_for(configuration))
+end
+
 
 def solution_dir
 	File.dirname(__FILE__)

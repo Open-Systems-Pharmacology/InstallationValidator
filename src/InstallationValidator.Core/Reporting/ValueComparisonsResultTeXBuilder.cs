@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using FluentNHibernate.Utils;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.TeXReporting.Builder;
+using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Reporting
 {
