@@ -6,7 +6,7 @@ init:
   - cmd: if DEFINED APPVEYOR_PULL_REQUEST_NUMBER (Set build_number=1) ELSE (Set build_number=%APPVEYOR_BUILD_NUMBER%)
 
 environment:
-  app_version: '9.0'
+  app_version: '9.1'
 
 version: '$(app_version).{build}'
 
@@ -54,6 +54,7 @@ skip_tags: true
 branches:
   only:
   - develop
+  - hotfix/v9.1
 
 notifications:
   - provider: Slack
