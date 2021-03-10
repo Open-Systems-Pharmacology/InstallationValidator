@@ -72,8 +72,8 @@ namespace InstallationValidator.Core.Domain
 
    public class MissingOutputComparisonResult : OutputComparisonResult
    {
-      public MissingOutputComparisonResult(string path, ComparisonSettings comparisonSettings, string simulationName, string folderPath)
-         : base(path, comparisonSettings, ValidationState.Invalid, Validation.OutputIsMissingFromSimulation(path, simulationName, folderPath))
+      public MissingOutputComparisonResult(string path, ComparisonSettings comparisonSettings, string simulationName, string folderPath, string folderType)
+         : base(path, comparisonSettings, ValidationState.Invalid, Validation.OutputIsMissingFromSimulation(path, simulationName, folderPath, folderType))
       {
       }
    }

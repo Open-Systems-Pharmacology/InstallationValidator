@@ -151,9 +151,9 @@ namespace InstallationValidator.Core.Assets
          return $"Deviation for '{variable}' is {_formatter.Format(deviation * 100)}% and is greater than the allowed max. tolerance of {_formatter.Format(maxDeviation * 100)}%";
       }
 
-      public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder)
+      public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder, string folderType)
       {
-         return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}'";
+         return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}' ({folderType} folder)";
       }
 
       public static string FolderPathTooLong(string folderPath, int maximumFolderPathLength)
@@ -206,7 +206,7 @@ namespace InstallationValidator.Core.Assets
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
       }
 
-      public static string ComparisonFolder(string folerName) => $"{folerName} Folder";
+      public static string ComparisonFolder(string folderName) => $"{folderName} Folder";
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
          $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";
