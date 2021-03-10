@@ -176,6 +176,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string RunningOnTerminalSession = "Running on Terminal Session";
       public static readonly string RunningOnVirtualMachine = "Running on Virtual Machine";
       public static readonly string ApplicationVersions = "Application Versions";
+      public static readonly string LanguageSettings = "Language Settings";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
       public static readonly string NumberOfComparedFiles = "Number of Compared Files";
       public static readonly string OverallValidationResult = "Overall Validation Result";

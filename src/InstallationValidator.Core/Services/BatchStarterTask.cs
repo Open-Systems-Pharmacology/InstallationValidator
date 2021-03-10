@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Extensions;
+using OSPSuite.Core.Extensions;
 using OSPSuite.Core.Services;
 using OSPSuite.Utility;
 
@@ -75,7 +75,8 @@ namespace InstallationValidator.Core.Services
             outputFolderPath.InQuotes(),
             "-l",
             logFile.InQuotes(),
-            "-j"
+            "-j",
+            "forAll"
          };
 
          using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimCLIPath, args))

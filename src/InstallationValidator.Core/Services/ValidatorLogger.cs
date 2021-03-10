@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using ILogger = OSPSuite.Core.Services.ILogger;
+using OSPSuite.Core.Services;
 
 namespace InstallationValidator.Core.Services
 {
-   public class ValidatorLogger : ILogger
+   public class ValidatorLogger : IOSPSuiteLogger
    {
       public void AddToLog(string message, LogLevel logLevel, string categoryName)
       {

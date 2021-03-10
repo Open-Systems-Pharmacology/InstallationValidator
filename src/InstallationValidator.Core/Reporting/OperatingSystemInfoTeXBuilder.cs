@@ -27,6 +27,8 @@ namespace InstallationValidator.Core.Reporting
             new Paragraph(Assets.Reporting.RunningOnVirtualMachine),
             boolFrom(operatingSystem.IsRunningOnVirtualMachine),
             new Paragraph(Assets.Reporting.RunningOnTerminalSession),
+            boolFrom(operatingSystem.IsRunningOnTerminalSession),
+            new Paragraph(Assets.Reporting.RunningOnTerminalSession),
             boolFrom(operatingSystem.IsRunningOnTerminalSession)
          };
 

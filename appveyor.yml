@@ -1,14 +1,10 @@
 configuration: Debug
 image: Visual Studio 2019
 
-# hack until donet patching works with PR
+version: '{build}'
+
 init:
-  - cmd: if DEFINED APPVEYOR_PULL_REQUEST_NUMBER (Set build_number=1) ELSE (Set build_number=%APPVEYOR_BUILD_NUMBER%)
-
-environment:
-  app_version: '9.0'
-
-version: '$(app_version).{build}'
+- ps: Update-AppveyorBuild -Version "$($env:ospsuite_version).$($env:appveyor_build_version)"
 
 dotnet_csproj:
   patch: true
@@ -35,7 +31,8 @@ before_build:
 
 test:
   assemblies:
-    - InstallationValidator.Tests.dll
+  - InstallationValidator.Tests.dll
+
   categories:
     except:
       - Reporting
