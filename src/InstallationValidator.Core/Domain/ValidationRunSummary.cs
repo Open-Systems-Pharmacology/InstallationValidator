@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 namespace InstallationValidator.Core.Domain
 {
@@ -11,5 +13,6 @@ namespace InstallationValidator.Core.Domain
       public string OutputFolder { get; set; }
       public string InputFolder { get; set; }
       public OperatingSystemInfo OperatingSystem { get;  } = new OperatingSystemInfo();
+      public CultureInfo CultureInfo { get; set; } = Thread.CurrentThread.CurrentCulture;
    }
 }

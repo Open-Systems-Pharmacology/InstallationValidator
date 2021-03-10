@@ -30,23 +30,28 @@ namespace InstallationValidator.Core.Reporting
             validationRunSummary.OutputFolder,
             new Paragraph(Assets.Reporting.ApplicationVersions),
             applicationVersions(validationRunSummary),
+            new Paragraph(Assets.Reporting.LanguageSettings),
+            languageSettings(validationRunSummary),
             validationRunSummary.OperatingSystem
          };
 
          _builderRepository.Report(report, buildTracker);
       }
 
+      private string languageSettings(ValidationRunSummary validationRunSummary) =>
+         $"{validationRunSummary.CultureInfo.EnglishName} ({validationRunSummary.CultureInfo.Name})";
+
       private string durationFor(ValidationRunSummary validationRunSummary)
       {
          var timeSpent = validationRunSummary.EndTime - validationRunSummary.StartTime;
-         return Assets.Reporting.InstallationValidationPerformedIn(validationRunSummary.StartTime.ToIsoFormat(), validationRunSummary.EndTime.ToIsoFormat(), timeSpent.ToDisplay());
+         return Assets.Reporting.InstallationValidationPerformedIn(validationRunSummary.StartTime.ToIsoFormat(),
+            validationRunSummary.EndTime.ToIsoFormat(), timeSpent.ToDisplay());
       }
 
       private string applicationVersions(ValidationRunSummary installationValidationSummary)
       {
-         return $"PK-Sim Version {installationValidationSummary.PKSimVersion}{Environment.NewLine}MoBi Version {installationValidationSummary.MoBiVersion}";
+         return
+            $"PK-Sim Version {installationValidationSummary.PKSimVersion}{Environment.NewLine}MoBi Version {installationValidationSummary.MoBiVersion}";
       }
-
-      
    }
 }
