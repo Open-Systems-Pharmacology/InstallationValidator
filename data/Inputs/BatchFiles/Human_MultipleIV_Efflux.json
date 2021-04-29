@@ -1,13 +1,13 @@
 {
-  "Version": 74,
+  "Version": 77,
   "Individuals": [
     {
       "Name": "Individual",
       "Seed": 123456,
       "OriginData": {
         "CalculationMethods": [
-          "Body surface area - Mosteller",
-          "SurfaceAreaPlsInt_VAR1"
+          "SurfaceAreaPlsInt_VAR1",
+          "Body surface area - Mosteller"
         ],
         "Species": "Human",
         "Population": "European_ICRP_2002",
@@ -15,10 +15,6 @@
         "Age": {
           "Value": 30.0,
           "Unit": "year(s)"
-        },
-        "GestationalAge": {
-          "Value": 40.0,
-          "Unit": "week(s)"
         },
         "Weight": {
           "Value": 80.0,
@@ -30,34 +26,6 @@
         }
       },
       "Molecules": [
-        {
-          "Name": "TRANS1",
-          "Type": "Transporter",
-          "TransportType": "Influx",
-          "Expression": [
-            {
-              "Name": "Skin",
-              "Value": 0.2
-            },
-            {
-              "Name": "Duodenum",
-              "MembraneLocation": "Apical",
-              "Value": 1.0
-            },
-            {
-              "Name": "UpperJejunum",
-              "MembraneLocation": "Apical",
-              "Value": 0.8
-            },
-          ],
-          "Parameters": [
-            {
-              "Name": "Reference concentration",
-              "Value": 0.5,
-              "Unit": "µmol/l"
-            }
-          ]
-        },
         {
           "Name": "TRANS2",
           "Type": "Transporter",
@@ -77,36 +45,23 @@
               "Name": "Pericentral",
               "MembraneLocation": "Apical",
               "Value": 1.0
-            },
+            }
           ],
           "Parameters": [
             {
               "Name": "Reference concentration",
               "Value": 1.2,
               "Unit": "µmol/l"
-            }
-          ]
-        },
-        {
-          "Name": "TRANS3",
-          "Type": "Transporter",
-          "TransportType": "PgpLike",
-          "Expression": [
-            {
-              "Name": "Heart",
-              "Value": 0.8
             },
             {
-              "Name": "Kidney",
-              "MembraneLocation": "Apical",
-              "Value": 1.0
+              "Name": "t1/2 (liver)",
+              "Value": 36.0,
+              "Unit": "h"
             },
-          ],
-          "Parameters": [
             {
-              "Name": "Reference concentration",
-              "Value": 0.45,
-              "Unit": "µmol/l"
+              "Name": "t1/2 (intestine)",
+              "Value": 23.0,
+              "Unit": "h"
             }
           ]
         }
@@ -116,6 +71,7 @@
   "Compounds": [
     {
       "Name": "drug",
+      "IsSmallMolecule": true,
       "PlasmaProteinBindingPartner": "Albumin",
       "Lipophilicity": [
         {
@@ -170,6 +126,11 @@
           "Molecule": "TRANS1",
           "Parameters": [
             {
+              "Name": "Transporter concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
               "Name": "Vmax",
               "Value": 0.59,
               "Unit": "µmol/l/min"
@@ -187,6 +148,11 @@
           "Molecule": "TRANS2",
           "Parameters": [
             {
+              "Name": "Transporter concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
               "Name": "Vmax",
               "Value": 0.22,
               "Unit": "µmol/l/min"
@@ -203,6 +169,11 @@
           "DataSource": "Lab",
           "Molecule": "TRANS3",
           "Parameters": [
+            {
+              "Name": "Transporter concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
             {
               "Name": "Vmax",
               "Value": 150.0,
@@ -236,6 +207,11 @@
       "DosingInterval": "DI_6_6_12",
       "Parameters": [
         {
+          "Name": "Start time",
+          "Value": 0.0,
+          "Unit": "h"
+        },
+        {
           "Name": "InputDose",
           "Value": 10.0,
           "Unit": "mg"
@@ -250,7 +226,7 @@
   ],
   "Simulations": [
     {
-      "Name": "Human_MultipleIV_transporters",
+      "Name": "Human_MultipleIV_Efflux",
       "Model": "4Comp",
       "Solver": {},
       "OutputSchema": [
@@ -263,7 +239,7 @@
             },
             {
               "Name": "End time",
-              "Value": 5000,
+              "Value": 5000.0,
               "Unit": "min"
             },
             {
@@ -284,16 +260,8 @@
           ],
           "Processes": [
             {
-              "Name": "TRANS1-Lab",
-              "MoleculeName": "TRANS1"
-            },
-            {
               "Name": "TRANS2-Lab",
               "MoleculeName": "TRANS2"
-            },
-            {
-              "Name": "TRANS3-Lab",
-              "MoleculeName": "TRANS3"
             }
           ],
           "Protocol": {
