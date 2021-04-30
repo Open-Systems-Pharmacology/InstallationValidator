@@ -11,6 +11,8 @@ namespace InstallationValidator.Core.Presentation.DTO
       public FolderDTO FirstFolder { get; } = new FolderDTO();
       public FolderDTO SecondFolder { get; } = new FolderDTO();
       public byte? NumberOfCurves { get; set; } = 1;
+      public bool IgnoreAddedCurves { get; set; } = false;
+      public bool IgnoreRemovedCurves { get; set; } = false;
    }
 
    public class FolderDTO : ValidatableDTO

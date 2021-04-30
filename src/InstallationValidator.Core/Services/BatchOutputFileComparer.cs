@@ -33,8 +33,12 @@ namespace InstallationValidator.Core.Services
             var simulation2 = simulationExportFrom(fileName, comparisonSettings.FolderPath2);
 
             outputFileComparision.TimeComparison = compareTime(simulation1, simulation2, comparisonSettings);
-            outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation1, simulation2, comparisonSettings, comparisonSettings.FolderPath2));
-            outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation2, simulation1, comparisonSettings, comparisonSettings.FolderPath1));
+            if(!comparisonSettings.IgnoreRemovedCurves)
+               outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation1, simulation2, comparisonSettings, comparisonSettings.FolderPath2));
+
+            if (!comparisonSettings.IgnoreAddedCurves)
+               outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation2, simulation1, comparisonSettings, comparisonSettings.FolderPath1));
+
             outputFileComparision.AbsTol = simulation1.Simulation.AbsTol;
             outputFileComparision.RelTol = simulation1.Simulation.RelTol;
 

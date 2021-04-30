@@ -33,6 +33,7 @@
       {
          this.components = new System.ComponentModel.Container();
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+         this.textEditNumberOfCurves = new DevExpress.XtraEditors.TextEdit();
          this.startButton = new DevExpress.XtraEditors.SimpleButton();
          this.stopButton = new DevExpress.XtraEditors.SimpleButton();
          this.buttonEditFolder2 = new DevExpress.XtraEditors.ButtonEdit();
@@ -46,12 +47,16 @@
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-         this.textEditNumberOfCurves = new DevExpress.XtraEditors.TextEdit();
          this.layoutItemNumberOfCurvesToDisplay = new DevExpress.XtraLayout.LayoutControlItem();
+         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+         this.chkIgnoreAddedCurves = new DevExpress.XtraEditors.CheckEdit();
+         this.layoutItemIgnoreAddedCurves = new DevExpress.XtraLayout.LayoutControlItem();
+         this.chkIgnoreRemovedCurves = new DevExpress.XtraEditors.CheckEdit();
+         this.layoutItemIgnoreRemovedCurves = new DevExpress.XtraLayout.LayoutControlItem();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
@@ -62,12 +67,17 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
          // 
+         this.layoutControl.Controls.Add(this.chkIgnoreRemovedCurves);
+         this.layoutControl.Controls.Add(this.chkIgnoreAddedCurves);
          this.layoutControl.Controls.Add(this.textEditNumberOfCurves);
          this.layoutControl.Controls.Add(this.startButton);
          this.layoutControl.Controls.Add(this.stopButton);
@@ -81,6 +91,14 @@
          this.layoutControl.Size = new System.Drawing.Size(716, 486);
          this.layoutControl.TabIndex = 0;
          this.layoutControl.Text = "layoutControl1";
+         // 
+         // textEditNumberOfCurves
+         // 
+         this.textEditNumberOfCurves.Location = new System.Drawing.Point(196, 60);
+         this.textEditNumberOfCurves.Name = "textEditNumberOfCurves";
+         this.textEditNumberOfCurves.Size = new System.Drawing.Size(508, 20);
+         this.textEditNumberOfCurves.StyleController = this.layoutControl;
+         this.textEditNumberOfCurves.TabIndex = 11;
          // 
          // startButton
          // 
@@ -122,9 +140,9 @@
          // 
          // richEditControl
          // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 94);
+         this.richEditControl.Location = new System.Drawing.Point(12, 142);
          this.richEditControl.Name = "richEditControl";
-         this.richEditControl.Size = new System.Drawing.Size(692, 354);
+         this.richEditControl.Size = new System.Drawing.Size(692, 306);
          this.richEditControl.TabIndex = 6;
          // 
          // layoutControlGroup
@@ -139,8 +157,9 @@
             this.layoutItemButtonStart,
             this.emptySpaceItem1,
             this.emptySpaceItem2,
-            this.layoutItemNumberOfCurvesToDisplay});
-         this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
+            this.layoutItemNumberOfCurvesToDisplay,
+            this.layoutItemIgnoreAddedCurves,
+            this.layoutItemIgnoreRemovedCurves});
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(716, 486);
          this.layoutControlGroup.TextVisible = false;
@@ -148,9 +167,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 82);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 130);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 358);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 310);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -199,18 +218,10 @@
          // emptySpaceItem2
          // 
          this.emptySpaceItem2.AllowHotTrack = false;
-         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 72);
+         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 120);
          this.emptySpaceItem2.Name = "emptySpaceItem2";
          this.emptySpaceItem2.Size = new System.Drawing.Size(696, 10);
          this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-         // 
-         // numberOfCurvesTextEdit
-         // 
-         this.textEditNumberOfCurves.Location = new System.Drawing.Point(196, 60);
-         this.textEditNumberOfCurves.Name = "textEditNumberOfCurves";
-         this.textEditNumberOfCurves.Size = new System.Drawing.Size(508, 20);
-         this.textEditNumberOfCurves.StyleController = this.layoutControl;
-         this.textEditNumberOfCurves.TabIndex = 11;
          // 
          // layoutItemNumberOfCurvesToDisplay
          // 
@@ -219,6 +230,42 @@
          this.layoutItemNumberOfCurvesToDisplay.Name = "layoutItemNumberOfCurvesToDisplay";
          this.layoutItemNumberOfCurvesToDisplay.Size = new System.Drawing.Size(696, 24);
          this.layoutItemNumberOfCurvesToDisplay.TextSize = new System.Drawing.Size(181, 13);
+         // 
+         // chkIgnoreAddedCurves
+         // 
+         this.chkIgnoreAddedCurves.Location = new System.Drawing.Point(12, 84);
+         this.chkIgnoreAddedCurves.Name = "chkIgnoreAddedCurves";
+         this.chkIgnoreAddedCurves.Properties.Caption = "chkIgnoreAddedCurves";
+         this.chkIgnoreAddedCurves.Size = new System.Drawing.Size(692, 20);
+         this.chkIgnoreAddedCurves.StyleController = this.layoutControl;
+         this.chkIgnoreAddedCurves.TabIndex = 12;
+         // 
+         // layoutItemIgnoreAddedCurves
+         // 
+         this.layoutItemIgnoreAddedCurves.Control = this.chkIgnoreAddedCurves;
+         this.layoutItemIgnoreAddedCurves.Location = new System.Drawing.Point(0, 72);
+         this.layoutItemIgnoreAddedCurves.Name = "layoutItemIgnoreAddedCurves";
+         this.layoutItemIgnoreAddedCurves.Size = new System.Drawing.Size(696, 24);
+         this.layoutItemIgnoreAddedCurves.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemIgnoreAddedCurves.TextVisible = false;
+         // 
+         // chkIgnoreRemovedCurves
+         // 
+         this.chkIgnoreRemovedCurves.Location = new System.Drawing.Point(12, 108);
+         this.chkIgnoreRemovedCurves.Name = "chkIgnoreRemovedCurves";
+         this.chkIgnoreRemovedCurves.Properties.Caption = "chkIgnoreRemovedCurves";
+         this.chkIgnoreRemovedCurves.Size = new System.Drawing.Size(692, 20);
+         this.chkIgnoreRemovedCurves.StyleController = this.layoutControl;
+         this.chkIgnoreRemovedCurves.TabIndex = 13;
+         // 
+         // layoutItemIgnoreRemovedCurves
+         // 
+         this.layoutItemIgnoreRemovedCurves.Control = this.chkIgnoreRemovedCurves;
+         this.layoutItemIgnoreRemovedCurves.Location = new System.Drawing.Point(0, 96);
+         this.layoutItemIgnoreRemovedCurves.Name = "layoutItemIgnoreRemovedCurves";
+         this.layoutItemIgnoreRemovedCurves.Size = new System.Drawing.Size(696, 24);
+         this.layoutItemIgnoreRemovedCurves.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemIgnoreRemovedCurves.TextVisible = false;
          // 
          // SimulationComparisonView
          // 
@@ -233,6 +280,7 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
@@ -243,8 +291,11 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -268,6 +319,10 @@
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
       private DevExpress.XtraEditors.TextEdit textEditNumberOfCurves;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemNumberOfCurvesToDisplay;
+      private DevExpress.XtraEditors.CheckEdit chkIgnoreRemovedCurves;
+      private DevExpress.XtraEditors.CheckEdit chkIgnoreAddedCurves;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemIgnoreAddedCurves;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemIgnoreRemovedCurves;
    }
 }
 

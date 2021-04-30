@@ -48,6 +48,8 @@ namespace InstallationValidator.Core.Assets
       public static readonly string ComparisonFolder1 = "Old Results";
       public static readonly string ComparisonFolder2 = "New Results";
       public static readonly string NumberOfCurvesToDisplay= "Num. of curves";
+      public static readonly string IgnoreAddedCurves= "Ignore added curves";
+      public static readonly string IgnoreRemovedCurves= "Ignore removed curves";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
    }
 
