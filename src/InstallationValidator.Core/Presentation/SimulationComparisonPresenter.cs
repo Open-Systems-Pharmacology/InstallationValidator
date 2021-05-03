@@ -90,7 +90,9 @@ namespace InstallationValidator.Core.Presentation
          {
             FolderPath1 = _folderComparisonDTO.FirstFolder.FolderPath,
             FolderPath2  = _folderComparisonDTO.SecondFolder.FolderPath,
-            NumberOfCurves= _folderComparisonDTO.NumberOfCurves
+            NumberOfCurves= _folderComparisonDTO.NumberOfCurves,
+            IgnoreAddedCurves = _folderComparisonDTO.IgnoreAddedCurves,
+            IgnoreRemovedCurves= _folderComparisonDTO.IgnoreRemovedCurves,
          };
       }
 

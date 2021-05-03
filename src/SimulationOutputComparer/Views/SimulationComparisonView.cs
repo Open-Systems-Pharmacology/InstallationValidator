@@ -40,6 +40,8 @@ namespace SimulationOutputComparer.Views
          layoutControlItemFolder1.Text = Captions.ComparisonFolder1.FormatForLabel();
          layoutControlItemFolder2.Text = Captions.ComparisonFolder2.FormatForLabel();
          layoutItemNumberOfCurvesToDisplay.Text = Captions.NumberOfCurvesToDisplay.FormatForLabel();
+         layoutItemIgnoreAddedCurves.TextVisible = false;
+         layoutItemIgnoreRemovedCurves.TextVisible = false;
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
@@ -70,6 +72,15 @@ namespace SimulationOutputComparer.Views
 
          _screenBinder.Bind(x => x.NumberOfCurves)
             .To(textEditNumberOfCurves);
+
+
+         _screenBinder.Bind(x => x.IgnoreAddedCurves)
+            .To(chkIgnoreAddedCurves)
+            .WithCaption(Captions.IgnoreAddedCurves);
+         
+         _screenBinder.Bind(x => x.IgnoreRemovedCurves)
+            .To(chkIgnoreRemovedCurves)
+            .WithCaption(Captions.IgnoreRemovedCurves);
 
          RegisterValidationFor(_screenBinderFolder1);
          RegisterValidationFor(_screenBinderFolder2);
