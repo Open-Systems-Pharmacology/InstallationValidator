@@ -33,6 +33,9 @@
       {
          this.components = new System.ComponentModel.Container();
          this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+         this.buttonEditExclusionList = new DevExpress.XtraEditors.ButtonEdit();
+         this.chkIgnoreRemovedCurves = new DevExpress.XtraEditors.CheckEdit();
+         this.chkIgnoreAddedCurves = new DevExpress.XtraEditors.CheckEdit();
          this.textEditNumberOfCurves = new DevExpress.XtraEditors.TextEdit();
          this.startButton = new DevExpress.XtraEditors.SimpleButton();
          this.stopButton = new DevExpress.XtraEditors.SimpleButton();
@@ -46,16 +49,17 @@
          this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-         this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
          this.layoutItemNumberOfCurvesToDisplay = new DevExpress.XtraLayout.LayoutControlItem();
-         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-         this.chkIgnoreAddedCurves = new DevExpress.XtraEditors.CheckEdit();
          this.layoutItemIgnoreAddedCurves = new DevExpress.XtraLayout.LayoutControlItem();
-         this.chkIgnoreRemovedCurves = new DevExpress.XtraEditors.CheckEdit();
          this.layoutItemIgnoreRemovedCurves = new DevExpress.XtraLayout.LayoutControlItem();
+         this.layoutItemExclusionList = new DevExpress.XtraLayout.LayoutControlItem();
+         this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.buttonEditExclusionList.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).BeginInit();
@@ -66,16 +70,15 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExclusionList)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
          // 
+         this.layoutControl.Controls.Add(this.buttonEditExclusionList);
          this.layoutControl.Controls.Add(this.chkIgnoreRemovedCurves);
          this.layoutControl.Controls.Add(this.chkIgnoreAddedCurves);
          this.layoutControl.Controls.Add(this.textEditNumberOfCurves);
@@ -92,9 +95,37 @@
          this.layoutControl.TabIndex = 0;
          this.layoutControl.Text = "layoutControl1";
          // 
+         // buttonEditExclusionList
+         // 
+         this.buttonEditExclusionList.Location = new System.Drawing.Point(196, 60);
+         this.buttonEditExclusionList.Name = "buttonEditExclusionList";
+         this.buttonEditExclusionList.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+         this.buttonEditExclusionList.Size = new System.Drawing.Size(508, 20);
+         this.buttonEditExclusionList.StyleController = this.layoutControl;
+         this.buttonEditExclusionList.TabIndex = 14;
+         // 
+         // chkIgnoreRemovedCurves
+         // 
+         this.chkIgnoreRemovedCurves.Location = new System.Drawing.Point(12, 132);
+         this.chkIgnoreRemovedCurves.Name = "chkIgnoreRemovedCurves";
+         this.chkIgnoreRemovedCurves.Properties.Caption = "chkIgnoreRemovedCurves";
+         this.chkIgnoreRemovedCurves.Size = new System.Drawing.Size(692, 20);
+         this.chkIgnoreRemovedCurves.StyleController = this.layoutControl;
+         this.chkIgnoreRemovedCurves.TabIndex = 13;
+         // 
+         // chkIgnoreAddedCurves
+         // 
+         this.chkIgnoreAddedCurves.Location = new System.Drawing.Point(12, 108);
+         this.chkIgnoreAddedCurves.Name = "chkIgnoreAddedCurves";
+         this.chkIgnoreAddedCurves.Properties.Caption = "chkIgnoreAddedCurves";
+         this.chkIgnoreAddedCurves.Size = new System.Drawing.Size(692, 20);
+         this.chkIgnoreAddedCurves.StyleController = this.layoutControl;
+         this.chkIgnoreAddedCurves.TabIndex = 12;
+         // 
          // textEditNumberOfCurves
          // 
-         this.textEditNumberOfCurves.Location = new System.Drawing.Point(196, 60);
+         this.textEditNumberOfCurves.Location = new System.Drawing.Point(196, 84);
          this.textEditNumberOfCurves.Name = "textEditNumberOfCurves";
          this.textEditNumberOfCurves.Size = new System.Drawing.Size(508, 20);
          this.textEditNumberOfCurves.StyleController = this.layoutControl;
@@ -140,9 +171,9 @@
          // 
          // richEditControl
          // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 142);
+         this.richEditControl.Location = new System.Drawing.Point(12, 156);
          this.richEditControl.Name = "richEditControl";
-         this.richEditControl.Size = new System.Drawing.Size(692, 306);
+         this.richEditControl.Size = new System.Drawing.Size(692, 292);
          this.richEditControl.TabIndex = 6;
          // 
          // layoutControlGroup
@@ -156,10 +187,10 @@
             this.layoutItemButtonStop,
             this.layoutItemButtonStart,
             this.emptySpaceItem1,
-            this.emptySpaceItem2,
             this.layoutItemNumberOfCurvesToDisplay,
             this.layoutItemIgnoreAddedCurves,
-            this.layoutItemIgnoreRemovedCurves});
+            this.layoutItemIgnoreRemovedCurves,
+            this.layoutItemExclusionList});
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(716, 486);
          this.layoutControlGroup.TextVisible = false;
@@ -167,9 +198,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 130);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 144);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 310);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 296);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -215,57 +246,39 @@
          this.emptySpaceItem1.Size = new System.Drawing.Size(172, 26);
          this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
          // 
-         // emptySpaceItem2
-         // 
-         this.emptySpaceItem2.AllowHotTrack = false;
-         this.emptySpaceItem2.Location = new System.Drawing.Point(0, 120);
-         this.emptySpaceItem2.Name = "emptySpaceItem2";
-         this.emptySpaceItem2.Size = new System.Drawing.Size(696, 10);
-         this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-         // 
          // layoutItemNumberOfCurvesToDisplay
          // 
          this.layoutItemNumberOfCurvesToDisplay.Control = this.textEditNumberOfCurves;
-         this.layoutItemNumberOfCurvesToDisplay.Location = new System.Drawing.Point(0, 48);
+         this.layoutItemNumberOfCurvesToDisplay.Location = new System.Drawing.Point(0, 72);
          this.layoutItemNumberOfCurvesToDisplay.Name = "layoutItemNumberOfCurvesToDisplay";
          this.layoutItemNumberOfCurvesToDisplay.Size = new System.Drawing.Size(696, 24);
          this.layoutItemNumberOfCurvesToDisplay.TextSize = new System.Drawing.Size(181, 13);
          // 
-         // chkIgnoreAddedCurves
-         // 
-         this.chkIgnoreAddedCurves.Location = new System.Drawing.Point(12, 84);
-         this.chkIgnoreAddedCurves.Name = "chkIgnoreAddedCurves";
-         this.chkIgnoreAddedCurves.Properties.Caption = "chkIgnoreAddedCurves";
-         this.chkIgnoreAddedCurves.Size = new System.Drawing.Size(692, 20);
-         this.chkIgnoreAddedCurves.StyleController = this.layoutControl;
-         this.chkIgnoreAddedCurves.TabIndex = 12;
-         // 
          // layoutItemIgnoreAddedCurves
          // 
          this.layoutItemIgnoreAddedCurves.Control = this.chkIgnoreAddedCurves;
-         this.layoutItemIgnoreAddedCurves.Location = new System.Drawing.Point(0, 72);
+         this.layoutItemIgnoreAddedCurves.Location = new System.Drawing.Point(0, 96);
          this.layoutItemIgnoreAddedCurves.Name = "layoutItemIgnoreAddedCurves";
          this.layoutItemIgnoreAddedCurves.Size = new System.Drawing.Size(696, 24);
          this.layoutItemIgnoreAddedCurves.TextSize = new System.Drawing.Size(0, 0);
          this.layoutItemIgnoreAddedCurves.TextVisible = false;
          // 
-         // chkIgnoreRemovedCurves
-         // 
-         this.chkIgnoreRemovedCurves.Location = new System.Drawing.Point(12, 108);
-         this.chkIgnoreRemovedCurves.Name = "chkIgnoreRemovedCurves";
-         this.chkIgnoreRemovedCurves.Properties.Caption = "chkIgnoreRemovedCurves";
-         this.chkIgnoreRemovedCurves.Size = new System.Drawing.Size(692, 20);
-         this.chkIgnoreRemovedCurves.StyleController = this.layoutControl;
-         this.chkIgnoreRemovedCurves.TabIndex = 13;
-         // 
          // layoutItemIgnoreRemovedCurves
          // 
          this.layoutItemIgnoreRemovedCurves.Control = this.chkIgnoreRemovedCurves;
-         this.layoutItemIgnoreRemovedCurves.Location = new System.Drawing.Point(0, 96);
+         this.layoutItemIgnoreRemovedCurves.Location = new System.Drawing.Point(0, 120);
          this.layoutItemIgnoreRemovedCurves.Name = "layoutItemIgnoreRemovedCurves";
          this.layoutItemIgnoreRemovedCurves.Size = new System.Drawing.Size(696, 24);
          this.layoutItemIgnoreRemovedCurves.TextSize = new System.Drawing.Size(0, 0);
          this.layoutItemIgnoreRemovedCurves.TextVisible = false;
+         // 
+         // layoutItemExclusionList
+         // 
+         this.layoutItemExclusionList.Control = this.buttonEditExclusionList;
+         this.layoutItemExclusionList.Location = new System.Drawing.Point(0, 48);
+         this.layoutItemExclusionList.Name = "layoutItemExclusionList";
+         this.layoutItemExclusionList.Size = new System.Drawing.Size(696, 24);
+         this.layoutItemExclusionList.TextSize = new System.Drawing.Size(181, 13);
          // 
          // SimulationComparisonView
          // 
@@ -280,6 +293,9 @@
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.buttonEditExclusionList.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).EndInit();
@@ -290,12 +306,10 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemNumberOfCurvesToDisplay)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExclusionList)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -316,13 +330,14 @@
       private DevExpress.XtraLayout.LayoutControlItem layoutItemButtonStart;
       private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-      private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
       private DevExpress.XtraEditors.TextEdit textEditNumberOfCurves;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemNumberOfCurvesToDisplay;
       private DevExpress.XtraEditors.CheckEdit chkIgnoreRemovedCurves;
       private DevExpress.XtraEditors.CheckEdit chkIgnoreAddedCurves;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemIgnoreAddedCurves;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemIgnoreRemovedCurves;
+      private DevExpress.XtraEditors.ButtonEdit buttonEditExclusionList;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemExclusionList;
    }
 }
 

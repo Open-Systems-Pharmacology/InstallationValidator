@@ -39,6 +39,7 @@ namespace SimulationOutputComparer.Views
 
          layoutControlItemFolder1.Text = Captions.ComparisonFolder1.FormatForLabel();
          layoutControlItemFolder2.Text = Captions.ComparisonFolder2.FormatForLabel();
+         layoutItemExclusionList.Text = Captions.ExclusionList.FormatForLabel();
          layoutItemNumberOfCurvesToDisplay.Text = Captions.NumberOfCurvesToDisplay.FormatForLabel();
          layoutItemIgnoreAddedCurves.TextVisible = false;
          layoutItemIgnoreRemovedCurves.TextVisible = false;
@@ -70,6 +71,9 @@ namespace SimulationOutputComparer.Views
          _screenBinderFolder2.Bind(x => x.FolderPath)
             .To(buttonEditFolder2);
 
+         _screenBinder.Bind(x => x.ExclusionFile)
+            .To(buttonEditExclusionList);
+
          _screenBinder.Bind(x => x.NumberOfCurves)
             .To(textEditNumberOfCurves);
 
@@ -91,6 +95,7 @@ namespace SimulationOutputComparer.Views
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
          buttonEditFolder1.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectFirstFolder());
          buttonEditFolder2.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectSecondFolder());
+         buttonEditExclusionList.ButtonClick += (o, e) => OnEvent(() => _presenter.SelectExclusionList());
       }
 
       public void AttachPresenter(ISimulationComparisonPresenter presenter)

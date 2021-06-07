@@ -51,6 +51,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string IgnoreAddedCurves= "Ignore added curves";
       public static readonly string IgnoreRemovedCurves= "Ignore removed curves";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
+      public static readonly string ExclusionList = "Exclusion List";
    }
 
    public static class Logs
@@ -65,8 +66,9 @@ namespace InstallationValidator.Core.Assets
       public static readonly string OverallComparisonResult = InBold("Overall comparison result:");
       public static readonly string NumberOfComparedFiles = InBold("Number of compared files:");
       public static readonly string ComparisonCompleted = InBold("Comparison completed");
+      public static readonly string UsingExclusions = InBold("Using exclusions:");
 
-      public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
+      public static string ComparingFiles(string file) => $"Comparing files '{file}'...";
 
       public static string InBold(string stringToFormat)
       {
