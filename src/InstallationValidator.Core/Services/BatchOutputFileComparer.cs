@@ -44,7 +44,8 @@ namespace InstallationValidator.Core.Services
 
 
             var outputComparisonResults = new List<OutputComparisonResult>();
-            foreach (var outputValue in simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)))
+            var outputValuesToCompare = simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)).Where(p => comparisonSettings.CanCompare(p.Path));
+            foreach (var outputValue in outputValuesToCompare)
             {
                token.ThrowIfCancellationRequested();
                outputComparisonResults.Add(compareOutputs(simulation1, simulation2, outputValue, simulation2.OutputByPath(outputValue.Path), comparisonSettings));
@@ -81,6 +82,7 @@ namespace InstallationValidator.Core.Services
          string folderType)
       {
          return simulationComparison1.Simulation.OutputValues.Select(x => x.Path)
+            .Where(comparisonSettings.CanCompare)
             .Where(p => !simulationComparison2.HasOutput(p))
             .Select(p => new MissingOutputComparisonResult(p, comparisonSettings, simulationComparison1.Name, simulationComparison2.Folder, folderType));
       }
