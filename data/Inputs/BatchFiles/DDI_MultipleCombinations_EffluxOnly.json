@@ -1810,32 +1810,6 @@
         },
         {
           "InternalName": "Induction",
-          "DataSource": "Assumed",
-          "Molecule": "AADAC",
-          "Parameters": [
-            {
-              "Name": "EC50",
-              "Value": 0.34,
-              "Unit": "µmol/l",
-              "ValueOrigin": {
-                "Source": "Publication",
-                "Method": "Assumption",
-                "Description": "Hanke et al. 2018"
-              }
-            },
-            {
-              "Name": "Emax",
-              "Value": 0.985,
-              "ValueOrigin": {
-                "Source": "Publication",
-                "Method": "ParameterIdentification",
-                "Description": "Hanke et al. 2018"
-              }
-            }
-          ]
-        },
-        {
-          "InternalName": "Induction",
           "DataSource": "Türk et al. 2019",
           "Molecule": "CYP2C8",
           "Parameters": [
@@ -6796,11 +6770,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -7215,11 +7184,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
@@ -8780,11 +8744,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -10243,11 +10202,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
@@ -11796,11 +11750,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -12095,11 +12044,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
