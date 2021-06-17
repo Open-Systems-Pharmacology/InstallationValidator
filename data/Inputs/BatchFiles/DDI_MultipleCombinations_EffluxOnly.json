@@ -244,11 +244,6 @@
               "Value": 0.0341950646
             },
             {
-              "Name": "Brain",
-              "MembraneLocation": "BloodBrainBarrier",
-              "Value": 0.1072855464
-            },
-            {
               "Name": "Gonads",
               "MembraneLocation": "Basolateral",
               "Value": 0.024559342
@@ -633,131 +628,6 @@
           ]
         },
         {
-          "Name": "ATP1A2",
-          "Type": "OtherProtein",
-          "MembraneLocation": "Apical",
-          "TissueLocation": "ExtracellularMembrane",
-          "IntracellularVascularEndoLocation": "Endosomal",
-          "Expression": [
-            {
-              "Name": "Bone",
-              "Value": 0.0062154033171
-            },
-            {
-              "Name": "Brain",
-              "Value": 1.0
-            },
-            {
-              "Name": "Gonads",
-              "Value": 0.0508741242
-            },
-            {
-              "Name": "Heart",
-              "Value": 0.3179118843
-            },
-            {
-              "Name": "Kidney",
-              "Value": 0.0158938619
-            },
-            {
-              "Name": "Periportal",
-              "Value": 0.0223784807
-            },
-            {
-              "Name": "Pericentral",
-              "Value": 0.0223784807
-            },
-            {
-              "Name": "Lung",
-              "Value": 0.0272345453
-            },
-            {
-              "Name": "Muscle",
-              "Value": 0.7034193524
-            },
-            {
-              "Name": "Pancreas",
-              "Value": 0.0073903254795
-            },
-            {
-              "Name": "Skin",
-              "Value": 0.0389467988
-            },
-            {
-              "Name": "Spleen",
-              "Value": 0.0103243118
-            },
-            {
-              "Name": "Stomach",
-              "Value": 0.0309435884
-            },
-            {
-              "Name": "SmallIntestine",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "LargeIntestine",
-              "Value": 0.0786998764
-            },
-            {
-              "Name": "Duodenum",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "UpperJejunum",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "LowerJejunum",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "UpperIleum",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "LowerIleum",
-              "Value": 0.0501579923
-            },
-            {
-              "Name": "ColonAscendens",
-              "Value": 0.0786998764
-            },
-            {
-              "Name": "ColonTransversum",
-              "Value": 0.0786998764
-            },
-            {
-              "Name": "ColonDescendens",
-              "Value": 0.0786998764
-            },
-            {
-              "Name": "ColonSigmoid",
-              "Value": 0.0786998764
-            }
-          ],
-          "Parameters": [
-            {
-              "Name": "Reference concentration",
-              "Value": 0.47661714,
-              "Unit": "µmol/l",
-              "ValueOrigin": {
-                "Source": "Unknown"
-              }
-            },
-            {
-              "Name": "t1/2 (liver)",
-              "Value": 36.0,
-              "Unit": "h"
-            },
-            {
-              "Name": "t1/2 (intestine)",
-              "Value": 23.0,
-              "Unit": "h"
-            }
-          ]
-        },
-        {
           "Name": "UGT1A4",
           "Type": "Enzyme",
           "MembraneLocation": "Apical",
@@ -780,39 +650,6 @@
             {
               "Name": "Reference concentration",
               "Value": 2.32,
-              "Unit": "µmol/l",
-              "ValueOrigin": {
-                "Source": "Unknown"
-              }
-            },
-            {
-              "Name": "t1/2 (liver)",
-              "Value": 36.0,
-              "Unit": "h"
-            },
-            {
-              "Name": "t1/2 (intestine)",
-              "Value": 23.0,
-              "Unit": "h"
-            }
-          ]
-        },
-        {
-          "Name": "GABRG2",
-          "Type": "OtherProtein",
-          "MembraneLocation": "Apical",
-          "TissueLocation": "ExtracellularMembrane",
-          "IntracellularVascularEndoLocation": "Endosomal",
-          "Expression": [
-            {
-              "Name": "Brain",
-              "Value": 1.0
-            }
-          ],
-          "Parameters": [
-            {
-              "Name": "Reference concentration",
-              "Value": 1.0877710492,
               "Unit": "µmol/l",
               "ValueOrigin": {
                 "Source": "Unknown"
@@ -1963,32 +1800,6 @@
             {
               "Name": "Emax",
               "Value": 0.383,
-              "ValueOrigin": {
-                "Source": "Publication",
-                "Method": "ParameterIdentification",
-                "Description": "Hanke et al. 2018"
-              }
-            }
-          ]
-        },
-        {
-          "InternalName": "Induction",
-          "DataSource": "Assumed",
-          "Molecule": "AADAC",
-          "Parameters": [
-            {
-              "Name": "EC50",
-              "Value": 0.34,
-              "Unit": "µmol/l",
-              "ValueOrigin": {
-                "Source": "Publication",
-                "Method": "Assumption",
-                "Description": "Hanke et al. 2018"
-              }
-            },
-            {
-              "Name": "Emax",
-              "Value": 0.985,
               "ValueOrigin": {
                 "Source": "Publication",
                 "Method": "ParameterIdentification",
@@ -6959,11 +6770,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -7378,11 +7184,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
@@ -8943,11 +8744,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -10406,11 +10202,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
@@ -11959,11 +11750,6 @@
           "CompoundName": "Rifampicin"
         },
         {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
-          "CompoundName": "Rifampicin"
-        },
-        {
           "Name": "P-gp-Greiner 1999",
           "MoleculeName": "P-gp",
           "CompoundName": "Rifampicin"
@@ -12258,11 +12044,6 @@
         {
           "Name": "CYP3A4-Templeton 2011",
           "MoleculeName": "CYP3A4",
-          "CompoundName": "Rifampicin"
-        },
-        {
-          "Name": "AADAC-Assumed",
-          "MoleculeName": "AADAC",
           "CompoundName": "Rifampicin"
         },
         {
