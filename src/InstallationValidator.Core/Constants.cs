@@ -10,7 +10,7 @@ namespace InstallationValidator.Core
       public static readonly string ISSUE_TRACKER_URL = "https://github.com/Open-Systems-Pharmacology/InstallationValidator/issues";
       public static readonly string APPLICATION_FOLDER_PATH = @"Open Systems Pharmacology\InstallationValidator";
       public const double MAX_DEVIATION_TIME = 0.0001; //0.01%
-      public const double MAX_DEVIATION_OUTPUT = 0.02; //2%
+      public const double MAX_DEVIATION_OUTPUT = 0.03; //3%
       public static readonly string PRODUCT_NAME = "Installation Validator";
       public static readonly string PRODUCT_NAME_WITH_TRADEMARK = $"{PRODUCT_NAME}®";
       public static readonly string DEFAULT_SKIN = "Metropolis";
