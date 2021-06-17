@@ -9,11 +9,9 @@ namespace InstallationValidator.Core.Reporting
    {
       public override IReadOnlyCollection<object> Report(BatchComparisonResult batchComparisonResult, OSPSuiteTracker buildTracker)
       {
-         var folderComparisonResultsChapter = new Chapter(Assets.Reporting.FolderComparisonResults);
- 
          return new List<object>
          {
-            folderComparisonResultsChapter,
+            new Chapter(Assets.Reporting.FolderComparisonResults),
             new ValidationStateReport(batchComparisonResult, $"{Assets.Reporting.OverallComparisonResult}: "),
             new Text($"{Assets.Reporting.NumberOfComparedFiles}: {batchComparisonResult.NumberOfComparedFiles}"),
             batchComparisonResult

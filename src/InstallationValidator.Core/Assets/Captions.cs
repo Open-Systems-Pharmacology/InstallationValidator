@@ -182,6 +182,7 @@ namespace InstallationValidator.Core.Assets
       public static readonly string ApplicationVersions = "Application Versions";
       public static readonly string LanguageSettings = "Language Settings";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
+      public static readonly string UsingExclusions = "Using exclusions";
       public static readonly string NumberOfComparedFiles = "Number of Compared Files";
       public static readonly string OverallValidationResult = "Overall Validation Result";
       public static readonly string FailedValidations = "Failed Validations";
