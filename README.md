@@ -8,7 +8,6 @@ Installation Validation Tool for the Open Systems Pharmacology Suite.
 ## Building WIX output for setup
 The following command should be run to create the `BatchFiles.wxs`
 ```
-cd scripts
 rake "heat[C:\\projects\\InstallationValidator\\data, BatchFiles]"
 ```
 
