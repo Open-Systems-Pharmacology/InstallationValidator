@@ -48,7 +48,10 @@ namespace InstallationValidator.Core.Assets
       public static readonly string ComparisonFolder1 = "Old Results";
       public static readonly string ComparisonFolder2 = "New Results";
       public static readonly string NumberOfCurvesToDisplay= "Num. of curves";
+      public static readonly string IgnoreAddedCurves= "Ignore added curves";
+      public static readonly string IgnoreRemovedCurves= "Ignore removed curves";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
+      public static readonly string ExclusionList = "Exclusion List";
    }
 
    public static class Logs
@@ -63,8 +66,9 @@ namespace InstallationValidator.Core.Assets
       public static readonly string OverallComparisonResult = InBold("Overall comparison result:");
       public static readonly string NumberOfComparedFiles = InBold("Number of compared files:");
       public static readonly string ComparisonCompleted = InBold("Comparison completed");
+      public static readonly string UsingExclusions = InBold("Using exclusions:");
 
-      public static string ComparingFilles(string file) => $"Comparing files '{file}'...";
+      public static string ComparingFiles(string file) => $"Comparing files '{file}'...";
 
       public static string InBold(string stringToFormat)
       {
@@ -151,9 +155,9 @@ namespace InstallationValidator.Core.Assets
          return $"Deviation for '{variable}' is {_formatter.Format(deviation * 100)}% and is greater than the allowed max. tolerance of {_formatter.Format(maxDeviation * 100)}%";
       }
 
-      public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder)
+      public static string OutputIsMissingFromSimulation(string outputPath, string simulationName, string folder, string folderType)
       {
-         return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}'";
+         return $"Output '{outputPath}' is missing from simulation '{simulationName}' defined in '{folder}' ({folderType} folder)";
       }
 
       public static string FolderPathTooLong(string folderPath, int maximumFolderPathLength)
@@ -176,7 +180,9 @@ namespace InstallationValidator.Core.Assets
       public static readonly string RunningOnTerminalSession = "Running on Terminal Session";
       public static readonly string RunningOnVirtualMachine = "Running on Virtual Machine";
       public static readonly string ApplicationVersions = "Application Versions";
+      public static readonly string LanguageSettings = "Language Settings";
       public static readonly string OverallComparisonResult = "Overall Comparison Result";
+      public static readonly string UsingExclusions = "Using exclusions";
       public static readonly string NumberOfComparedFiles = "Number of Compared Files";
       public static readonly string OverallValidationResult = "Overall Validation Result";
       public static readonly string FailedValidations = "Failed Validations";
@@ -205,7 +211,7 @@ namespace InstallationValidator.Core.Assets
          return $"Start time: {startTime}{Environment.NewLine}End time: {endTime}{Environment.NewLine}Validation performed in {delay}";
       }
 
-      public static string ComparisonFolder(string folerName) => $"{folerName} Folder";
+      public static string ComparisonFolder(string folderName) => $"{folderName} Folder";
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
          $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";

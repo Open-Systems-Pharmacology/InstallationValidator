@@ -48,7 +48,7 @@ namespace InstallationValidator.Core
       {
          try
          {
-            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacology}{Version}", installDir, null);
+            return (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\SOFTWARE\{openSystemsPharmacology}{Major}", installDir, null);
          }
          catch (Exception)
          {

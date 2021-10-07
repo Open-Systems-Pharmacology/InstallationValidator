@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
+using OSPSuite.Utility.Extensions;
 using static OSPSuite.Core.Domain.Constants;
 
 namespace InstallationValidator.Core.Services
@@ -61,9 +62,16 @@ namespace InstallationValidator.Core.Services
          comparison.AddFileComparisons(allMissingFilesFrom(folderInfo2, folderInfo1));
          token.ThrowIfCancellationRequested();
 
+         if (comparisonSettings.Exclusions.Any())
+         {
+            _validationLogger.AppendLine(Logs.UsingExclusions);
+            comparisonSettings.Exclusions.Each(x => _validationLogger.AppendLine(x));
+            _validationLogger.AppendLine();
+         }
+
          foreach (var file in folderInfo1.FileNames.Where(folderInfo2.HasFile))
          {
-            _validationLogger.AppendLine(Logs.ComparingFilles(file));
+            _validationLogger.AppendLine(Logs.ComparingFiles(file));
             var fileComparison = await compareFile(file, comparisonSettings, token);
             comparison.AddFileComparison(fileComparison);
             _validationLogger.AppendText(Logs.StateDisplayFor(fileComparison.State));

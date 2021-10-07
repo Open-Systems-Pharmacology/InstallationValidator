@@ -33,14 +33,19 @@ namespace InstallationValidator.Core.Services
             var simulation2 = simulationExportFrom(fileName, comparisonSettings.FolderPath2);
 
             outputFileComparision.TimeComparison = compareTime(simulation1, simulation2, comparisonSettings);
-            outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation1, simulation2, comparisonSettings));
-            outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation2, simulation1, comparisonSettings));
+            if(!comparisonSettings.IgnoreRemovedCurves)
+               outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation1, simulation2, comparisonSettings, comparisonSettings.FolderPath2));
+
+            if (!comparisonSettings.IgnoreAddedCurves)
+               outputFileComparision.AddOutputComparisons(missingOutputsFrom(simulation2, simulation1, comparisonSettings, comparisonSettings.FolderPath1));
+
             outputFileComparision.AbsTol = simulation1.Simulation.AbsTol;
             outputFileComparision.RelTol = simulation1.Simulation.RelTol;
 
 
             var outputComparisonResults = new List<OutputComparisonResult>();
-            foreach (var outputValue in simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)))
+            var outputValuesToCompare = simulation1.Simulation.OutputValues.Where(p => simulation2.HasOutput(p.Path)).Where(p => comparisonSettings.CanCompare(p.Path));
+            foreach (var outputValue in outputValuesToCompare)
             {
                token.ThrowIfCancellationRequested();
                outputComparisonResults.Add(compareOutputs(simulation1, simulation2, outputValue, simulation2.OutputByPath(outputValue.Path), comparisonSettings));
@@ -70,11 +75,16 @@ namespace InstallationValidator.Core.Services
          return _comparisonStrategy.CompareOutputs(new BatchOutputComparison(simulationComparison1, outputValue1), new BatchOutputComparison(simulationComparison2, outputValue2), comparisonSettings);
       }
 
-      private IEnumerable<OutputComparisonResult> missingOutputsFrom(BatchSimulationComparison simulationComparison1, BatchSimulationComparison simulationComparison2, ComparisonSettings comparisonSettings)
+      private IEnumerable<OutputComparisonResult> missingOutputsFrom(
+         BatchSimulationComparison simulationComparison1, 
+         BatchSimulationComparison simulationComparison2, 
+         ComparisonSettings comparisonSettings,
+         string folderType)
       {
          return simulationComparison1.Simulation.OutputValues.Select(x => x.Path)
+            .Where(comparisonSettings.CanCompare)
             .Where(p => !simulationComparison2.HasOutput(p))
-            .Select(p => new MissingOutputComparisonResult(p, comparisonSettings, simulationComparison1.Name, simulationComparison2.Name));
+            .Select(p => new MissingOutputComparisonResult(p, comparisonSettings, simulationComparison1.Name, simulationComparison2.Folder, folderType));
       }
 
       private BatchSimulationComparison simulationExportFrom(string fileName, string folderPath)

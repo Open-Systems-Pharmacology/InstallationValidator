@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Core.Domain;
 using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.TeXReporting.Builder;
 using OSPSuite.TeXReporting.Items;
+using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Reporting
 {
@@ -30,6 +32,17 @@ namespace InstallationValidator.Core.Reporting
             new SubParagraph(Assets.Reporting.ComparisonFolder(comparisonResult.FolderPathCaption2)),
             comparisonResult.FolderPath2
          };
+
+
+         if (comparisonResult.ComparisonSettings.Exclusions.Any())
+         {
+            objectsToReport.Add(new SubParagraph(Assets.Reporting.UsingExclusions));
+            comparisonResult.ComparisonSettings.Exclusions.Each(x =>
+            {
+               objectsToReport.Add(x);
+               objectsToReport.Add(new LineBreak());
+            });
+         }
 
          objectsToReport.AddRange(reportSimulations(Assets.Reporting.InvalidSimulations, comparisonResult, ValidationState.Invalid));
          objectsToReport.AddRange(reportSimulations(Assets.Reporting.ValidWithWarningSimulations, comparisonResult, ValidationState.ValidWithWarnings));

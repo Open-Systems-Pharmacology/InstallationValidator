@@ -6,11 +6,20 @@ using OSPSuite.Utility.Validation;
 
 namespace InstallationValidator.Core.Presentation.DTO
 {
-   public class FolderComparisonDTO
+   public class FolderComparisonDTO : ValidatableDTO
    {
+      private string _exclusionFile;
       public FolderDTO FirstFolder { get; } = new FolderDTO();
       public FolderDTO SecondFolder { get; } = new FolderDTO();
       public byte? NumberOfCurves { get; set; } = 1;
+      public bool IgnoreAddedCurves { get; set; } = false;
+      public bool IgnoreRemovedCurves { get; set; } = false;
+
+      public string ExclusionFile
+      {
+         get => _exclusionFile;
+         set => SetProperty(ref _exclusionFile, value);
+      }
    }
 
    public class FolderDTO : ValidatableDTO

@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Events;
+using InstallationValidator.Core.Extensions;
 using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
-using InstallationValidator.Core.Extensions;
+using Newtonsoft.Json;
 using OSPSuite.Core.Services;
 using OSPSuite.Presentation.Presenters;
 
@@ -19,6 +23,7 @@ namespace InstallationValidator.Core.Presentation
       void Abort();
       void SelectFirstFolder();
       void SelectSecondFolder();
+      void SelectExclusionList();
    }
 
    public class SimulationComparisonPresenter : AbstractDisposablePresenter<ISimulationComparisonView, ISimulationComparisonPresenter>, ISimulationComparisonPresenter
@@ -31,7 +36,7 @@ namespace InstallationValidator.Core.Presentation
       private readonly IValidationReportingTask _validationReportingTask;
       private readonly FolderComparisonDTO _folderComparisonDTO;
 
-      public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator, 
+      public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator,
          IBatchComparisonTask batchComparisonTask, IValidationReportingTask validationReportingTask) : base(view)
       {
          _configuration = configuration;
@@ -89,8 +94,11 @@ namespace InstallationValidator.Core.Presentation
          return new ComparisonSettings
          {
             FolderPath1 = _folderComparisonDTO.FirstFolder.FolderPath,
-            FolderPath2  = _folderComparisonDTO.SecondFolder.FolderPath,
-            NumberOfCurves= _folderComparisonDTO.NumberOfCurves
+            FolderPath2 = _folderComparisonDTO.SecondFolder.FolderPath,
+            NumberOfCurves = _folderComparisonDTO.NumberOfCurves,
+            IgnoreAddedCurves = _folderComparisonDTO.IgnoreAddedCurves,
+            IgnoreRemovedCurves = _folderComparisonDTO.IgnoreRemovedCurves,
+            Exclusions = exclusionListFrom(_folderComparisonDTO.ExclusionFile),
          };
       }
 
@@ -99,7 +107,6 @@ namespace InstallationValidator.Core.Presentation
          _comparisonRunning = running;
          View.ComparisonIsRunning(_comparisonRunning);
       }
-
 
       public void Abort()
       {
@@ -131,6 +138,25 @@ namespace InstallationValidator.Core.Presentation
       public void SelectSecondFolder()
       {
          selectFolder(_folderComparisonDTO.SecondFolder);
+      }
+
+      public void SelectExclusionList()
+      {
+         var file = _dialogCreator.AskForFileToOpen("Open Exclusion List File", OSPSuite.Core.Domain.Constants.Filter.JSON_FILE_FILTER, OSPSuite.Core.Domain.Constants.DirectoryKey.PROJECT);
+         if (string.IsNullOrEmpty(file))
+            return;
+
+         _folderComparisonDTO.ExclusionFile = file;
+      }
+
+      private IReadOnlyList<string> exclusionListFrom(string exclusionFile)
+      {
+         if (string.IsNullOrEmpty(exclusionFile))
+            return null;
+
+         var settings = new JsonSerializerSettings();
+         var exclusions = JsonConvert.DeserializeObject<IEnumerable<string>>(File.ReadAllText(exclusionFile), settings);
+         return exclusions?.ToList();
       }
 
       public ILoggerView LoggerView => View;

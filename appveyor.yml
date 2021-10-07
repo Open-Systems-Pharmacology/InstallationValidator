@@ -1,24 +1,18 @@
 configuration: Debug
 image: Visual Studio 2019
 
-# hack until donet patching works with PR
+version: '{build}'
+
 init:
-  - cmd: if DEFINED APPVEYOR_PULL_REQUEST_NUMBER (Set build_number=1) ELSE (Set build_number=%APPVEYOR_BUILD_NUMBER%)
-
-environment:
-  app_version: '9.1'
-
-version: '$(app_version).{build}'
+- ps: Update-AppveyorBuild -Version "$($env:ospsuite_version).$($env:appveyor_build_version)"
 
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  assembly_version: "$(app_version).$(build_number)"
-  file_version: "$(app_version).$(build_number)"
-  informational_version: "$(app_version).$(build_number)"
-
-install:
-- git submodule update --init --recursive
+  version: '$(ospsuite_version).$(build_number)'
+  assembly_version: '$(ospsuite_version).$(build_number)'
+  file_version: '$(ospsuite_version).$(build_number)'
+  informational_version: '$(ospsuite_version).$(build_number)'
 
 before_build:
   - nuget sources add -name bddhelper -source https://ci.appveyor.com/nuget/ospsuite-bddhelper 
@@ -34,8 +28,6 @@ before_build:
   - nuget restore
 
 test:
-  assemblies:
-    - InstallationValidator.Tests.dll
   categories:
     except:
       - Reporting
@@ -54,9 +46,3 @@ skip_tags: true
 branches:
   only:
   - develop
-  - hotfix/v9.1
-
-notifications:
-  - provider: Slack
-    incoming_webhook:      
-      secure: 4MH9Em6TtrKalq6808dhPOqypTfYBJvVlqPaa9akNyFEAs8X080yIO8g1FLt3tNfBN4OpeBnkgrXzf7AqNKV5561x7Coux3ByGrHmsL1sCo=
