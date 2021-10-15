@@ -76,7 +76,7 @@ namespace InstallationValidator.Core.Services
             "-l",
             logFile.InQuotes(),
             "-j",
-            "forAll"
+            "--forAll"
          };
 
          using (var process = _startableProcessFactory.CreateStartableProcess(_applicationConfiguration.PKSimCLIPath, args))
