@@ -187,7 +187,7 @@
             },
             {
               "Name": "Resolution",
-              "Value": 4.0,
+              "Value": 0.5707,
               "Unit": "pts/h"
             }
           ]
