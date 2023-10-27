@@ -30,6 +30,7 @@ namespace InstallationValidator.Domain
          _simulation2 = new BatchSimulationExport {Name = "S1"};
 
          _simulationComparison1 = new BatchSimulationComparison(_simulation1, "F1");
+
          _simulationComparison2 = new BatchSimulationComparison(_simulation2, "F2");
 
          _outputValues1 = new BatchOutputValues {Path = "P1", ComparisonThreshold = _threshold};
@@ -231,6 +232,8 @@ namespace InstallationValidator.Domain
          base.Context();
          _comparisonSettings.GenerateResultsForValidSimulation = true;
          _comparisonSettings.PredefinedOutputPaths = new List<string> {"Organ|ObserverName"};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1234f, 0 } };
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1234f, 0 } };
          _outputValues1.Path = "Organ|Drug|ObserverName";
          _outputValues2.Path = "Organ|Drug|ObserverName";
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 10, float.NaN};
