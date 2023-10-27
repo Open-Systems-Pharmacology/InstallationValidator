@@ -25,7 +25,7 @@ namespace InstallationValidator.Core.Domain
       private static OutputComparisonResult validOutputComparison(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings)
       {
          if (!shouldGenerateOutputsFor(comparisonSettings, outputValues1.Path))
-            return new OutputComparisonResult(outputValues1.Path, comparisonSettings, ValidationState.Valid)
+            return new OutputComparisonResult(new OutputComparisonResultParams(outputValues1.Path), comparisonSettings, ValidationState.Valid)
             {
                Deviation = deviation
             };
@@ -67,14 +67,14 @@ namespace InstallationValidator.Core.Domain
          var time1 = simulation1.Times;
          var time2 = simulation2.Times;
 
-         if (time1 == null)
+         if (time1?.Values == null)
             return undefinedTimeComparisonResult(simulation1);
 
-         if (time2 == null)
+         if (time2?.Values == null)
             return undefinedTimeComparisonResult(simulation2);
 
-         if (time1.Length != time2.Length)
-            return differentTimeLengthComparisonResult(simulation1, time1, time2);
+         if (time1.Values.Length != time2.Values.Length)
+            return differentTimeLengthComparisonResult(simulation1, time1.Values, time2.Values);
 
          return null;
       }
@@ -98,15 +98,16 @@ namespace InstallationValidator.Core.Domain
 
       private double calculateDeviation(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2)
       {
-         return calculateDeviation(outputValues1.OutputValues.Values, outputValues2.OutputValues.Values, outputValues1.OutputValues.ComparisonThreshold);
+         return calculateDeviation(outputValues1.OutputValues, outputValues2.OutputValues, outputValues1.OutputValues.ComparisonThreshold);
       }
 
-      private double calculateDeviation(float[] array1, float[] array2, double? threshold = null)
+      private double calculateDeviation(BatchValues array1, BatchValues array2, double? threshold = null)
       {
-         if (array1.Length != array2.Length)
-            throw new InvalidArgumentException(Validation.ArraysHaveDifferentLength(array1.Length, array2.Length));
+         if (array1.Values.Length != array2.Values.Length)
+            throw new InvalidArgumentException(Validation.ArraysHaveDifferentLength(array1.Values.Length, array2.Values.Length));
 
-         return array1.Select((x, i) => relativeDeviation(x, array2[i], threshold)).Max();
+         //values are not necessarily saved 
+         return array1.Values.Select((x, i) => relativeDeviation(x, array2.Values[i], threshold)).Max();
       }
 
       private double relativeDeviation(float value1, float value2, double? threshold = null)
@@ -143,7 +144,14 @@ namespace InstallationValidator.Core.Domain
 
       private static OutputComparisonResult outputComparisonResultFrom(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2, double deviation, ComparisonSettings comparisonSettings, ValidationState state, string message = null)
       {
-         return new OutputComparisonResult(outputValues1.Path, comparisonSettings, state, message)
+         var comparisonParams = new OutputComparisonResultParams(outputValues1.Path)
+         {
+            TimeDisplayUnit = outputValues1.Times.Unit,
+            ValuesDimension = outputValues1.OutputValues.Dimension,
+            ValuesDisplayUnit = outputValues1.OutputValues.Unit
+         };
+
+         return new OutputComparisonResult(comparisonParams, comparisonSettings, state, message)
          {
             Output1 = outputResultFrom(outputValues1, comparisonSettings.FolderPathCaption1),
             Output2 = outputResultFrom(outputValues2, comparisonSettings.FolderPathCaption2),
@@ -153,21 +161,20 @@ namespace InstallationValidator.Core.Domain
 
       private static OutputResult outputResultFrom(BatchOutputComparison outputValue, string caption)
       {
-         return new OutputResult(outputValue.Times, outputValue.Values)
+         return new OutputResult(outputValue.Times.Values, outputValue.Values)
          {
-            Dimension = outputValue.OutputValues.Dimension,
             Caption = caption
          };
       }
 
       private static OutputComparisonResult differentOutputLengthComparisonResult(BatchOutputComparison outputValues1, BatchOutputValues values1, BatchOutputValues values2, ComparisonSettings comparisonSettings)
       {
-         return new OutputComparisonResult(outputValues1.Path, comparisonSettings, ValidationState.Invalid, Validation.ValueArraysHaveDifferentLength(outputValues1.SimulationName, outputValues1.Path, values1.Values.Length, values2.Values.Length));
+         return new OutputComparisonResult(new OutputComparisonResultParams(outputValues1.Path), comparisonSettings, ValidationState.Invalid, Validation.ValueArraysHaveDifferentLength(outputValues1.SimulationName, outputValues1.Path, values1.Values.Length, values2.Values.Length));
       }
 
       private static OutputComparisonResult undefinedValuesComparisonResult(BatchOutputComparison batchOutputComparison, ComparisonSettings comparisonSettings)
       {
-         return new OutputComparisonResult(batchOutputComparison.Path, comparisonSettings, ValidationState.Invalid, Validation.ValueArrayDoesNotExist(batchOutputComparison.SimulationName, batchOutputComparison.Folder, batchOutputComparison.Path));
+         return new OutputComparisonResult(new OutputComparisonResultParams(batchOutputComparison.Path), comparisonSettings, ValidationState.Invalid, Validation.ValueArrayDoesNotExist(batchOutputComparison.SimulationName, batchOutputComparison.Folder, batchOutputComparison.Path));
       }
 
       private static TimeComparisonResult differentTimeLengthComparisonResult(BatchSimulationComparison simulation1, float[] time1, float[] time2)

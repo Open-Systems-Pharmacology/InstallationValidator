@@ -30,6 +30,7 @@ namespace InstallationValidator.Domain
          _simulation2 = new BatchSimulationExport {Name = "S1"};
 
          _simulationComparison1 = new BatchSimulationComparison(_simulation1, "F1");
+
          _simulationComparison2 = new BatchSimulationComparison(_simulation2, "F2");
 
          _outputValues1 = new BatchOutputValues {Path = "P1", ComparisonThreshold = _threshold};
@@ -52,8 +53,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] {1f, 2f, 3f};
-         _simulation2.Times = new[] {1f, 2f};
+         _simulation1.Times = new BatchValues {Values = new[] {1f, 2f, 3f}};
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f } };
       }
 
       protected override void Because()
@@ -65,7 +66,7 @@ namespace InstallationValidator.Domain
       public void should_return_a_time_comparison_results_indication_that_the_array_have_different_length()
       {
          _result.State.ShouldBeEqualTo(ValidationState.Invalid);
-         _result.Message.ShouldBeEqualTo(Validation.TimeArraysHaveDifferentLength(_simulation1.Name, _simulation1.Times.Length, _simulation2.Times.Length));
+         _result.Message.ShouldBeEqualTo(Validation.TimeArraysHaveDifferentLength(_simulation1.Name, _simulation1.Times.Values.Length, _simulation2.Times.Values.Length));
       }
    }
 
@@ -76,7 +77,7 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] {1f, 2f, 3f};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, 3f } };
       }
 
       protected override void Because()
@@ -99,8 +100,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] {1f, 2f, float.NaN, 1.1234f, 0};
-         _simulation2.Times = new[] {1f, 2f, float.NaN, 1.1235f, 0};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1234f, 0 } };
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1235f, 0 } };
       }
 
       protected override void Because()
@@ -122,8 +123,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] {1f, 2f, float.NaN, 1.12f, 0};
-         _simulation2.Times = new[] {1f, 2f, float.NaN, 1.13f, 0};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.12f, 0 } };
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.13f, 0 } };
       }
 
       protected override void Because()
@@ -231,6 +232,8 @@ namespace InstallationValidator.Domain
          base.Context();
          _comparisonSettings.GenerateResultsForValidSimulation = true;
          _comparisonSettings.PredefinedOutputPaths = new List<string> {"Organ|ObserverName"};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1234f, 0 } };
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f, float.NaN, 1.1234f, 0 } };
          _outputValues1.Path = "Organ|Drug|ObserverName";
          _outputValues2.Path = "Organ|Drug|ObserverName";
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, (float) _threshold / 10, float.NaN};
@@ -271,8 +274,8 @@ namespace InstallationValidator.Domain
       protected override void Context()
       {
          base.Context();
-         _simulation1.Times = new[] {1f, 2f, 3f};
-         _simulation2.Times = new[] {1f, 2f, 4f};
+         _simulation1.Times = new BatchValues { Values = new[] { 1f, 2f, 3f } };
+         _simulation2.Times = new BatchValues { Values = new[] { 1f, 2f, 4f } };
 
          _outputValues1.Values = new[] {1f, 2f, 0, 4f, 0.01f};
          _outputValues2.Values = new[] {1f, 2f, 0, 4f, 0.05f};
@@ -293,8 +296,8 @@ namespace InstallationValidator.Domain
       [Observation]
       public void should_have_set_the_output_values_that_can_be_used_for_further_analyses()
       {
-         _result.Output1.Times.ShouldBeEqualTo(_simulation1.Times);
-         _result.Output2.Times.ShouldBeEqualTo(_simulation2.Times);
+         _result.Output1.Times.ShouldBeEqualTo(_simulation1.Times.Values);
+         _result.Output2.Times.ShouldBeEqualTo(_simulation2.Times.Values);
          _result.Output1.Values.ShouldBeEqualTo(_outputValues1.Values);
          _result.Output2.Values.ShouldBeEqualTo(_outputValues2.Values);
       }
