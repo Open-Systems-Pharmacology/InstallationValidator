@@ -61,7 +61,7 @@ namespace InstallationValidator.Services
       {
          base.Context();
          _timeComparison = new TimeComparisonResult(ValidationState.Valid);
-         _outputComparison = new OutputComparisonResult("P1", _comparsionSettings, ValidationState.Valid);
+         _outputComparison = new OutputComparisonResult(new OutputComparisonResultParams("P1"), _comparsionSettings, ValidationState.Valid);
          A.CallTo(() => _comparisonStrategy.CompareTime(A<BatchSimulationComparison>._, A<BatchSimulationComparison>._, _comparsionSettings)).Returns(_timeComparison);
          A.CallTo(() => _comparisonStrategy.CompareOutputs(A<BatchOutputComparison>._, A<BatchOutputComparison>._, _comparsionSettings)).Returns(_outputComparison);
 

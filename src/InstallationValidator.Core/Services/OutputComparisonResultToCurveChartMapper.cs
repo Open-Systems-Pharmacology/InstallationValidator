@@ -27,8 +27,8 @@ namespace InstallationValidator.Core.Services
 
       public IEnumerable<CurveChart> MapFrom(OutputComparisonResult outputComparisonResult)
       {
-         var dataRepository1 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output1);
-         var dataRepository2 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult.Output2);
+         var dataRepository1 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult, outputComparisonResult.Output1);
+         var dataRepository2 = _outputResultToDataRepositoryMapper.MapFrom(outputComparisonResult, outputComparisonResult.Output2);
 
          yield return createCurveChartWithScaling(outputComparisonResult, Scalings.Log, dataRepository1, dataRepository2);
 
