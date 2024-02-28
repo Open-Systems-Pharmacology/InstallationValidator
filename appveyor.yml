@@ -45,4 +45,4 @@ skip_tags: true
 
 branches:
   only:
-  - develop
+  - hotfix/11.3
