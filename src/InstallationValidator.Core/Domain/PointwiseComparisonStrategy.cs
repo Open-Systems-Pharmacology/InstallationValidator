@@ -98,7 +98,11 @@ namespace InstallationValidator.Core.Domain
 
       private double calculateDeviation(BatchOutputComparison outputValues1, BatchOutputComparison outputValues2)
       {
-         return calculateDeviation(outputValues1.OutputValues, outputValues2.OutputValues, outputValues1.OutputValues.ComparisonThreshold);
+         var thresholdToUse = outputValues1.OutputValues.ComparisonThreshold;
+         if (thresholdToUse == 0)
+            thresholdToUse = outputValues2.OutputValues.ComparisonThreshold;
+
+         return calculateDeviation(outputValues1.OutputValues, outputValues2.OutputValues, thresholdToUse);
       }
 
       private double calculateDeviation(BatchValues array1, BatchValues array2, double? threshold = null)
