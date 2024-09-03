@@ -72,6 +72,7 @@ namespace InstallationValidator.Core.Services
                Values = outputValues.Values,
                Dimension = outputValues.Dimension,
                Unit = dimension.DefaultUnitName,
+               ComparisonThreshold = outputValues.ComparisonThreshold
             });
          }
 
