@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.Win32;
 using OSPSuite.Assets;
 using OSPSuite.Core;
@@ -19,7 +20,12 @@ namespace InstallationValidator.Core
 
    public class InstallationValidatorConfiguration : OSPSuiteConfiguration, IInstallationValidatorConfiguration
    {
+      public InstallationValidatorConfiguration() : base(Assembly.GetExecutingAssembly())
+      {
+      }
+
       public override string ProductName => Constants.PRODUCT_NAME_WITH_TRADEMARK;
+
       //not used in this context
       public override int InternalVersion { get; } = 1;
       public override Origin Product { get; } = Origins.Other;
@@ -28,7 +34,7 @@ namespace InstallationValidator.Core
       public override string UserSettingsFileName { get; } = "UserSettings.xml";
       public override string ApplicationSettingsFileName { get; } = "ApplicationSettings.xml";
       public override string IssueTrackerUrl { get; } = Constants.ISSUE_TRACKER_URL;
-      protected override string[] LatestVersionWithOtherMajor { get; } = new String [0];
+      protected override string[] LatestVersionWithOtherMajor { get; } = Array.Empty<string>();
       public override string WatermarkOptionLocation { get; } = "Options -> Settings -> Application";
       public override string ApplicationFolderPathName { get; } = Constants.APPLICATION_FOLDER_PATH;
 

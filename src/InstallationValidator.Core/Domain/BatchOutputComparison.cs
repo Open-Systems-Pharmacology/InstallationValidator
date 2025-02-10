@@ -7,7 +7,7 @@ namespace InstallationValidator.Core.Domain
       public BatchSimulationExport Simulation { get; }
       public string Folder { get; }
       public string Name => Simulation.Name;
-      public float[] Times => Simulation.Times;
+      public BatchValues Times => Simulation.Times;
 
       public BatchSimulationComparison(BatchSimulationExport simulation, string folder)
       {
@@ -33,7 +33,7 @@ namespace InstallationValidator.Core.Domain
       public string SimulationName => Simulation.Name;
       public string Folder => Simulation.Folder;
       public string Path => OutputValues.Path;
-      public float[] Times => Simulation.Times;
+      public BatchValues Times => Simulation.Times;
       public float[] Values => OutputValues.Values;
 
       public BatchOutputComparison(BatchSimulationComparison simulation, BatchOutputValues outputValues)
@@ -41,6 +41,5 @@ namespace InstallationValidator.Core.Domain
          Simulation = simulation;
          OutputValues = outputValues;
       }
-
    }
 }

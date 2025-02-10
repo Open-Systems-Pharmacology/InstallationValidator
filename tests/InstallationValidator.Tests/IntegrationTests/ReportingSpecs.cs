@@ -70,7 +70,7 @@ namespace InstallationValidator.IntegrationTests
          var outputComparisonResult = createOutputDeviationFailureResult();
          var timeComparisonResult = new TimeComparisonResult(ValidationState.Invalid, "the time message") { Deviation = 1.0 };
          timeFileComparisonResult.TimeComparison = timeComparisonResult;
-         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult("valid", _comparisonSettings, ValidationState.Valid, ""));
+         timeFileComparisonResult.AddOutputComparison(new OutputComparisonResult(new OutputComparisonResultParams("valid"), _comparisonSettings, ValidationState.Valid, ""));
          outputFileComparisonResult.AddOutputComparison(outputComparisonResult);
          outputFileComparisonResult.TimeComparison = new TimeComparisonResult(ValidationState.Valid, "valid");
 
@@ -100,11 +100,11 @@ namespace InstallationValidator.IntegrationTests
 
       private  OutputComparisonResult createOutputDeviationFailureResult()
       {
-         var outputDeviationFailureResult = new OutputComparisonResult("the path", _comparisonSettings, ValidationState.Invalid, "the message")
+         var outputDeviationFailureResult = new OutputComparisonResult(new OutputComparisonResultParams("the path"){ValuesDimension = "Mass" }, _comparisonSettings, ValidationState.Invalid, "the message")
          {
             Deviation = 44.0,
-            Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)) { Dimension = "Mass", Caption = "name1" },
-            Output2 = new OutputResult(getTimes(), getValues(x => x)) { Dimension = "Mass", Caption = "name2"}
+            Output1 = new OutputResult(getTimes(), getValues(x => 2 * x)) { Caption = "name1" },
+            Output2 = new OutputResult(getTimes(), getValues(x => x)) { Caption = "name2"}
          };
          return outputDeviationFailureResult;
       }

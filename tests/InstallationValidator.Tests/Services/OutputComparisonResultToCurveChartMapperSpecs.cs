@@ -23,7 +23,7 @@ namespace InstallationValidator.Services
          _outputResultToDataRepositoryMapper = A.Fake<IOutputResultToDataRepositoryMapper>();
          sut = new OutputComparisonResultToCurveChartMapper(_outputResultToDataRepositoryMapper, _dimensionFactory);
 
-         A.CallTo(() => _outputResultToDataRepositoryMapper.MapFrom(A<OutputResult>._)).ReturnsLazily(() => new DataRepository());
+         A.CallTo(_outputResultToDataRepositoryMapper).WithReturnType<DataRepository>().ReturnsLazily(() => new DataRepository());
       }
 
       public class When_the_mapper_maps_from_an_invalid_output_comparison : concern_for_OutputComparisonResultToCurveChartMapper
@@ -34,8 +34,9 @@ namespace InstallationValidator.Services
          protected override void Context()
          {
             base.Context();
-            var comparsionSettings = new ComparisonSettings();
-            _outputComparisonResult = new OutputComparisonResult("path", comparsionSettings, ValidationState.Invalid, string.Empty);
+            var comparisonSettings = new ComparisonSettings();
+            var comparisonParams = new OutputComparisonResultParams("path");
+            _outputComparisonResult = new OutputComparisonResult(comparisonParams, comparisonSettings, ValidationState.Invalid, string.Empty);
          }
 
          protected override void Because()
@@ -68,8 +69,8 @@ namespace InstallationValidator.Services
          protected override void Context()
          {
             base.Context();
-            var comparsionSettings = new ComparisonSettings();
-            _outputComparisonResult = new OutputComparisonResult("path", comparsionSettings, ValidationState.Valid, string.Empty);
+            var comparisonSettings = new ComparisonSettings();
+            _outputComparisonResult = new OutputComparisonResult(new OutputComparisonResultParams("path"), comparisonSettings, ValidationState.Valid, string.Empty);
          }
 
          protected override void Because()

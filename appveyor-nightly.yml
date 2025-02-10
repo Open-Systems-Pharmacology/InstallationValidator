@@ -1,5 +1,5 @@
 configuration: Debug
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 version: '{build}'
 
@@ -43,17 +43,6 @@ after_build:
 test:
   assemblies:
     - InstallationValidator.Tests.dll
-
-skip_commits:
-  files:
-    - '*.md'
-
-skip_branch_with_pr: true
-
-branches:
-  only:
-  - main
-  - develop
 
 on_finish: 
   - ps: Get-ChildItem setup.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
