@@ -49,4 +49,4 @@ pull_requests:
 
 branches:
   only:
-  - hotfix/11.3
+  - develop
