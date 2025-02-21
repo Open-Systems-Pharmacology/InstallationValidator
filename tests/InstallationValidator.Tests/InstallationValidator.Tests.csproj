@@ -32,9 +32,9 @@
 
   <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="7.3.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="nunit" Version="3.13.3" />
+    <PackageReference Include="nunit" Version="3.14.0" />
     <PackageReference Include="OSPSuite.BDDHelper" Version="4.0.0.1" />
     <PackageReference Include="OSPSuite.Core" Version="12.1.16" />
     <PackageReference Include="OSPSuite.Infrastructure" Version="12.1.16" />

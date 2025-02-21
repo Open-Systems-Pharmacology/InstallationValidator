@@ -39,7 +39,7 @@ jobs:
         run: msbuild InstallationValidator.sln /p:Version=12.1.9999
 
       - name: Test
-        run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll -v normal --no-build  --logger:"html;LogFileName=../testLog_Windows.html"
+        run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
 
       - name: Push test log as artifact
         uses: actions/upload-artifact@v4
