@@ -27,3 +27,4 @@ We encourage contribution to the Open Systems Pharmacology community. Before get
 
 ## License
 InstallationValidator is released under the [GPLv2 License](https://github.com/Open-Systems-Pharmacology/Suite/blob/master/LICENSE).
+
