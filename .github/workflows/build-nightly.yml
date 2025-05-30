@@ -46,9 +46,6 @@ jobs:
         with:
           submodules: 'true'
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
-
       - name: Restore dependencies
         run: |
           nuget sources add -username Open-Systems-Pharmacology -password ${{ secrets.GITHUB_TOKEN }} -name OSP-GitHub-Packages -source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json"
@@ -60,7 +57,7 @@ jobs:
 
       - name: Build
         run: |
-          msbuild InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
+          dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
 
       - name: Test
         run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
