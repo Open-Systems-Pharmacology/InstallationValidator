@@ -145,12 +145,12 @@
             },
             {
               "Name": "End time",
-              "Value": 8760.0,
+              "Value": 2400.0,
               "Unit": "h"
             },
             {
               "Name": "Resolution",
-              "Value": 0.5707,
+              "Value": 1.0,
               "Unit": "pts/h"
             }
           ]
