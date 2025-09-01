@@ -36,9 +36,25 @@ namespace InstallationValidator.Core.Domain
          {
             var productName = registryHKLMValue(WINDOWS_REG_KEY, "ProductName");
             var version = registryHKLMValue(WINDOWS_REG_KEY, "CSDVersion");
+            var currentBuildNumber = registryHKLMValue(WINDOWS_REG_KEY, "CurrentBuildNumber");
+            var displayVersion = registryHKLMValue(WINDOWS_REG_KEY, "DisplayVersion");
 
             if (string.IsNullOrEmpty(productName))
                return Environment.OSVersion.VersionString;
+
+            // Windows 11 detection: Build number 22000 and above indicates Windows 11
+            if (!string.IsNullOrEmpty(currentBuildNumber) && int.TryParse(currentBuildNumber, out var buildNumber) && buildNumber >= 22000)
+            {
+               var windows11Name = "Windows 11";
+               
+               // Use DisplayVersion for Windows 11 version info if available
+               if (!string.IsNullOrEmpty(displayVersion))
+               {
+                  windows11Name += $" {displayVersion}";
+               }
+               
+               return windows11Name;
+            }
 
             var info = new[]
             {
