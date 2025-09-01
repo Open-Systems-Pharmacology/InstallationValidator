@@ -43,7 +43,9 @@ namespace InstallationValidator.Core.Domain
                return Environment.OSVersion.VersionString;
 
             // Windows 11 detection: Build number 22000 and above indicates Windows 11
-            if (!string.IsNullOrEmpty(currentBuildNumber) && int.TryParse(currentBuildNumber, out var buildNumber) && buildNumber >= 22000)
+            // But only apply this to client Windows, not Windows Server editions
+            if (!string.IsNullOrEmpty(currentBuildNumber) && int.TryParse(currentBuildNumber, out var buildNumber) && buildNumber >= 22000 
+                && !productName.ToLower().Contains("server"))
             {
                var windows11Name = "Windows 11";
                
