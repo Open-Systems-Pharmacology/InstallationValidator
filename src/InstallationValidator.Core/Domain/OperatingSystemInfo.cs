@@ -35,10 +35,15 @@ namespace InstallationValidator.Core.Domain
          get
          {
             var productName = registryHKLMValue(WINDOWS_REG_KEY, "ProductName");
-            var version = registryHKLMValue(WINDOWS_REG_KEY, "CSDVersion");
+            var version = registryHKLMValue(WINDOWS_REG_KEY, "DisplayVersion");
+            var currentBuildNumber = registryHKLMValue(WINDOWS_REG_KEY, "CurrentBuildNumber");
 
             if (string.IsNullOrEmpty(productName))
                return Environment.OSVersion.VersionString;
+
+            //Windows 11 stores "Windows 10 XXX" as product name in the registry
+            //To get the right product name, build version can be used
+            productName = fixProductNameForWindows11(productName, currentBuildNumber);
 
             var info = new[]
             {
@@ -49,6 +54,25 @@ namespace InstallationValidator.Core.Domain
 
             return info.Where(s => !string.IsNullOrEmpty(s)).ToString(" - ");
          }
+      }
+
+      private string fixProductNameForWindows11(string productName, string currentBuildNumber)
+      {
+         if (string.IsNullOrEmpty(currentBuildNumber))
+            return productName;
+
+         //no adjustment required for the Windows Server editions
+         if(productName.ToLower().Contains("server"))
+            return productName;
+
+         //for non-server editions: Windows 11 can be detected by the build number >=22000
+         // (s. e.g. https://en.wikipedia.org/wiki/Windows_11_version_history#Version_history)
+         const int minimalWindows11BuildNumber = 22000;
+
+         if (int.TryParse(currentBuildNumber, out var buildNumber) && buildNumber >= minimalWindows11BuildNumber)
+            return productName.Replace("Windows 10", "Windows 11");
+         else
+            return productName;
       }
 
       //adapted from http://www.codeproject.com/Messages/1246676/Re-Absolute-excellent-code-but.aspx
