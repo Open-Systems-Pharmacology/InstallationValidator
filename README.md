@@ -5,6 +5,9 @@ Installation Validation Tool for the Open Systems Pharmacology Suite.
 ## Code Status
 [![Build status](https://img.shields.io/github/actions/workflow/status/Open-Systems-Pharmacology/InstallationValidator/build-and-test.yml?logo=nuget&label=Build%20status)](https://github.com/Open-Systems-Pharmacology/InstallationValidator/actions/workflows/build-and-test.yml)
 
+## Wix Install 
+https://github.com/wixtoolset/wix3/releases
+
 ## Building WIX output for setup
 The following command should be run to create the `BatchFiles.wxs`
 ```
