@@ -5,6 +5,8 @@ using Microsoft.Win32;
 using OSPSuite.Assets;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain;
+using static InstallationValidator.Core.Constants.Tools;
+using static OSPSuite.Core.Domain.Constants.RegistryPaths;
 
 namespace InstallationValidator.Core
 {
@@ -38,17 +40,17 @@ namespace InstallationValidator.Core
       public override string WatermarkOptionLocation { get; } = "Options -> Settings -> Application";
       public override string ApplicationFolderPathName { get; } = Constants.APPLICATION_FOLDER_PATH;
 
-      public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.PKSIM_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_PATH);
+      public string PKSimBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(PKSIM_REG_PATH, INSTALL_PATH);
 
-      public string MoBiBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.MOBI_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_PATH);
+      public string MoBiBinaryExecutablePath => getRegistryValueForRegistryPathAndKey(MOBI_REG_PATH, INSTALL_PATH);
 
-      public string PKSimInstallFolderPath => getRegistryValueForRegistryPathAndKey(OSPSuite.Core.Domain.Constants.RegistryPaths.PKSIM_REG_PATH, OSPSuite.Core.Domain.Constants.RegistryPaths.INSTALL_DIR);
+      public string PKSimInstallFolderPath => getRegistryValueForRegistryPathAndKey(PKSIM_REG_PATH, INSTALL_DIR);
 
-      public string BatchInputsFolderPath => AllUsersFile(Constants.Tools.BATCH_INPUTS);
+      public string BatchInputsFolderPath => AllUsersFile(BATCH_INPUTS);
 
-      public string BatchOutputsFolderPath => AllUsersFile(Constants.Tools.BATCH_OUTPUTS);
+      public string BatchOutputsFolderPath => AllUsersFile(BATCH_OUTPUTS);
 
-      public string PKSimCLIPath => Path.Combine(PKSimInstallFolderPath, Constants.Tools.PKSIM_CLI);
+      public string PKSimCLIPath => Path.Combine(PKSimInstallFolderPath, PKSIM_CLI);
 
       private string getRegistryValueForRegistryPathAndKey(string openSystemsPharmacology, string installDir)
       {
@@ -62,6 +64,6 @@ namespace InstallationValidator.Core
          }
       }
 
-      public string DefaultOutputPath => Path.Combine(CurrentUserFolderPath, Constants.Tools.CALCULATION_OUTPUTS);
+      public string DefaultOutputPath => Path.Combine(CurrentUserFolderPath, CALCULATION_OUTPUTS);
    }
 }
