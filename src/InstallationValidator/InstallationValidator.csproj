@@ -14,6 +14,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1591, 3246</NoWarn>
+    <Version Condition="'$(Version)' == ''">12.1.0</Version>
     <ApplicationIcon>InstallationValidator.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -52,13 +53,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSPSuite.Core" Version="12.1.108" />
+    <PackageReference Include="OSPSuite.Core" Version="12.1.128" />
     <PackageReference Include="OSPSuite.DevExpress" Version="21.2.15" />
     <PackageReference Include="OSPSuite.FuncParser" Version="4.0.0.73" GeneratePathProperty="true" />
     <PackageReference Include="OSPSuite.SimModel" Version="4.0.0.75" GeneratePathProperty="true" />
     <PackageReference Include="OSPSuite.SimModelSolver_CVODES" Version="4.1.0.19" GeneratePathProperty="true" />
     <PackageReference Include="OSPSuite.TeXReporting" Version="3.0.1.1" GeneratePathProperty="true" />
-    <PackageReference Include="OSPSuite.UI" Version="12.1.108" />
+    <PackageReference Include="OSPSuite.UI" Version="12.1.128" />
     <PackageReference Include="OSPSuite.DataBinding" Version="3.0.1.1" />
     <PackageReference Include="OSPSuite.DataBinding.Devexpress" Version="6.0.1.2" />
 
