@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallationValidator", "src\InstallationValidator\InstallationValidator.csproj", "{5CFD54EC-23C4-49DA-8E97-0215F9076F3D}"
 EndProject
@@ -9,8 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallationValidator.Tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EE126C4-E171-479C-B79A-0B5B1BBC50FC}"
 	ProjectSection(SolutionItems) = preProject
-		appveyor-nightly.yml = appveyor-nightly.yml
-		appveyor.yml = appveyor.yml
+		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+		.github\workflows\build-nightly.yml = .github\workflows\build-nightly.yml
 		rakefile.rb = rakefile.rb
 		README.md = README.md
 		setup\setup.wxs = setup\setup.wxs

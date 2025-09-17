@@ -1,0 +1,929 @@
+{
+  "Version": 80,
+  "ExpressionProfiles": [
+    {
+      "Type": "Enzyme",
+      "Species": "Human",
+      "Molecule": "Esterase_RBC",
+      "Category": "Brockmoller et al 2005",
+      "Parameters": [
+        {
+          "Path": "Esterase_RBC|Reference concentration",
+          "Value": 1.0,
+          "Unit": "µmol/l"
+        },
+        {
+          "Path": "Esterase_RBC|Relative expression in blood cells",
+          "Value": 1.0
+        },
+        {
+          "Path": "Esterase_RBC|t1/2 (intestine)",
+          "Value": 1380.0,
+          "Unit": "min"
+        },
+        {
+          "Path": "Esterase_RBC|t1/2 (liver)",
+          "Value": 2160.0,
+          "Unit": "min"
+        }
+      ],
+      "Localization": "Intracellular, BloodCellsIntracellular, VascEndosome"
+    }
+  ],
+  "Individuals": [
+    {
+      "Name": "Brockmoller2005_CPA",
+      "Seed": 1107471937,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1",
+          "Body surface area - Mosteller"
+        ],
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": {
+          "Value": 50.0,
+          "Unit": "year(s)"
+        },
+        "Weight": {
+          "Value": 88.28,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 181.55,
+          "Unit": "cm"
+        },
+        "Disease": {
+          "Name": "HI",
+          "Parameters": [
+            {
+              "Name": "Child-Pugh score",
+              "Value": 0.0
+            }
+          ]
+        }
+      },
+      "ExpressionProfiles": [
+        "Esterase_RBC|Human|Brockmoller et al 2005"
+      ]
+    },
+    {
+      "Name": "Brockmoller2005_CPB",
+      "Seed": 1107535968,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1",
+          "Body surface area - Mosteller"
+        ],
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": {
+          "Value": 50.0,
+          "Unit": "year(s)"
+        },
+        "Weight": {
+          "Value": 88.28,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 181.55,
+          "Unit": "cm"
+        },
+        "Disease": {
+          "Name": "HI",
+          "Parameters": [
+            {
+              "Name": "Child-Pugh score",
+              "Value": 1.0
+            }
+          ]
+        }
+      },
+      "ExpressionProfiles": [
+        "Esterase_RBC|Human|Brockmoller et al 2005"
+      ]
+    },
+    {
+      "Name": "Brockmoller2005_CPC",
+      "Seed": 1107561468,
+      "OriginData": {
+        "CalculationMethods": [
+          "SurfaceAreaPlsInt_VAR1",
+          "Body surface area - Mosteller"
+        ],
+        "Species": "Human",
+        "Population": "European_ICRP_2002",
+        "Gender": "MALE",
+        "Age": {
+          "Value": 50.0,
+          "Unit": "year(s)"
+        },
+        "Weight": {
+          "Value": 88.28,
+          "Unit": "kg"
+        },
+        "Height": {
+          "Value": 181.55,
+          "Unit": "cm"
+        },
+        "Disease": {
+          "Name": "HI",
+          "Parameters": [
+            {
+              "Name": "Child-Pugh score",
+              "Value": 2.0
+            }
+          ]
+        }
+      },
+      "ExpressionProfiles": [
+        "Esterase_RBC|Human|Brockmoller et al 2005"
+      ]
+    }
+  ],
+  "Compounds": [
+    {
+      "Name": "Levetiracetam",
+      "IsSmallMolecule": true,
+      "Lipophilicity": [
+        {
+          "Name": "ChemDatabase",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": -0.6,
+              "Unit": "Log Units",
+              "ValueOrigin": {
+                "Source": "Database",
+                "Method": "InVitro",
+                "Description": "http://www.t3db.ca/toxins/T3D3019"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "FDA data",
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": -0.64,
+              "Unit": "Log Units",
+              "ValueOrigin": {
+                "Source": "Database",
+                "Description": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2003/021505_s000_Keppra_EAFONSI.pdf"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Publication1",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": -0.67,
+              "Unit": "Log Units",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Petrusevska et al., JOURNAL OF PHARMACEUTICAL SCIENCES 104:2676–2687, 2015"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Publication2",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": -0.49,
+              "Unit": "Log Units",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Petrusevska et al., JOURNAL OF PHARMACEUTICAL SCIENCES 104:2676–2687, 2015"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Optimized_RBC",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Lipophilicity",
+              "Value": -0.5,
+              "Unit": "Log Units",
+              "ValueOrigin": {
+                "Source": "ParameterIdentification",
+                "Method": "ParameterIdentification"
+              }
+            }
+          ]
+        }
+      ],
+      "FractionUnbound": [
+        {
+          "Name": "Measurement",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "Fraction unbound (plasma, reference value)",
+              "Value": 0.966,
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Method": "InVitro",
+                "Description": "Pastalos et al.2017"
+              }
+            }
+          ]
+        }
+      ],
+      "Solubility": [
+        {
+          "Name": "Measurement",
+          "Parameters": [
+            {
+              "Name": "Solubility at reference pH",
+              "Value": 1040.0,
+              "Unit": "mg/ml",
+              "ValueOrigin": {
+                "Source": "Database",
+                "Description": "NDA 21-505 Keppra, Petrusevska et al. 2015"
+              }
+            },
+            {
+              "Name": "Reference pH",
+              "Value": 7.0,
+              "ValueOrigin": {
+                "Source": "Database",
+                "Description": "NDA 21-505 Keppra, Petrusevska et al. 2015"
+              }
+            }
+          ]
+        }
+      ],
+      "IntestinalPermeability": [
+        {
+          "Name": "adjusted",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Specific intestinal permeability (transcellular)",
+              "Value": 1.57E-05,
+              "Unit": "cm/s"
+            }
+          ]
+        },
+        {
+          "Name": "PAMPA",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Specific intestinal permeability (transcellular)",
+              "Value": 2.28E-05,
+              "Unit": "cm/s",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "PETRUˇSEVSKA"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Rat intestinal",
+          "Parameters": [
+            {
+              "Name": "Specific intestinal permeability (transcellular)",
+              "Value": 3.06E-05,
+              "Unit": "cm/s",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "PETRUSEVSKA"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Literature",
+          "IsDefault": false,
+          "Parameters": [
+            {
+              "Name": "Specific intestinal permeability (transcellular)",
+              "Value": 1.57E-05,
+              "Unit": "cm/s",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Scotcher et al"
+              }
+            }
+          ]
+        }
+      ],
+      "Processes": [
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "in-vitro hydrolysis",
+          "Molecule": "Esterase",
+          "Parameters": [
+            {
+              "Name": "Enzyme concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l",
+              "ValueOrigin": {
+                "Source": "Unknown",
+                "Method": "Unknown",
+                "Description": "Assumed"
+              }
+            },
+            {
+              "Name": "Vmax",
+              "Value": 287.0,
+              "Unit": "pmol/ml/min",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Coupez et al 2003"
+              }
+            },
+            {
+              "Name": "Km",
+              "Value": 439.0,
+              "Unit": "µmol/l",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Coupez et al 2003"
+              }
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationIntrinsic_FirstOrder",
+          "DataSource": "intrinsic Cl",
+          "Species": "Human",
+          "Molecule": "Esterase",
+          "Parameters": [
+            {
+              "Name": "Intrinsic clearance",
+              "Value": 0.002278,
+              "Unit": "l/min"
+            }
+          ]
+        },
+        {
+          "InternalName": "GlomerularFiltration",
+          "DataSource": "GFR",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "GFR fraction",
+              "Value": 0.4,
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Brockmoller et al, Coupeze et al.(calculated as ratio of observed CLr to GFR)"
+              }
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "Optimized_Whole Blood",
+          "Molecule": "Esterase",
+          "Parameters": [
+            {
+              "Name": "Enzyme concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
+              "Name": "Vmax",
+              "Value": 8997.24,
+              "Unit": "pmol/ml/min",
+              "ValueOrigin": {
+                "Source": "ParameterIdentification",
+                "Method": "ParameterIdentification"
+              }
+            },
+            {
+              "Name": "Km",
+              "Value": 439.0,
+              "Unit": "µmol/l"
+            }
+          ]
+        },
+        {
+          "InternalName": "GlomerularFiltration",
+          "DataSource": "GFR-Optimized_Whole Blood",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "GFR fraction",
+              "Value": 0.5,
+              "ValueOrigin": {
+                "Source": "ParameterIdentification",
+                "Method": "ParameterIdentification"
+              }
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "Optimized-RBC",
+          "Molecule": "Esterase",
+          "Parameters": [
+            {
+              "Name": "Enzyme concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
+              "Name": "Vmax",
+              "Value": 8942.0,
+              "Unit": "pmol/ml/min",
+              "ValueOrigin": {
+                "Source": "ParameterIdentification",
+                "Method": "ParameterIdentification"
+              }
+            },
+            {
+              "Name": "Km",
+              "Value": 439.0,
+              "Unit": "µmol/l"
+            }
+          ]
+        },
+        {
+          "InternalName": "GlomerularFiltration",
+          "DataSource": "Optimized_RBC",
+          "Species": "Human",
+          "Parameters": [
+            {
+              "Name": "GFR fraction",
+              "Value": 0.5
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationIntrinsic_FirstOrder",
+          "DataSource": "Coupeze et al",
+          "Species": "Human",
+          "Molecule": "Esterase_Liver",
+          "Parameters": [
+            {
+              "Name": "Intrinsic clearance",
+              "Value": 0.0,
+              "Unit": "l/min"
+            },
+            {
+              "Name": "Specific clearance",
+              "Value": 0.01,
+              "Unit": "1/min",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Description": "Coupeze et al"
+              }
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "Coupeze et al.",
+          "Molecule": "Esterase_RBC",
+          "Metabolite": "L057",
+          "Parameters": [
+            {
+              "Name": "Enzyme concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
+              "Name": "Vmax",
+              "Value": 287.0,
+              "Unit": "pmol/ml/min",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Method": "InVitro",
+                "Description": "Publication"
+              }
+            },
+            {
+              "Name": "Km",
+              "Value": 439.0,
+              "Unit": "µmol/l",
+              "ValueOrigin": {
+                "Source": "Publication",
+                "Method": "InVitro",
+                "Description": "Coupeze et al."
+              }
+            }
+          ]
+        },
+        {
+          "InternalName": "MetabolizationSpecific_MM",
+          "DataSource": "Adjusted",
+          "Molecule": "Esterase_RBC",
+          "Metabolite": "L057",
+          "Parameters": [
+            {
+              "Name": "Enzyme concentration",
+              "Value": 1.0,
+              "Unit": "µmol/l"
+            },
+            {
+              "Name": "Vmax",
+              "Value": 8000.0,
+              "Unit": "pmol/ml/min"
+            },
+            {
+              "Name": "Km",
+              "Value": 439.0,
+              "Unit": "µmol/l",
+              "ValueOrigin": {
+                "Source": "Unknown",
+                "Description": "Coupeze et al"
+              }
+            }
+          ]
+        }
+      ],
+      "CalculationMethods": [
+        "Cellular partition coefficient method - Rodgers and Rowland",
+        "Cellular permeability - PK-Sim Standard"
+      ],
+      "Parameters": [
+        {
+          "Name": "Molecular weight",
+          "Value": 170.21,
+          "Unit": "g/mol",
+          "ValueOrigin": {
+            "Source": "Database",
+            "Description": "PubChem"
+          }
+        }
+      ]
+    }
+  ],
+  "Formulations": [
+    {
+      "Name": "Tablet",
+      "FormulationType": "Formulation_Table",
+      "Parameters": [
+        {
+          "Name": "Fraction (dose)",
+          "Value": 0.0,
+          "TableFormula": {
+            "Name": "Fraction (dose)",
+            "XName": "Time",
+            "XDimension": "Time",
+            "XUnit": "h",
+            "YName": "Fraction (dose)",
+            "YDimension": "Dimensionless",
+            "UseDerivedValues": true,
+            "Points": [
+              {
+                "X": 0.0,
+                "Y": 0.0,
+                "RestartSolver": false
+              },
+              {
+                "X": 0.083,
+                "Y": 0.5,
+                "RestartSolver": false
+              },
+              {
+                "X": 0.16670000000000001,
+                "Y": 0.9,
+                "RestartSolver": false
+              },
+              {
+                "X": 0.25,
+                "Y": 1.0,
+                "RestartSolver": false
+              }
+            ]
+          }
+        },
+        {
+          "Name": "Use as suspension",
+          "Value": 1.0,
+          "ValueOrigin": {
+            "Source": "Publication",
+            "Description": "Petruˇsevska et al and  Poongothai et al"
+          }
+        }
+      ]
+    }
+  ],
+  "Protocols": [
+    {
+      "Name": "Brockmoller2005_1000 mg PO",
+      "ApplicationType": "Oral",
+      "DosingInterval": "Single",
+      "Parameters": [
+        {
+          "Name": "Start time",
+          "Value": 0.0,
+          "Unit": "h"
+        },
+        {
+          "Name": "InputDose",
+          "Value": 1000.0,
+          "Unit": "mg"
+        },
+        {
+          "Name": "Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ]
+    }
+  ],
+  "Simulations": [
+    {
+      "Name": "Child-Pugh A",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 20.0,
+              "Unit": "pts/h"
+            }
+          ]
+        },
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 96.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "Events|Brockmoller2005_1000 mg PO|Tablet|Application_1|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ],
+      "Individual": "Brockmoller2005_CPA",
+      "Compounds": [
+        {
+          "Name": "Levetiracetam",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Alternatives": [
+            {
+              "AlternativeName": "FDA data",
+              "GroupName": "COMPOUND_LIPOPHILICITY"
+            },
+            {
+              "AlternativeName": "Rat intestinal",
+              "GroupName": "COMPOUND_INTESTINAL_PERMEABILITY"
+            }
+          ],
+          "Processes": [
+            {
+              "Name": "Esterase_RBC-Coupeze et al.",
+              "MoleculeName": "Esterase_RBC"
+            },
+            {
+              "Name": "Glomerular Filtration-GFR",
+              "SystemicProcessType": "GFR"
+            }
+          ],
+          "Protocol": {
+            "Name": "Brockmoller2005_1000 mg PO",
+            "Formulations": [
+              {
+                "Name": "Tablet",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "Child-Pugh B",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 20.0,
+              "Unit": "pts/h"
+            }
+          ]
+        },
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 96.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "Events|Brockmoller2005_1000 mg PO|Tablet|Application_1|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ],
+      "Individual": "Brockmoller2005_CPB",
+      "Compounds": [
+        {
+          "Name": "Levetiracetam",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Alternatives": [
+            {
+              "AlternativeName": "FDA data",
+              "GroupName": "COMPOUND_LIPOPHILICITY"
+            },
+            {
+              "AlternativeName": "Rat intestinal",
+              "GroupName": "COMPOUND_INTESTINAL_PERMEABILITY"
+            }
+          ],
+          "Processes": [
+            {
+              "Name": "Esterase_RBC-Coupeze et al.",
+              "MoleculeName": "Esterase_RBC"
+            },
+            {
+              "Name": "Glomerular Filtration-GFR",
+              "SystemicProcessType": "GFR"
+            }
+          ],
+          "Protocol": {
+            "Name": "Brockmoller2005_1000 mg PO",
+            "Formulations": [
+              {
+                "Name": "Tablet",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    },
+    {
+      "Name": "Child-Pugh C",
+      "Model": "4Comp",
+      "Solver": {},
+      "OutputSchema": [
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 0.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "Resolution",
+              "Value": 20.0,
+              "Unit": "pts/h"
+            }
+          ]
+        },
+        {
+          "Parameters": [
+            {
+              "Name": "Start time",
+              "Value": 2.0,
+              "Unit": "h"
+            },
+            {
+              "Name": "End time",
+              "Value": 96.0,
+              "Unit": "h",
+              "ValueOrigin": {
+                "Source": "Unknown"
+              }
+            },
+            {
+              "Name": "Resolution",
+              "Value": 4.0,
+              "Unit": "pts/h"
+            }
+          ]
+        }
+      ],
+      "Parameters": [
+        {
+          "Path": "Events|Brockmoller2005_1000 mg PO|Tablet|Application_1|ProtocolSchemaItem|Volume of water/body weight",
+          "Value": 3.5,
+          "Unit": "ml/kg"
+        }
+      ],
+      "Individual": "Brockmoller2005_CPC",
+      "Compounds": [
+        {
+          "Name": "Levetiracetam",
+          "CalculationMethods": [
+            "Cellular partition coefficient method - Rodgers and Rowland",
+            "Cellular permeability - PK-Sim Standard"
+          ],
+          "Alternatives": [
+            {
+              "AlternativeName": "FDA data",
+              "GroupName": "COMPOUND_LIPOPHILICITY"
+            },
+            {
+              "AlternativeName": "Rat intestinal",
+              "GroupName": "COMPOUND_INTESTINAL_PERMEABILITY"
+            }
+          ],
+          "Processes": [
+            {
+              "Name": "Esterase_RBC-Coupeze et al.",
+              "MoleculeName": "Esterase_RBC"
+            },
+            {
+              "Name": "Glomerular Filtration-GFR",
+              "SystemicProcessType": "GFR"
+            }
+          ],
+          "Protocol": {
+            "Name": "Brockmoller2005_1000 mg PO",
+            "Formulations": [
+              {
+                "Name": "Tablet",
+                "Key": "Formulation"
+              }
+            ]
+          }
+        }
+      ],
+      "HasResults": false
+    }
+  ]
+}
