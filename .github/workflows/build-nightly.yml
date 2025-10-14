@@ -1,5 +1,5 @@
-# Changing the workflow name will reset the run number
-name: Build Nightly 12.1
+name: Build Nightly 12.2
+run-name: Version 12.2.${{ github.run_number }}
 
 on:
   workflow_dispatch:
@@ -8,9 +8,13 @@ on:
 
 env:
   MAJOR: 12
-  MINOR: 1
+  MINOR: 2
   RUN: ${{ github.run_number }}
   TARGET_FRAMEWORK: net8
+
+permissions:
+  contents: read
+  packages: read
 
 jobs:
   get-latest-commit-timespan:
