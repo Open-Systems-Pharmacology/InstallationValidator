@@ -79,7 +79,7 @@ jobs:
         with:
           file_path: ./src/InstallationValidator/bin/Debug/net472/InstallationValidator.exe
 
-       - name: Sign SimulationOutputComparer.exe with CodeSignTool
+      - name: Sign SimulationOutputComparer.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
         env:
           ES_USERNAME: ${{ secrets.ES_USERNAME }}
@@ -89,7 +89,7 @@ jobs:
         with:
           file_path: ./src/SimulationOutputComparer/bin/Debug/net472/SimulationOutputComparer.exe
 
-     - name: Create Setup
+      - name: Create Setup
         run: |
           rake "create_setup[${{env.APP_VERSION}}, Debug]"
 
