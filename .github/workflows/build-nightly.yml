@@ -69,10 +69,40 @@ jobs:
       - name: Test
         run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
 
-      - name: Create Setup
+      - name: Sign InstallationValidator.exe with CodeSignTool
+        uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
+        env:
+          ES_USERNAME: ${{ secrets.ES_USERNAME }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
+          ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
+        with:
+          file_path: ./src/InstallationValidator/bin/Debug/net472/InstallationValidator.exe
+
+       - name: Sign SimulationOutputComparer.exe with CodeSignTool
+        uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
+        env:
+          ES_USERNAME: ${{ secrets.ES_USERNAME }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
+          ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
+        with:
+          file_path: ./src/SimulationOutputComparer/bin/Debug/net472/SimulationOutputComparer.exe
+
+     - name: Create Setup
         run: |
           rake "create_setup[${{env.APP_VERSION}}, Debug]"
-      
+
+      - name: Sign InstallationValidator setup with CodeSignTool
+        uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
+        env:
+          ES_USERNAME: ${{ secrets.ES_USERNAME }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
+          ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
+        with:
+          file_path: ./setup/deploy/InstallationValidator.${{ env.APP_VERSION }}.msi
+
       - name: Push test log as artifact
         uses: actions/upload-artifact@v4
         with:
