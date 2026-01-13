@@ -4,6 +4,6 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Open Systems Pharmacology Community")]
 [assembly: AssemblyProduct("InstallationValidator")]
-[assembly: AssemblyCopyright("Copyright © 2002-2021 - Open Systems Pharmacology Community")]
+[assembly: AssemblyCopyright("Copyright Â© 2002-2025 - Open Systems Pharmacology Community")]
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleTo("InstallationValidator.Tests")]
