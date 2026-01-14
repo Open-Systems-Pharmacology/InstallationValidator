@@ -8,11 +8,6 @@ on:
     branches:
     - develop
 
-env:
-  MAJOR: 12
-  MINOR: 2
-  RUN: ${{ github.run_number }}
-
 permissions:
   contents: read
   packages: read
@@ -33,7 +28,7 @@ jobs:
           dotnet restore
 
       - name: Build
-        run: dotnet build InstallationValidator.sln /p:Version=12.2.9999
+        run: dotnet build InstallationValidator.sln /p:Version=12.3.9999
 
       - name: Test
         run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
