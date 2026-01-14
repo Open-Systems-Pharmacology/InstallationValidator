@@ -6,9 +6,6 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
-env:
-  TARGET_FRAMEWORK: net8
-
 permissions:
   contents: read
   packages: read
