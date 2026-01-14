@@ -26,4 +26,4 @@ jobs:
   badge:
     uses: Open-Systems-Pharmacology/Workflows/.github/workflows/nightly-badge.yml@main
     with:
-      nightly-build-workflow: "build-nightly.yml"
+      nightly-build-workflow: "build-nightly_12.3.yml"
