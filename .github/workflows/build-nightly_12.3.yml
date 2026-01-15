@@ -61,7 +61,7 @@ jobs:
           dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
 
       - name: Test
-        run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
+        run: dotnet test InstallationValidator.sln --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
 
       - name: Sign InstallationValidator.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
@@ -98,6 +98,7 @@ jobs:
           file_path: ./setup/deploy/InstallationValidator.${{ env.APP_VERSION }}.msi
 
       - name: Push test log as artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: testLog_Windows
