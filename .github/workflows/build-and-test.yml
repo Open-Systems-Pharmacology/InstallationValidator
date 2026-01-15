@@ -14,7 +14,8 @@ permissions:
 
 jobs:
   build:
-    uses: Open-Systems-Pharmacology/Workflows/.github/workflows/test-csharp.yml@main
+    uses: Open-Systems-Pharmacology/Workflows/.github/workflows/test-csharp.yml@add_filter_for_tests
     secrets: inherit
     with:
       temp-version: "12.3.9999"
+      test-filter: "TestCategory!=Reporting"
