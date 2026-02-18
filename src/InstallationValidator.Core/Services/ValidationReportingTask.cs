@@ -1,12 +1,5 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using InstallationValidator.Core.Assets;
 using InstallationValidator.Core.Domain;
-using OSPSuite.Core.Reporting;
-using OSPSuite.Core.Services;
-using OSPSuite.Utility;
 
 namespace InstallationValidator.Core.Services
 {
@@ -16,67 +9,47 @@ namespace InstallationValidator.Core.Services
       Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport);
    }
 
+   public enum ReportFormat
+   {
+      Markdown,
+      Pdf
+   }
+
    public class ValidationReportingTask : IValidationReportingTask
    {
-      private readonly IReportTemplateRepository _reportTemplateRepository;
-      private readonly IReportingTask _reportingTask;
-      private readonly IValidationLogger _validationLogger;
-      private readonly IInstallationValidatorConfiguration _applicationConfiguration;
+      private readonly IMarkdownReportingTask _markdownReportingTask;
+      private readonly IPdfReportingTask _pdfReportingTask;
 
-      public ValidationReportingTask(IReportTemplateRepository reportTemplateRepository, IReportingTask reportingTask, IValidationLogger validationLogger, IInstallationValidatorConfiguration applicationConfiguration)
+      public ReportFormat DefaultFormat { get; set; } = ReportFormat.Markdown;
+
+      public ValidationReportingTask(IMarkdownReportingTask markdownReportingTask, IPdfReportingTask pdfReportingTask)
       {
-         _reportTemplateRepository = reportTemplateRepository;
-         _reportingTask = reportingTask;
-         _validationLogger = validationLogger;
-         _applicationConfiguration = applicationConfiguration;
+         _markdownReportingTask = markdownReportingTask;
+         _pdfReportingTask = pdfReportingTask;
       }
 
       public async Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport = false)
       {
-         var reportConfiguration = createReportConfiguration(Assets.Reporting.FolderComparison, secondFolderPath, DateTime.Now);
-
-         await startCreationProcess(comparisonResult, reportConfiguration);
-
-         openReportIfRequired(openReport, reportConfiguration);
+         if (DefaultFormat == ReportFormat.Pdf)
+         {
+            await _pdfReportingTask.CreateReport(comparisonResult, firstFolderPath, secondFolderPath, openReport);
+         }
+         else
+         {
+            await _markdownReportingTask.CreateReport(comparisonResult, firstFolderPath, secondFolderPath, openReport);
+         }
       }
 
       public async Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
       {
-         var reportConfiguration = createReportConfiguration(Assets.Reporting.InstallationValidation, outputFolderPath, installationValidationResult.RunSummary.StartTime);
-
-         await startCreationProcess(installationValidationResult, reportConfiguration);
-
-         openReportIfRequired(openReport, reportConfiguration);
-      }
-
-      private void openReportIfRequired(bool openReport, ReportConfiguration reportConfiguration)
-      {
-         if (openReport)
-            FileHelper.TryOpenFile(reportConfiguration.ReportFile);
-
-         _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportConfiguration.ReportFile));
-      }
-
-      private ReportConfiguration createReportConfiguration(string reportSubtitle, string outputFilePath, DateTime reportDateAndTime)
-      {
-         return new ReportConfiguration
+         if (DefaultFormat == ReportFormat.Pdf)
          {
-            Template = _reportTemplateRepository.All().FirstOrDefault(),
-            Title = _applicationConfiguration.OSPSuiteNameWithVersion,
-            SubTitle = reportSubtitle,
-            ReportFile = reportOutputPath(outputFilePath, reportDateAndTime),
-            NumberOfCompilations = 2
-         };
-      }
-
-      private Task startCreationProcess(object objectToReport, ReportConfiguration reportConfiguration)
-      {
-         return _reportingTask.CreateReportAsync(objectToReport, reportConfiguration);
-      }
-
-      private string reportOutputPath(string outputFilePath, DateTime dateTime)
-      {
-         return Path.Combine($"{outputFilePath}", $"{_applicationConfiguration.OSPSuiteNameWithVersion}-{Assets.Reporting.InstallationValidation}_{dateTime:MM_dd_yy_H_mm_ss}.pdf");
+            await _pdfReportingTask.CreateReport(installationValidationResult, outputFolderPath, openReport);
+         }
+         else
+         {
+            await _markdownReportingTask.CreateReport(installationValidationResult, outputFolderPath, openReport);
+         }
       }
    }
 }

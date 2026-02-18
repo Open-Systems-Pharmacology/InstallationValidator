@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <PackageTags>open-systems-pharmacology, ospsuite-components</PackageTags>
@@ -27,12 +27,12 @@
     <PackageReference Include="OSPSuite.Assets.Images" Version="12.3.1" />
     <PackageReference Include="OSPSuite.Infrastructure" Version="12.3.1" />
     <PackageReference Include="OSPSuite.Infrastructure.Castle" Version="12.3.1" />
-    <PackageReference Include="OSPSuite.Infrastructure.Reporting" Version="12.3.1" />
     <PackageReference Include="OSPSuite.Presentation" Version="12.3.1" />
-    <PackageReference Include="OSPSuite.TeXReporting" Version="3.0.1.1" />
     <PackageReference Include="OSPSuite.Utility" Version="4.1.1.1" />
     <PackageReference Include="OSPSuite.Core" Version="12.3.1" />
     <PackageReference Include="OSPSuite.Assets" Version="12.3.1" />
+    <PackageReference Include="QuestPDF" Version="2024.3.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,9 +42,5 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
 
 </Project>

@@ -1,94 +1,132 @@
-﻿using System;
 using FakeItEasy;
-using InstallationValidator.Core;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Services;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
-using OSPSuite.Core;
-using OSPSuite.Core.Reporting;
-using OSPSuite.Core.Services;
 using OSPSuite.Utility;
 
 namespace InstallationValidator.Services
 {
    public abstract class concern_for_ValidationReportingTask : ContextSpecification<ValidationReportingTask>
    {
-      protected IReportingTask _reportingTask;
-      protected IReportTemplateRepository _reportTemplateRepository;
-      private IValidationLogger _validationLogger;
+      protected IMarkdownReportingTask _markdownReportingTask;
+      protected IPdfReportingTask _pdfReportingTask;
       protected InstallationValidationResult _installationValidationResult;
-      protected string _fileName = "TOTO";
-      private Action<string> _tryOpenFile;
-      protected string _fileToOpen;
-      private IInstallationValidatorConfiguration _applicationConfiguration;
-
-      public override void GlobalContext()
-      {
-         base.GlobalContext();
-         _tryOpenFile = FileHelper.TryOpenFile;
-
-         FileHelper.TryOpenFile = (s) => _fileToOpen = _fileName;
-      }
+      protected string _outputFolder = "TestOutput";
 
       protected override void Context()
       {
-         _reportingTask = A.Fake<IReportingTask>();
-         _reportTemplateRepository = A.Fake<IReportTemplateRepository>();
-         _validationLogger = A.Fake<IValidationLogger>();
-         _applicationConfiguration= A.Fake<IInstallationValidatorConfiguration>();
-         sut = new ValidationReportingTask(_reportTemplateRepository, _reportingTask, _validationLogger, _applicationConfiguration);
+         _markdownReportingTask = A.Fake<IMarkdownReportingTask>();
+         _pdfReportingTask = A.Fake<IPdfReportingTask>();
+
+         sut = new ValidationReportingTask(_markdownReportingTask, _pdfReportingTask);
+
          _installationValidationResult = new InstallationValidationResult
          {
             RunSummary = new ValidationRunSummary(),
             ComparisonResult = new BatchComparisonResult()
          };
       }
+   }
 
-      public override void GlobalCleanup()
+   public class When_creating_report_with_default_markdown_format : concern_for_ValidationReportingTask
+   {
+      protected override void Context()
       {
-         base.GlobalCleanup();
-         FileHelper.TryOpenFile = _tryOpenFile;
+         base.Context();
+         sut.DefaultFormat = ReportFormat.Markdown;
+      }
+
+      protected override void Because()
+      {
+         sut.CreateReport(_installationValidationResult, _outputFolder).Wait();
+      }
+
+      [Observation]
+      public void should_use_markdown_reporting_task()
+      {
+         A.CallTo(() => _markdownReportingTask.CreateReport(_installationValidationResult, _outputFolder, false))
+            .MustHaveHappened();
+      }
+
+      [Observation]
+      public void should_not_use_pdf_reporting_task()
+      {
+         A.CallTo(() => _pdfReportingTask.CreateReport(_installationValidationResult, _outputFolder, A<bool>._))
+            .MustNotHaveHappened();
       }
    }
 
-   public class When_starting_the_report_generation_task_and_report_should_not_be_opened : concern_for_ValidationReportingTask
+   public class When_creating_report_with_pdf_format : concern_for_ValidationReportingTask
    {
+      protected override void Context()
+      {
+         base.Context();
+         sut.DefaultFormat = ReportFormat.Pdf;
+      }
+
       protected override void Because()
       {
-         sut.CreateReport(_installationValidationResult, _fileName).Wait();
+         sut.CreateReport(_installationValidationResult, _outputFolder).Wait();
       }
 
       [Observation]
-      public void the_report_task_is_used_to_generate_a_report()
+      public void should_use_pdf_reporting_task()
       {
-         A.CallTo(() => _reportingTask.CreateReportAsync(_installationValidationResult, A<ReportConfiguration>._)).MustHaveHappened();
+         A.CallTo(() => _pdfReportingTask.CreateReport(_installationValidationResult, _outputFolder, false))
+            .MustHaveHappened();
       }
 
       [Observation]
-      public void should_not_open_the_report()
+      public void should_not_use_markdown_reporting_task()
       {
-         _fileToOpen.ShouldBeNull();
+         A.CallTo(() => _markdownReportingTask.CreateReport(_installationValidationResult, _outputFolder, A<bool>._))
+            .MustNotHaveHappened();
       }
    }
 
-   public class When_starting_the_report_generation_task_and_report_should_be_opened : concern_for_ValidationReportingTask
+   public class When_creating_report_with_open_report_flag : concern_for_ValidationReportingTask
    {
+      protected override void Context()
+      {
+         base.Context();
+         sut.DefaultFormat = ReportFormat.Markdown;
+      }
+
       protected override void Because()
       {
-         sut.CreateReport(_installationValidationResult, _fileName, openReport: true).Wait();
+         sut.CreateReport(_installationValidationResult, _outputFolder, openReport: true).Wait();
       }
 
       [Observation]
-      public void the_report_task_is_used_to_generate_a_report()
+      public void should_pass_open_report_flag_to_underlying_task()
       {
-         A.CallTo(() => _reportingTask.CreateReportAsync(_installationValidationResult, A<ReportConfiguration>._)).MustHaveHappened();
+         A.CallTo(() => _markdownReportingTask.CreateReport(_installationValidationResult, _outputFolder, true))
+            .MustHaveHappened();
+      }
+   }
+
+   public class When_creating_batch_comparison_report : concern_for_ValidationReportingTask
+   {
+      private BatchComparisonResult _batchComparisonResult;
+
+      protected override void Context()
+      {
+         base.Context();
+         _batchComparisonResult = new BatchComparisonResult();
+         sut.DefaultFormat = ReportFormat.Markdown;
+      }
+
+      protected override void Because()
+      {
+         sut.CreateReport(_batchComparisonResult, "folder1", "folder2", openReport: false).Wait();
       }
 
       [Observation]
-      public void should_not_open_the_report()
+      public void should_use_markdown_reporting_task_for_batch_comparison()
       {
-         _fileToOpen.ShouldBeEqualTo(_fileName);
+         A.CallTo(() => _markdownReportingTask.CreateReport(_batchComparisonResult, "folder1", "folder2", false))
+            .MustHaveHappened();
       }
    }
 }

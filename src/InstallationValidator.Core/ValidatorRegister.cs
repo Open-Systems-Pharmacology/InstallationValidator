@@ -1,6 +1,8 @@
-﻿using Castle.Facilities.TypedFactory;
+﻿using System.Collections.Generic;
+using Castle.Facilities.TypedFactory;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Reporting;
+using InstallationValidator.Core.Reporting.Charts;
+using InstallationValidator.Core.Reporting.Markdown;
 using InstallationValidator.Core.Services;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain.UnitSystem;
@@ -8,13 +10,11 @@ using OSPSuite.Core.Serialization.Xml;
 using OSPSuite.Core.Services;
 using OSPSuite.Infrastructure;
 using OSPSuite.Infrastructure.Container.Castle;
-using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.Presentation.Services;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Events;
 using OSPSuite.Utility.Exceptions;
 using OSPSuite.Utility.Extensions;
-using ReportingRegister = OSPSuite.TeXReporting.ReportingRegister;
 
 namespace InstallationValidator.Core
 {
@@ -70,15 +70,36 @@ namespace InstallationValidator.Core
 
       private static void registerReportingComponents(IContainer container)
       {
-         container.AddRegister(x => x.FromType<ReportingRegister>());
-         container.AddRegister(x => x.FromType<OSPSuite.Infrastructure.Reporting.InfrastructureReportingRegister>());
+         // Markdown and PDF reporting
+         registerMarkdownReporting(container);
+         registerPdfReporting(container);
+      }
 
-         container.AddScanner(scan =>
-         {
-            scan.AssemblyContainingType<InstallationValidationResultReporter>();
-            scan.IncludeNamespaceContainingType<InstallationValidationResultReporter>();
-            scan.WithConvention<ReporterRegistrationConvention>();
-         });
+      private static void registerMarkdownReporting(IContainer container)
+      {
+         // Chart generator (shared by Markdown and PDF)
+         container.Register<ISvgChartGenerator, SvgChartGenerator>(LifeStyle.Singleton);
+
+         // Markdown builders
+         container.Register<IMarkdownBuilder, ValidationStateReportMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, ValidationRunSummaryMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, OperatingSystemInfoMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, TimeComparisonResultMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, OutputComparisonResultMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, OutputFileComparisonResultMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, BatchComparisonResultMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, InstallationValidationResultMarkdownBuilder>();
+
+         // Builder repository
+         container.Register<IMarkdownBuilderRepository, MarkdownBuilderRepository>(LifeStyle.Singleton);
+
+         // Reporting task
+         container.Register<IMarkdownReportingTask, MarkdownReportingTask>();
+      }
+
+      private static void registerPdfReporting(IContainer container)
+      {
+         container.Register<IPdfReportingTask, PdfReportingTask>();
       }
 
       private static void registerAbstractFactories(IContainer container)
