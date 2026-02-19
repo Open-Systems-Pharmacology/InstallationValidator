@@ -87,6 +87,7 @@ namespace InstallationValidator.Core
          container.Register<IMarkdownBuilder, TimeComparisonResultMarkdownBuilder>();
          container.Register<IMarkdownBuilder, OutputComparisonResultMarkdownBuilder>();
          container.Register<IMarkdownBuilder, OutputFileComparisonResultMarkdownBuilder>();
+         container.Register<IMarkdownBuilder, MissingFileComparisonResultMarkdownBuilder>();
          container.Register<IMarkdownBuilder, BatchComparisonResultMarkdownBuilder>();
          container.Register<IMarkdownBuilder, InstallationValidationResultMarkdownBuilder>();
 

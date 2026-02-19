@@ -72,6 +72,7 @@ namespace InstallationValidator.Reporting
          builders.Add(new TimeComparisonResultMarkdownBuilder());
          builders.Add(new OutputComparisonResultMarkdownBuilder(_svgChartGenerator));
          builders.Add(new OutputFileComparisonResultMarkdownBuilder(_builderRepository));
+         builders.Add(new MissingFileComparisonResultMarkdownBuilder(_builderRepository));
          builders.Add(new BatchComparisonResultMarkdownBuilder(_builderRepository));
          builders.Add(new InstallationValidationResultMarkdownBuilder(_builderRepository));
 

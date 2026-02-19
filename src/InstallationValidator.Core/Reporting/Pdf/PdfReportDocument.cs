@@ -226,7 +226,20 @@ namespace InstallationValidator.Core.Reporting.Pdf
             {
                ComposeOutputFileResult(simCol, outputResult);
             }
+            else if (result is MissingFileComparisonResult missingResult)
+            {
+               ComposeMissingFileResult(simCol, missingResult);
+            }
          });
+      }
+
+      private void ComposeMissingFileResult(ColumnDescriptor column, MissingFileComparisonResult result)
+      {
+         column.Item().PaddingTop(5).Text(Assets.Reporting.MissingFileValidation).Bold();
+         column.Item().Text(Assets.Reporting.MissingFileValidationMessage(
+            result.FileName,
+            result.FolderContainingFile,
+            result.FolderWithoutFile));
       }
 
       private void ComposeOutputFileResult(ColumnDescriptor column, OutputFileComparisonResult result)
