@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Reporting.Markdown
 {
@@ -26,10 +27,7 @@ namespace InstallationValidator.Core.Reporting.Markdown
 
       public void Report(IEnumerable<object> objectsToReport, MarkdownReportContext context)
       {
-         foreach (var obj in objectsToReport)
-         {
-            Report(obj, context);
-         }
+         objectsToReport?.Each(x=> Report(x, context));
       }
 
       private IMarkdownBuilder findBuilderFor(Type type)

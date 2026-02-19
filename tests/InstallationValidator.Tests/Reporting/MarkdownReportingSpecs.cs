@@ -20,17 +20,35 @@ namespace InstallationValidator.Reporting
    public abstract class concern_for_MarkdownReporting : ContextSpecification<IMarkdownReportingTask>
    {
       protected DirectoryInfo _reportsDir;
-      protected static ComparisonSettings _comparisonSettings;
+      protected ComparisonSettings _comparisonSettings;
       protected ISvgChartGenerator _svgChartGenerator;
       protected IMarkdownBuilderRepository _builderRepository;
       protected FakeValidationLogger _validationLogger;
       protected FakeConfiguration _configuration;
+
+      public override void Cleanup()
+      {
+         base.Cleanup();
+         if (_reportsDir?.Exists == true)
+         {
+            foreach (var file in Directory.GetFiles(_reportsDir.FullName, "*.md"))
+            {
+               try { File.Delete(file); } catch { }
+            }
+         }
+      }
 
       protected override void Context()
       {
          _reportsDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"));
          if (!_reportsDir.Exists)
             _reportsDir.Create();
+
+         // Clean up any existing .md files before the test
+         foreach (var file in Directory.GetFiles(_reportsDir.FullName, "*.md"))
+         {
+            try { File.Delete(file); } catch { }
+         }
 
          _comparisonSettings = new ComparisonSettings
          {
@@ -42,12 +60,10 @@ namespace InstallationValidator.Reporting
          _validationLogger = new FakeValidationLogger();
          _configuration = new FakeConfiguration();
 
-         // Create builders
+         // Create builders - only include builders that are used by TestMarkdownBuilderRepository
          var builders = new IMarkdownBuilder[]
          {
             new ValidationStateReportMarkdownBuilder(),
-            new OperatingSystemInfoMarkdownBuilder(),
-            new TimeComparisonResultMarkdownBuilder(),
             new OutputComparisonResultMarkdownBuilder(_svgChartGenerator)
          };
 

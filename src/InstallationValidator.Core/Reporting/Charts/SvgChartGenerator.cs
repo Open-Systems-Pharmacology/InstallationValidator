@@ -55,8 +55,20 @@ namespace InstallationValidator.Core.Reporting.Charts
 
       private (float minX, float maxX, float minY, float maxY) calculateBounds(ChartData chartData)
       {
-         var allX = chartData.Curve1.XValues.Concat(chartData.Curve2.XValues).Where(v => !float.IsNaN(v) && !float.IsInfinity(v)).ToArray();
-         var allY = chartData.Curve1.YValues.Concat(chartData.Curve2.YValues).Where(v => !float.IsNaN(v) && !float.IsInfinity(v) && v > 0).ToArray();
+         var xValues = Enumerable.Empty<float>();
+         var yValues = Enumerable.Empty<float>();
+
+         if (chartData.Curve1?.XValues != null)
+            xValues = xValues.Concat(chartData.Curve1.XValues);
+         if (chartData.Curve2?.XValues != null)
+            xValues = xValues.Concat(chartData.Curve2.XValues);
+         if (chartData.Curve1?.YValues != null)
+            yValues = yValues.Concat(chartData.Curve1.YValues);
+         if (chartData.Curve2?.YValues != null)
+            yValues = yValues.Concat(chartData.Curve2.YValues);
+
+         var allX = xValues.Where(v => !float.IsNaN(v) && !float.IsInfinity(v)).ToArray();
+         var allY = yValues.Where(v => !float.IsNaN(v) && !float.IsInfinity(v) && (!chartData.UseLogScale || v > 0)).ToArray();
 
          if (allX.Length == 0 || allY.Length == 0)
             return (0, 1, 0.1f, 1);
@@ -169,16 +181,33 @@ namespace InstallationValidator.Core.Reporting.Charts
       {
          var legendX = PlotRight + 10;
          var legendY = MarginTop + 20;
+         var legendEntries = 0;
 
-         sb.AppendLine($"  <rect x=\"{legendX}\" y=\"{legendY - 15}\" width=\"120\" height=\"50\" fill=\"white\" stroke=\"#ccc\" stroke-width=\"1\" rx=\"3\"/>");
+         if (chartData.Curve1 != null) legendEntries++;
+         if (chartData.Curve2 != null) legendEntries++;
 
-         var color1 = colorToHex(chartData.Curve1.Color);
-         sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{legendY}\" x2=\"{legendX + 25}\" y2=\"{legendY}\" stroke=\"{color1}\" stroke-width=\"2\"/>");
-         sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{legendY + 4}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve1.Name, 12))}</text>");
+         if (legendEntries == 0)
+            return;
 
-         var color2 = colorToHex(chartData.Curve2.Color);
-         sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{legendY + 20}\" x2=\"{legendX + 25}\" y2=\"{legendY + 20}\" stroke=\"{color2}\" stroke-width=\"2\"/>");
-         sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{legendY + 24}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve2.Name, 12))}</text>");
+         var legendHeight = 15 + (legendEntries * 20);
+         sb.AppendLine($"  <rect x=\"{legendX}\" y=\"{legendY - 15}\" width=\"120\" height=\"{legendHeight}\" fill=\"white\" stroke=\"#ccc\" stroke-width=\"1\" rx=\"3\"/>");
+
+         var currentY = legendY;
+
+         if (chartData.Curve1 != null)
+         {
+            var color1 = colorToHex(chartData.Curve1.Color);
+            sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{currentY}\" x2=\"{legendX + 25}\" y2=\"{currentY}\" stroke=\"{color1}\" stroke-width=\"2\"/>");
+            sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{currentY + 4}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve1.Name, 12))}</text>");
+            currentY += 20;
+         }
+
+         if (chartData.Curve2 != null)
+         {
+            var color2 = colorToHex(chartData.Curve2.Color);
+            sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{currentY}\" x2=\"{legendX + 25}\" y2=\"{currentY}\" stroke=\"{color2}\" stroke-width=\"2\"/>");
+            sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{currentY + 4}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve2.Name, 12))}</text>");
+         }
       }
 
       private void appendTitle(StringBuilder sb, string title, bool useLogScale)

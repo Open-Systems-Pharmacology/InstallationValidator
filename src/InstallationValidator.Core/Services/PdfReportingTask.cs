@@ -43,6 +43,7 @@ namespace InstallationValidator.Core.Services
                _svgChartGenerator);
 
             var reportPath = reportOutputPath(secondFolderPath, DateTime.Now);
+            ensureDirectoryExists(reportPath);
             document.GeneratePdf(reportPath);
 
             openReportIfRequired(openReport, reportPath);
@@ -60,6 +61,7 @@ namespace InstallationValidator.Core.Services
                _svgChartGenerator);
 
             var reportPath = reportOutputPath(outputFolderPath, installationValidationResult.RunSummary.StartTime);
+            ensureDirectoryExists(reportPath);
             document.GeneratePdf(reportPath);
 
             openReportIfRequired(openReport, reportPath);
@@ -77,6 +79,13 @@ namespace InstallationValidator.Core.Services
       private string reportOutputPath(string outputFilePath, DateTime dateTime)
       {
          return Path.Combine(outputFilePath, $"{_applicationConfiguration.OSPSuiteNameWithVersion}-{Assets.Reporting.InstallationValidation}_{dateTime:MM_dd_yy_H_mm_ss}.pdf");
+      }
+
+      private void ensureDirectoryExists(string filePath)
+      {
+         var directory = Path.GetDirectoryName(filePath);
+         if (!string.IsNullOrEmpty(directory))
+            Directory.CreateDirectory(directory);
       }
    }
 }

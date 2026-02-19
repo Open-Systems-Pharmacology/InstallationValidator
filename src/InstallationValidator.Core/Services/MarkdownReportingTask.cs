@@ -64,6 +64,10 @@ namespace InstallationValidator.Core.Services
 
       private async Task writeReportAsync(string reportPath, MarkdownReportContext context)
       {
+         var directory = Path.GetDirectoryName(reportPath);
+         if (!string.IsNullOrEmpty(directory))
+            Directory.CreateDirectory(directory);
+
          using (var writer = new StreamWriter(reportPath, false, System.Text.Encoding.UTF8))
          {
             await writer.WriteAsync(context.ToString());
