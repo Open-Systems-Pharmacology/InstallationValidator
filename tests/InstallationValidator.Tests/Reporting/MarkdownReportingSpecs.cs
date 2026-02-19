@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using InstallationValidator.Core;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Reporting;
 using InstallationValidator.Core.Reporting.Charts;
 using InstallationValidator.Core.Reporting.Markdown;
 using InstallationValidator.Core.Services;
@@ -60,15 +59,21 @@ namespace InstallationValidator.Reporting
          _validationLogger = new FakeValidationLogger();
          _configuration = new FakeConfiguration();
 
-         // Create builders - only include builders that are used by TestMarkdownBuilderRepository
-         var builders = new IMarkdownBuilder[]
-         {
-            new ValidationStateReportMarkdownBuilder(),
-            new OutputComparisonResultMarkdownBuilder(_svgChartGenerator)
-         };
+         // Use real MarkdownBuilderRepository with real builders
+         // Note: InstallationValidationResultMarkdownBuilder needs the repository itself,
+         // so we create the repository first with a temporary list, then add the builder
+         var builders = new List<IMarkdownBuilder>();
+         _builderRepository = new MarkdownBuilderRepository(builders);
 
-         // Use a simple builder repository for testing
-         _builderRepository = new TestMarkdownBuilderRepository(builders, _svgChartGenerator);
+         // Add all real builders
+         builders.Add(new ValidationStateReportMarkdownBuilder());
+         builders.Add(new ValidationRunSummaryMarkdownBuilder(_builderRepository));
+         builders.Add(new OperatingSystemInfoMarkdownBuilder());
+         builders.Add(new TimeComparisonResultMarkdownBuilder());
+         builders.Add(new OutputComparisonResultMarkdownBuilder(_svgChartGenerator));
+         builders.Add(new OutputFileComparisonResultMarkdownBuilder(_builderRepository));
+         builders.Add(new BatchComparisonResultMarkdownBuilder(_builderRepository));
+         builders.Add(new InstallationValidationResultMarkdownBuilder(_builderRepository));
 
          sut = new MarkdownReportingTask(_builderRepository, _validationLogger, _configuration);
       }
@@ -206,73 +211,4 @@ namespace InstallationValidator.Reporting
       public string IconName => "";
    }
 
-   // Simple test implementation of builder repository
-   public class TestMarkdownBuilderRepository : IMarkdownBuilderRepository
-   {
-      private readonly IMarkdownBuilder[] _builders;
-      private readonly ISvgChartGenerator _svgChartGenerator;
-
-      public TestMarkdownBuilderRepository(IMarkdownBuilder[] builders, ISvgChartGenerator svgChartGenerator)
-      {
-         _builders = builders;
-         _svgChartGenerator = svgChartGenerator;
-      }
-
-      public void Report(object objectToReport, MarkdownReportContext context)
-      {
-         if (objectToReport == null) return;
-
-         switch (objectToReport)
-         {
-            case InstallationValidationResult result:
-               context.AppendHeading("Installation Validation Results", 1);
-               context.AppendHeading("Overall Validation Result", 2);
-               Report(new ValidationStateReport(result), context);
-               Report(result.RunSummary, context);
-               Report(result.ComparisonResult, context);
-               break;
-
-            case ValidationStateReport stateReport:
-               var builder = _builders.OfType<ValidationStateReportMarkdownBuilder>().FirstOrDefault();
-               builder?.Build(stateReport, context);
-               break;
-
-            case ValidationRunSummary summary:
-               context.AppendHeading("Validation Summary", 2);
-               context.AppendParagraph($"Start: {summary.StartTime}, End: {summary.EndTime}");
-               context.AppendParagraph($"Input: {summary.InputFolder}");
-               context.AppendParagraph($"Output: {summary.OutputFolder}");
-               break;
-
-            case BatchComparisonResult batchResult:
-               context.AppendHeading("Comparison Results", 2);
-               foreach (var file in batchResult.FileComparisonResults)
-               {
-                  Report(file, context);
-               }
-               break;
-
-            case OutputFileComparisonResult fileResult:
-               context.AppendHeading($"File: {fileResult.FileName}", 3);
-               foreach (var output in fileResult.OutputComparisonResults)
-               {
-                  Report(output, context);
-               }
-               break;
-
-            case OutputComparisonResult outputResult:
-               var outputBuilder = _builders.OfType<OutputComparisonResultMarkdownBuilder>().FirstOrDefault();
-               outputBuilder?.Build(outputResult, context);
-               break;
-         }
-      }
-
-      public void Report(System.Collections.Generic.IEnumerable<object> objectsToReport, MarkdownReportContext context)
-      {
-         foreach (var obj in objectsToReport)
-         {
-            Report(obj, context);
-         }
-      }
-   }
 }
