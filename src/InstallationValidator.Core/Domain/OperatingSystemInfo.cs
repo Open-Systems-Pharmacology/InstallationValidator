@@ -10,7 +10,6 @@ namespace InstallationValidator.Core.Domain
    public class OperatingSystemInfo
    {
       private const string WINDOWS_REG_KEY = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion";
-
       public string ComputerName { get; } = Environment.MachineName;
       public string Architecture => Environment.Is64BitOperatingSystem ? "x64" : "x32";
 
