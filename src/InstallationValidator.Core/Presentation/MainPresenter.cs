@@ -86,7 +86,7 @@ namespace InstallationValidator.Core.Presentation
             validationResult.RunSummary = runSummary;
 
             this.LogLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport: true);
+            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, new ReportOptions(ReportFormat.Markdown, openReport: true));
             this.LogLine();
 
             this.LogLine(Logs.ValidationCompleted);

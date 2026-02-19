@@ -70,7 +70,7 @@ namespace InstallationValidator.Core.Presentation
             this.LogLine();
 
             this.LogLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(comparisonResult, _folderComparisonDTO.FirstFolder.FolderPath, _folderComparisonDTO.SecondFolder.FolderPath, openReport: true);
+            await _validationReportingTask.CreateReport(comparisonResult, _folderComparisonDTO.FirstFolder.FolderPath, _folderComparisonDTO.SecondFolder.FolderPath, new ReportOptions(ReportFormat.Markdown, openReport: true));
             this.LogLine();
 
             this.LogLine(Logs.ComparisonCompleted);
