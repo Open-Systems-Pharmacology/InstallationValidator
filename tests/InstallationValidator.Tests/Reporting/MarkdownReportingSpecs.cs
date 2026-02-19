@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using InstallationValidator.Core;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Reporting.Charts;
-using InstallationValidator.Core.Reporting.Markdown;
 using InstallationValidator.Core.Services;
+using InstallationValidator.IntegrationTests;
 using NUnit.Framework;
 using OSPSuite.BDDHelper;
 using OSPSuite.BDDHelper.Extensions;
@@ -16,14 +13,10 @@ using OSPSuite.Utility;
 namespace InstallationValidator.Reporting
 {
    [Category("Reporting")]
-   public abstract class concern_for_MarkdownReporting : ContextSpecification<IMarkdownReportingTask>
+   public abstract class concern_for_MarkdownReporting : ContextForIntegration<IMarkdownReportingTask>
    {
       protected DirectoryInfo _reportsDir;
       protected ComparisonSettings _comparisonSettings;
-      protected ISvgChartGenerator _svgChartGenerator;
-      protected IMarkdownBuilderRepository _builderRepository;
-      protected FakeValidationLogger _validationLogger;
-      protected FakeConfiguration _configuration;
 
       public override void Cleanup()
       {
@@ -54,29 +47,6 @@ namespace InstallationValidator.Reporting
             FolderPath1 = "F1",
             FolderPath2 = "F2",
          };
-
-         _svgChartGenerator = new SvgChartGenerator();
-         _validationLogger = new FakeValidationLogger();
-         _configuration = new FakeConfiguration();
-
-         // Use real MarkdownBuilderRepository with real builders
-         // Note: InstallationValidationResultMarkdownBuilder needs the repository itself,
-         // so we create the repository first with a temporary list, then add the builder
-         var builders = new List<IMarkdownBuilder>();
-         _builderRepository = new MarkdownBuilderRepository(builders);
-
-         // Add all real builders
-         builders.Add(new ValidationStateReportMarkdownBuilder());
-         builders.Add(new ValidationRunSummaryMarkdownBuilder(_builderRepository));
-         builders.Add(new OperatingSystemInfoMarkdownBuilder());
-         builders.Add(new TimeComparisonResultMarkdownBuilder());
-         builders.Add(new OutputComparisonResultMarkdownBuilder(_svgChartGenerator));
-         builders.Add(new OutputFileComparisonResultMarkdownBuilder(_builderRepository));
-         builders.Add(new MissingFileComparisonResultMarkdownBuilder(_builderRepository));
-         builders.Add(new BatchComparisonResultMarkdownBuilder(_builderRepository));
-         builders.Add(new InstallationValidationResultMarkdownBuilder(_builderRepository));
-
-         sut = new MarkdownReportingTask(_builderRepository, _validationLogger, _configuration);
       }
    }
 
@@ -161,55 +131,4 @@ namespace InstallationValidator.Reporting
          return new[] { 0.0f, 1.1f, 1.2f, 1.3f, 1.4f };
       }
    }
-
-   // Test helpers
-   public class FakeValidationLogger : IValidationLogger
-   {
-      public void AppendLine(string line) { }
-      public void AppendText(string text) { }
-      public void AppendRawText(string text) { }
-   }
-
-   public class FakeConfiguration : IInstallationValidatorConfiguration
-   {
-      public string OSPSuiteNameWithVersion => "OSPSuite 12.0";
-      public string PKSimPath => "";
-      public string MoBiPath => "";
-      public string DimensionFilePath { get; set; } = "";
-      public string WatermarkTextOrPath => "";
-      public string FullVersion => "12.0.0";
-      public string MajorVersion => "12";
-      public string IssueTrackerUrl => "";
-      public string ProductName => "Installation Validator";
-      public string ProductNameWithTrademark => "Installation Validator";
-      public string UserSettingsFilePath => "";
-      public string ProductDisplayName => "Installation Validator";
-      public string ApplicationSettingsFilePath => "";
-      public string CurrentUserFolderPath => "";
-      public string AllUsersFolderPath => "";
-      public string PKParameterFilePath => "";
-      public string ChartLayoutTemplateFolderPath => "";
-      public string BatchInputsFolderPath => "";
-      public string BatchOutputsFolderPath => "";
-      public string PKSimCLIPath => "";
-      public string PKSimBinaryExecutablePath => "";
-      public string MoBiBinaryExecutablePath => "";
-      public string DefaultOutputPath => "";
-      public string TeXTemplateFolderPath => "";
-      public string PKParametersFilePath { get; set; } = "";
-      public string LicenseAgreementFilePath => "";
-      public string FullVersionDisplay => "12.0.0";
-      public string Version => "12.0.0";
-      public int InternalVersion => 1;
-      public int Major => 12;
-      public int Minor => 0;
-      public int Build => 0;
-      public string ReleaseDescription => "";
-      public Origin Product => Origins.Other;
-      public IEnumerable<string> UserSettingsFilePaths => Array.Empty<string>();
-      public IEnumerable<string> ApplicationSettingsFilePaths => Array.Empty<string>();
-      public string WatermarkOptionLocation => "";
-      public string IconName => "";
-   }
-
 }

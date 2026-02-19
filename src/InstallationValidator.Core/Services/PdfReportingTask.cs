@@ -52,6 +52,11 @@ namespace InstallationValidator.Core.Services
 
       public Task CreateReport(InstallationValidationResult installationValidationResult, string outputFolderPath, bool openReport = false)
       {
+         if (installationValidationResult == null)
+            throw new ArgumentNullException(nameof(installationValidationResult));
+         if (installationValidationResult.RunSummary == null)
+            throw new ArgumentNullException(nameof(installationValidationResult), "RunSummary cannot be null");
+
          return Task.Run(() =>
          {
             var document = new PdfReportDocument(

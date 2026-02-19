@@ -72,13 +72,19 @@ namespace InstallationValidator.Core.Reporting.Markdown
       public void AppendTable(string[] headers, string[][] rows)
       {
          Content.AppendLine();
-         Content.AppendLine("| " + string.Join(" | ", headers) + " |");
+         Content.AppendLine("| " + string.Join(" | ", headers.Select(escapeTableCell)) + " |");
          Content.AppendLine("| " + string.Join(" | ", new string[headers.Length].Select(_ => "---")) + " |");
          foreach (var row in rows)
          {
-            Content.AppendLine("| " + string.Join(" | ", row) + " |");
+            Content.AppendLine("| " + string.Join(" | ", row.Select(escapeTableCell)) + " |");
          }
          Content.AppendLine();
+      }
+
+      private string escapeTableCell(string text)
+      {
+         if (string.IsNullOrEmpty(text)) return "";
+         return text.Replace("|", "\\|");
       }
 
       private string escapeHtml(string text)
