@@ -1,12 +1,13 @@
+using OSPSuite.Utility;
+using OSPSuite.Utility.Extensions;
 using System;
 using System.Collections.Generic;
 
 namespace InstallationValidator.Core.Reporting.Markdown
 {
-   public interface IMarkdownBuilder
+   public interface IMarkdownBuilder : ISpecification<Type>
    {
       void Build(object objectToReport, MarkdownReportContext context);
-      Type SupportedType { get; }
    }
 
    public interface IMarkdownBuilder<in T> : IMarkdownBuilder
@@ -16,7 +17,7 @@ namespace InstallationValidator.Core.Reporting.Markdown
 
    public abstract class MarkdownBuilder<T> : IMarkdownBuilder<T>
    {
-      public Type SupportedType => typeof(T);
+      public bool IsSatisfiedBy(Type type) => type.IsAnImplementationOf<T>();
 
       public void Build(object objectToReport, MarkdownReportContext context)
       {
@@ -26,9 +27,4 @@ namespace InstallationValidator.Core.Reporting.Markdown
       public abstract void Build(T objectToReport, MarkdownReportContext context);
    }
 
-   public interface IMarkdownBuilderRepository
-   {
-      void Report(object objectToReport, MarkdownReportContext context);
-      void Report(IEnumerable<object> objectsToReport, MarkdownReportContext context);
-   }
 }

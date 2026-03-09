@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Castle.Facilities.TypedFactory;
+﻿using Castle.Facilities.TypedFactory;
 using InstallationValidator.Core.Domain;
 using InstallationValidator.Core.Reporting.Charts;
 using InstallationValidator.Core.Reporting.Markdown;
@@ -79,23 +78,16 @@ namespace InstallationValidator.Core
       {
          // Chart generator (shared by Markdown and PDF)
          container.Register<ISvgChartGenerator, SvgChartGenerator>(LifeStyle.Singleton);
+         container.AddScanner(scan =>
+         {
+            scan.AssemblyContainingType<ValidatorRegister>();
+            scan.IncludeNamespaceContainingType<IMarkdownBuilder>();
+            scan.ExcludeType<MarkdownBuilderRepository>();
 
-         // Markdown builders
-         container.Register<IMarkdownBuilder, ValidationStateReportMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, ValidationRunSummaryMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, OperatingSystemInfoMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, TimeComparisonResultMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, OutputComparisonResultMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, OutputFileComparisonResultMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, MissingFileComparisonResultMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, BatchComparisonResultMarkdownBuilder>();
-         container.Register<IMarkdownBuilder, InstallationValidationResultMarkdownBuilder>();
-
+            scan.WithConvention<AllInterfacesAndConcreteTypeRegistrationConvention>();
+         });
          // Builder repository
          container.Register<IMarkdownBuilderRepository, MarkdownBuilderRepository>(LifeStyle.Singleton);
-
-         // Reporting task
-         container.Register<IMarkdownReportingTask, MarkdownReportingTask>();
       }
 
       private static void registerPdfReporting(IContainer container)
