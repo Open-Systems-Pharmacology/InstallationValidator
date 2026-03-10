@@ -23,6 +23,7 @@ namespace SimulationOutputComparer.Views
       private readonly ScreenBinder<FolderDTO> _screenBinderFolder2;
       private readonly ScreenBinder<FolderComparisonDTO> _screenBinder;
       private readonly ScreenBinder<ReportOptionsDTO> _reportOptionsBinder;
+      private ReportOptionsDTO _reportOptionsDTO;
 
       public SimulationComparisonView()
       {
@@ -102,6 +103,7 @@ namespace SimulationOutputComparer.Views
          RegisterValidationFor(_screenBinderFolder2);
          RegisterValidationFor(_screenBinder);
 
+         _reportOptionsBinder.Changed += () => setOkButtonEnable();
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartComparison());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -125,7 +127,12 @@ namespace SimulationOutputComparer.Views
 
       private void setOkButtonEnable()
       {
-         layoutItemButtonStart.Enabled = !HasError;
+         layoutItemButtonStart.Enabled = !HasError && hasReportFormatSelected();
+      }
+
+      private bool hasReportFormatSelected()
+      {
+         return _reportOptionsDTO != null && (_reportOptionsDTO.ExportToPdf || _reportOptionsDTO.ExportToMarkdown);
       }
 
       protected override void OnClearError(Control control)
@@ -164,6 +171,7 @@ namespace SimulationOutputComparer.Views
 
       public void BindToReportOptions(ReportOptionsDTO reportOptionsDTO)
       {
+         _reportOptionsDTO = reportOptionsDTO;
          _reportOptionsBinder.BindToSource(reportOptionsDTO);
       }
    }

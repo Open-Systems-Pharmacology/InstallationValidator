@@ -172,7 +172,7 @@ namespace InstallationValidator.Core.Reporting.Charts
 
          if (validPoints > 1)
          {
-            var colorHex = colorToHex(curve.Color);
+            var colorHex = curve.Color.ToHexString();
             sb.AppendLine($"  <polyline fill=\"none\" stroke=\"{colorHex}\" stroke-width=\"2\" points=\"{points}\"/>");
          }
       }
@@ -196,7 +196,7 @@ namespace InstallationValidator.Core.Reporting.Charts
 
          if (chartData.Curve1 != null)
          {
-            var color1 = colorToHex(chartData.Curve1.Color);
+            var color1 = chartData.Curve1.Color.ToHexString();
             sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{currentY}\" x2=\"{legendX + 25}\" y2=\"{currentY}\" stroke=\"{color1}\" stroke-width=\"2\"/>");
             sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{currentY + 4}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve1.Name, 12))}</text>");
             currentY += 20;
@@ -204,7 +204,7 @@ namespace InstallationValidator.Core.Reporting.Charts
 
          if (chartData.Curve2 != null)
          {
-            var color2 = colorToHex(chartData.Curve2.Color);
+            var color2 = chartData.Curve2.Color.ToHexString();
             sb.AppendLine($"  <line x1=\"{legendX + 5}\" y1=\"{currentY}\" x2=\"{legendX + 25}\" y2=\"{currentY}\" stroke=\"{color2}\" stroke-width=\"2\"/>");
             sb.AppendLine($"  <text x=\"{legendX + 30}\" y=\"{currentY + 4}\" font-size=\"11\" fill=\"#333\">{escapeXml(truncate(chartData.Curve2.Name, 12))}</text>");
          }
@@ -228,12 +228,7 @@ namespace InstallationValidator.Core.Reporting.Charts
          return value.ToString("0.##E+0", CultureInfo.InvariantCulture);
       }
 
-      private string colorToHex(Color color)
-      {
-         return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
-      }
-
-      private string escapeXml(string text)
+private string escapeXml(string text)
       {
          if (string.IsNullOrEmpty(text)) return "";
          return text

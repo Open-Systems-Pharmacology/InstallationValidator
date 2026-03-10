@@ -20,6 +20,7 @@ namespace InstallationValidator.Views
       private IMainPresenter _presenter;
       private readonly ScreenBinder<FolderDTO> _screenBinder;
       private readonly ScreenBinder<ReportOptionsDTO> _reportOptionsBinder;
+      private ReportOptionsDTO _reportOptionsDTO;
 
       public MainView()
       {
@@ -43,6 +44,8 @@ namespace InstallationValidator.Views
             .WithCaption(Captions.ExportToMarkdown);
 
          RegisterValidationFor(_screenBinder);
+
+         _reportOptionsBinder.Changed += () => setOkButtonEnable();
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -95,7 +98,12 @@ namespace InstallationValidator.Views
 
       private void setOkButtonEnable()
       {
-         layoutItemButtonStart.Enabled = !HasError;
+         layoutItemButtonStart.Enabled = !HasError && hasReportFormatSelected();
+      }
+
+      private bool hasReportFormatSelected()
+      {
+         return _reportOptionsDTO != null && (_reportOptionsDTO.ExportToPdf || _reportOptionsDTO.ExportToMarkdown);
       }
 
       public void AttachPresenter(IMainPresenter presenter)
@@ -112,6 +120,7 @@ namespace InstallationValidator.Views
 
       public void BindToReportOptions(ReportOptionsDTO reportOptionsDTO)
       {
+         _reportOptionsDTO = reportOptionsDTO;
          _reportOptionsBinder.BindToSource(reportOptionsDTO);
       }
 

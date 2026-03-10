@@ -69,13 +69,6 @@ namespace InstallationValidator.Core
 
       private static void registerReportingComponents(IContainer container)
       {
-         // Markdown and PDF reporting
-         registerMarkdownReporting(container);
-         registerPdfReporting(container);
-      }
-
-      private static void registerMarkdownReporting(IContainer container)
-      {
          // Chart generator (shared by Markdown and PDF)
          container.Register<ISvgChartGenerator, SvgChartGenerator>(LifeStyle.Singleton);
          container.AddScanner(scan =>
@@ -88,11 +81,6 @@ namespace InstallationValidator.Core
          });
          // Builder repository
          container.Register<IMarkdownBuilderRepository, MarkdownBuilderRepository>(LifeStyle.Singleton);
-      }
-
-      private static void registerPdfReporting(IContainer container)
-      {
-         container.Register<IPdfReportingTask, PdfReportingTask>();
       }
 
       private static void registerAbstractFactories(IContainer container)

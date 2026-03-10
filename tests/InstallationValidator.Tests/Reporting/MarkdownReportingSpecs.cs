@@ -107,6 +107,27 @@ namespace InstallationValidator.Reporting
          StringAssert.Contains("Installation Validation", content);
       }
 
+      [Observation]
+      public void should_contain_svg_chart()
+      {
+         var content = File.ReadAllText(_reportPath);
+         StringAssert.Contains("<svg", content);
+      }
+
+      [Observation]
+      public void should_contain_validation_state()
+      {
+         var content = File.ReadAllText(_reportPath);
+         StringAssert.Contains("Invalid", content);
+      }
+
+      [Observation]
+      public void should_contain_deviation_section()
+      {
+         var content = File.ReadAllText(_reportPath);
+         StringAssert.Contains("Deviation", content);
+      }
+
       private OutputComparisonResult createOutputComparisonResult()
       {
          return new OutputComparisonResult(

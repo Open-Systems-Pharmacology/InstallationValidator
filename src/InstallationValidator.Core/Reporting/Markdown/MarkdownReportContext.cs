@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using InstallationValidator.Core.Reporting.Charts;
 
 namespace InstallationValidator.Core.Reporting.Markdown
 {
@@ -40,8 +41,7 @@ namespace InstallationValidator.Core.Reporting.Markdown
 
       public void AppendColoredStatus(string text, Color color)
       {
-         var colorHex = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
-         Content.AppendLine($"<span style=\"color:{colorHex}; font-weight:bold;\">{escapeHtml(text)}</span>");
+         Content.AppendLine($"<span style=\"color:{color.ToHexString()}; font-weight:bold;\">{escapeHtml(text)}</span>");
          Content.AppendLine();
       }
 
@@ -73,7 +73,7 @@ namespace InstallationValidator.Core.Reporting.Markdown
       {
          Content.AppendLine();
          Content.AppendLine("| " + string.Join(" | ", headers.Select(escapeTableCell)) + " |");
-         Content.AppendLine("| " + string.Join(" | ", new string[headers.Length].Select(_ => "---")) + " |");
+         Content.AppendLine("| " + string.Join(" | ", Enumerable.Repeat("---", headers.Length)) + " |");
          foreach (var row in rows)
          {
             Content.AppendLine("| " + string.Join(" | ", row.Select(escapeTableCell)) + " |");

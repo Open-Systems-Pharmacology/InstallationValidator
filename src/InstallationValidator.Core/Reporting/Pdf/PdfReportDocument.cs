@@ -114,11 +114,19 @@ namespace InstallationValidator.Core.Reporting.Pdf
          var timeSpent = summary.EndTime - summary.StartTime;
          column.Item().Text(text =>
          {
-            text.Span(Assets.Reporting.BatchRunDuration + ": ").Bold();
-            text.Span($"Start time: {summary.StartTime.ToIsoFormat()}");
+            text.Span("Start time: ").Bold();
+            text.Span(summary.StartTime.ToIsoFormat());
          });
-         column.Item().Text($"End time: {summary.EndTime.ToIsoFormat()}");
-         column.Item().Text($"Validation performed in {timeSpent.ToDisplay()}");
+         column.Item().Text(text =>
+         {
+            text.Span("End time: ").Bold();
+            text.Span(summary.EndTime.ToIsoFormat());
+         });
+         column.Item().Text(text =>
+         {
+            text.Span(Assets.Reporting.BatchRunDuration + ": ").Bold();
+            text.Span(timeSpent.ToDisplay());
+         });
 
          column.Item().Text(text =>
          {
@@ -218,7 +226,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
             simCol.Item().Row(row =>
             {
                row.AutoItem().Text(Assets.Reporting.ValidationResult);
-               row.AutoItem().Text(result.State.ToString()).FontColor(toQuestColor(result.State.ValidationColor()));
+               row.AutoItem().Text(result.State.ToString()).FontColor(result.State.ValidationColor().ToHexString());
             });
 
             if (result is OutputFileComparisonResult outputResult)
@@ -271,13 +279,13 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
          if (output.HasData)
          {
-            var logChart = createChartData(output, useLogScale: true);
+            var logChart = ChartDataFactory.CreateFor(output, useLogScale: true);
             var logSvg = _svgChartGenerator.GenerateLineChart(logChart);
             column.Item().PaddingTop(5).Svg(logSvg).FitWidth();
 
             if (!output.IsValid())
             {
-               var linearChart = createChartData(output, useLogScale: false);
+               var linearChart = ChartDataFactory.CreateFor(output, useLogScale: false);
                var linearSvg = _svgChartGenerator.GenerateLineChart(linearChart);
                column.Item().PaddingTop(5).Svg(linearSvg).FitWidth();
             }
@@ -286,37 +294,8 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
       private void composeValidationState(ColumnDescriptor column, ValidationState state)
       {
-         column.Item().Text(state.ToString()).FontColor(toQuestColor(state.ValidationColor())).Bold();
+         column.Item().Text(state.ToString()).FontColor(state.ValidationColor().ToHexString()).Bold();
       }
 
-      private string toQuestColor(Color color)
-      {
-         return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
-      }
-
-      private ChartData createChartData(OutputComparisonResult output, bool useLogScale)
-      {
-         return new ChartData
-         {
-            Title = output.Path,
-            XAxisLabel = $"Time [{output.TimeDisplayUnit}]",
-            YAxisLabel = $"[{output.ValuesDisplayUnit}]",
-            UseLogScale = useLogScale,
-            Curve1 = new CurveData
-            {
-               Name = output.Output1.Caption,
-               XValues = output.Output1.Times,
-               YValues = output.Output1.Values,
-               Color = Color.CornflowerBlue
-            },
-            Curve2 = new CurveData
-            {
-               Name = output.Output2.Caption,
-               XValues = output.Output2.Times,
-               YValues = output.Output2.Values,
-               Color = Color.OrangeRed
-            }
-         };
-      }
    }
 }
