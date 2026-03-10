@@ -2,6 +2,7 @@ using System.Linq;
 using InstallationValidator.Core.Domain;
 using OSPSuite.Core.Domain;
 using OSPSuite.Utility;
+using OSPSuite.Utility.Extensions;
 
 namespace InstallationValidator.Core.Reporting.Markdown
 {
@@ -33,10 +34,10 @@ namespace InstallationValidator.Core.Reporting.Markdown
          }
 
          var allInvalidOutputs = fileComparisonResult.OutputComparisonResults.Where(x => !x.IsValid());
-         foreach (var output in allInvalidOutputs)
-         {
-            _builderRepository.Report(output, context);
-         }
+         allInvalidOutputs.Each(x => _builderRepository.Report(x, context));
+
+         var allValidOutputsWithData = fileComparisonResult.OutputComparisonResults.Where(x => x.IsValid()).Where(x => x.HasData);
+         allValidOutputsWithData.Each(x => _builderRepository.Report(x, context));
       }
    }
 }

@@ -52,13 +52,13 @@ namespace InstallationValidator.Core.Reporting.Pdf
             page.Margin(40);
             page.DefaultTextStyle(x => x.FontSize(10).FontFamily("Arial"));
 
-            page.Header().Element(ComposeHeader);
-            page.Content().Element(ComposeContent);
-            page.Footer().Element(ComposeFooter);
+            page.Header().Element(composeHeader);
+            page.Content().Element(composeContent);
+            page.Footer().Element(composeFooter);
          });
       }
 
-      private void ComposeHeader(IContainer container)
+      private void composeHeader(IContainer container)
       {
          container.Column(column =>
          {
@@ -68,7 +68,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
          });
       }
 
-      private void ComposeFooter(IContainer container)
+      private void composeFooter(IContainer container)
       {
          container.AlignCenter().Text(text =>
          {
@@ -79,7 +79,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
          });
       }
 
-      private void ComposeContent(IContainer container)
+      private void composeContent(IContainer container)
       {
          container.PaddingVertical(20).Column(column =>
          {
@@ -87,27 +87,27 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
             if (_validationResult != null)
             {
-               ComposeInstallationValidationResult(column);
+               composeInstallationValidationResult(column);
             }
             else if (_comparisonResult != null)
             {
-               ComposeBatchComparisonResult(column);
+               composeBatchComparisonResult(column);
             }
          });
       }
 
-      private void ComposeInstallationValidationResult(ColumnDescriptor column)
+      private void composeInstallationValidationResult(ColumnDescriptor column)
       {
          column.Item().Text(Assets.Reporting.InstallationValidationResults).Bold().FontSize(14);
 
          column.Item().Text(Assets.Reporting.OverallValidationResult).Bold().FontSize(12);
-         ComposeValidationState(column, _validationResult.State);
+         composeValidationState(column, _validationResult.State);
 
-         ComposeRunSummary(column, _validationResult.RunSummary);
-         ComposeBatchComparisonResult(column);
+         composeRunSummary(column, _validationResult.RunSummary);
+         composeBatchComparisonResult(column);
       }
 
-      private void ComposeRunSummary(ColumnDescriptor column, ValidationRunSummary summary)
+      private void composeRunSummary(ColumnDescriptor column, ValidationRunSummary summary)
       {
          column.Item().PaddingTop(10).Text(Assets.Reporting.ValidationSummary).Bold().FontSize(12);
 
@@ -144,10 +144,10 @@ namespace InstallationValidator.Core.Reporting.Pdf
             text.Span($"{summary.CultureInfo.EnglishName} ({summary.CultureInfo.Name})");
          });
 
-         ComposeOperatingSystemInfo(column, summary.OperatingSystem);
+         composeOperatingSystemInfo(column, summary.OperatingSystem);
       }
 
-      private void ComposeOperatingSystemInfo(ColumnDescriptor column, OperatingSystemInfo os)
+      private void composeOperatingSystemInfo(ColumnDescriptor column, OperatingSystemInfo os)
       {
          column.Item().PaddingTop(5).Text(Assets.Reporting.OperatingSystem).Bold();
          column.Item().PaddingLeft(10).Column(osCol =>
@@ -160,7 +160,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
          });
       }
 
-      private void ComposeBatchComparisonResult(ColumnDescriptor column)
+      private void composeBatchComparisonResult(ColumnDescriptor column)
       {
          if (_comparisonResult == null) return;
 
@@ -187,12 +187,12 @@ namespace InstallationValidator.Core.Reporting.Pdf
             }
          }
 
-         ComposeSimulationsByState(column, ValidationState.Invalid, Assets.Reporting.InvalidSimulations);
-         ComposeSimulationsByState(column, ValidationState.ValidWithWarnings, Assets.Reporting.ValidWithWarningSimulations);
-         ComposeSimulationsByState(column, ValidationState.Valid, Assets.Reporting.ValidSimulations);
+         composeSimulationsByState(column, ValidationState.Invalid, Assets.Reporting.InvalidSimulations);
+         composeSimulationsByState(column, ValidationState.ValidWithWarnings, Assets.Reporting.ValidWithWarningSimulations);
+         composeSimulationsByState(column, ValidationState.Valid, Assets.Reporting.ValidSimulations);
       }
 
-      private void ComposeSimulationsByState(ColumnDescriptor column, ValidationState state, Func<int, int, string> sectionName)
+      private void composeSimulationsByState(ColumnDescriptor column, ValidationState state, Func<int, int, string> sectionName)
       {
          var simulations = _comparisonResult.FileComparisonResults
             .Where(x => x.Is(state))
@@ -205,11 +205,11 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
          foreach (var sim in simulations)
          {
-            ComposeFileComparisonResult(column, sim);
+            composeFileComparisonResult(column, sim);
          }
       }
 
-      private void ComposeFileComparisonResult(ColumnDescriptor column, FileComparisonResult result)
+      private void composeFileComparisonResult(ColumnDescriptor column, FileComparisonResult result)
       {
          column.Item().PaddingTop(5).PaddingLeft(10).Column(simCol =>
          {
@@ -223,16 +223,16 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
             if (result is OutputFileComparisonResult outputResult)
             {
-               ComposeOutputFileResult(simCol, outputResult);
+               composeOutputFileResult(simCol, outputResult);
             }
             else if (result is MissingFileComparisonResult missingResult)
             {
-               ComposeMissingFileResult(simCol, missingResult);
+               composeMissingFileResult(simCol, missingResult);
             }
          });
       }
 
-      private void ComposeMissingFileResult(ColumnDescriptor column, MissingFileComparisonResult result)
+      private void composeMissingFileResult(ColumnDescriptor column, MissingFileComparisonResult result)
       {
          column.Item().PaddingTop(5).Text(Assets.Reporting.MissingFileValidation).Bold();
          column.Item().Text($"{result.FileName} was contained in folder:");
@@ -241,7 +241,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
          column.Item().PaddingLeft(10).Text(result.FolderWithoutFile);
       }
 
-      private void ComposeOutputFileResult(ColumnDescriptor column, OutputFileComparisonResult result)
+      private void composeOutputFileResult(ColumnDescriptor column, OutputFileComparisonResult result)
       {
          if (!result.IsValid())
          {
@@ -257,13 +257,10 @@ namespace InstallationValidator.Core.Reporting.Pdf
          }
 
          var invalidOutputs = result.OutputComparisonResults.Where(x => !x.IsValid());
-         foreach (var output in invalidOutputs)
-         {
-            ComposeOutputComparison(column, output);
-         }
+         invalidOutputs.Each(x => composeOutputComparison(column, x));
       }
 
-      private void ComposeOutputComparison(ColumnDescriptor column, OutputComparisonResult output)
+      private void composeOutputComparison(ColumnDescriptor column, OutputComparisonResult output)
       {
          column.Item().PaddingTop(5).Text($"{Assets.Reporting.OutputPath}: {output.Path}").Bold();
          column.Item().Text(output.Message);
@@ -284,7 +281,7 @@ namespace InstallationValidator.Core.Reporting.Pdf
          }
       }
 
-      private void ComposeValidationState(ColumnDescriptor column, ValidationState state)
+      private void composeValidationState(ColumnDescriptor column, ValidationState state)
       {
          column.Item().Text(state.ToString()).FontColor(toQuestColor(state.ValidationColor())).Bold();
       }

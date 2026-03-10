@@ -36,7 +36,7 @@ namespace InstallationValidator.Core.Services
 
          _builderRepository.Report(comparisonResult, context);
 
-         var reportPath = reportOutputPath(secondFolderPath, DateTime.Now);
+         var reportPath = reportOutputPath(secondFolderPath, DateTime.Now, Assets.Reporting.FolderComparison);
          await writeReportAsync(reportPath, context);
 
          openReportIfRequired(openReport, reportPath);
@@ -53,7 +53,7 @@ namespace InstallationValidator.Core.Services
 
          _builderRepository.Report(installationValidationResult, context);
 
-         var reportPath = reportOutputPath(outputFolderPath, installationValidationResult.RunSummary.StartTime);
+         var reportPath = reportOutputPath(outputFolderPath, installationValidationResult.RunSummary.StartTime, Assets.Reporting.InstallationValidation);
          await writeReportAsync(reportPath, context);
 
          openReportIfRequired(openReport, reportPath);
@@ -87,9 +87,9 @@ namespace InstallationValidator.Core.Services
          _validationLogger.AppendLine(Logs.ReportCreatedUnder(reportPath));
       }
 
-      private string reportOutputPath(string outputFilePath, DateTime dateTime)
+      private string reportOutputPath(string outputFilePath, DateTime dateTime, string reportName)
       {
-         return Path.Combine(outputFilePath, $"{_applicationConfiguration.OSPSuiteNameWithVersion}-{Assets.Reporting.InstallationValidation}_{dateTime:MM_dd_yy_H_mm_ss}.md");
+         return Path.Combine(outputFilePath, $"{_applicationConfiguration.OSPSuiteNameWithVersion}-{reportName}_{dateTime:MM_dd_yy_H_mm_ss}.md");
       }
    }
 }
