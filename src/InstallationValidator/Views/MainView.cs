@@ -19,11 +19,13 @@ namespace InstallationValidator.Views
    {
       private IMainPresenter _presenter;
       private readonly ScreenBinder<FolderDTO> _screenBinder;
+      private readonly ScreenBinder<ReportOptionsDTO> _reportOptionsBinder;
 
       public MainView()
       {
          InitializeComponent();
          _screenBinder = new ScreenBinder<FolderDTO>();
+         _reportOptionsBinder = new ScreenBinder<ReportOptionsDTO>();
       }
 
       public override void InitializeBinding()
@@ -32,8 +34,15 @@ namespace InstallationValidator.Views
          _screenBinder.Bind(x => x.FolderPath)
             .To(outputFolderButton);
 
-         RegisterValidationFor(_screenBinder);
+         _reportOptionsBinder.Bind(x => x.ExportToPdf)
+            .To(chkExportToPdf)
+            .WithCaption(Captions.ExportToPdf);
 
+         _reportOptionsBinder.Bind(x => x.ExportToMarkdown)
+            .To(chkExportToMarkdown)
+            .WithCaption(Captions.ExportToMarkdown);
+
+         RegisterValidationFor(_screenBinder);
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -51,6 +60,9 @@ namespace InstallationValidator.Views
          layoutControlItemDescription.TextVisible = false;
          labelValidationDescription.AsDescription();
          labelValidationDescription.Text = Captions.ValidationDescription;
+
+         layoutItemExportToPdf.TextVisible = false;
+         layoutItemExportToMarkdown.TextVisible = false;
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
@@ -96,6 +108,11 @@ namespace InstallationValidator.Views
       public void BindTo(FolderDTO outputFolderDTO)
       {
          _screenBinder.BindToSource(outputFolderDTO);
+      }
+
+      public void BindToReportOptions(ReportOptionsDTO reportOptionsDTO)
+      {
+         _reportOptionsBinder.BindToSource(reportOptionsDTO);
       }
 
       public void ValidationIsRunning(bool validationRunning)

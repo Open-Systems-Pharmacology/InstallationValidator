@@ -22,6 +22,7 @@ namespace SimulationOutputComparer.Views
       private readonly ScreenBinder<FolderDTO> _screenBinderFolder1;
       private readonly ScreenBinder<FolderDTO> _screenBinderFolder2;
       private readonly ScreenBinder<FolderComparisonDTO> _screenBinder;
+      private readonly ScreenBinder<ReportOptionsDTO> _reportOptionsBinder;
 
       public SimulationComparisonView()
       {
@@ -29,6 +30,7 @@ namespace SimulationOutputComparer.Views
          _screenBinderFolder1 = new ScreenBinder<FolderDTO>();
          _screenBinderFolder2 = new ScreenBinder<FolderDTO>();
          _screenBinder = new ScreenBinder<FolderComparisonDTO>();
+         _reportOptionsBinder = new ScreenBinder<ReportOptionsDTO>();
       }
 
       public override void InitializeResources()
@@ -43,6 +45,8 @@ namespace SimulationOutputComparer.Views
          layoutItemNumberOfCurvesToDisplay.Text = Captions.NumberOfCurvesToDisplay.FormatForLabel();
          layoutItemIgnoreAddedCurves.TextVisible = false;
          layoutItemIgnoreRemovedCurves.TextVisible = false;
+         layoutItemExportToPdf.TextVisible = false;
+         layoutItemExportToMarkdown.TextVisible = false;
 
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
@@ -85,6 +89,14 @@ namespace SimulationOutputComparer.Views
          _screenBinder.Bind(x => x.IgnoreRemovedCurves)
             .To(chkIgnoreRemovedCurves)
             .WithCaption(Captions.IgnoreRemovedCurves);
+
+         _reportOptionsBinder.Bind(x => x.ExportToPdf)
+            .To(chkExportToPdf)
+            .WithCaption(Captions.ExportToPdf);
+
+         _reportOptionsBinder.Bind(x => x.ExportToMarkdown)
+            .To(chkExportToMarkdown)
+            .WithCaption(Captions.ExportToMarkdown);
 
          RegisterValidationFor(_screenBinderFolder1);
          RegisterValidationFor(_screenBinderFolder2);
@@ -148,6 +160,11 @@ namespace SimulationOutputComparer.Views
          _screenBinder.BindToSource(folderComparisonDTO);
          _screenBinderFolder1.BindToSource(folderComparisonDTO.FirstFolder);
          _screenBinderFolder2.BindToSource(folderComparisonDTO.SecondFolder);
+      }
+
+      public void BindToReportOptions(ReportOptionsDTO reportOptionsDTO)
+      {
+         _reportOptionsBinder.BindToSource(reportOptionsDTO);
       }
    }
 }

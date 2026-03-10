@@ -52,6 +52,8 @@ namespace InstallationValidator.Core.Assets
       public static readonly string IgnoreRemovedCurves= "Ignore removed curves";
       public static readonly string ReallyCancelFolderComparison = "Really cancel folder comparison?";
       public static readonly string ExclusionList = "Exclusion List";
+      public static readonly string ExportToPdf = "Export to PDF";
+      public static readonly string ExportToMarkdown = "Export to Markdown";
    }
 
    public static class Logs

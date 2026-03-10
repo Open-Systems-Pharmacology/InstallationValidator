@@ -18,6 +18,7 @@
             components.Dispose();
          }
          _screenBinder.Dispose();
+         _reportOptionsBinder.Dispose();
          base.Dispose(disposing);
       }
 
@@ -35,6 +36,8 @@
          this.richEditControl = new DevExpress.XtraRichEdit.RichEditControl();
          this.labelValidationDescription = new DevExpress.XtraEditors.LabelControl();
          this.outputFolderButton = new DevExpress.XtraEditors.ButtonEdit();
+         this.chkExportToPdf = new DevExpress.XtraEditors.CheckEdit();
+         this.chkExportToMarkdown = new DevExpress.XtraEditors.CheckEdit();
          this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
          this.layoutControlItemRichEdit = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStart = new DevExpress.XtraLayout.LayoutControlItem();
@@ -45,11 +48,15 @@
          this.layoutControlItemOutputButton = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
          this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+         this.layoutItemExportToPdf = new DevExpress.XtraLayout.LayoutControlItem();
+         this.layoutItemExportToMarkdown = new DevExpress.XtraLayout.LayoutControlItem();
          this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel();
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
          this.layoutControl.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToPdf.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToMarkdown.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).BeginInit();
@@ -60,6 +67,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToPdf)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToMarkdown)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
@@ -69,6 +78,8 @@
          this.layoutControl.Controls.Add(this.richEditControl);
          this.layoutControl.Controls.Add(this.labelValidationDescription);
          this.layoutControl.Controls.Add(this.outputFolderButton);
+         this.layoutControl.Controls.Add(this.chkExportToPdf);
+         this.layoutControl.Controls.Add(this.chkExportToMarkdown);
          this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.layoutControl.Location = new System.Drawing.Point(0, 0);
          this.layoutControl.Name = "layoutControl";
@@ -123,9 +134,27 @@
          this.outputFolderButton.Size = new System.Drawing.Size(1023, 20);
          this.outputFolderButton.StyleController = this.layoutControl;
          this.outputFolderButton.TabIndex = 4;
-         // 
+         //
+         // chkExportToPdf
+         //
+         this.chkExportToPdf.Location = new System.Drawing.Point(12, 81);
+         this.chkExportToPdf.Name = "chkExportToPdf";
+         this.chkExportToPdf.Properties.Caption = "chkExportToPdf";
+         this.chkExportToPdf.Size = new System.Drawing.Size(499, 20);
+         this.chkExportToPdf.StyleController = this.layoutControl;
+         this.chkExportToPdf.TabIndex = 10;
+         //
+         // chkExportToMarkdown
+         //
+         this.chkExportToMarkdown.Location = new System.Drawing.Point(525, 81);
+         this.chkExportToMarkdown.Name = "chkExportToMarkdown";
+         this.chkExportToMarkdown.Properties.Caption = "chkExportToMarkdown";
+         this.chkExportToMarkdown.Size = new System.Drawing.Size(510, 20);
+         this.chkExportToMarkdown.StyleController = this.layoutControl;
+         this.chkExportToMarkdown.TabIndex = 11;
+         //
          // layoutControlGroup
-         // 
+         //
          this.layoutControlGroup.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
          this.layoutControlGroup.GroupBordersVisible = false;
          this.layoutControlGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
@@ -136,6 +165,8 @@
             this.emptySpaceItem4,
             this.layoutControlItemDescription,
             this.layoutControlItemOutputButton,
+            this.layoutItemExportToPdf,
+            this.layoutItemExportToMarkdown,
             this.layoutItemButtonStop,
             this.emptySpaceItem2});
          this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
@@ -146,9 +177,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 81);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 105);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(1027, 633);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(1027, 609);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -208,9 +239,27 @@
          this.layoutItemButtonStop.Name = "layoutItemButtonStop";
          this.layoutItemButtonStop.Size = new System.Drawing.Size(222, 26);
          this.layoutItemButtonStop.TextSize = new System.Drawing.Size(153, 13);
-         // 
+         //
+         // layoutItemExportToPdf
+         //
+         this.layoutItemExportToPdf.Control = this.chkExportToPdf;
+         this.layoutItemExportToPdf.Location = new System.Drawing.Point(0, 81);
+         this.layoutItemExportToPdf.Name = "layoutItemExportToPdf";
+         this.layoutItemExportToPdf.Size = new System.Drawing.Size(513, 24);
+         this.layoutItemExportToPdf.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemExportToPdf.TextVisible = false;
+         //
+         // layoutItemExportToMarkdown
+         //
+         this.layoutItemExportToMarkdown.Control = this.chkExportToMarkdown;
+         this.layoutItemExportToMarkdown.Location = new System.Drawing.Point(513, 81);
+         this.layoutItemExportToMarkdown.Name = "layoutItemExportToMarkdown";
+         this.layoutItemExportToMarkdown.Size = new System.Drawing.Size(514, 24);
+         this.layoutItemExportToMarkdown.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemExportToMarkdown.TextVisible = false;
+         //
          // emptySpaceItem2
-         // 
+         //
          this.emptySpaceItem2.AllowHotTrack = false;
          this.emptySpaceItem2.Location = new System.Drawing.Point(0, 714);
          this.emptySpaceItem2.Name = "emptySpaceItem2";
@@ -230,6 +279,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
          this.layoutControl.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.outputFolderButton.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToPdf.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToMarkdown.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRichEdit)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStart)).EndInit();
@@ -240,6 +291,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemOutputButton)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemButtonStop)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToPdf)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToMarkdown)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -263,5 +316,9 @@
       private DevExpress.XtraLayout.LayoutControlItem layoutControlItemDescription;
       private DevExpress.XtraLayout.LayoutControlItem layoutControlItemOutputButton;
       private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+      private DevExpress.XtraEditors.CheckEdit chkExportToPdf;
+      private DevExpress.XtraEditors.CheckEdit chkExportToMarkdown;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemExportToPdf;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemExportToMarkdown;
    }
 }
