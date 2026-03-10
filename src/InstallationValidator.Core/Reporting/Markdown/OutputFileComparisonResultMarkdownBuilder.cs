@@ -37,12 +37,6 @@ namespace InstallationValidator.Core.Reporting.Markdown
          {
             _builderRepository.Report(output, context);
          }
-
-         var allValidOutputsWithData = fileComparisonResult.OutputComparisonResults.Where(x => x.IsValid() && x.HasData);
-         foreach (var output in allValidOutputsWithData)
-         {
-            _builderRepository.Report(output, context);
-         }
       }
    }
 }

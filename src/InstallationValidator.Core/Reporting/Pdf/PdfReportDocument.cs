@@ -111,15 +111,14 @@ namespace InstallationValidator.Core.Reporting.Pdf
       {
          column.Item().PaddingTop(10).Text(Assets.Reporting.ValidationSummary).Bold().FontSize(12);
 
+         var timeSpent = summary.EndTime - summary.StartTime;
          column.Item().Text(text =>
          {
             text.Span(Assets.Reporting.BatchRunDuration + ": ").Bold();
-            var timeSpent = summary.EndTime - summary.StartTime;
-            text.Span(Assets.Reporting.InstallationValidationPerformedIn(
-               summary.StartTime.ToIsoFormat(),
-               summary.EndTime.ToIsoFormat(),
-               timeSpent.ToDisplay()));
+            text.Span($"Start time: {summary.StartTime.ToIsoFormat()}");
          });
+         column.Item().Text($"End time: {summary.EndTime.ToIsoFormat()}");
+         column.Item().Text($"Validation performed in {timeSpent.ToDisplay()}");
 
          column.Item().Text(text =>
          {
@@ -236,10 +235,10 @@ namespace InstallationValidator.Core.Reporting.Pdf
       private void ComposeMissingFileResult(ColumnDescriptor column, MissingFileComparisonResult result)
       {
          column.Item().PaddingTop(5).Text(Assets.Reporting.MissingFileValidation).Bold();
-         column.Item().Text(Assets.Reporting.MissingFileValidationMessage(
-            result.FileName,
-            result.FolderContainingFile,
-            result.FolderWithoutFile));
+         column.Item().Text($"{result.FileName} was contained in folder:");
+         column.Item().PaddingLeft(10).Text(result.FolderContainingFile);
+         column.Item().Text("but was missing in folder:");
+         column.Item().PaddingLeft(10).Text(result.FolderWithoutFile);
       }
 
       private void ComposeOutputFileResult(ColumnDescriptor column, OutputFileComparisonResult result)
@@ -259,12 +258,6 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
          var invalidOutputs = result.OutputComparisonResults.Where(x => !x.IsValid());
          foreach (var output in invalidOutputs)
-         {
-            ComposeOutputComparison(column, output);
-         }
-
-         var validOutputsWithData = result.OutputComparisonResults.Where(x => x.IsValid() && x.HasData);
-         foreach (var output in validOutputsWithData)
          {
             ComposeOutputComparison(column, output);
          }
