@@ -25,20 +25,20 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
       public PdfReportDocument(InstallationValidationResult validationResult, string title, string subtitle, ISvgChartGenerator svgChartGenerator)
       {
-         _validationResult = validationResult;
-         _comparisonResult = validationResult?.ComparisonResult;
+         _validationResult = validationResult ?? throw new ArgumentNullException(nameof(validationResult));
+         _comparisonResult = validationResult.ComparisonResult;
          _title = title;
          _subtitle = subtitle;
-         _svgChartGenerator = svgChartGenerator;
+         _svgChartGenerator = svgChartGenerator ?? throw new ArgumentNullException(nameof(svgChartGenerator));
       }
 
       public PdfReportDocument(BatchComparisonResult comparisonResult, string title, string subtitle, ISvgChartGenerator svgChartGenerator)
       {
-         _comparisonResult = comparisonResult;
+         _comparisonResult = comparisonResult ?? throw new ArgumentNullException(nameof(comparisonResult));
          _validationResult = null;
          _title = title;
          _subtitle = subtitle;
-         _svgChartGenerator = svgChartGenerator;
+         _svgChartGenerator = svgChartGenerator ?? throw new ArgumentNullException(nameof(svgChartGenerator));
       }
 
       public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -114,12 +114,12 @@ namespace InstallationValidator.Core.Reporting.Pdf
          var timeSpent = summary.EndTime - summary.StartTime;
          column.Item().Text(text =>
          {
-            text.Span("Start time: ").Bold();
+            text.Span(Assets.Reporting.StartTime + ": ").Bold();
             text.Span(summary.StartTime.ToIsoFormat());
          });
          column.Item().Text(text =>
          {
-            text.Span("End time: ").Bold();
+            text.Span(Assets.Reporting.EndTime + ": ").Bold();
             text.Span(summary.EndTime.ToIsoFormat());
          });
          column.Item().Text(text =>
@@ -161,10 +161,10 @@ namespace InstallationValidator.Core.Reporting.Pdf
          column.Item().PaddingLeft(10).Column(osCol =>
          {
             osCol.Item().Text($"{Assets.Reporting.ComputerName}: {os.ComputerName}");
-            osCol.Item().Text($"OS: {os.FriendlyName}");
+            osCol.Item().Text($"{Assets.Reporting.OSLabel}: {os.FriendlyName}");
             osCol.Item().Text($"{Assets.Reporting.Architecture}: {os.Architecture}");
-            osCol.Item().Text($"{Assets.Reporting.RunningOnVirtualMachine}: {(os.IsRunningOnVirtualMachine ? "Yes" : "No")}");
-            osCol.Item().Text($"{Assets.Reporting.RunningOnTerminalSession}: {(os.IsRunningOnTerminalSession ? "Yes" : "No")}");
+            osCol.Item().Text($"{Assets.Reporting.RunningOnVirtualMachine}: {(os.IsRunningOnVirtualMachine ? Assets.Reporting.Yes : Assets.Reporting.No)}");
+            osCol.Item().Text($"{Assets.Reporting.RunningOnTerminalSession}: {(os.IsRunningOnTerminalSession ? Assets.Reporting.Yes : Assets.Reporting.No)}");
          });
       }
 
@@ -243,9 +243,9 @@ namespace InstallationValidator.Core.Reporting.Pdf
       private void composeMissingFileResult(ColumnDescriptor column, MissingFileComparisonResult result)
       {
          column.Item().PaddingTop(5).Text(Assets.Reporting.MissingFileValidation).Bold();
-         column.Item().Text($"{result.FileName} was contained in folder:");
+         column.Item().Text(Assets.Reporting.FileWasContainedInFolder(result.FileName));
          column.Item().PaddingLeft(10).Text(result.FolderContainingFile);
-         column.Item().Text("but was missing in folder:");
+         column.Item().Text(Assets.Reporting.ButWasMissingInFolder);
          column.Item().PaddingLeft(10).Text(result.FolderWithoutFile);
       }
 

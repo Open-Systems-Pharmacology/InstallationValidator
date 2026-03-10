@@ -189,7 +189,12 @@ namespace InstallationValidator.Core.Assets
       public static readonly string OverallValidationResult = "Overall Validation Result";
       public static readonly string FailedValidations = "Failed Validations";
       public static readonly string InputConfigurationFolder = "Input Configuration Folder";
+      public static readonly string StartTime = "Start time";
+      public static readonly string EndTime = "End time";
       public static readonly string BatchRunDuration = "Run Duration";
+      public static readonly string Yes = "Yes";
+      public static readonly string No = "No";
+      public static readonly string OSLabel = "OS";
       public static readonly string ValidationResult = "Result of the validation:";
       public static readonly string Simulation = "Simulation";
       public static readonly string Deviation = "Deviation";
@@ -214,6 +219,10 @@ namespace InstallationValidator.Core.Assets
       }
 
       public static string ComparisonFolder(string folderName) => $"{folderName} Folder";
+
+      public static string FileWasContainedInFolder(string fileName) => $"{fileName} was contained in folder:";
+      public static readonly string ButWasMissingInFolder = "but was missing in folder:";
+      public static string ValidationPerformedIn(string duration) => $"Validation performed in {duration}";
 
       public static string MissingFileValidationMessage(string fileName, string folderContainingFile, string folderWithoutFile) =>
          $"{fileName} was contained in folder:{Environment.NewLine}{folderContainingFile}{Environment.NewLine}but was missing in folder:{Environment.NewLine}{folderWithoutFile}";

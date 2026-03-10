@@ -32,6 +32,9 @@ namespace InstallationValidator.Core.Services
 
       public async Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport = false)
       {
+         if (comparisonResult == null)
+            throw new ArgumentNullException(nameof(comparisonResult));
+
          var context = createReportContext(Assets.Reporting.FolderComparison);
 
          _builderRepository.Report(comparisonResult, context);

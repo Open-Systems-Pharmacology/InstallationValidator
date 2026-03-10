@@ -34,6 +34,9 @@ namespace InstallationValidator.Core.Services
 
       public Task CreateReport(BatchComparisonResult comparisonResult, string firstFolderPath, string secondFolderPath, bool openReport = false)
       {
+         if (comparisonResult == null)
+            throw new ArgumentNullException(nameof(comparisonResult));
+
          return Task.Run(() =>
          {
             var document = new PdfReportDocument(
