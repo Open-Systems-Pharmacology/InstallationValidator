@@ -9,6 +9,7 @@ using OSPSuite.Assets;
 using OSPSuite.DataBinding;
 using OSPSuite.DataBinding.DevExpress;
 using OSPSuite.Presentation.Extensions;
+using OSPSuite.UI;
 using OSPSuite.UI.Extensions;
 using OSPSuite.UI.Views;
 using Captions = InstallationValidator.Core.Assets.Captions;
@@ -44,8 +45,7 @@ namespace InstallationValidator.Views
             .WithCaption(Captions.ExportToMarkdown);
 
          RegisterValidationFor(_screenBinder);
-
-         _reportOptionsBinder.Changed += () => setOkButtonEnable();
+         _reportOptionsBinder.Changed += setOkButtonEnable;
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -70,12 +70,12 @@ namespace InstallationValidator.Views
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
 
-         layoutItemButtonStart.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStart.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
          layoutItemButtonStart.TextVisible = false;
          layoutItemButtonStop.TextVisible = false;
 
-         layoutItemButtonStop.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStop.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
 
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
@@ -122,6 +122,7 @@ namespace InstallationValidator.Views
       {
          _reportOptionsDTO = reportOptionsDTO;
          _reportOptionsBinder.BindToSource(reportOptionsDTO);
+         setOkButtonEnable();
       }
 
       public void ValidationIsRunning(bool validationRunning)

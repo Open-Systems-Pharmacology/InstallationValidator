@@ -86,7 +86,7 @@ namespace SimulationOutputComparer.Views
          _screenBinder.Bind(x => x.IgnoreAddedCurves)
             .To(chkIgnoreAddedCurves)
             .WithCaption(Captions.IgnoreAddedCurves);
-         
+
          _screenBinder.Bind(x => x.IgnoreRemovedCurves)
             .To(chkIgnoreRemovedCurves)
             .WithCaption(Captions.IgnoreRemovedCurves);
@@ -103,7 +103,7 @@ namespace SimulationOutputComparer.Views
          RegisterValidationFor(_screenBinderFolder2);
          RegisterValidationFor(_screenBinder);
 
-         _reportOptionsBinder.Changed += () => setOkButtonEnable();
+         _reportOptionsBinder.Changed += setOkButtonEnable;
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartComparison());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -173,6 +173,7 @@ namespace SimulationOutputComparer.Views
       {
          _reportOptionsDTO = reportOptionsDTO;
          _reportOptionsBinder.BindToSource(reportOptionsDTO);
+         setOkButtonEnable();
       }
    }
 }
