@@ -258,6 +258,9 @@ namespace InstallationValidator.Core.Reporting.Pdf
 
          var invalidOutputs = result.OutputComparisonResults.Where(x => !x.IsValid());
          invalidOutputs.Each(x => composeOutputComparison(column, x));
+
+         var validOutputsWithData = result.OutputComparisonResults.Where(x => x.IsValid()).Where(x => x.HasData);
+         validOutputsWithData.Each(x => composeOutputComparison(column, x));
       }
 
       private void composeOutputComparison(ColumnDescriptor column, OutputComparisonResult output)
