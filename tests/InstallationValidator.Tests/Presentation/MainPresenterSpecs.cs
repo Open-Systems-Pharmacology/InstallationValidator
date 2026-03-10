@@ -178,7 +178,7 @@ namespace InstallationValidator.Presentation
       [Observation]
       public void should_generate_the_report()
       {
-         A.CallTo(() => _validationReportingTask.CreateReport(_result, _outputFolderDTO.FolderPath, true)).MustHaveHappened();
+         A.CallTo(() => _validationReportingTask.CreateReport(_result, _outputFolderDTO.FolderPath, A<ReportOptions>._)).MustHaveHappened();
       }
    }
 

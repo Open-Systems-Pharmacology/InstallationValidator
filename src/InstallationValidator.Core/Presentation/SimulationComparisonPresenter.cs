@@ -35,6 +35,7 @@ namespace InstallationValidator.Core.Presentation
       private readonly IBatchComparisonTask _batchComparisonTask;
       private readonly IValidationReportingTask _validationReportingTask;
       private readonly FolderComparisonDTO _folderComparisonDTO;
+      private readonly ReportOptionsDTO _reportOptionsDTO = new ReportOptionsDTO();
 
       public SimulationComparisonPresenter(ISimulationComparisonView view, IInstallationValidatorConfiguration configuration, IDialogCreator dialogCreator,
          IBatchComparisonTask batchComparisonTask, IValidationReportingTask validationReportingTask) : base(view)
@@ -45,6 +46,7 @@ namespace InstallationValidator.Core.Presentation
          _validationReportingTask = validationReportingTask;
          _folderComparisonDTO = new FolderComparisonDTO();
          view.BindTo(_folderComparisonDTO);
+         view.BindToReportOptions(_reportOptionsDTO);
       }
 
       public void Handle(AppendTextToLogEvent eventToHandle)
@@ -70,7 +72,7 @@ namespace InstallationValidator.Core.Presentation
             this.LogLine();
 
             this.LogLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(comparisonResult, _folderComparisonDTO.FirstFolder.FolderPath, _folderComparisonDTO.SecondFolder.FolderPath, openReport: true);
+            await _validationReportingTask.CreateReport(comparisonResult, _folderComparisonDTO.FirstFolder.FolderPath, _folderComparisonDTO.SecondFolder.FolderPath, new ReportOptions(reportFormatFromDTO(), openReport: true));
             this.LogLine();
 
             this.LogLine(Logs.ComparisonCompleted);
@@ -100,6 +102,14 @@ namespace InstallationValidator.Core.Presentation
             IgnoreRemovedCurves = _folderComparisonDTO.IgnoreRemovedCurves,
             Exclusions = exclusionListFrom(_folderComparisonDTO.ExclusionFile),
          };
+      }
+
+      private ReportFormat reportFormatFromDTO()
+      {
+         var format = ReportFormat.None;
+         if (_reportOptionsDTO.ExportToPdf) format |= ReportFormat.Pdf;
+         if (_reportOptionsDTO.ExportToMarkdown) format |= ReportFormat.Markdown;
+         return format;
       }
 
       private void updateComparisonRunningState(bool running)

@@ -7,5 +7,6 @@ namespace InstallationValidator.Core.Presentation.Views
    {
       void ComparisonIsRunning(bool comparisonRunning);
       void BindTo(FolderComparisonDTO folderComparisonDTO);
+      void BindToReportOptions(ReportOptionsDTO reportOptionsDTO);
    }
 }

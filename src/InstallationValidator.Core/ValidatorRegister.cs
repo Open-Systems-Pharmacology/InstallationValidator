@@ -1,6 +1,7 @@
 ﻿using Castle.Facilities.TypedFactory;
 using InstallationValidator.Core.Domain;
-using InstallationValidator.Core.Reporting;
+using InstallationValidator.Core.Reporting.Charts;
+using InstallationValidator.Core.Reporting.Markdown;
 using InstallationValidator.Core.Services;
 using OSPSuite.Core;
 using OSPSuite.Core.Domain.UnitSystem;
@@ -8,13 +9,11 @@ using OSPSuite.Core.Serialization.Xml;
 using OSPSuite.Core.Services;
 using OSPSuite.Infrastructure;
 using OSPSuite.Infrastructure.Container.Castle;
-using OSPSuite.Infrastructure.Reporting;
 using OSPSuite.Presentation.Services;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Events;
 using OSPSuite.Utility.Exceptions;
 using OSPSuite.Utility.Extensions;
-using ReportingRegister = OSPSuite.TeXReporting.ReportingRegister;
 
 namespace InstallationValidator.Core
 {
@@ -70,15 +69,18 @@ namespace InstallationValidator.Core
 
       private static void registerReportingComponents(IContainer container)
       {
-         container.AddRegister(x => x.FromType<ReportingRegister>());
-         container.AddRegister(x => x.FromType<OSPSuite.Infrastructure.Reporting.InfrastructureReportingRegister>());
-
+         // Chart generator (shared by Markdown and PDF)
+         container.Register<ISvgChartGenerator, SvgChartGenerator>(LifeStyle.Singleton);
          container.AddScanner(scan =>
          {
-            scan.AssemblyContainingType<InstallationValidationResultReporter>();
-            scan.IncludeNamespaceContainingType<InstallationValidationResultReporter>();
-            scan.WithConvention<ReporterRegistrationConvention>();
+            scan.AssemblyContainingType<ValidatorRegister>();
+            scan.IncludeNamespaceContainingType<IMarkdownBuilder>();
+            scan.ExcludeType<MarkdownBuilderRepository>();
+
+            scan.WithConvention<AllInterfacesAndConcreteTypeRegistrationConvention>();
          });
+         // Builder repository
+         container.Register<IMarkdownBuilderRepository, MarkdownBuilderRepository>(LifeStyle.Singleton);
       }
 
       private static void registerAbstractFactories(IContainer container)

@@ -9,6 +9,7 @@ using OSPSuite.Assets;
 using OSPSuite.DataBinding;
 using OSPSuite.DataBinding.DevExpress;
 using OSPSuite.Presentation.Extensions;
+using OSPSuite.UI;
 using OSPSuite.UI.Extensions;
 using OSPSuite.UI.Views;
 using Captions = InstallationValidator.Core.Assets.Captions;
@@ -19,11 +20,14 @@ namespace InstallationValidator.Views
    {
       private IMainPresenter _presenter;
       private readonly ScreenBinder<FolderDTO> _screenBinder;
+      private readonly ScreenBinder<ReportOptionsDTO> _reportOptionsBinder;
+      private ReportOptionsDTO _reportOptionsDTO;
 
       public MainView()
       {
          InitializeComponent();
          _screenBinder = new ScreenBinder<FolderDTO>();
+         _reportOptionsBinder = new ScreenBinder<ReportOptionsDTO>();
       }
 
       public override void InitializeBinding()
@@ -32,8 +36,16 @@ namespace InstallationValidator.Views
          _screenBinder.Bind(x => x.FolderPath)
             .To(outputFolderButton);
 
-         RegisterValidationFor(_screenBinder);
+         _reportOptionsBinder.Bind(x => x.ExportToPdf)
+            .To(chkExportToPdf)
+            .WithCaption(Captions.ExportToPdf);
 
+         _reportOptionsBinder.Bind(x => x.ExportToMarkdown)
+            .To(chkExportToMarkdown)
+            .WithCaption(Captions.ExportToMarkdown);
+
+         RegisterValidationFor(_screenBinder);
+         _reportOptionsBinder.Changed += setOkButtonEnable;
 
          startButton.Click += (o, e) => OnEvent(() => _presenter.StartInstallationValidation());
          stopButton.Click += (o, e) => OnEvent(() => _presenter.Abort());
@@ -52,15 +64,18 @@ namespace InstallationValidator.Views
          labelValidationDescription.AsDescription();
          labelValidationDescription.Text = Captions.ValidationDescription;
 
+         layoutItemExportToPdf.TextVisible = false;
+         layoutItemExportToMarkdown.TextVisible = false;
+
          richEditControl.Document.Text = string.Empty;
          richEditControl.ActiveViewType = RichEditViewType.Simple;
 
-         layoutItemButtonStart.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStart.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          startButton.InitWithImage(ApplicationIcons.Run, IconSizes.Size32x32, Captions.StartValidation);
          layoutItemButtonStart.TextVisible = false;
          layoutItemButtonStop.TextVisible = false;
 
-         layoutItemButtonStop.AdjustSize(OSPSuite.UI.UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
+         layoutItemButtonStop.AdjustSize(UIConstants.Size.LARGE_BUTTON_WIDTH, Constants.BUTTON_HEIGHT);
          stopButton.InitWithImage(ApplicationIcons.Stop, IconSizes.Size32x32, Captions.StopValidation);
 
          layoutItemButtonStop.Visibility = LayoutVisibilityConvertor.FromBoolean(false);
@@ -83,7 +98,12 @@ namespace InstallationValidator.Views
 
       private void setOkButtonEnable()
       {
-         layoutItemButtonStart.Enabled = !HasError;
+         layoutItemButtonStart.Enabled = !HasError && hasReportFormatSelected();
+      }
+
+      private bool hasReportFormatSelected()
+      {
+         return _reportOptionsDTO != null && (_reportOptionsDTO.ExportToPdf || _reportOptionsDTO.ExportToMarkdown);
       }
 
       public void AttachPresenter(IMainPresenter presenter)
@@ -96,6 +116,13 @@ namespace InstallationValidator.Views
       public void BindTo(FolderDTO outputFolderDTO)
       {
          _screenBinder.BindToSource(outputFolderDTO);
+      }
+
+      public void BindToReportOptions(ReportOptionsDTO reportOptionsDTO)
+      {
+         _reportOptionsDTO = reportOptionsDTO;
+         _reportOptionsBinder.BindToSource(reportOptionsDTO);
+         setOkButtonEnable();
       }
 
       public void ValidationIsRunning(bool validationRunning)
