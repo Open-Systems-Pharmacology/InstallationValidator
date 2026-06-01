@@ -1,16 +1,10 @@
-name: Build Nightly 12.2
-run-name: Version 12.2.${{ github.run_number }}
+name: Build Nightly 12.3
+run-name: Version 12.3.${{ github.run_number }}
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 2 * * *'
-
-env:
-  MAJOR: 12
-  MINOR: 2
-  RUN: ${{ github.run_number }}
-  TARGET_FRAMEWORK: net8
 
 permissions:
   contents: read
@@ -60,14 +54,14 @@ jobs:
 
       - name: define env variables
         run: |
-          echo "APP_VERSION=${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.RUN }}" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "APP_VERSION=12.3.${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Build
         run: |
           dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
 
       - name: Test
-        run: dotnet test .\tests\**\bin\Debug\net472\InstallationValidator*Tests.dll --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
+        run: dotnet test InstallationValidator.sln --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
 
       - name: Sign InstallationValidator.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
@@ -104,6 +98,7 @@ jobs:
           file_path: ./setup/deploy/InstallationValidator.${{ env.APP_VERSION }}.msi
 
       - name: Push test log as artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: testLog_Windows
