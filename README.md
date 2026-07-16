@@ -3,7 +3,7 @@
 Installation Validation Tool for the Open Systems Pharmacology Suite.
 
 ## Code Status
-[![Build status](https://img.shields.io/github/actions/workflow/status/Open-Systems-Pharmacology/InstallationValidator/nightly-badge.yml?logo=GitHub&label=Build%20status)](https://github.com/Open-Systems-Pharmacology/InstallationValidator/actions/workflows/build-nightly.yml)
+[![Build status](https://img.shields.io/github/actions/workflow/status/Open-Systems-Pharmacology/InstallationValidator/nightly-badge.yml?logo=GitHub&label=Build%20status)](https://github.com/Open-Systems-Pharmacology/InstallationValidator/actions/workflows/build-nightly_13.0.yml)
 [![Coverage status](https://codecov.io/gh/Open-Systems-Pharmacology/InstallationValidator/branch/develop/graph/badge.svg)](https://codecov.io/gh/Open-Systems-Pharmacology/InstallationValidator)
 
 ## Wix Install 
