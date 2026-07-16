@@ -18,7 +18,6 @@ task :create_setup, [:product_version, :configuration] do |t, args|
 
 	#Files required for setup creation only and that will not be harvested automatically
 	setup_files	 = [
-		"#{relative_src_dir}/TeXTemplates/**/*.*",
 		'data/*.wxs',
 		'src/InstallationValidator/*.ico',
 		'dimensions/*.xml',
@@ -47,10 +46,6 @@ task :postclean do |t, args|
 
 	copy_dependencies solution_dir,  all_users_application_dir do
 		copy_dimensions_xml
-	end
-
-	copy_dependencies src_dir,  File.join(all_users_application_dir, 'TeXTemplates', 'StandardTemplate') do
-		copy_files 'StandardTemplate', '*'
 	end
 end
 
