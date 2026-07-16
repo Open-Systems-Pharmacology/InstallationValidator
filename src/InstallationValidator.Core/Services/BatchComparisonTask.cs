@@ -39,6 +39,7 @@ namespace InstallationValidator.Core.Services
             FolderPathCaption1 = Captions.Installation,
             FolderPathCaption2 = Captions.Computed,
             GenerateResultsForValidSimulation = true,
+            NumberOfCurves = 1,
             PredefinedOutputPaths = Constants.PREDEFINED_OUTPUT_PATHS
          }, token);
       }

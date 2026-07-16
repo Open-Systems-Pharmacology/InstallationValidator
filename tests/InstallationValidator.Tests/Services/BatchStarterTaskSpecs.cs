@@ -74,7 +74,7 @@ namespace InstallationValidator.Services
       [Observation]
       public void the_startable_process_must_be_started()
       {
-         A.CallTo(() => _startableProcess.Start()).MustHaveHappened();
+         A.CallTo(() => _startableProcess.Start(null)).MustHaveHappened();
          A.CallTo(() => _startableProcess.Wait(A<CancellationToken>._)).MustHaveHappened();
       }
 

@@ -20,6 +20,7 @@
          _screenBinderFolder1.Dispose();
          _screenBinderFolder2.Dispose();
          _screenBinder.Dispose();
+         _reportOptionsBinder.Dispose();
          base.Dispose(disposing);
       }
 
@@ -36,6 +37,8 @@
          this.buttonEditExclusionList = new DevExpress.XtraEditors.ButtonEdit();
          this.chkIgnoreRemovedCurves = new DevExpress.XtraEditors.CheckEdit();
          this.chkIgnoreAddedCurves = new DevExpress.XtraEditors.CheckEdit();
+         this.chkExportToPdf = new DevExpress.XtraEditors.CheckEdit();
+         this.chkExportToMarkdown = new DevExpress.XtraEditors.CheckEdit();
          this.textEditNumberOfCurves = new DevExpress.XtraEditors.TextEdit();
          this.startButton = new DevExpress.XtraEditors.SimpleButton();
          this.stopButton = new DevExpress.XtraEditors.SimpleButton();
@@ -53,6 +56,8 @@
          this.layoutItemIgnoreAddedCurves = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemIgnoreRemovedCurves = new DevExpress.XtraLayout.LayoutControlItem();
          this.layoutItemExclusionList = new DevExpress.XtraLayout.LayoutControlItem();
+         this.layoutItemExportToPdf = new DevExpress.XtraLayout.LayoutControlItem();
+         this.layoutItemExportToMarkdown = new DevExpress.XtraLayout.LayoutControlItem();
          this.defaultLookAndFeel = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
          ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
@@ -60,6 +65,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditExclusionList.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToPdf.Properties)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToMarkdown.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).BeginInit();
@@ -74,6 +81,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemExclusionList)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToPdf)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToMarkdown)).BeginInit();
          this.SuspendLayout();
          // 
          // layoutControl
@@ -86,6 +95,8 @@
          this.layoutControl.Controls.Add(this.stopButton);
          this.layoutControl.Controls.Add(this.buttonEditFolder2);
          this.layoutControl.Controls.Add(this.buttonEditFolder1);
+         this.layoutControl.Controls.Add(this.chkExportToPdf);
+         this.layoutControl.Controls.Add(this.chkExportToMarkdown);
          this.layoutControl.Controls.Add(this.richEditControl);
          this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.layoutControl.Location = new System.Drawing.Point(0, 0);
@@ -168,12 +179,30 @@
          this.buttonEditFolder1.Size = new System.Drawing.Size(508, 20);
          this.buttonEditFolder1.StyleController = this.layoutControl;
          this.buttonEditFolder1.TabIndex = 7;
-         // 
+         //
+         // chkExportToPdf
+         //
+         this.chkExportToPdf.Location = new System.Drawing.Point(12, 156);
+         this.chkExportToPdf.Name = "chkExportToPdf";
+         this.chkExportToPdf.Properties.Caption = "chkExportToPdf";
+         this.chkExportToPdf.Size = new System.Drawing.Size(332, 20);
+         this.chkExportToPdf.StyleController = this.layoutControl;
+         this.chkExportToPdf.TabIndex = 15;
+         //
+         // chkExportToMarkdown
+         //
+         this.chkExportToMarkdown.Location = new System.Drawing.Point(360, 156);
+         this.chkExportToMarkdown.Name = "chkExportToMarkdown";
+         this.chkExportToMarkdown.Properties.Caption = "chkExportToMarkdown";
+         this.chkExportToMarkdown.Size = new System.Drawing.Size(344, 20);
+         this.chkExportToMarkdown.StyleController = this.layoutControl;
+         this.chkExportToMarkdown.TabIndex = 16;
+         //
          // richEditControl
-         // 
-         this.richEditControl.Location = new System.Drawing.Point(12, 156);
+         //
+         this.richEditControl.Location = new System.Drawing.Point(12, 180);
          this.richEditControl.Name = "richEditControl";
-         this.richEditControl.Size = new System.Drawing.Size(692, 292);
+         this.richEditControl.Size = new System.Drawing.Size(692, 268);
          this.richEditControl.TabIndex = 6;
          // 
          // layoutControlGroup
@@ -190,6 +219,8 @@
             this.layoutItemNumberOfCurvesToDisplay,
             this.layoutItemIgnoreAddedCurves,
             this.layoutItemIgnoreRemovedCurves,
+            this.layoutItemExportToPdf,
+            this.layoutItemExportToMarkdown,
             this.layoutItemExclusionList});
          this.layoutControlGroup.Name = "layoutControlGroup";
          this.layoutControlGroup.Size = new System.Drawing.Size(716, 486);
@@ -198,9 +229,9 @@
          // layoutControlItemRichEdit
          // 
          this.layoutControlItemRichEdit.Control = this.richEditControl;
-         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 144);
+         this.layoutControlItemRichEdit.Location = new System.Drawing.Point(0, 168);
          this.layoutControlItemRichEdit.Name = "layoutControlItemRichEdit";
-         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 296);
+         this.layoutControlItemRichEdit.Size = new System.Drawing.Size(696, 272);
          this.layoutControlItemRichEdit.TextSize = new System.Drawing.Size(0, 0);
          this.layoutControlItemRichEdit.TextVisible = false;
          // 
@@ -271,9 +302,27 @@
          this.layoutItemIgnoreRemovedCurves.Size = new System.Drawing.Size(696, 24);
          this.layoutItemIgnoreRemovedCurves.TextSize = new System.Drawing.Size(0, 0);
          this.layoutItemIgnoreRemovedCurves.TextVisible = false;
-         // 
+         //
+         // layoutItemExportToPdf
+         //
+         this.layoutItemExportToPdf.Control = this.chkExportToPdf;
+         this.layoutItemExportToPdf.Location = new System.Drawing.Point(0, 144);
+         this.layoutItemExportToPdf.Name = "layoutItemExportToPdf";
+         this.layoutItemExportToPdf.Size = new System.Drawing.Size(348, 24);
+         this.layoutItemExportToPdf.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemExportToPdf.TextVisible = false;
+         //
+         // layoutItemExportToMarkdown
+         //
+         this.layoutItemExportToMarkdown.Control = this.chkExportToMarkdown;
+         this.layoutItemExportToMarkdown.Location = new System.Drawing.Point(348, 144);
+         this.layoutItemExportToMarkdown.Name = "layoutItemExportToMarkdown";
+         this.layoutItemExportToMarkdown.Size = new System.Drawing.Size(348, 24);
+         this.layoutItemExportToMarkdown.TextSize = new System.Drawing.Size(0, 0);
+         this.layoutItemExportToMarkdown.TextVisible = false;
+         //
          // layoutItemExclusionList
-         // 
+         //
          this.layoutItemExclusionList.Control = this.buttonEditExclusionList;
          this.layoutItemExclusionList.Location = new System.Drawing.Point(0, 48);
          this.layoutItemExclusionList.Name = "layoutItemExclusionList";
@@ -296,6 +345,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditExclusionList.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreRemovedCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.chkIgnoreAddedCurves.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToPdf.Properties)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.chkExportToMarkdown.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.textEditNumberOfCurves.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder2.Properties)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.buttonEditFolder1.Properties)).EndInit();
@@ -310,6 +361,8 @@
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreAddedCurves)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemIgnoreRemovedCurves)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.layoutItemExclusionList)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToPdf)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutItemExportToMarkdown)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -338,6 +391,10 @@
       private DevExpress.XtraLayout.LayoutControlItem layoutItemIgnoreRemovedCurves;
       private DevExpress.XtraEditors.ButtonEdit buttonEditExclusionList;
       private DevExpress.XtraLayout.LayoutControlItem layoutItemExclusionList;
+      private DevExpress.XtraEditors.CheckEdit chkExportToPdf;
+      private DevExpress.XtraEditors.CheckEdit chkExportToMarkdown;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemExportToPdf;
+      private DevExpress.XtraLayout.LayoutControlItem layoutItemExportToMarkdown;
    }
 }
 

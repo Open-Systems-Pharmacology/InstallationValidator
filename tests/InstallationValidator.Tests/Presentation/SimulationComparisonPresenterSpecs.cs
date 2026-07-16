@@ -9,6 +9,7 @@ using InstallationValidator.Core.Presentation.DTO;
 using InstallationValidator.Core.Presentation.Views;
 using InstallationValidator.Core.Services;
 using OSPSuite.BDDHelper;
+using OSPSuite.BDDHelper.Extensions;
 using OSPSuite.Core;
 using OSPSuite.Core.Services;
 
@@ -129,7 +130,7 @@ namespace InstallationValidator.Presentation
       [Observation]
       public void should_generate_the_report()
       {
-         A.CallTo(() => _validationReportingTask.CreateReport(A<BatchComparisonResult>._, _firstFolder.FolderPath, _secondFolder.FolderPath, true)).MustHaveHappened();
+         A.CallTo(() => _validationReportingTask.CreateReport(A<BatchComparisonResult>._, _firstFolder.FolderPath, _secondFolder.FolderPath, A<ReportOptions>._)).MustHaveHappened();
       }
    }
 

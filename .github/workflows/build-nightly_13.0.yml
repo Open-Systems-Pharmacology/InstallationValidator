@@ -1,5 +1,5 @@
-name: Build Nightly 12.3
-run-name: Version 12.3.${{ github.run_number }}
+name: Build Nightly 13.0
+run-name: Version 13.0.${{ github.run_number }}
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
       LATEST_COMMIT_TIMESPAN: ${{ steps.get-latest-commit-timespan.outputs.LATEST_COMMIT_TIMESPAN}}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -43,7 +43,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: 'true'
 
@@ -54,14 +54,14 @@ jobs:
 
       - name: define env variables
         run: |
-          echo "APP_VERSION=12.3.${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "APP_VERSION=13.0.${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Build
         run: |
           dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
 
       - name: Test
-        run: dotnet test InstallationValidator.sln --filter “TestCategory!=Reporting” --no-build -v normal  --logger:"html;LogFileName=../testLog_Windows.html"
+        run: dotnet test InstallationValidator.sln --filter "TestCategory!=Reporting" --no-build -v normal  --logger:"html;LogFileName=${{ github.workspace }}/testLog_Windows.html"
 
       - name: Sign InstallationValidator.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
@@ -71,7 +71,7 @@ jobs:
           ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
           ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
         with:
-          file_path: ./src/InstallationValidator/bin/Debug/net472/InstallationValidator.exe
+          file_path: ./src/InstallationValidator/bin/Debug/net10.0-windows/InstallationValidator.exe
 
       - name: Sign SimulationOutputComparer.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
@@ -81,7 +81,7 @@ jobs:
           ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
           ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
         with:
-          file_path: ./src/SimulationOutputComparer/bin/Debug/net472/SimulationOutputComparer.exe
+          file_path: ./src/SimulationOutputComparer/bin/Debug/net10.0-windows/SimulationOutputComparer.exe
 
       - name: Create Setup
         run: |
@@ -99,13 +99,13 @@ jobs:
 
       - name: Push test log as artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: testLog_Windows
           path: ./testLog*.html
 
       - name: Push nightly installer as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Installation Validator Installer ${{env.APP_VERSION}}
           path: setup\deploy\*.msi

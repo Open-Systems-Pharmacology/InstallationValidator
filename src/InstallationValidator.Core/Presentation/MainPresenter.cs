@@ -28,6 +28,7 @@ namespace InstallationValidator.Core.Presentation
       private readonly IInstallationValidatorConfiguration _configuration;
       private readonly IValidationReportingTask _validationReportingTask;
       private readonly FolderDTO _outputFolderDTO = new FolderDTO(folderMustExist: false);
+      private readonly ReportOptionsDTO _reportOptionsDTO = new ReportOptionsDTO();
       private CancellationTokenSource _cancellationTokenSource;
       private bool _validationRunning;
 
@@ -40,6 +41,7 @@ namespace InstallationValidator.Core.Presentation
          _validationReportingTask = validationReportingTask;
          _outputFolderDTO.FolderPath = configuration.DefaultOutputPath;
          view.BindTo(_outputFolderDTO);
+         view.BindToReportOptions(_reportOptionsDTO);
       }
 
       public void SelectOutputFolder()
@@ -86,7 +88,7 @@ namespace InstallationValidator.Core.Presentation
             validationResult.RunSummary = runSummary;
 
             this.LogLine(Logs.StartingReport);
-            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, openReport: true);
+            await _validationReportingTask.CreateReport(validationResult, _outputFolderDTO.FolderPath, new ReportOptions(reportFormatFromDTO(), openReport: true));
             this.LogLine();
 
             this.LogLine(Logs.ValidationCompleted);
@@ -107,6 +109,14 @@ namespace InstallationValidator.Core.Presentation
          {
             updateValidationRunningState(running: false);
          }
+      }
+
+      private ReportFormat reportFormatFromDTO()
+      {
+         var format = ReportFormat.None;
+         if (_reportOptionsDTO.ExportToPdf) format |= ReportFormat.Pdf;
+         if (_reportOptionsDTO.ExportToMarkdown) format |= ReportFormat.Markdown;
+         return format;
       }
 
       private void updateValidationRunningState(bool running)

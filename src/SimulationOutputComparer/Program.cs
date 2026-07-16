@@ -6,6 +6,7 @@ using InstallationValidator.Core.Presentation;
 using OSPSuite.Core.Extensions;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Extensions;
+using QuestPDF.Infrastructure;
 using SimulationOutputComparer.Bootstrap;
 
 namespace SimulationOutputComparer
@@ -24,6 +25,8 @@ namespace SimulationOutputComparer
             Application.SetCompatibleTextRenderingDefault(false);
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
+
+            QuestPDF.Settings.License = LicenseType.Community;
 
             ApplicationStartup.Initialize();
             var simulationComparisonPresenter = IoC.Resolve<ISimulationComparisonPresenter>();

@@ -7,6 +7,7 @@ using InstallationValidator.Core.Presentation;
 using OSPSuite.Core.Extensions;
 using OSPSuite.Utility.Container;
 using OSPSuite.Utility.Extensions;
+using QuestPDF.Infrastructure;
 
 namespace InstallationValidator
 {
@@ -24,6 +25,8 @@ namespace InstallationValidator
             Application.SetCompatibleTextRenderingDefault(false);
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
+
+            QuestPDF.Settings.License = LicenseType.Community;
 
             ApplicationStartup.Initialize();
             var mainPresenter = IoC.Resolve<IMainPresenter>();
