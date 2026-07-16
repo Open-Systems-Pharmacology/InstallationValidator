@@ -58,13 +58,6 @@
                 <File Name='OSPSuite.Dimensions.xml' Id='OSPSuite.Dimensions' Source='$(var.DeployDir)/OSPSuite.Dimensions.xml' KeyPath='yes' />
               </Component>
   
-              <Directory Id="TeXTemplatesFolder" Name="TeXTemplates">
-                <Component Id="TeXTemplatesFolder" Guid="2EA58178-7B6C-4F6C-8ACD-7AD0D49D7723">
-                  <CreateFolder Directory="TeXTemplatesFolder">
-                    <Permission User="Everyone" GenericAll="yes" />
-                  </CreateFolder>
-                </Component>
-              </Directory>
 
             </Directory>
           </Directory>
@@ -94,7 +87,6 @@
 
     <Feature Id="Main" Title="$(var.ProductName)" Level="1" Absent="disallow" AllowAdvertise="no">
       <ComponentGroupRef Id="App" />
-      <ComponentGroupRef Id="OSPSuite.TeXReporting" />
       <ComponentGroupRef Id="BatchFiles" />
 
       <ComponentRef Id="InstallationValidator.exe" />
@@ -102,7 +94,6 @@
       <ComponentRef Id="OSPSuiteDataFolder" />
       <ComponentRef Id="InstallationValidatorCommonDataFolder" />
       <ComponentRef Id="InstallationValidatorCommonDataVersionFolder" />
-      <ComponentRef Id="TeXTemplatesFolder" />
       <ComponentRef Id="OSPSuite.Dimensions" />
     </Feature>
 
