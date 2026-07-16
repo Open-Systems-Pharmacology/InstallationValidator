@@ -43,7 +43,7 @@ task :postclean do |t, args|
 	src_dir =  src_dir_for("Debug")
 
 	all_users_dir = ENV['ALLUSERSPROFILE']
-	all_users_application_dir = File.join(all_users_dir, manufacturer, product_name, '12.3')
+	all_users_application_dir = File.join(all_users_dir, manufacturer, product_name, '13.0')
 
 	copy_dependencies solution_dir,  all_users_application_dir do
 		copy_dimensions_xml
@@ -57,7 +57,7 @@ end
 private
 
 def relative_src_dir_for(configuration)
-	File.join('src', 'InstallationValidator', 'bin', configuration, 'net472')
+	File.join('src', 'InstallationValidator', 'bin', configuration, 'net10.0-windows')
 end
 
 def src_dir_for(configuration)
