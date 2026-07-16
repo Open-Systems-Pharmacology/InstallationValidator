@@ -27,15 +27,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="nunit" Version="3.14.0" />
     <PackageReference Include="OSPSuite.BDDHelper" Version="4.0.1.1" />
-    <PackageReference Include="OSPSuite.Core" Version="13.0.119" />
+    <PackageReference Include="OSPSuite.Core" Version="13.0.134" />
     <PackageReference Include="DevExpress.Win" Version="25.2.7" />
     <PackageReference Include="DevExpress.Win.BonusSkins" Version="25.2.7" />
     <PackageReference Include="DevExpress.Win.Charts" Version="25.2.7" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="25.2.7" />
     <PackageReference Include="DevExpress.Win.Design" Version="25.2.7" Condition="'$(ExcludeDesigner)' != 'true'" />
-    <PackageReference Include="OSPSuite.Infrastructure" Version="13.0.119" />
-    <PackageReference Include="OSPSuite.Infrastructure.Castle" Version="13.0.119" />
-    <PackageReference Include="OSPSuite.UI" Version="13.0.119" />
+    <PackageReference Include="OSPSuite.Infrastructure" Version="13.0.134" />
+    <PackageReference Include="OSPSuite.Infrastructure.Castle" Version="13.0.134" />
+    <PackageReference Include="OSPSuite.UI" Version="13.0.134" />
     <PackageReference Include="OSPSuite.FuncParser" Version="5.0.0.3" GeneratePathProperty="true" />
     <PackageReference Include="OSPSuite.SimModel" Version="5.0.0.76" GeneratePathProperty="true" />
     <PackageReference Include="OSPSuite.SimModelSolver_CVODES" Version="5.0.0.53" GeneratePathProperty="true" />
