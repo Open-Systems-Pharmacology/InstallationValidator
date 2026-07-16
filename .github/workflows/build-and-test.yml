@@ -18,4 +18,3 @@ jobs:
     secrets: inherit
     with:
       temp-version: "13.0.9999"
-      test-arguments: "--filter TestCategory!=Reporting"

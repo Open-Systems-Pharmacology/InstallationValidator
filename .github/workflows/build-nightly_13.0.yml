@@ -61,7 +61,7 @@ jobs:
           dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
 
       - name: Test
-        run: dotnet test InstallationValidator.sln --filter "TestCategory!=Reporting" --no-build -v normal  --logger:"html;LogFileName=${{ github.workspace }}/testLog_Windows.html"
+        run: dotnet test InstallationValidator.sln --no-build -v normal  --logger:"html;LogFileName=${{ github.workspace }}/testLog_Windows.html"
 
       - name: Sign InstallationValidator.exe with CodeSignTool
         uses: Open-Systems-Pharmacology/Workflows/.github/actions/codesigner-SSL@main
