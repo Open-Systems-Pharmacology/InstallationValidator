@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageParams>
   <TargetArguments>
-    tests\InstallationValidator.Tests\bin\Debug\net472\InstallationValidator.Tests.dll
+    tests\InstallationValidator.Tests\bin\Debug\net10.0-windows\InstallationValidator.Tests.dll
   </TargetArguments>
   <TargetWorkingDir>./</TargetWorkingDir>
  
