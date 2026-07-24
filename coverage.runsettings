@@ -12,13 +12,15 @@
               <Exclude>
                 <ModulePath>.*FakeItEasy.*</ModulePath>
                 <ModulePath>.*\.Tests\.dll$</ModulePath>
+                <!-- The UI/application layer is not exercised by the test infrastructure -->
+                <!-- (tests reference only InstallationValidator.Core) -->
+                <ModulePath>.*[\\/]InstallationValidator\.dll$</ModulePath>
+                <ModulePath>.*[\\/]SimulationOutputComparer\.dll$</ModulePath>
               </Exclude>
             </ModulePaths>
             <Sources>
               <Exclude>
                 <Source>.*\.Designer\.cs$</Source>
-                <Source>.*[\\/]InstallationValidator[\\/]Views[\\/].*</Source>
-                <Source>.*[\\/]SimulationOutputComparer[\\/]Views[\\/].*</Source>
               </Exclude>
             </Sources>
           </CodeCoverage>
