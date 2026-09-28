@@ -42,7 +42,7 @@
     <PackageReference Include="OSPSuite.Assets" Version="13.0.134" />
     <PackageReference Include="QuestPDF" Version="2024.3.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Management" Version="10.0.12" />
   </ItemGroup>
 
   <ItemGroup>
