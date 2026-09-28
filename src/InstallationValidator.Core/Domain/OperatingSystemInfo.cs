@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Management;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using OSPSuite.Utility.Extensions;
@@ -10,6 +9,7 @@ namespace InstallationValidator.Core.Domain
    public class OperatingSystemInfo
    {
       private const string WINDOWS_REG_KEY = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion";
+      private const string BIOS_REG_KEY = @"HARDWARE\DESCRIPTION\System\BIOS";
       public string ComputerName { get; } = Environment.MachineName;
       public string Architecture => Environment.Is64BitOperatingSystem ? "x64" : "x32";
 
@@ -74,31 +74,9 @@ namespace InstallationValidator.Core.Domain
             return productName;
       }
 
-      //adapted from http://www.codeproject.com/Messages/1246676/Re-Absolute-excellent-code-but.aspx
-      public bool IsRunningOnVirtualMachine
-      {
-         get
-         {
-            try
-            {
-               var wmi = new ManagementObjectSearcher("SELECT Model FROM Win32_ComputerSystem");
-
-               foreach (var mo in wmi.Get().OfType<ManagementObject>())
-               {
-                  var computerModel = mo["Model"] as string;
-
-                  if (!string.IsNullOrEmpty(computerModel))
-                     return computerModel.ToLower().Contains("virtual");
-               }
-
-               return false;
-            }
-            catch
-            {
-               return false;
-            }
-         }
-      }
+      //The SMBIOS product name (the Model reported by WMI Win32_ComputerSystem) contains "virtual" for most hypervisors.
+      //It is read from the registry because the Windows implementation of System.Management is not shipped with the setup
+      public bool IsRunningOnVirtualMachine => registryHKLMValue(BIOS_REG_KEY, "SystemProductName").ToLower().Contains("virtual");
 
       public bool IsRunningOnTerminalSession => SystemInformation.TerminalServerSession;
    }
