@@ -14,6 +14,11 @@
     <Version Condition="'$(Version)' == ''">13.0.0</Version>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <ApplicationIcon>InstallationValidator.ico</ApplicationIcon>
+    <!-- win-x64 (framework-dependent) build: native libraries and Windows-only assemblies such as System.Management
+    are copied to the output root instead of runtimes/, so the setup that harvests the output root installs them -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
