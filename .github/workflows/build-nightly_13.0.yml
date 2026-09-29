@@ -57,8 +57,10 @@ jobs:
           echo "APP_VERSION=13.0.${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Build
+        env:
+          DevExpress_License: ${{ secrets.DEV_EXPRESS_KEY }}
         run: |
-          dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}}
+          dotnet build InstallationValidator.sln /p:Version=${{env.APP_VERSION}} -p:ExcludeDesigner=true
 
       - name: Test
         run: dotnet test InstallationValidator.sln --no-build -v normal  --logger:"html;LogFileName=${{ github.workspace }}/testLog_Windows.html"
